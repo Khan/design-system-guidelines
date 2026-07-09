@@ -1,0 +1,26 @@
+# PR status check: the Storybook must compile (one unclosed JSX tag in any
+# MDX file breaks the whole site, so this gates merges even though the
+# Chromatic workflow also builds).
+name: Build check
+
+on:
+    pull_request:
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: pnpm/action-setup@v4
+
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 24
+                  cache: pnpm
+
+            - run: pnpm install --frozen-lockfile
+
+            - run: pnpm typecheck
+
+            - run: pnpm build

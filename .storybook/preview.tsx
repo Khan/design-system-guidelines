@@ -78,6 +78,10 @@ function DocsContainerWithTheme({children, context, ...props}) {
 }
 
 const parameters: Preview["parameters"] = {
+    // Chromatic is used as a publish-only host for this Storybook. Snapshots
+    // are disabled globally so that accidentally enabling UI Tests on the
+    // Chromatic project can never consume the free plan's snapshot quota.
+    chromatic: {disableSnapshot: true},
     // Accessibility testing configuration
     a11y: {
         /*

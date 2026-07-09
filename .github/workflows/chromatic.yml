@@ -1,0 +1,41 @@
+# Publishes the Storybook (and its hosted MCP endpoint) to Chromatic.
+#
+# Publish-only: UI Tests and UI Review are never enabled on the Chromatic
+# project, so builds consume zero snapshots and stay on the free plan.
+# Every push to main updates the stable permalink
+#   https://main--<appid>.chromatic.com          (docs site)
+#   https://main--<appid>.chromatic.com/mcp      (hosted MCP endpoint)
+# and every PR build gets its own <branch>--<appid> permalink + /mcp.
+name: Chromatic publish
+
+on:
+    push:
+        branches: [main]
+    pull_request:
+
+jobs:
+    publish:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+              with:
+                  # Chromatic needs full git history to associate builds
+                  # with branches/baselines.
+                  fetch-depth: 0
+
+            - uses: pnpm/action-setup@v4
+
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 24
+                  cache: pnpm
+
+            - run: pnpm install --frozen-lockfile
+
+            - uses: chromaui/action@latest
+              with:
+                  projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+                  buildScriptName: build
+                  # Publish-only: don't block CI on Chromatic's change
+                  # detection (irrelevant with snapshots disabled anyway).
+                  exitZeroOnChanges: true
