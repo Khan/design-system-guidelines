@@ -18,6 +18,8 @@ import copy4Img from "./assets/buttons/copy-4.png";
 import copy5Img from "./assets/buttons/copy-5.png";
 import copy6Img from "./assets/buttons/copy-6.png";
 import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
+import Button from "@khanacademy/wonder-blocks-button";
+import Demo from "../components/Demo";
 
 <Meta title="Design Guidelines / Components / Buttons / Buttons" />
 
@@ -51,6 +53,12 @@ The choice to use a button is determined by the need to prompt the user to perfo
 ## Variants
 
 ### Primary button
+
+<Demo>
+    <Button kind="primary" onClick={() => {}}>
+        Submit
+    </Button>
+</Demo>
 
 Used for one, single critical action that completes the workflow (Submit, Start). Drives the user toward the main goal.
 Don’t use more than one per visible screen area.

@@ -15,6 +15,7 @@
     "dependencies": {
         "@khanacademy/wonder-blocks-announcer": "^1.1.1",
         "@khanacademy/wonder-blocks-badge": "^1.1.19",
+        "@khanacademy/wonder-blocks-button": "^11.7.5",
         "@khanacademy/wonder-blocks-core": "^12.4.4",
         "@khanacademy/wonder-blocks-link": "^10.3.7",
         "@khanacademy/wonder-blocks-theming": "^4.1.0",
