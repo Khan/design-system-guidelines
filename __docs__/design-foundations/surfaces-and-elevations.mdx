@@ -1,0 +1,191 @@
+import {Meta} from "@storybook/addon-docs/blocks";
+import Principle, {PrincipleSet} from "../components/principle";
+import surfacesAndElevationsImg from "./assets/surfaces-and-elevations/surfaces-and-elevations.png";
+import surfacesOverviewImg from "./assets/surfaces-and-elevations/surfaces-overview.png";
+import surface1Img from "./assets/surfaces-and-elevations/surface-1.png";
+import surface2Img from "./assets/surfaces-and-elevations/surface-2.png";
+import surface3Img from "./assets/surfaces-and-elevations/surface-3.png";
+import surfaceScrimImg from "./assets/surfaces-and-elevations/surface-scrim.png";
+import elevationOverviewImg from "./assets/surfaces-and-elevations/elevation-overview.png";
+import elevationBaseImg from "./assets/surfaces-and-elevations/elevation-base.png";
+import elevationLowImg from "./assets/surfaces-and-elevations/elevation-low.png";
+import elevationMidImg from "./assets/surfaces-and-elevations/elevation-mid.png";
+import elevationHighImg from "./assets/surfaces-and-elevations/elevation-high.png";
+import combinationsImg from "./assets/surfaces-and-elevations/combinations.png";
+import usageSurfaceBaseImg from "./assets/surfaces-and-elevations/usage-surface-base.png";
+import usagePageLevelImg from "./assets/surfaces-and-elevations/usage-page-level.png";
+import usageLowAtRestImg from "./assets/surfaces-and-elevations/usage-low-at-rest.png";
+import usageScrimHighImg from "./assets/surfaces-and-elevations/usage-scrim-high.png";
+
+<Meta title="Design Guidelines / Foundations / Surfaces and elevations" />
+
+<img src={surfacesAndElevationsImg} alt="Surfaces and elevations" />
+
+# Surfaces and elevations
+
+Surfaces are background colors. Elevations are shadows. Both are separate decisions that work together to define the spatial relationships users navigate — surfaces differentiate regions, elevations communicate depth.
+
+## Principles
+
+<PrincipleSet>
+    <Principle
+        label="Purposeful"
+        title="Elevation should reflect a real spatial relationship"
+        description="A component deserves higher elevation when it genuinely sits above other content — covering it, interrupting it, or pinning above it. If a component isn't doing any of those things, it doesn't need more elevation."
+    />
+    <Principle
+        label="Consistent"
+        title="Predictability is what makes the system trustworthy"
+        description="Users read elevation cues automatically. When the same component type always sits at the same level, those cues become reliable — inconsistency erodes the signal until users stop noticing it at all."
+    />
+</PrincipleSet>
+
+## Surfaces
+
+The system has three surface colors. They are always used to create color-based differentiation between regions.
+
+| Surface | Token |
+| --- | --- |
+| Surface 1 – Subtle | `semanticColor.core.background.base.subtle` |
+| Surface 2 – Default | `semanticColor.core.background.base.default` |
+| Surface 3 | `semanticColor.core.background.base.strong` |
+| Surface scrim | `semanticColor.core.background.overlay.default` |
+
+<img src={surfacesOverviewImg} alt="Swatches for Surface 1 - Subtle, Surface 2 - Default, Surface 3, and Surface scrim" />
+
+### Surface 1
+
+The main page background — the paint on the wall. Everything else sits in front of it. Nothing is behind it. It also works for supplementary cards that carry secondary information and don't need to assert themselves visually. A border alone defines their edge.
+
+Use for: page and screen backgrounds, full-bleed layout regions like sidebars and headers, and supplementary cards where a border is sufficient to define the boundary.
+
+<img src={surface1Img} alt="Page backgrounds are set to Surface 1. Other containers that are not the main priority of a page can also have Surface 1 background color." />
+
+### Surface 2
+
+The first layer on the wall. Elements using Surface 2 sit closer to the user than the background — distinct objects in front of the page, not part of it. Surface 2 is also where the primary interaction happens. In a practice exercise, this is the surface a learner answers a question on — the most important element in the view, and the one demanding their attention and input.
+
+Use for: primary content cards, content panels, drawers, and components that need to read as the focal object on the page background.
+
+<img src={surface2Img} alt="Containers that are the main focus of the page have a Surface 2 background color." />
+
+### Surface 3
+
+A tint on an existing layer — not a new layer, just a marked zone within one. The contrast is intentionally subtle: enough to signal structure, not enough to imply depth.
+
+Use for: table header rows, page header backgrounds, and other contexts where a region needs to feel structurally distinct from adjacent content — without implying it's closer to the user than the surface it sits on.
+
+<img src={surface3Img} alt="Table header has a Surface 3 background color to help define it as the header and differentiate it from the rest of the page." />
+
+### Surface scrim
+
+A semi-transparent overlay applied over the page when a modal or drawer is open. The scrim signals that the content beneath is behind and unavailable while the overlay requires attention.
+
+Use for: always paired with modal dialogs and drawers using Primary High elevation. Never use a scrim without a modal or drawer, and never open one without a scrim.
+
+<img src={surfaceScrimImg} alt="A drawer is open above the page; the scrim dims the page content behind it while the drawer requires attention." />
+
+## Elevation
+
+The system has four shadow levels. They describe how much depth a component appears to have — from flush with the surface to clearly floating above everything else.
+
+| Level | Description | Token |
+| --- | --- | --- |
+| Base | No shadow. The component sits flush with the surface beneath it, occupying space without floating above it. | – |
+| Low | A subtle, close shadow. Just enough depth to signal that a component can be interacted with or selected. | `boxShadow.low` |
+| Mid | A stronger shadow that clearly separates a component from the content beneath it. | `boxShadow.mid` |
+| High | The maximum shadow in the system. The component is visibly floating above all other content. | `boxShadow.high` |
+
+Shadow colors come from `semanticColor.core.shadow.transparent.low`, `semanticColor.core.shadow.transparent.mid`, and `semanticColor.core.shadow.transparent.high`.
+
+<img src={elevationOverviewImg} alt="Swatches for the four elevation levels: Base, Low, Mid, and High" />
+
+### Base
+
+For components that sit flush with the surface. The right choice when the element is already the clear focus of the page, or when the component communicates interactivity through other means — buttons, tabs, checkboxes, list items, and inputs all use color, border, and hover states to signal affordance. Shadow on these would be overkill.
+
+Use for: static containers, layout elements, and interactive components that communicate affordance through other means.
+
+<img src={elevationBaseImg} alt="The card contains multiple interactive elements and the content here is already the main focus of the page. Adding shadow to it would add depth without adding meaning." />
+
+### Low
+
+For components where a subtle lift signals that the whole thing is a discrete, prominent unit — not just a region of the page. The shadow makes the card feel tangible and foregrounded, whether the entire surface is interactive or it simply contains the primary action on the page. For stateful components like accordions, apply elevation only when expanded. A collapsed card is passive — elevation would imply prominence before the user has engaged with it.
+
+Use for: content cards that function as primary focus or selectable units, and expanded accordion panels.
+
+<img src={elevationLowImg} alt="The shadow signals that this is a main priority of the page and that the whole card is a selectable unit, not just a region of the page." />
+
+### Mid
+
+For popovers. Temporary surfaces that appear above the main page flow without blocking it.
+
+Use for: popovers and tooltips.
+
+<img src={elevationMidImg} alt="The popover floats above the page content without blocking it — the stronger shadow is what separates it from the layer beneath." />
+
+### High
+
+For components that must command full attention and interrupt the user's flow.
+
+Use for: toasts and modals.
+
+<img src={elevationHighImg} alt="Since toasts are temporary, urgent, and demand immediate attention, a strong shadow ensures they're never visually lost or confused with page content beneath them." />
+
+## Using surfaces and elevations together
+
+Surfaces and elevations are independent — either can be applied without the other — but they're often used in combination. A card uses Surface 2 (color lift) and Primary Low (shadow lift) together: the surface color distinguishes the card from the page background laterally, and the shadow establishes its perceived depth. Not every surface needs elevation, and not every elevated component needs a distinct surface color. The test is always whether the combination is communicating something real to the user or just adding visual complexity.
+
+| Component | Surface | Elevation |
+| --- | --- | --- |
+| Background | Surface 1 (or Surface 3) | Base |
+| Container card | Surface 2 | Base |
+| Interactive card | Surface 2 | Low |
+| Popovers, tooltips | Surface 2 | Mid |
+| Alerts, modals | Surface 2 | High |
+
+<img src={combinationsImg} alt="Two stacked-layer diagrams showing how surfaces and elevations combine, from the background at Surface 1 or Surface 3 with base elevation up to alerts and modals at Surface 2 with high elevation" />
+
+## Usage guidelines
+
+### Surface 1 and Surface 3 always sit at base elevation
+
+Surface 1 is the ground itself, and Surface 3 is simply a color shift within an existing surface to mark internal structure. Applying elevation to either would imply they're separate objects floating above the page, which contradicts their role. Only Surface 2 components — cards, panels, and drawers — earn elevation because they're meant to read as distinct objects sitting on top of the background.
+
+<img src={usageSurfaceBaseImg} alt="Surface 1 and Surface 3 regions shown flat at base elevation with no shadow" />
+
+### Elevation is a page-level decision
+
+Before reaching for Low elevation, look at the full page. On a complex page — a practice view with chat, action buttons, and a question all present — Low elevation gives the question card the hierarchy it needs to read as the primary focus. On a simpler page where the main content is already uncontested, Base is sufficient. Adding Low where nothing is competing creates depth without meaning.
+
+<img src={usagePageLevelImg} alt="A complex page where low elevation gives the question card the hierarchy it needs to read as the primary focus" />
+
+### Elevation low is for interactive components at rest — not on hover
+
+Low is the default elevation, not a hover state. Interactive states are handled by the component's state tokens, not by increasing elevation level. Don't increase elevation on hover unless the component's design explicitly uses elevation as a state signal.
+
+<img src={usageLowAtRestImg} alt="An interactive card shown with low elevation in its resting state" />
+
+### Scrims belong with elevation high
+
+Modal dialogs using Primary High elevation should always be paired with a scrim over the underlying content. The scrim reinforces the spatial model — the page is behind and unavailable, the modal is above and requires attention. Don't use a scrim without a modal, and don't open a modal without a scrim.
+
+<img src={usageScrimHighImg} alt="A modal dialog at high elevation paired with a scrim dimming the page behind it" />
+
+## Accessibility
+
+### Shadow alone is not enough
+
+Users with low vision, in high-contrast mode, or on poorly calibrated displays may not perceive shadow. Surface color must communicate boundaries without relying on shadow, and text on Surface Base 2 or Base 3 must meet WCAG contrast requirements against those specific backgrounds — not just against Base 1.
+
+### Elevation does not replace focus rings
+
+A component that appears elevated does not have an inherent focus state. Focus rings are required on all interactive elements regardless of their elevation level. Never suppress a focus ring because the component "already looks distinct."
+
+### Modal dialogs must trap and restore focus
+
+Components using Primary High elevation that create a modal context must trap keyboard focus within the overlay — focus must not be reachable on the dimmed content underneath. When the modal closes, focus must return to the element that opened it.
+
+---
+
+<a href="https://www.figma.com/design/G9Yxa0SOlALS078wtq87cM/Design-system-guidelines---Thunderblocks?node-id=12444-40709" target="_blank" rel="noopener noreferrer">Figma source</a>

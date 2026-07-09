@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "storybook",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": ["-c", "pnpm exec storybook dev -p ${PORT:-6062}"],
+      "port": 6062,
+      "autoPort": true
+    }
+  ]
+}
