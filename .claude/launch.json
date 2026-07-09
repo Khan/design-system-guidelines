@@ -4,9 +4,9 @@
     {
       "name": "storybook",
       "runtimeExecutable": "sh",
-      "runtimeArgs": ["-c", "pnpm exec storybook dev -p ${PORT:-6062}"],
-      "port": 6062,
-      "autoPort": true
+      "runtimeArgs": ["-c", "pnpm exec storybook dev -p ${PORT:-56789}"],
+      "port": 56789,
+      "autoPort": false
     }
   ]
 }
