@@ -1,41 +1,87 @@
 # Publishes the Storybook (and its hosted MCP endpoint) to Chromatic.
+# Mirrors wonder-blocks' chromatic-* workflows, collapsed to publish-only:
+# no UI Tests/UI Review, so builds consume zero snapshots (free plan safe).
 #
-# Publish-only: UI Tests and UI Review are never enabled on the Chromatic
-# project, so builds consume zero snapshots and stay on the free plan.
-# Every push to main updates the stable permalink
+# Every push to main updates the stable permalinks
 #   https://main--<appid>.chromatic.com          (docs site)
 #   https://main--<appid>.chromatic.com/mcp      (hosted MCP endpoint)
-# and every PR build gets its own <branch>--<appid> permalink + /mcp.
+# and every PR build gets its own <branch>--<appid> permalink + /mcp,
+# posted back to the PR as a comment.
 name: Chromatic publish
 
 on:
     push:
         branches: [main]
     pull_request:
+        # This allows us to run the workflow on PRs when they move from draft
+        # to non-draft.
+        types: [edited, opened, synchronize, reopened]
+
+concurrency:
+    group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+    cancel-in-progress: true
 
 jobs:
     publish:
         runs-on: ubuntu-latest
+        outputs:
+            storybookUrl: ${{ steps.chromatic_publish.outputs.storybookUrl }}
         steps:
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v5
               with:
-                  # Chromatic needs full git history to associate builds
-                  # with branches/baselines.
+                  # Fetch all git history so that Chromatic can associate the
+                  # build with the correct commits/branches.
+                  # see: https://www.chromatic.com/docs/branching-and-baselines
                   fetch-depth: 0
 
-            - uses: pnpm/action-setup@v4
+            - uses: pnpm/action-setup@v5
 
-            - uses: actions/setup-node@v4
+            - uses: actions/setup-node@v6
               with:
-                  node-version: 24
+                  node-version: 24.x
                   cache: pnpm
+                  cache-dependency-path: pnpm-lock.yaml
 
-            - run: pnpm install --frozen-lockfile
+            - name: Install dependencies
+              run: pnpm install --frozen-lockfile
 
-            - uses: chromaui/action@latest
+            - name: Build Storybook
+              run: pnpm build
+
+            - name: Publish to Chromatic
+              id: chromatic_publish
+              uses: chromaui/action@latest
               with:
+                  token: ${{ secrets.GITHUB_TOKEN }}
                   projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-                  buildScriptName: build
-                  # Publish-only: don't block CI on Chromatic's change
-                  # detection (irrelevant with snapshots disabled anyway).
-                  exitZeroOnChanges: true
+                  storybookBuildDir: storybook-static
+                  # Publish-only: exit 0 as soon as the Storybook is uploaded,
+                  # without waiting for (disabled) snapshot capture/comparison.
+                  exitOnceUploaded: true
+
+    # Post the Chromatic permalink back to the PR so authors can preview
+    # their docs (mirrors wonder-blocks' chromatic_review_results job).
+    pr_comment:
+        if: github.event_name == 'pull_request'
+        needs: publish
+        runs-on: ubuntu-latest
+        permissions:
+            pull-requests: write
+        steps:
+            - name: Find existing comment
+              uses: peter-evans/find-comment@b30e6a3c0ed37e7c023ccd3f1db5c6c0b0c23aad # v4
+              id: fc
+              with:
+                  issue-number: ${{ github.event.pull_request.number }}
+                  comment-author: "github-actions[bot]"
+                  body-includes: A new build was pushed to Chromatic!
+
+            - name: Create or update comment
+              uses: peter-evans/create-or-update-comment@e8674b075228eee787fea43ef493e45ece1004c9 # v5
+              with:
+                  comment-id: ${{ steps.fc.outputs.comment-id }}
+                  edit-mode: replace
+                  issue-number: ${{ github.event.pull_request.number }}
+                  body: |
+                      # A new build was pushed to Chromatic! :rocket:
+                      ${{ needs.publish.outputs.storybookUrl }}
