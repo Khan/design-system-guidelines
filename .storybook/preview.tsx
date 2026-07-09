@@ -142,7 +142,7 @@ const parameters: Preview["parameters"] = {
         storySort: {
             order: [
                 "Design Guidelines",
-                ["Foundations", "Components"],
+                ["Introduction", "Foundations", "Components"],
                 "Foundations",
                 "Packages",
                 "Tools",

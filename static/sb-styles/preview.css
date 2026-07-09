@@ -50,6 +50,10 @@ html {
     overflow: hidden;
 }
 
+.sbdocs .docblock-source {
+    background: #F8F9FB;
+}
+
 /* Doc tables: gray header row, no zebra striping. The extra selector depth
 is needed to beat Storybook's runtime-injected emotion rules. */
 

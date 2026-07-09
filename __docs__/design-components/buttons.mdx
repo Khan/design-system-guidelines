@@ -10,7 +10,6 @@ import states4Img from "./assets/buttons/states-4.png";
 import states5Img from "./assets/buttons/states-5.png";
 import states6Img from "./assets/buttons/states-6.png";
 import placement1Img from "./assets/buttons/placement-1.png";
-import placement2Img from "./assets/buttons/placement-2.png";
 import copy1Img from "./assets/buttons/copy-1.png";
 import copy2Img from "./assets/buttons/copy-2.png";
 import copy3Img from "./assets/buttons/copy-3.png";
@@ -54,14 +53,12 @@ The choice to use a button is determined by the need to prompt the user to perfo
 
 ### Primary button
 
-<Demo>
-    <Button kind="primary" onClick={() => {}}>
-        Submit
-    </Button>
-</Demo>
-
 Used for one, single critical action that completes the workflow (Submit, Start). Drives the user toward the main goal.
 Don’t use more than one per visible screen area.
+
+<Demo>
+    <Button kind="primary" onClick={() => {}} style={{transform: "scale(1.2)"}}>Primary Button</Button>
+</Demo>
 
 <img src={variants1Img} alt="Variants 1" />
 
@@ -71,12 +68,20 @@ Used for an intentional alternative action that creates value (Save draft, Dupli
 Can be used multiple times on a page if actions are of equal importance.
 Don’t use it for navigation or low-value trivial actions (View details, Preview).
 
+<Demo>
+    <Button kind="secondary" onClick={() => {}} style={{transform: "scale(1.2)"}}>Secondary Button</Button>
+</Demo>
+
 <img src={variants2Img} alt="Variants 2" />
 
 ### Tertiary button
 
 Used exclusively for low-priority actions that change the state on the current screen. Do use for actions that abandon or exit the current workflow (cancel, exit, close), for simple movement backward or through a defined flow (previous, back, next step), or for actions that branch into an optional setup or preference setting (customize, advanced settings).
 Avoid styling links as buttons (e.g., a "Read more" button). To maintain accessibility and meet user expectations, designers and developers must ensure each is coded correctly: links go places, while buttons do things. Confusing these functions breaks core navigation logic and creates significant barriers for users with disabilities.
+
+<Demo>
+    <Button kind="tertiary" onClick={() => {}} style={{transform: "scale(1.2)"}}>Tertiary Button</Button>
+</Demo>
 
 <img src={variants3Img} alt="Variants 3" />
 
@@ -142,7 +147,11 @@ The Primary button should be placed in the most visible and logical position for
 If bundled together, the actions should be ordered from lowest priority to highest priority. This helps ensure that the final decision the user makes is the most important one.
 Group related actions together. In a modal or form, the order should generally be: [Secondary: Cancel/Back] followed by [Primary: Submit/Save].
 
-<img src={placement2Img} alt="Placement 2" />
+<Demo style={{gap: "16px", flexDirection: "row"}}>
+    <Button kind="tertiary" onClick={() => {}}>Tertiary Button</Button>
+    <Button kind="secondary" onClick={() => {}}>Secondary Button</Button>
+    <Button kind="primary" onClick={() => {}}>Primary Button</Button>
+</Demo>
 
 ## Copy
 

@@ -1,0 +1,54 @@
+import {Meta} from "@storybook/addon-docs/blocks";
+
+import headerImg from "./assets/introduction/header.png";
+
+<Meta title="Design Guidelines / Introduction" />
+
+<img src={headerImg} alt="Design System Guidelines" />
+
+# Hello 👋
+
+This is a living reference for how we build UI at the component, foundation, and pattern level. It documents how things should work, surfaces what needs to change, and will track design debt as we find it.
+
+## Who it's for
+
+It's primarily product design managers and product designers. Use it to gut-check/review work: Is this the right component? Has this pattern been solved before? Am I using this correctly? It's a guide for giving and receiving better design feedback.
+
+## How to use it
+
+**Foundations** are the building blocks every UI is built from — color, typography, spacing, elevation, and iconography. These decisions underpin everything else.
+
+**Components** are the reusable UI elements assembled from those foundations — buttons, inputs, modals, navigation, steppers, cards, and more. Each entry covers when to use it, when not to use it, how to use it correctly, known variants, and other guidelines.
+
+**Patterns** are the recurring views and solutions to common design problems — how we handle empty states, how assignment flows are structured, how errors are surfaced, how onboarding works. Where components answer "what is this?", patterns answer "how do we solve this?"
+
+## Agentic usage
+
+The Design System Guidelines are created to be just as useful for agents and their skills.
+
+Simply add the MCP server to your agent of choice, and it should return information relevant to your query and guide your workflows in the right direction.
+
+The MCP endpoint is served by this Storybook while it's running locally (`pnpm start` in the `design-system-guidelines` repo):
+
+```
+http://localhost:56789/mcp
+```
+
+For Claude Code, run:
+
+```sh
+claude mcp add --transport http design-guidelines http://localhost:56789/mcp
+```
+
+For other MCP clients (Cursor, etc.), add this to your MCP configuration:
+
+```json
+{
+    "mcpServers": {
+        "design-guidelines": {
+            "type": "http",
+            "url": "http://localhost:56789/mcp"
+        }
+    }
+}
+```
