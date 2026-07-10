@@ -28,16 +28,16 @@ The Design System Guidelines are created to be just as useful for agents and the
 
 Simply add the MCP server to your agent of choice, and it should return information relevant to your query and guide your workflows in the right direction.
 
-The MCP endpoint is served by this Storybook while it's running locally (`pnpm start` in the `design-system-guidelines` repo):
+### Public MCP
 
 ```
-http://localhost:56789/mcp
+https://main--6a5008743971119020a6233b.chromatic.com/mcp
 ```
 
-For Claude Code, run:
+For Claude Code, open up your Terminal and run:
 
 ```sh
-claude mcp add --transport http design-guidelines http://localhost:56789/mcp
+claude mcp add --transport http --scope user design-guidelines https://main--6a5008743971119020a6233b.chromatic.com/mcp
 ```
 
 For other MCP clients (Cursor, etc.), add this to your MCP configuration:
@@ -47,8 +47,24 @@ For other MCP clients (Cursor, etc.), add this to your MCP configuration:
     "mcpServers": {
         "design-guidelines": {
             "type": "http",
-            "url": "http://localhost:56789/mcp"
+            "url": "https://main--6a5008743971119020a6233b.chromatic.com/mcp"
         }
     }
 }
+```
+
+### Hosting locally 
+
+You can host locally to test your changes to the guidelines. It will also operate faster without network latency, but make sure you have the latest version of the guidelines before you start if that's your goal.
+
+You can run the Design Guidelines Storybook locally by going to the cloned `design-system-guidelines` repo folder and running:
+
+```sh
+pnpm start
+```
+
+Then point your agent to the local MCP endpoint:
+
+```
+http://localhost:56789/mcp
 ```
