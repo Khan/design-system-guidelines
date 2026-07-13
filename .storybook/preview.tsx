@@ -63,6 +63,29 @@ const wbViewports = {
  * It is useful when we want to use the "Theme" toolbar to switch between
  * themes in MDX pages (like "Foundations > Using color").
  */
+/**
+ * A Link component for MDX docs pages that opens external links in a new tab.
+ *
+ * Docs pages render inside the Storybook preview iframe. A plain markdown link
+ * navigates the iframe itself, which breaks for external sites that refuse to
+ * be framed (Figma, Confluence, etc.) and blows away the Storybook shell for
+ * internal navigation. In-page anchors (#heading) are left alone so the table
+ * of contents keeps working.
+ */
+function DocsLink({href = "", children, ...props}) {
+    const isInternal =
+        href.startsWith("#") || href.startsWith("./") || href.startsWith("/");
+    return (
+        <Link
+            href={href}
+            {...props}
+            {...(!isInternal && {target: "_blank", rel: "noopener noreferrer"})}
+        >
+            {children}
+        </Link>
+    );
+}
+
 function DocsContainerWithTheme({children, context, ...props}) {
     const theme = context.store.userGlobals.globals.theme;
 
@@ -166,8 +189,10 @@ const parameters: Preview["parameters"] = {
         },
         theme: getStorybookTheme("thunderblocks"),
         components: {
-            // Override the default link component to use the WB Link component.
-            a: Link,
+            // Override the default link component to use the WB Link component,
+            // opening external links in a new tab so they don't break inside the
+            // docs iframe.
+            a: DocsLink,
         },
     },
     viewport: {
