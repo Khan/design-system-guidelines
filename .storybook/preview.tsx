@@ -163,6 +163,11 @@ const parameters: Preview["parameters"] = {
         // display the stories (or examples first), then we will display all the
         // mdx pages under __docs__.
         storySort: {
+            // Names listed in `order` are pinned in this exact sequence; any
+            // group not listed here (e.g. Component subcategories like Feedback,
+            // Inputs, Buttons, Characters — and any future ones) is sorted
+            // alphabetically at its level thanks to `method`.
+            method: "alphabetical",
             order: [
                 "Design Guidelines",
                 ["Introduction", "Foundations", "Components"],
