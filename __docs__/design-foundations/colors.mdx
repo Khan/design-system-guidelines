@@ -1,0 +1,147 @@
+import {Meta} from "@storybook/addon-docs/blocks";
+import Principle, {PrincipleSet} from "../components/principle";
+import Color from "../components/ColorSwatch";
+import colorsImg from "./assets/colors/colors.png";
+import semanticTokensImg from "./assets/colors/semantic-tokens.png";
+import accessiblePairingsImg from "./assets/colors/accessible-pairings.png";
+
+<Meta title="Design Guidelines / Foundations / Colors" />
+
+<img src={colorsImg} alt="Colors" />
+
+# Colors
+
+Color communicates meaning, directs attention, and reflects the brand. Our system maps a core palette to semantic tokens — so every color decision describes purpose, not just appearance.
+
+[View all color tokens](https://www.figma.com/design/e9qdyiDUBZ3rDabP9S7ulO/%E2%9A%A1%EF%B8%8F-Handshake?m=auto&node-id=19-1264&t=pe1ZVTE19sKas5sl-1)
+
+## Principles
+
+<PrincipleSet>
+    <Principle
+        label="Foundational"
+        title="Color enhances, never carries"
+        description="Color should support understanding — not be the only way to achieve it. Meaning must survive without it."
+    />
+    <Principle
+        label="Intentional"
+        title="Color carries meaning"
+        description="Every color in the product communicates something. When color is applied without intention, that meaning erodes. Use it deliberately, or not at all."
+    />
+    <Principle
+        label="Restrained"
+        title="Restraint creates impact"
+        description="A palette used sparingly hits harder. Our primary blue is the most powerful signal in the UI — the more it appears, the less it means. Reserve it, and it works."
+    />
+    <Principle
+        label="Systematic"
+        title="Consistency builds trust"
+        description="When the same color always means the same thing, users stop thinking about it and start feeling it. Inconsistency creates doubt."
+    />
+    <Principle
+        label="Respectful"
+        title="Contrast is respect"
+        description="Legibility isn't a nice-to-have. Every person using this product deserves to read and understand it clearly."
+    />
+</PrincipleSet>
+
+## Color palette
+
+These are the core colors that define the product's visual identity. Lighter and darker stops of each color exist within the system, but these primary values are the foundation everything else is built from.
+
+<div style={{display: "flex", flexWrap: "wrap", gap: "16px"}}>
+    <Color title="Blurple" hex="#5753FA" />
+    <Color title="Black" hex="#191918" />
+    <Color title="White" hex="#FFFFFF" />
+    <Color title="Cyan" hex="#28A9FF" />
+    <Color title="Green" hex="#579F6C" />
+    <Color title="Yellow" hex="#FCB706" />
+    <Color title="Orange" hex="#F8551A" />
+    <Color title="Magenta" hex="#E83FA4" />
+    <Color title="Red" hex="#E22D2D" />
+    <Color title="Gray" hex="#8A8B90" />
+</div>
+
+## Semantic tokens
+
+Semantic tokens are the color variables designers and engineers use to apply color across Khan Academy experiences. Rather than referencing raw hex values, tokens are named by intent — what a color does, not what it looks like. This makes it easier to apply color consistently, maintain accessibility, and update the system at scale.
+
+<img src={semanticTokensImg} alt="Semantic tokens" />
+
+Tokens are organized by three properties:
+
+-   **Layer** — what element you're coloring (background, foreground, border, or shadow)
+-   **Context** — the meaning or purpose (instructive, success, critical, neutral, etc.)
+-   **Intensity** — the visual weight (subtle, default, or strong)
+
+When building in Figma, always apply color using semantic tokens rather than raw values or primitives.
+
+[Deep dive: Color tokens on Confluence](https://khanacademy.atlassian.net/wiki/spaces/WB/pages/3683221530/Color#Themes-and-Palettes)
+
+## Usage guidelines
+
+### Tokens for everything
+
+Every color applied in a design — backgrounds, text, icons, borders, shadows — should use a semantic token. If you're reaching for a color swatch or hex value directly, stop and find the token instead.
+
+### Intent over appearance
+
+Tokens are named for what they do, not what they look like. Choose based on the purpose of the element: guiding a primary action is Instructive, confirming a completed action is Success, signaling an error or destructive action is Critical. If the intent fits, the token is right.
+
+### No primitives or raw hex
+
+Primitive tokens and hex values are the raw ingredients that feed the token system — they're not meant to be applied directly in designs. Using them bypasses the system and breaks consistency across themes and components.
+
+### Matching intent is required
+
+A token that looks correct but carries the wrong meaning is still the wrong token. If you're using a Critical token because the red looks good, that's a misuse — users and the system will interpret it as an error state.
+
+## Accessible pairings
+
+All color combinations must meet minimum contrast ratios. The applicable contrast ratio depends on the content type. Purely decorative elements with no informational purpose are exempt.
+
+<img src={accessiblePairingsImg} alt="Accessible pairings" />
+
+### 3:1 contrast ratio
+
+-   Large Text (19–23px + bold weight | ≥ 24px)
+-   Distinguishing borders or fills of controls
+-   Critical graphics
+
+### 4.5:1 contrast ratio
+
+-   Normal Text (≤ 18px)
+
+### Recommended combinations
+
+The token system is built with accessible pairings in mind.
+
+**Background**
+
+-   Default and Strong Background tokens (minus Warning) pass at 3:1+ on the Default and Subtle Base Background tokens
+-   Strong Background tokens pass at 3:1+ on all Subtle Background tokens
+
+**Borders**
+
+-   Strong Border tokens pass at 3:1+ on all Subtle Background tokens and the Default Base Background token
+-   Default and Subtle Border tokens (minus Warning) pass at 3:1+ on all Subtle Background tokens and the Default Base Background token
+
+**Foreground**
+
+-   Strong Foreground tokens pass at 4.5:1+ on all Subtle Background and Base Background tokens
+-   Default Foreground tokens pass at 4.5:1 on Default and Subtle Base Background tokens and most Subtle Background tokens (with a few 3:1 only passing exceptions)
+
+Following the usage guidelines above will help keep you within compliant combinations.
+
+### Working with color
+
+We ensure that users can distinguish between elements and understand any instructions, states, or other design cues by pairing color changes with non-color cues. These can include:
+
+-   Adding / applying a new icon, underline, border, shadow, or glow
+-   Increasing font weight, underline, border, or stroke thickness
+-   Increasing the spacing of / between elements, including letter spacing
+-   Including patterns or shapes with data visualizations
+
+---
+
+[Figma source](https://www.figma.com/design/G9Yxa0SOlALS078wtq87cM/Design-system-guidelines---Thunderblocks?node-id=12526-7182)
