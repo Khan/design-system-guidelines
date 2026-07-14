@@ -51,7 +51,7 @@ html {
 }
 
 .sbdocs .docblock-source {
-    background: #F8F9FB;
+    background: var(--wb-semanticColor-core-background-neutral-subtle);
 }
 
 /* Doc tables: gray header row, no zebra striping. The extra selector depth
