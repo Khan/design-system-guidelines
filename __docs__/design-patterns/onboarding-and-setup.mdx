@@ -1,0 +1,130 @@
+import {Meta} from "@storybook/addon-docs/blocks";
+import onboardingAndSetupImg from "./assets/onboarding-and-setup/onboarding-and-setup.png";
+import activation1Img from "./assets/onboarding-and-setup/activation-1.png";
+import activation2Img from "./assets/onboarding-and-setup/activation-2.png";
+import collectingInfo1Img from "./assets/onboarding-and-setup/collecting-info-1.png";
+import collectingInfo2Img from "./assets/onboarding-and-setup/collecting-info-2.png";
+import logicFrameworkHowTheyPlayTogether5Img from "./assets/onboarding-and-setup/logic-framework-how-they-play-together-5.png";
+import logicFrameworkHowTheyPlayTogether6Img from "./assets/onboarding-and-setup/logic-framework-how-they-play-together-6.png";
+import logicFrameworkHowTheyPlayTogether7Img from "./assets/onboarding-and-setup/logic-framework-how-they-play-together-7.png";
+import logicFrameworkHowTheyPlayTogether8Img from "./assets/onboarding-and-setup/logic-framework-how-they-play-together-8.png";
+import logicFrameworkHowTheyPlayTogether9Img from "./assets/onboarding-and-setup/logic-framework-how-they-play-together-9.png";
+import logicFrameworkHowTheyPlayTogether10Img from "./assets/onboarding-and-setup/logic-framework-how-they-play-together-10.png";
+
+<Meta title="Design Guidelines / Patterns / Onboarding and setup" />
+
+<img src={onboardingAndSetupImg} alt="Onboarding and setup" />
+
+# Onboarding and setup
+
+A guided, multi-step first-run setup with visible progress. Used across district teacher, admin, free-account teacher, and student onboarding — four journeys, one shared shell.
+
+Use for: first-run setup that spans more than one sequential decision.
+Don't use for: a single standalone task with no sequence, or a genuinely branching, non-linear task that doesn't reduce to a line of steps.
+
+## Usage and purpose
+
+| Component | When to display | Use case and purpose |
+| --- | --- | --- |
+| Illustration panel | Every step | Orients the user and carries brand identity. Fixed at roughly 30% of the screen so it never competes with the content doing the actual work. |
+| Progress indicator | Every step, in the footer | The single source of truth for "where am I." Don't duplicate this information in headings or button copy. |
+| Bordered cell (radio) | A small, curated set of options with no search — pick one of a few deliberate, mutually exclusive choices | Full border plus a gap between options signals each choice is worth pausing on. Leading radio when the row carries any content beyond a label — icon, subtitle, badge, metadata. |
+| Line-divider list | Within a modal detour, when the list is meant to be searched or browsed rather than chosen from a small curated set | One outer container, hairline dividers between rows. Lighter than repeated borders at any length — the deciding factor is intent (search or filter present) not how long the list happens to be. Not yet used outside a modal context in this pattern. |
+| Dropdown / select menu | A secondary, lower-frequency action with a small number of alternatives | Compact trigger plus a proper menu — not an accordion. Accordions reveal information; this is revealing actions. |
+| Modal | A bounded detour from the main step, search, filter, or any task that should return the user to exactly where they left off | Reserved for a task substantial enough to earn its own modal, distinct from an inline menu. |
+| Inline preview (info button) | Supporting detail on an option, without navigating away from the flow | Expands in place. Keep this affordance consistent everywhere it appears within the same task — don't mix an inline preview with an external link for the same kind of action. |
+| Checkbox (opt-out) | A "skip this entirely" choice, meaningfully different from an alternate path to the same outcome | Always visible on its own line, never nested inside a menu of alternate methods. |
+| Back / Skip links | Secondary navigation — return a step, or exit the guided flow entirely | Quiet text links, grouped together, visually subordinate to the one primary CTA. |
+| Primary CTA button | The one action that advances the flow | Copy describes the guaranteed outcome, not a presumed action — stays accurate no matter which path the user took to get there. |
+| Cascading select | Narrowing a very large, ambiguous dataset — e.g., many identically named results — before showing a final list | Each dropdown depends on the one before it and stays disabled until it's relevant. |
+
+## Logic framework: how they play together
+
+District teacher, district admin, free-account teacher, and student onboarding are different journeys with different available data — but they all move through the same shell. Consistency lives in the frame, not in forcing every flow to ask the same questions.
+One shell, many journeys. The illustration ratio, progress indicator, and footer navigation don't change between contexts — only the content in the middle does.
+Progress is a single source of truth. A step shouldn't need a stepper, a loop counter, and a button label all trying to communicate position. Pick one place for that information and let everything else stay quiet.
+Indicator side is a per-task decision, not a per-screen one. Once a flow picks a side for its selection indicator, every step in that task holds it. Switching sides mid-journey forces the user to learn a new interaction patterncc for no reason.
+Weight the container to the task behind it. A quick swap gets a menu or a modal; a genuinely multi-step task (like manually assigning content) earns its own full page with its own stepper.
+Say what's guaranteed, not what's likely. Button copy should hold up no matter which path the user took to reach it. Specific language ("Go to dashboard") is only safe when the outcome is deterministic.
+
+## Progressive flow: the onboarding experience
+
+This section illustrates the logic framework in practice, transitioning from broad keyword discovery to granular category refinement. It demonstrates how the UI maintains data integrity through cascading logic while providing immediate visual feedback and reset options as users interact with the filter bar.
+
+### Activation
+
+District accounts open with an identity check, not a form to fill out — there's already an account to confirm. Teachers and students see "Continue with your school account," pre-filled and one click away, nothing to type for something the system already knows. The student version drops the email entirely in favor of the school's name, since that's the one thing a student can reliably recognize and self-verify regardless of age.
+
+Free accounts have no existing identity to confirm, so this step doesn't apply. Their flow starts directly at the primary decision below instead of a separate activation screen.
+
+<img src={activation1Img} alt="Teacher activation screen showing the district account email inline" />
+
+Teacher activation shows the district account's email inline, since a teacher can immediately confirm it's theirs.
+
+<img src={activation2Img} alt="Student activation screen showing the school's name instead of an email" />
+
+Student activation drops the email in favor of the school's name - the identifier a student can actually recognize and self-verify.
+
+### Collecting basic profile info
+
+Free accounts — both teacher and student — open with a short form rather than an identity check, since there's no existing account to confirm. The form stays minimal: name plus one context-specific field, birthday for a teacher, language for a student. This is data entry, not a decision, so it uses plain text inputs rather than bordered cells or any selection pattern.
+
+<img src={collectingInfo1Img} alt="Teacher profile form collecting name and birthday" />
+
+Teacher activation shows the district account's email inline, since a teacher can immediately confirm it's theirs.
+
+<img src={collectingInfo2Img} alt="Student profile form collecting name and language" />
+
+Student activation drops the email in favor of the school's name - the identifier a student can actually recognize and self-verify.
+
+### The primary decision
+
+A dedicated step whose whole purpose is a single decision uses whichever selection component fits a small, curated option set with no search. Leads with a radio button, since this is a single, mutually-exclusive decision among a small set of options. Not every flow has an equivalent step — some may stop at the profile form above.
+
+<img src={logicFrameworkHowTheyPlayTogether5Img} alt="Logic framework: how they play together 5" />
+
+Teacher activation shows the district account's email inline, since a teacher can immediately confirm it's theirs.
+
+### Escaping the curated set
+
+Not every decision fits in a small curated set. When the option space is genuinely larger than what's shown in the primary decision, a modal detour opens to search or browse past it. This is specifically about searching beyond a smaller set already in view — not the same thing as a long list presented directly as its own step, like choosing a state from a cascading select, where there's no smaller curated view to escape from in the first place.
+
+<img src={logicFrameworkHowTheyPlayTogether6Img} alt="Logic framework: how they play together 6" />
+
+Teacher activation shows the district account's email inline, since a teacher can immediately confirm it's theirs.
+
+### Secondary paths
+
+Lower-frequency alternatives to the primary decision live behind a compact dropdown menu, never an accordion. Accordions reveal information; these are actions.
+
+<img src={logicFrameworkHowTheyPlayTogether7Img} alt="Logic framework: how they play together 7" />
+
+Teacher activation shows the district account's email inline, since a teacher can immediately confirm it's theirs.
+
+### Opting out
+
+A genuine "skip this entirely" choice is different from an alternate method to the same outcome. Stays visible on its own line rather than folded into the menu above.
+
+<img src={logicFrameworkHowTheyPlayTogether8Img} alt="Logic framework: how they play together 8" />
+
+Teacher activation shows the district account's email inline, since a teacher can immediately confirm it's theirs.
+
+### Repeating the step
+
+When a flow loops through a set of the same thing, add the loop position as a text line above the page title — that's the only change. The stepper and footer navigation (progress bar, Back, Skip, Continue) stay exactly the same as any other step; don't redesign them to account for the loop. Don't fold the loop position into the button copy either — the CTA stays "Continue," not "Assign, next class (1 of 4)."
+
+<img src={logicFrameworkHowTheyPlayTogether9Img} alt="Logic framework: how they play together 9" />
+
+Teacher activation shows the district account's email inline, since a teacher can immediately confirm it's theirs.
+
+### Finishing
+
+The final step is the one place button copy can safely get specific, because the destination is deterministic.
+
+<img src={logicFrameworkHowTheyPlayTogether10Img} alt="Logic framework: how they play together 10" />
+
+Teacher activation shows the district account's email inline, since a teacher can immediately confirm it's theirs.
+
+---
+
+[Figma source](https://www.figma.com/design/G9Yxa0SOlALS078wtq87cM/Design-system-guidelines---Thunderblocks?node-id=15122-6812&t=6FYCtPGYxddWaqet-4)
