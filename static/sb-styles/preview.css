@@ -50,13 +50,13 @@ html {
 
 
 .sbdocs img {
-    border-radius: 0.8rem;
+    border-radius: var(--wb-border-radius-radius_080);
     margin-block: 2rem;
     overflow: hidden;
 }
 
 .sbdocs .docblock-source {
-    background: #F8F9FB;
+    background: var(--wb-semanticColor-core-background-neutral-subtle);
 }
 
 /* Doc tables: gray header row, no zebra striping. The extra selector depth
@@ -73,11 +73,11 @@ is needed to beat Storybook's runtime-injected emotion rules. */
     border-collapse: separate;
     border-spacing: 0;
     border: 1px solid #cbcbcd;
-    border-radius: 1.2rem;
+    border-radius: var(--wb-border-radius-radius_120);
 }
 
 .sbdocs .sbdocs-content table th {
-    background-color: #e0e0e1;
+    background-color: var(--wb-semanticColor-core-border-neutral-subtle);
     padding: 2.4rem;
     text-align: left;
 }
