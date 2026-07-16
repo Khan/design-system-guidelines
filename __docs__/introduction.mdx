@@ -12,9 +12,9 @@ This is a living reference for how we build UI at the component, foundation, and
 
 ## Who it's for
 
-It's primarily product design managers and product designers. Use it to gut-check/review work: Is this the right component? Has this pattern been solved before? Am I using this correctly? It's a guide for giving and receiving better design feedback.
+It's for the whole org. Designers use it most, but anyone scoping, reviewing, or giving feedback can use it to gut-check decisions — is this the right component? Has this been solved before? Is this consistent with how we do things?
 
-## How to use it
+## How it's structured
 
 **Foundations** are the building blocks every UI is built from — color, typography, spacing, elevation, and iconography. These decisions underpin everything else.
 
@@ -22,19 +22,23 @@ It's primarily product design managers and product designers. Use it to gut-chec
 
 **Patterns** are the recurring views and solutions to common design problems — how we handle empty states, how assignment flows are structured, how errors are surfaced, how onboarding works. Where components answer "what is this?", patterns answer "how do we solve this?"
 
-## Agentic usage
+## How to use it
+
+We believe that early and frequent usage of the DSG from early ideation to solution validation is the best way to ensure that:
+
+- Our product feels consistent and cohesive across all of our experiences for all our Learners, Teachers, Parents, and Admins
+- Our Design, PM and Engineering teams are aligned on how to build and ship features and don't have to waste time debating already solved problems
+- We can focus our time across disciplines on solving (and supporting) **new**, **novel** problems instead of rehashing old ones.
+
+### Agentic usage
 
 The Design System Guidelines are created to be just as useful for agents and their skills.
 
 Simply add the MCP server to your agent of choice, and it should return information relevant to your query and guide your workflows in the right direction.
 
-### Public MCP
+#### Connect your agent to the MCP
 
-```
-https://main--6a5008743971119020a6233b.chromatic.com/mcp
-```
-
-For Claude Code, open up your Terminal and run:
+For **`Claude Code`**, open up Terminal and run:
 
 ```sh
 claude mcp add --transport http --scope user design-guidelines https://main--6a5008743971119020a6233b.chromatic.com/mcp
@@ -53,7 +57,7 @@ For other MCP clients (Cursor, etc.), add this to your MCP configuration:
 }
 ```
 
-### Hosting locally 
+#### Hosting locally 
 
 You can host locally to test your changes to the guidelines. It will also operate faster without network latency, but make sure you have the latest version of the guidelines before you start if that's your goal.
 
@@ -68,3 +72,12 @@ Then point your agent to the local MCP endpoint:
 ```
 http://localhost:56789/mcp
 ```
+
+## Who maintains this?
+
+The `Design Infra` team.
+
+If you want to discuss a specific UX interaction or a potential change to or potential modification to the system, please reach out to the team in `#design-infra`.
+
+Thank you for helping us keep this system up to date and useful for everyone!
+

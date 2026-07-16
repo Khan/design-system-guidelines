@@ -44,6 +44,11 @@ html {
     padding-top: 2rem !important;
 }
 
+.sbdocs h4 {
+    padding-top: 1.5rem !important;
+}
+
+
 .sbdocs img {
     border-radius: 0.8rem;
     margin-block: 2rem;
