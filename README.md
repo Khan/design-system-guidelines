@@ -4,6 +4,8 @@
 
 This is a living reference for how we build UI at the component, foundation, and pattern level. It documents how things should work, surfaces what needs to change, and will track design debt as we find it.
 
+When making architectural changes, remember that the goal is to keep the general solution and architecture in parity with the `wonder-blocks` repo Storybook such that they can be unified when it makes sense!
+
 ## Running locally
 
 After pulling the repo, install dependencies
