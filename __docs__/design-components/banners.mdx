@@ -7,13 +7,9 @@ import placement3Img from "./assets/banners/placement-3.png";
 import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
 import Banner from "@khanacademy/wonder-blocks-banner";
 import Link from "@khanacademy/wonder-blocks-link";
-import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
-import {font, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import checkCircleBold from "@phosphor-icons/core/bold/check-circle-bold.svg";
-import arrowSquareOutBold from "@phosphor-icons/core/bold/arrow-square-out-bold.svg";
-import checkCircleFill from "@phosphor-icons/core/fill/check-circle-fill.svg";
-import xCircleFill from "@phosphor-icons/core/fill/x-circle-fill.svg";
 import Demo from "../components/Demo";
+import {Do, Dont} from "../components/DoDont";
 
 <Meta title="Design Guidelines / Components / Feedback / Banners" />
 
@@ -59,7 +55,7 @@ Do use when signaling a severe, system-wide failure, data corruption, or an issu
                 <>
                     Your message was flagged by our moderation system. If it
                     follows the{" "}
-                    <Link href="#" inline={true} style={{lineHeight: font.body.lineHeight.small}}>
+                    <Link href="#link" inline={true}>
                         Community Guidelines
                     </Link>
                     , try rephrasing and sending it again.
@@ -95,11 +91,11 @@ Do use when signaling the successful completion of a complex or high-stakes tran
             text={
                 <>
                     2 assignments have been assigned to: this class,{" "}
-                    <Link href="#" inline={true} style={{lineHeight: font.body.lineHeight.small}}>
+                    <Link href="#link" inline={true}>
                         Period 1 – Precalculus
                     </Link>
                     , and{" "}
-                    <Link href="#" inline={true} style={{lineHeight: font.body.lineHeight.small}}>
+                    <Link href="#link" inline={true}>
                         Period 5 – Precalculus
                     </Link>
                 </>
@@ -148,11 +144,11 @@ Do include the 'X' for a banner that is informational, feature-related, or confi
             text={
                 <>
                     2 assignments have been assigned to: this class,{" "}
-                    <Link href="#" inline={true} style={{lineHeight: font.body.lineHeight.small}}>
+                    <Link href="#link" inline={true}>
                         Period 1 – Precalculus
                     </Link>
                     , and{" "}
-                    <Link href="#" inline={true} style={{lineHeight: font.body.lineHeight.small}}>
+                    <Link href="#link" inline={true}>
                         Period 5 – Precalculus
                     </Link>
                 </>
@@ -165,26 +161,9 @@ Do include the 'X' for a banner that is informational, feature-related, or confi
                 text="Khanmigo makes mistakes sometimes"
                 actions={[
                     {
-                        type: "custom",
-                        node: (
-                            <Link
-                                href="#"
-                                inline={true}
-                                style={{
-                                    fontSize: font.body.size.small,
-                                    fontWeight: font.weight.medium,
-                                    lineHeight: font.body.lineHeight.small,
-                                }}
-                                endIcon={
-                                    <PhosphorIcon
-                                        icon={arrowSquareOutBold}
-                                        size="small"
-                                    />
-                                }
-                            >
-                                Here's why
-                            </Link>
-                        ),
+                        type: "link",
+                        title: "Here's why",
+                        href:"#link",
                     },
                 ]}
                 onDismiss={() => {}}
@@ -231,26 +210,9 @@ There are two action types: Button and Link. Use a Link when the action is prima
                 text="Khanmigo makes mistakes sometimes"
                 actions={[
                     {
-                        type: "custom",
-                        node: (
-                            <Link
-                                href="#"
-                                inline={true}
-                                style={{
-                                    fontSize: font.body.size.small,
-                                    fontWeight: font.weight.medium,
-                                    lineHeight: font.body.lineHeight.small,
-                                }}
-                                endIcon={
-                                    <PhosphorIcon
-                                        icon={arrowSquareOutBold}
-                                        size="small"
-                                    />
-                                }
-                            >
-                                Here's why
-                            </Link>
-                        ),
+                        type: "link",
+                        title: "Here's why",
+                        href: "#link",
                     },
                 ]}
                 onDismiss={() => {}}
@@ -336,12 +298,7 @@ The tone must be neutral and professional across all types, though it should shi
                     actions={[{type: "button", title: "Upgrade now", onClick: () => {}}]}
                 />
             </div>
-            <PhosphorIcon
-                icon={checkCircleFill}
-                size="medium"
-                color={semanticColor.core.background.success.default}
-                aria-label="Do"
-            />
+            <Do />
         </div>
         <div style={{display: "flex", alignItems: "center", gap: "16px", width: "100%"}}>
             <div style={{flex: 1, minWidth: 0}}>
@@ -351,12 +308,7 @@ The tone must be neutral and professional across all types, though it should shi
                     actions={[{type: "button", title: "Upgrade now", onClick: () => {}}]}
                 />
             </div>
-            <PhosphorIcon
-                icon={xCircleFill}
-                size="medium"
-                color={semanticColor.core.background.critical.default}
-                aria-label="Don't"
-            />
+            <Dont />
         </div>
     </div>
 </Demo>
@@ -375,12 +327,7 @@ For Error and Warning banners, do use copy that clearly states what the user can
                     actions={[{type: "button", title: "Refresh page", onClick: () => {}}]}
                 />
             </div>
-            <PhosphorIcon
-                icon={checkCircleFill}
-                size="medium"
-                color={semanticColor.core.background.success.default}
-                aria-label="Do"
-            />
+            <Do />
         </div>
         <div style={{display: "flex", alignItems: "center", gap: "16px", width: "100%"}}>
             <div style={{flex: 1, minWidth: 0}}>
@@ -390,12 +337,7 @@ For Error and Warning banners, do use copy that clearly states what the user can
                     actions={[{type: "button", title: "Ok", onClick: () => {}}]}
                 />
             </div>
-            <PhosphorIcon
-                icon={xCircleFill}
-                size="medium"
-                color={semanticColor.core.background.critical.default}
-                aria-label="Don't"
-            />
+            <Dont />
         </div>
     </div>
 </Demo>
@@ -415,12 +357,7 @@ When applicable, the copy for transactional banners (Success, Warning) must incl
                     onDismiss={() => {}}
                 />
             </div>
-            <PhosphorIcon
-                icon={checkCircleFill}
-                size="medium"
-                color={semanticColor.core.background.success.default}
-                aria-label="Do"
-            />
+            <Do />
         </div>
         <div style={{display: "flex", alignItems: "center", gap: "16px", width: "100%"}}>
             <div style={{flex: 1, minWidth: 0}}>
@@ -431,12 +368,7 @@ When applicable, the copy for transactional banners (Success, Warning) must incl
                     onDismiss={() => {}}
                 />
             </div>
-            <PhosphorIcon
-                icon={xCircleFill}
-                size="medium"
-                color={semanticColor.core.background.critical.default}
-                aria-label="Don't"
-            />
+            <Dont />
         </div>
     </div>
 </Demo>
