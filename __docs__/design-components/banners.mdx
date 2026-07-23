@@ -80,34 +80,12 @@ For contextual call-out (promotional/navigational) banners, the icon is optional
 ### Iconography
 
 The banner must include the system-defined type icon. The icon is the most immediate signal, helping users who may have color vision deficiencies or who are scanning the page quickly.
+
 Do not use custom, context-specific icons (a "calendar" for maintenance) in the primary position, as this dilutes the meaning of the core status types.
 
+Each banner variant's background, text, and icon colors must meet WCAG AA contrast requirements (4.5:1 for text, 3:1 for icons and borders). Never rely on color alone to distinguish variants — the icon and copy tone must independently communicate severity for users with color vision deficiencies.
+
 <img src={statesImg} alt="States" />
-
-## Placement
-
-### Top of content area
-
-Do display the banner at the top of the affected content area.
-
-<img src={placement1Img} alt="Placement 1" />
-
-### Maximum two banners
-
-A single banner is ideal, but if more is needed the max should be no more than two banners in a single view. The oldest or least critical banner must be hidden or dismissed automatically.
-
-<img src={placement2Img} alt="Placement 2" />
-
-### Priority stacking order
-
-If there must be two banners, order them by:
-Highest priority / Most critical banner (at the very top).
-Second highest priority / Second most critical banner (below the first one).
-If both banners have the same criticality, the newest or most recently triggered one often takes the top spot, or the decision is made based on which piece of information is most urgent for the user to see first.
-
-<img src={placement3Img} alt="Placement 3" />
-
-## Interaction
 
 ### Dismissal for informational and success banners
 
@@ -132,6 +110,29 @@ There are two action types: Button and Link. Use a Link when the action is prima
 If a banner is not dismissible than it should contain a single, highly visible call-to-action button or link that resolves the state or provides necessary details, ensuring the banner guides the user toward a specific next step.
 
 <img src={interaction4Img} alt="Interaction 4" />
+
+## Placement
+
+### Top of content area
+
+Do display the banner at the top of the affected content area.
+
+<img src={placement1Img} alt="Placement 1" />
+
+### Maximum two banners
+
+A single banner is ideal, but if more is needed the max should be no more than two banners in a single view. The oldest or least critical banner must be hidden or dismissed automatically.
+
+<img src={placement2Img} alt="Placement 2" />
+
+### Priority stacking order
+
+If there must be two banners, order them by:
+Highest priority / Most critical banner (at the very top).
+Second highest priority / Second most critical banner (below the first one).
+If both banners have the same criticality, the newest or most recently triggered one often takes the top spot, or the decision is made based on which piece of information is most urgent for the user to see first.
+
+<img src={placement3Img} alt="Placement 3" />
 
 ## Copy
 
