@@ -8,8 +8,8 @@ import Banner from "@khanacademy/wonder-blocks-banner";
 import Link from "@khanacademy/wonder-blocks-link";
 import checkCircleBold from "@phosphor-icons/core/bold/check-circle-bold.svg";
 import Demo from "../components/Demo";
-import {Do, Dont} from "../components/DoDont";
 import {BannerIconography} from "../components/BannerIconography";
+import {Do, Dont, UsageExample} from "../components/DoDont";
 
 <Meta title="Design Guidelines / Components / Feedback / Banners" />
 
@@ -21,7 +21,7 @@ import {BannerIconography} from "../components/BannerIconography";
 
 A highly visible, non-modal container used to communicate important, global system status changes, successful operations, or errors. Banners remain persistent at the top of the viewport or relevant area until dismissed by the user or the issue is resolved.
 
-## When to use
+## <Do /> When to use
 
 The choice to use a banner is determined by the need for persistent, high-priority, and global system communication.
 
@@ -31,7 +31,7 @@ The choice to use a banner is determined by the need for persistent, high-priori
 | The message must stay visible until the user acknowledges it or the system resolves it | Error/offline status: "Your grading autosave failed due to a system service outage. Please save your work manually." |
 | Confirming a complex or high-stakes action that is difficult to reverse | Success confirmation: Final Grades Submitted! Your students' grades for the current term have been successfully locked and forwarded to the registrar. |
 
-## When NOT to use
+## <Dont /> When NOT to use
 
 | Don’t use when | Recommended alternative | Rationale |
 | --- | --- | --- |
@@ -260,7 +260,7 @@ Do display the banner at the top of the affected content area.
 
 A single banner is ideal, but if more is needed the max should be no more than two banners in a single view. The oldest or least critical banner must be hidden or dismissed automatically.
 
-<Demo type="dont" style={{paddingInline: 0, paddingBlock: 0}}>
+<Demo type="dont" explanation="too much cognitive load!" style={{paddingInline: 0, paddingBlock: 0}}>
     <img
         src={placement2Img}
         alt="Placement 2"
@@ -290,89 +290,65 @@ If both banners have the same criticality, the newest or most recently triggered
 Banner copy must be kept as concise as possible, ideally limited to one main sentence and one actionable sentence. Do use a direct, declarative sentence structure to immediately state the status or risk, avoiding overly polite phrasing, passive voice, or system jargon, thereby maximizing scannability and comprehension.
 The tone must be neutral and professional across all types, though it should shift in intensity—firm for Errors, cautious for Warnings, and positive but measured for Success and Information.
 
-<Demo>
-    <div style={{display: "flex", flexDirection: "column", gap: "16px", width: "100%"}}>
-        <div style={{display: "flex", alignItems: "center", gap: "16px", width: "100%"}}>
-            <div style={{flex: 1, minWidth: 0}}>
-                <Banner
-                    kind="warning"
-                    text="Your cloud storage is full. Files will stop syncing tomorrow."
-                    actions={[{type: "button", title: "Upgrade now", onClick: () => {}}]}
-                />
-            </div>
-            <Do />
-        </div>
-        <div style={{display: "flex", alignItems: "center", gap: "16px", width: "100%"}}>
-            <div style={{flex: 1, minWidth: 0}}>
-                <Banner
-                    kind="warning"
-                    text="Your cloud storage capacity has been exceeded and file synchronization will have to cease commencing tomorrow"
-                    actions={[{type: "button", title: "Upgrade now", onClick: () => {}}]}
-                />
-            </div>
-            <Dont />
-        </div>
-    </div>
+<Demo style={{flexDirection: "column", gap: "16px", alignItems: "stretch"}}>
+    <UsageExample type="do">
+        <Banner
+            kind="warning"
+            text="Your cloud storage is full. Files will stop syncing tomorrow."
+            actions={[{type: "button", title: "Upgrade now", onClick: () => {}}]}
+        />
+    </UsageExample>
+    <UsageExample type="dont">
+        <Banner
+            kind="warning"
+            text="Your cloud storage capacity has been exceeded and file synchronization will have to cease commencing tomorrow"
+            actions={[{type: "button", title: "Upgrade now", onClick: () => {}}]}
+        />
+    </UsageExample>
 </Demo>
 
 ### Link problem to solution
 
 For Error and Warning banners, do use copy that clearly states what the user can do next to resolve the issue or mitigate the risk, linking the textual problem statement directly to the intended Call-to-Action button or link.
 
-<Demo>
-    <div style={{display: "flex", flexDirection: "column", gap: "16px", width: "100%"}}>
-        <div style={{display: "flex", alignItems: "center", gap: "16px", width: "100%"}}>
-            <div style={{flex: 1, minWidth: 0}}>
-                <Banner
-                    kind="critical"
-                    text="Server connection failed. Refresh the page to restore the connection."
-                    actions={[{type: "button", title: "Refresh page", onClick: () => {}}]}
-                />
-            </div>
-            <Do />
-        </div>
-        <div style={{display: "flex", alignItems: "center", gap: "16px", width: "100%"}}>
-            <div style={{flex: 1, minWidth: 0}}>
-                <Banner
-                    kind="critical"
-                    text="Server connection failed. Data may be lost."
-                    actions={[{type: "button", title: "Ok", onClick: () => {}}]}
-                />
-            </div>
-            <Dont />
-        </div>
-    </div>
+<Demo style={{flexDirection: "column", gap: "16px", alignItems: "stretch"}}>
+    <UsageExample type="do">
+        <Banner
+            kind="critical"
+            text="Server connection failed. Refresh the page to restore the connection."
+            actions={[{type: "button", title: "Refresh page", onClick: () => {}}]}
+        />
+    </UsageExample>
+    <UsageExample type="dont">
+        <Banner
+            kind="critical"
+            text="Server connection failed. Data may be lost."
+            actions={[{type: "button", title: "Ok", onClick: () => {}}]}
+        />
+    </UsageExample>
 </Demo>
 
 ### Include specific data
 
 When applicable, the copy for transactional banners (Success, Warning) must include specific numbers, identifiers, or dates to confirm the impact of the action or the immediacy of the risk (e.g., "2 assignments," or "expires on &#123;date&#125;").
 
-<Demo>
-    <div style={{display: "flex", flexDirection: "column", gap: "16px", width: "100%"}}>
-        <div style={{display: "flex", alignItems: "center", gap: "16px", width: "100%"}}>
-            <div style={{flex: 1, minWidth: 0}}>
-                <Banner
-                    kind="success"
-                    icon={checkCircleBold}
-                    text="23 students have been added to Period 3 – Algebra I"
-                    onDismiss={() => {}}
-                />
-            </div>
-            <Do />
-        </div>
-        <div style={{display: "flex", alignItems: "center", gap: "16px", width: "100%"}}>
-            <div style={{flex: 1, minWidth: 0}}>
-                <Banner
-                    kind="success"
-                    icon={checkCircleBold}
-                    text="Your changes have been saved to your schedule"
-                    onDismiss={() => {}}
-                />
-            </div>
-            <Dont />
-        </div>
-    </div>
+<Demo style={{flexDirection: "column", gap: "16px", alignItems: "stretch"}}>
+    <UsageExample type="do">
+        <Banner
+            kind="success"
+            icon={checkCircleBold}
+            text="23 students have been added to Period 3 – Algebra I"
+            onDismiss={() => {}}
+        />
+    </UsageExample>
+    <UsageExample type="dont">
+        <Banner
+            kind="success"
+            icon={checkCircleBold}
+            text="Your changes have been saved to your schedule"
+            onDismiss={() => {}}
+        />
+    </UsageExample>
 </Demo>
 
 ### Punctuation
