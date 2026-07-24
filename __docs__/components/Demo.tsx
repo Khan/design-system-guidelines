@@ -20,6 +20,12 @@ type Props = {
      */
     type?: "demo" | "do" | "dont";
     /**
+     * Optional rationale appended after the "Do" / "Don't" label in the bar,
+     * e.g. `Do — multiple toggles grouped inside "More filters" modal`. Only
+     * rendered for `type="do"` / `type="dont"` (there is no bar otherwise).
+     */
+    explanation?: React.ReactNode;
+    /**
      * Additional styles merged into the content area (where `children` are
      * laid out), e.g. to add a `gap` between multiple examples.
      */
@@ -53,10 +59,11 @@ const barConfig = {
  * in the middle.
  *
  * Set `type="do"` or `type="dont"` to add a full-width bar across the bottom
- * labeling the example as recommended or discouraged usage.
+ * labeling the example as recommended or discouraged usage. Pass `explanation`
+ * to append a short rationale after the label.
  *
  * ```mdx
- * <Demo type="do">
+ * <Demo type="do" explanation='multiple toggles grouped inside "More filters" modal'>
  *     <Button kind="primary" onClick={() => {}}>Submit</Button>
  * </Demo>
  * ```
@@ -64,6 +71,7 @@ const barConfig = {
 export default function Demo({
     children,
     type = "demo",
+    explanation,
     style,
 }: Props): React.ReactElement {
     const bar =
@@ -88,6 +96,7 @@ export default function Demo({
                     />
                     <BodyText size="small" weight="bold" style={styles.barLabel}>
                         {bar.label}
+                        {explanation != null && <> — {explanation}</>}
                     </BodyText>
                 </View>
             )}
@@ -121,5 +130,8 @@ const styles = StyleSheet.create({
     },
     barLabel: {
         color: KNOCKOUT,
+        // Let a longer explanation wrap instead of overflowing the bar.
+        flexShrink: 1,
+        minWidth: 0,
     },
 });
