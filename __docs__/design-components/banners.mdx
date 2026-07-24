@@ -1,6 +1,5 @@
 import {Meta} from "@storybook/addon-docs/blocks";
 import headerImg from "./assets/banners/banners.png";
-import iconographyImg from "./assets/banners/iconography.png";
 import placement1Img from "./assets/banners/placement-1.png";
 import placement2Img from "./assets/banners/placement-2.png";
 import placement3Img from "./assets/banners/placement-3.png";
@@ -9,6 +8,7 @@ import Banner from "@khanacademy/wonder-blocks-banner";
 import Link from "@khanacademy/wonder-blocks-link";
 import checkCircleBold from "@phosphor-icons/core/bold/check-circle-bold.svg";
 import Demo from "../components/Demo";
+import {BannerIconography} from "./assets/banners/BannerIconography";
 import {Do, Dont, UsageExample} from "../components/DoDont";
 
 <Meta title="Design Guidelines / Components / Feedback / Banners" />
@@ -130,7 +130,9 @@ Do not use custom, context-specific icons (a "calendar" for maintenance) in the 
 
 Each banner variant's background, text, and icon colors must meet WCAG AA contrast requirements (4.5:1 for text, 3:1 for icons and borders). Never rely on color alone to distinguish variants — the icon and copy tone must independently communicate severity for users with color vision deficiencies.
 
-<img src={iconographyImg} alt="Iconography" />
+<Demo>
+    <BannerIconography />
+</Demo>
 
 ### Dismissal for informational and success banners
 

@@ -1,5 +1,6 @@
 import {Meta} from "@storybook/addon-docs/blocks";
 import Principle, {PrincipleSet} from "../components/principle";
+import Figure from "../components/Figure";
 import surfacesAndElevationsImg from "./assets/surfaces-and-elevations/surfaces-and-elevations.png";
 import surfacesOverviewImg from "./assets/surfaces-and-elevations/surfaces-overview.png";
 import surface1Img from "./assets/surfaces-and-elevations/surface-1.png";
@@ -14,7 +15,7 @@ import elevationHighImg from "./assets/surfaces-and-elevations/elevation-high.pn
 import combinationsImg from "./assets/surfaces-and-elevations/combinations.png";
 import usageSurfaceBaseImg from "./assets/surfaces-and-elevations/usage-surface-base.png";
 import usagePageLevelImg from "./assets/surfaces-and-elevations/usage-page-level.png";
-import usageLowAtRestImg from "./assets/surfaces-and-elevations/usage-low-at-rest.png";
+import usageLowAtRestImg from "./assets/surfaces-and-elevations/usage-low-at-rest-v3.png";
 import usageScrimHighImg from "./assets/surfaces-and-elevations/usage-scrim-high.png";
 
 <Meta title="Design Guidelines / Foundations / Surfaces and elevations" />
@@ -59,7 +60,11 @@ The main page background — the paint on the wall. Everything else sits in fron
 
 Use for: page and screen backgrounds, full-bleed layout regions like sidebars and headers, and supplementary cards where a border is sufficient to define the boundary.
 
-<img src={surface1Img} alt="Page backgrounds are set to Surface 1. Other containers that are not the main priority of a page can also have Surface 1 background color." />
+<Figure
+    src={surface1Img}
+    alt="Mockup of a page with a sidebar and cards on the Surface 1 background"
+    caption="Page backgrounds are set to Surface 1. Other containers that are not the main priority of a page can also have Surface 1 background color."
+/>
 
 ### Surface 2
 
@@ -67,7 +72,11 @@ The first layer on the wall. Elements using Surface 2 sit closer to the user tha
 
 Use for: primary content cards, content panels, drawers, and components that need to read as the focal object on the page background.
 
-<img src={surface2Img} alt="Containers that are the main focus of the page have a Surface 2 background color." />
+<Figure
+    src={surface2Img}
+    alt="Mockup of a content card standing out as the focal object on the page"
+    caption="Containers that are the main focus of the page have a Surface 2 background color."
+/>
 
 ### Surface 3
 
@@ -75,7 +84,11 @@ A tint on an existing layer — not a new layer, just a marked zone within one. 
 
 Use for: table header rows, page header backgrounds, and other contexts where a region needs to feel structurally distinct from adjacent content — without implying it's closer to the user than the surface it sits on.
 
-<img src={surface3Img} alt="Table header has a Surface 3 background color to help define it as the header and differentiate it from the rest of the page." />
+<Figure
+    src={surface3Img}
+    alt="Mockup of a table with a tinted Surface 3 header row"
+    caption="Table header has a Surface 3 background color to help define it as the header and differentiate it from the rest of the page."
+/>
 
 ### Surface scrim
 
@@ -83,7 +96,11 @@ A semi-transparent overlay applied over the page when a modal or drawer is open.
 
 Use for: always paired with modal dialogs and drawers using Primary High elevation. Never use a scrim without a modal or drawer, and never open one without a scrim.
 
-<img src={surfaceScrimImg} alt="A drawer is open above the page; the scrim dims the page content behind it while the drawer requires attention." />
+<Figure
+    src={surfaceScrimImg}
+    alt="Mockup of an open drawer with a scrim dimming the page content behind it"
+    caption="A drawer is open above the page; the scrim dims the page content behind it while the drawer requires attention."
+/>
 
 ## Elevation
 
@@ -106,7 +123,11 @@ For components that sit flush with the surface. The right choice when the elemen
 
 Use for: static containers, layout elements, and interactive components that communicate affordance through other means.
 
-<img src={elevationBaseImg} alt="The card contains multiple interactive elements and the content here is already the main focus of the page. Adding shadow to it would add depth without adding meaning." />
+<Figure
+    src={elevationBaseImg}
+    alt="Mockup of a card at base elevation, flush with the surface with no shadow"
+    caption="The card contains multiple interactive elements and the content here is already the main focus of the page. Adding shadow to it would add depth without adding meaning."
+/>
 
 ### Low
 
@@ -114,7 +135,11 @@ For components where a subtle lift signals that the whole thing is a discrete, p
 
 Use for: content cards that function as primary focus or selectable units, and expanded accordion panels.
 
-<img src={elevationLowImg} alt="The shadow signals that this is a main priority of the page and that the whole card is a selectable unit, not just a region of the page." />
+<Figure
+    src={elevationLowImg}
+    alt="Mockup of a card lifted off the surface with a subtle low-elevation shadow"
+    caption="The shadow signals that this is a main priority of the page and that the whole card is a selectable unit, not just a region of the page."
+/>
 
 ### Mid
 
@@ -122,7 +147,11 @@ For popovers. Temporary surfaces that appear above the main page flow without bl
 
 Use for: popovers and tooltips.
 
-<img src={elevationMidImg} alt="The popover floats above the page content without blocking it — the stronger shadow is what separates it from the layer beneath." />
+<Figure
+    src={elevationMidImg}
+    alt="Mockup of a popover floating above the page at mid elevation"
+    caption="The popover floats above the page content without blocking it — the stronger shadow is what separates it from the layer beneath."
+/>
 
 ### High
 
@@ -130,7 +159,11 @@ For components that must command full attention and interrupt the user's flow.
 
 Use for: toasts and modals.
 
-<img src={elevationHighImg} alt="Since toasts are temporary, urgent, and demand immediate attention, a strong shadow ensures they're never visually lost or confused with page content beneath them." />
+<Figure
+    src={elevationHighImg}
+    alt="Mockup of a toast floating clearly above all page content at high elevation"
+    caption="Since toasts are temporary, urgent, and demand immediate attention, a strong shadow ensures they're never visually lost or confused with page content beneath them."
+/>
 
 ## Using surfaces and elevations together
 
@@ -164,7 +197,12 @@ Before reaching for Low elevation, look at the full page. On a complex page — 
 
 Low is the default elevation, not a hover state. Interactive states are handled by the component's state tokens, not by increasing elevation level. Don't increase elevation on hover unless the component's design explicitly uses elevation as a state signal.
 
-<img src={usageLowAtRestImg} alt="An interactive card shown with low elevation in its resting state" />
+<Figure
+    src={usageLowAtRestImg}
+    alt="Mockup of interactive cards at low elevation, one showing a hover cursor"
+    caption="Don't increase elevation on hover. Use state tokens to handle interactive states instead."
+    dont={true}
+/>
 
 ### Scrims belong with elevation high
 
