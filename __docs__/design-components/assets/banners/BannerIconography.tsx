@@ -11,7 +11,7 @@ import batteryEmptyBold from "@phosphor-icons/core/bold/battery-empty-bold.svg";
 import wifiSlashBold from "@phosphor-icons/core/bold/wifi-slash-bold.svg";
 import confettiBold from "@phosphor-icons/core/bold/confetti-bold.svg";
 import calendarBlankBold from "@phosphor-icons/core/bold/calendar-blank-bold.svg";
-import {Do, Dont} from "./DoDont";
+import {UsageExample} from "../../../components/DoDont";
 
 // The four banner variants share the same status colors across their type icon
 // and their custom-icon counterexample, so users can see the icon — not the
@@ -72,12 +72,14 @@ export function BannerIconography(): React.ReactElement {
     return (
         <View style={styles.container}>
             <View style={styles.column}>
-                <Do />
-                <IconRow icons={systemIcons} />
+                <UsageExample type="do" direction="column">
+                    <IconRow icons={systemIcons} />
+                </UsageExample>
             </View>
             <View style={styles.column}>
-                <Dont />
-                <IconRow icons={customIcons} />
+                <UsageExample type="dont" direction="column">
+                    <IconRow icons={customIcons} />
+                </UsageExample>
             </View>
         </View>
     );
@@ -89,7 +91,7 @@ const styles = StyleSheet.create({
         flexWrap: "wrap",
         justifyContent: "center",
         width: "100%",
-        gap: sizing.size_320,
+        gap: sizing.size_560,
     },
     column: {
         flexGrow: 1,
@@ -98,8 +100,6 @@ const styles = StyleSheet.create({
         // shrinks enough to overlap its neighbor; once both columns can't
         // fit side by side, the Don't column wraps below the Do column.
         minWidth: 180,
-        alignItems: "center",
-        gap: sizing.size_320,
     },
     row: {
         flexDirection: "row",

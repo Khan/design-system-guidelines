@@ -93,8 +93,9 @@ type UsageExampleProps = {
     children: React.ReactNode;
     /**
      * How to lay out the example and its marker. `"row"` (the default) sits
-     * them side by side; `"column"` stacks them. Maps directly to
-     * `flex-direction`, so the marker's side flips automatically in RTL.
+     * them side by side, with the marker trailing the example (its side flips
+     * automatically in RTL). `"column"` stacks them, centered, with the marker
+     * leading — so the "Do this" / "Don't do this" reads above the example.
      */
     direction?: "row" | "column";
     /**
@@ -144,6 +145,8 @@ export function UsageExample({
     style,
 }: UsageExampleProps): React.ReactElement {
     const marker = type === "do" ? <Do decorative /> : <Dont decorative />;
+    const isColumn = direction === "column";
+    const content = <View style={[styles.content, style]}>{children}</View>;
 
     return (
         <View
@@ -153,11 +156,22 @@ export function UsageExample({
             style={[
                 styles.container,
                 {flexDirection: direction},
-                direction === "row" ? styles.rowAlign : styles.columnAlign,
+                isColumn ? styles.columnAlign : styles.rowAlign,
             ]}
         >
-            <View style={[styles.content, style]}>{children}</View>
-            {marker}
+            {/* In a column the marker leads (reads above the example); in a row
+                it trails the example. */}
+            {isColumn ? (
+                <>
+                    {marker}
+                    {content}
+                </>
+            ) : (
+                <>
+                    {content}
+                    {marker}
+                </>
+            )}
         </View>
     );
 }
@@ -171,7 +185,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     columnAlign: {
-        alignItems: "flex-start",
+        alignItems: "center",
     },
     content: {
         flexGrow: 1,
