@@ -1,22 +1,15 @@
 import {Meta} from "@storybook/addon-docs/blocks";
 import headerImg from "./assets/banners/banners.png";
-import variants1Img from "./assets/banners/variants-1.png";
-import variants2Img from "./assets/banners/variants-2.png";
-import variants3Img from "./assets/banners/variants-3.png";
-import variants4Img from "./assets/banners/variants-4.png";
-import statesImg from "./assets/banners/states.png";
+import iconographyImg from "./assets/banners/iconography.png";
 import placement1Img from "./assets/banners/placement-1.png";
 import placement2Img from "./assets/banners/placement-2.png";
 import placement3Img from "./assets/banners/placement-3.png";
-import interaction1Img from "./assets/banners/interaction-1.png";
-import interaction2Img from "./assets/banners/interaction-2.png";
-import interaction3Img from "./assets/banners/interaction-3-action.png";
-import interaction4Img from "./assets/banners/interaction-4.png";
-import copy1Img from "./assets/banners/copy-1.png";
-import copy2Img from "./assets/banners/copy-2.png";
-import copy3Img from "./assets/banners/copy-3.png";
-import copy4Img from "./assets/banners/copy-4.png";
 import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
+import Banner from "@khanacademy/wonder-blocks-banner";
+import Link from "@khanacademy/wonder-blocks-link";
+import checkCircleBold from "@phosphor-icons/core/bold/check-circle-bold.svg";
+import Demo from "../components/Demo";
+import {Do, Dont} from "../components/DoDont";
 
 <Meta title="Design Guidelines / Components / Feedback / Banners" />
 
@@ -54,26 +47,78 @@ The choice to use a banner is determined by the need for persistent, high-priori
 
 Do use when signaling a severe, system-wide failure, data corruption, or an issue that immediately blocks the user from completing a primary task, ensuring that the error message is not dismissible until the problem is resolved or the page state changes.
 
-<img src={variants1Img} alt="Variants 1" />
+<Demo>
+    <div style={{width: "100%"}}>
+        <Banner
+            kind="critical"
+            text={
+                <>
+                    Your message was flagged by our moderation system. If it
+                    follows the{" "}
+                    <Link href="#link" inline={true}>
+                        Community Guidelines
+                    </Link>
+                    , try rephrasing and sending it again.
+                </>
+            }
+        />
+    </div>
+</Demo>
 
 ### Warning/action required
 
 Do use when signaling a non-blocking but significant future risk or communicating a mandatory action that must be completed to prevent a problem, ensuring the user is aware of the potential negative consequence if they do not act. The banner must not be dismissible until the user has resolved the underlying issue.
 
-<img src={variants2Img} alt="Variants 2" />
+<Demo>
+    <div style={{width: "100%"}}>
+        <Banner
+            kind="warning"
+            text={"Plan access will end on {Renewal/Expiry date}. Renew now to keep features."}
+            actions={[{type: "button", title: "Renew plan", onClick: () => {}}]}
+        />
+    </div>
+</Demo>
 
 ### Success confirmation
 
 Do use when signaling the successful completion of a complex or high-stakes transactional action, especially if that action involves multiple steps or is difficult to reverse, ensuring the copy is specific, data-driven, and includes direct links or identifiers to the resulting content for immediate verification.
 
-<img src={variants3Img} alt="Variants 3" />
+<Demo>
+    <div style={{width: "100%"}}>
+        <Banner
+            kind="success"
+            icon={checkCircleBold}
+            text={
+                <>
+                    2 assignments have been assigned to: this class,{" "}
+                    <Link href="#link" inline={true}>
+                        Period 1 – Precalculus
+                    </Link>
+                    , and{" "}
+                    <Link href="#link" inline={true}>
+                        Period 5 – Precalculus
+                    </Link>
+                </>
+            }
+            onDismiss={() => {}}
+        />
+    </div>
+</Demo>
 
 ### Informational/feature
 
-Do use the when communicating temporary policies or essential guidelines that require a one-time user acknowledgement to dismiss the visual notice or when announcing new tools or key features to drive awareness.
+Do use when communicating temporary policies or essential guidelines that require a one-time user acknowledgement to dismiss the visual notice or when announcing new tools or key features to drive awareness.
 For contextual call-out (promotional/navigational) banners, the icon is optional and best omitted to simplify the visual design and reduce the cognitive load.
 
-<img src={variants4Img} alt="Variants 4" />
+<Demo>
+    <div style={{width: "100%"}}>
+        <Banner
+            kind="info"
+            text="Don't share personal information. This conversation can be reviewed by your teacher."
+            onDismiss={() => {}}
+        />
+    </div>
+</Demo>
 
 ## States
 
@@ -85,31 +130,115 @@ Do not use custom, context-specific icons (a "calendar" for maintenance) in the 
 
 Each banner variant's background, text, and icon colors must meet WCAG AA contrast requirements (4.5:1 for text, 3:1 for icons and borders). Never rely on color alone to distinguish variants — the icon and copy tone must independently communicate severity for users with color vision deficiencies.
 
-<img src={statesImg} alt="States" />
+<img src={iconographyImg} alt="Iconography" />
 
 ### Dismissal for informational and success banners
 
 Do include the 'X' for a banner that is informational, feature-related, or confirms a successful transaction, allowing the user to clear visual clutter immediately.
 
-<img src={interaction1Img} alt="Interaction 1" />
+<Demo type="do">
+    <div style={{display: "flex", flexDirection: "column", gap: "16px", width: "100%"}}>
+        <Banner
+            kind="success"
+            icon={checkCircleBold}
+            text={
+                <>
+                    2 assignments have been assigned to: this class,{" "}
+                    <Link href="#link" inline={true}>
+                        Period 1 – Precalculus
+                    </Link>
+                    , and{" "}
+                    <Link href="#link" inline={true}>
+                        Period 5 – Precalculus
+                    </Link>
+                </>
+            }
+            onDismiss={() => {}}
+        />
+        <div style={{width: "380px", maxWidth: "100%"}}>
+            <Banner
+                kind="info"
+                text="Khanmigo makes mistakes sometimes"
+                actions={[
+                    {
+                        type: "link",
+                        title: "Here's why",
+                        href:"#link",
+                    },
+                ]}
+                onDismiss={() => {}}
+            />
+        </div>
+    </div>
+</Demo>
 
 ### No dismissal for unresolved state
 
 Don't include the 'X' if the message communicates a state that the user cannot resolve on their own, or if the user must be continuously aware of the message to prevent an error or data loss.
 
-<img src={interaction2Img} alt="Interaction 2" />
+<Demo type="dont">
+    <div style={{display: "flex", flexDirection: "column", gap: "16px", width: "100%"}}>
+        <Banner
+            kind="warning"
+            text={"Plan access will end on {Renewal/Expiry date}. Renew now to keep features."}
+            actions={[{type: "button", title: "Renew now", onClick: () => {}}]}
+            onDismiss={() => {}}
+        />
+        <Banner
+            kind="critical"
+            text="Your message was not delivered. Please try again."
+            actions={[{type: "button", title: "Try again", onClick: () => {}}]}
+            onDismiss={() => {}}
+        />
+    </div>
+</Demo>
 
 ### Action type and singular focus
 
 There are two action types: Button and Link. Use a Link when the action is primarily to navigate to a detailed page or section. Use a Button when the action is functional or mandatory and completes a process. Also, maintain singular focus. Banners should contain only one primary action to maintain focus.
 
-<img src={interaction3Img} alt="Interaction 3" />
+<Demo type="do">
+    <div style={{display: "flex", flexDirection: "column", gap: "16px", width: "100%"}}>
+        <Banner
+            kind="warning"
+            text={"Plan access will end on {Renewal/Expiry date}. Renew now to keep features."}
+            actions={[{type: "button", title: "Renew now", onClick: () => {}}]}
+        />
+        <div style={{width: "380px", maxWidth: "100%"}}>
+            <Banner
+                kind="info"
+                text="Khanmigo makes mistakes sometimes"
+                actions={[
+                    {
+                        type: "link",
+                        title: "Here's why",
+                        href: "#link",
+                    },
+                ]}
+                onDismiss={() => {}}
+            />
+        </div>
+    </div>
+</Demo>
 
 ### Guide to resolution
 
-If a banner is not dismissible than it should contain a single, highly visible call-to-action button or link that resolves the state or provides necessary details, ensuring the banner guides the user toward a specific next step.
+If a banner is not dismissible, it should contain a single, highly visible call-to-action button that resolves the state or provides necessary details, guiding the user toward a specific next step. Use a button rather than a link here — resolving the issue is a functional action.
 
-<img src={interaction4Img} alt="Interaction 4" />
+<Demo type="do">
+    <div style={{display: "flex", flexDirection: "column", gap: "16px", width: "100%"}}>
+        <Banner
+            kind="warning"
+            text={"Plan access will end on {Renewal/Expiry date}. Renew now to keep features."}
+            actions={[{type: "button", title: "Renew now", onClick: () => {}}]}
+        />
+        <Banner
+            kind="critical"
+            text="Your message was not delivered. Please try again."
+            actions={[{type: "button", title: "Try again", onClick: () => {}}]}
+        />
+    </div>
+</Demo>
 
 ## Placement
 
@@ -117,13 +246,25 @@ If a banner is not dismissible than it should contain a single, highly visible c
 
 Do display the banner at the top of the affected content area.
 
-<img src={placement1Img} alt="Placement 1" />
+<Demo type="do" style={{paddingInline: 0, paddingBlock: 0}}>
+    <img
+        src={placement1Img}
+        alt="Placement 1"
+        style={{width: "100%", display: "block", margin: 0}}
+    />
+</Demo>
 
 ### Maximum two banners
 
 A single banner is ideal, but if more is needed the max should be no more than two banners in a single view. The oldest or least critical banner must be hidden or dismissed automatically.
 
-<img src={placement2Img} alt="Placement 2" />
+<Demo type="dont" style={{paddingInline: 0, paddingBlock: 0}}>
+    <img
+        src={placement2Img}
+        alt="Placement 2"
+        style={{width: "100%", display: "block", margin: 0}}
+    />
+</Demo>
 
 ### Priority stacking order
 
@@ -132,7 +273,13 @@ Highest priority / Most critical banner (at the very top).
 Second highest priority / Second most critical banner (below the first one).
 If both banners have the same criticality, the newest or most recently triggered one often takes the top spot, or the decision is made based on which piece of information is most urgent for the user to see first.
 
-<img src={placement3Img} alt="Placement 3" />
+<Demo type="do" style={{paddingInline: 0, paddingBlock: 0}}>
+    <img
+        src={placement3Img}
+        alt="Placement 3"
+        style={{width: "100%", display: "block", margin: 0}}
+    />
+</Demo>
 
 ## Copy
 
@@ -141,26 +288,112 @@ If both banners have the same criticality, the newest or most recently triggered
 Banner copy must be kept as concise as possible, ideally limited to one main sentence and one actionable sentence. Do use a direct, declarative sentence structure to immediately state the status or risk, avoiding overly polite phrasing, passive voice, or system jargon, thereby maximizing scannability and comprehension.
 The tone must be neutral and professional across all types, though it should shift in intensity—firm for Errors, cautious for Warnings, and positive but measured for Success and Information.
 
-<img src={copy1Img} alt="Copy 1" />
+<Demo>
+    <div style={{display: "flex", flexDirection: "column", gap: "16px", width: "100%"}}>
+        <div style={{display: "flex", alignItems: "center", gap: "16px", width: "100%"}}>
+            <div style={{flex: 1, minWidth: 0}}>
+                <Banner
+                    kind="warning"
+                    text="Your cloud storage is full. Files will stop syncing tomorrow."
+                    actions={[{type: "button", title: "Upgrade now", onClick: () => {}}]}
+                />
+            </div>
+            <Do />
+        </div>
+        <div style={{display: "flex", alignItems: "center", gap: "16px", width: "100%"}}>
+            <div style={{flex: 1, minWidth: 0}}>
+                <Banner
+                    kind="warning"
+                    text="Your cloud storage capacity has been exceeded and file synchronization will have to cease commencing tomorrow"
+                    actions={[{type: "button", title: "Upgrade now", onClick: () => {}}]}
+                />
+            </div>
+            <Dont />
+        </div>
+    </div>
+</Demo>
 
 ### Link problem to solution
 
 For Error and Warning banners, do use copy that clearly states what the user can do next to resolve the issue or mitigate the risk, linking the textual problem statement directly to the intended Call-to-Action button or link.
 
-<img src={copy2Img} alt="Copy 2" />
+<Demo>
+    <div style={{display: "flex", flexDirection: "column", gap: "16px", width: "100%"}}>
+        <div style={{display: "flex", alignItems: "center", gap: "16px", width: "100%"}}>
+            <div style={{flex: 1, minWidth: 0}}>
+                <Banner
+                    kind="critical"
+                    text="Server connection failed. Refresh the page to restore the connection."
+                    actions={[{type: "button", title: "Refresh page", onClick: () => {}}]}
+                />
+            </div>
+            <Do />
+        </div>
+        <div style={{display: "flex", alignItems: "center", gap: "16px", width: "100%"}}>
+            <div style={{flex: 1, minWidth: 0}}>
+                <Banner
+                    kind="critical"
+                    text="Server connection failed. Data may be lost."
+                    actions={[{type: "button", title: "Ok", onClick: () => {}}]}
+                />
+            </div>
+            <Dont />
+        </div>
+    </div>
+</Demo>
 
 ### Include specific data
 
 When applicable, the copy for transactional banners (Success, Warning) must include specific numbers, identifiers, or dates to confirm the impact of the action or the immediacy of the risk (e.g., "2 assignments," or "expires on &#123;date&#125;").
 
-<img src={copy3Img} alt="Copy 3" />
+<Demo>
+    <div style={{display: "flex", flexDirection: "column", gap: "16px", width: "100%"}}>
+        <div style={{display: "flex", alignItems: "center", gap: "16px", width: "100%"}}>
+            <div style={{flex: 1, minWidth: 0}}>
+                <Banner
+                    kind="success"
+                    icon={checkCircleBold}
+                    text="23 students have been added to Period 3 – Algebra I"
+                    onDismiss={() => {}}
+                />
+            </div>
+            <Do />
+        </div>
+        <div style={{display: "flex", alignItems: "center", gap: "16px", width: "100%"}}>
+            <div style={{flex: 1, minWidth: 0}}>
+                <Banner
+                    kind="success"
+                    icon={checkCircleBold}
+                    text="Your changes have been saved to your schedule"
+                    onDismiss={() => {}}
+                />
+            </div>
+            <Dont />
+        </div>
+    </div>
+</Demo>
 
 ### Punctuation
 
 Copy should omit periods when the message consists of a single, short statement or command. This enhances scannability and maintains a headline style. If the copy requires more than one full sentence, periods must be used to correctly separate those thoughts.
 
-<img src={copy4Img} alt="Copy 4" />
+<Demo type="do">
+    <div style={{display: "flex", flexDirection: "column", gap: "16px", width: "100%"}}>
+        <Banner kind="info" text="If copy is one sentence, no periods" onDismiss={() => {}} />
+        <Banner kind="info" text="If copy is more than one sentence, use periods." onDismiss={() => {}} />
+    </div>
+</Demo>
 
----
+### Sentence case
 
-[Figma source](https://www.figma.com/design/G9Yxa0SOlALS078wtq87cM/Design-system-guidelines---Thunderblocks?node-id=12444-9008&t=WAQP6xuZw16xrb5c-4)
+To be consistent with UX copy guidelines, use sentence case.
+
+<Demo type="do">
+    <div style={{width: "100%"}}>
+        <Banner
+            kind="warning"
+            text="Your cloud storage is full. Files will stop syncing tomorrow."
+            actions={[{type: "button", title: "Upgrade now", onClick: () => {}}]}
+        />
+    </div>
+</Demo>
