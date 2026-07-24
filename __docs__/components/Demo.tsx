@@ -96,7 +96,7 @@ export default function Demo({
                     />
                     <BodyText size="small" weight="bold" style={styles.barLabel}>
                         {bar.label}
-                        {explanation != null && <> — {explanation}</>}
+                        {explanation ? <> — {explanation}</> : null}
                     </BodyText>
                 </View>
             )}
