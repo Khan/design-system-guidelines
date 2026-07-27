@@ -4,10 +4,12 @@ These live in `__docs__/components/` and exist to be reused. **Never recreate th
 
 Props marked **required** must be provided; others are optional with the noted default.
 
----
+**All changes to components must include any changes to props / implementation**
+
 ---
 
 ## `UsageExample` — accessible good/bad pairs
+
 `import {UsageExample} from "../components/DoDont";`
 
 Wraps a small, inline live example and binds a "Do this / Don't do this" judgment to it structurally. Place **inside a `<Demo>`** so several good/bad examples share one card.
@@ -57,8 +59,10 @@ An image paired with a real-text caption (replacing captions baked into the imag
 | --- | --- | --- | --- |
 | `src` | `string` (imported asset) | — | **Required.** Import the image; don't string-path it. |
 | `alt` | `string` | — | **Required.** Describes the image for AT. |
-| `caption` | `ReactNode` | — | **Required.** Real-text caption shown beneath the image. |
-| `dont` | `boolean` | `false` | Renders the caption as a red "Don't" bar (with an ✕) attached to the image bottom. |
+| `caption` | `ReactNode` | — | **Required.** Real-text caption. Shown beneath the image for `type="figure"`; becomes the explanation after the "Do"/"Don't" label for `do`/`dont`. |
+| `type` | `"figure" \| "do" \| "dont"` | `"figure"` | `"do"`/`"dont"` replace the caption with a labeled bar (green ✓ / red ✕) attached to the image bottom. `"figure"` shows a plain neutral figcaption. |
+
+**A11y:** the do/dont bar uses real visible "Do"/"Don't" text (icon is `aria-hidden`) — meaning never depends on color or icon shape.
 
 ---
 

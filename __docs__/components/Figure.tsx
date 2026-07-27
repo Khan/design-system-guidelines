@@ -4,6 +4,7 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
 import {BodyText} from "@khanacademy/wonder-blocks-typography";
 import {border, semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
+import checkBold from "@phosphor-icons/core/bold/check-bold.svg";
 import xBold from "@phosphor-icons/core/bold/x-bold.svg";
 
 type Props = {
@@ -16,38 +17,64 @@ type Props = {
      */
     alt: string;
     /**
-     * The caption shown as real text beneath the image.
+     * The caption shown as real text beneath the image. For `type="do"` /
+     * `type="dont"` it becomes the explanation appended after the "Do" /
+     * "Don't" label in the bar instead.
      */
     caption: React.ReactNode;
     /**
-     * When true, renders the caption as a "Don't" bar (red, with an ✕ icon)
-     * attached to the bottom of the image instead of a neutral caption.
+     * How to frame the image. `"figure"` (the default) shows the caption as a
+     * plain neutral `<figcaption>` beneath the image. `"do"` / `"dont"` replace
+     * that caption with a labeled bar (green ✓ / red ✕) attached to the bottom
+     * of the image, marking the example as recommended or discouraged usage.
      */
-    dont?: boolean;
+    type?: "figure" | "do" | "dont";
 };
 
-// The knockout foreground token reads white/light on the strong critical
-// surface used by the "Don't" bar.
+// The knockout foreground token reads white/light on the strong colored
+// surfaces used by the "Do" / "Don't" bars.
 const KNOCKOUT = semanticColor.core.foreground.knockout.default;
+
+const barConfig = {
+    do: {
+        label: "Do",
+        icon: checkBold,
+        backgroundColor: semanticColor.core.background.success.default,
+    },
+    dont: {
+        label: "Don't",
+        icon: xBold,
+        backgroundColor: semanticColor.core.background.critical.default,
+    },
+} as const;
 
 /**
  * An image paired with a real-text caption for `.mdx` docs pages, replacing
  * captions that were previously baked into the image itself.
  *
- * Pass `dont` to render the caption as a red "Don't" bar attached to the
- * bottom of the image (matching the do/dont language used elsewhere).
+ * Set `type="do"` or `type="dont"` to replace the neutral caption with a
+ * labeled bar attached to the bottom of the image (matching the do/dont
+ * language used elsewhere). The `caption` is appended after the "Do" / "Don't"
+ * label as a short explanation.
  *
  * ```mdx
  * <Figure src={myImg} alt="…" caption="A short description of the example." />
- * <Figure src={dontImg} alt="…" caption="Don't do this." dont={true} />
+ * <Figure src={dontImg} alt="…" caption="do this." type="dont" />
  * ```
  */
 export default function Figure({
     src,
     alt,
     caption,
-    dont = false,
+    type = "figure",
 }: Props): React.ReactElement {
+    const bar =
+        type === "do"
+            ? barConfig.do
+            : type === "dont"
+              ? barConfig.dont
+              : null;
+
     return (
         <View style={styles.figure} tag="figure">
             <View style={styles.frame}>
@@ -65,21 +92,24 @@ export default function Figure({
                         borderRadius: 0,
                     }}
                 />
-                {dont && (
-                    <View style={styles.dontBar}>
+                {bar && (
+                    <View
+                        style={[styles.bar, {backgroundColor: bar.backgroundColor}]}
+                    >
                         <PhosphorIcon
-                            icon={xBold}
+                            icon={bar.icon}
                             size="small"
                             color={KNOCKOUT}
                             aria-hidden={true}
                         />
-                        <BodyText size="small" weight="bold" style={styles.dontText}>
-                            {caption}
+                        <BodyText size="small" weight="bold" style={styles.barLabel}>
+                            {bar.label}
+                            {caption ? <> — {caption}</> : null}
                         </BodyText>
                     </View>
                 )}
             </View>
-            {!dont && (
+            {type === "figure" && (
                 <BodyText
                     size="small"
                     tag="figcaption"
@@ -96,7 +126,7 @@ const styles = StyleSheet.create({
     figure: {
         marginBlock: sizing.size_400,
     },
-    // Rounds the image corners and clips the "Don't" bar so it reads as one
+    // Rounds the image corners and clips the do/dont bar so it reads as one
     // unit attached to the bottom edge.
     frame: {
         borderRadius: border.radius.radius_080,
@@ -106,15 +136,17 @@ const styles = StyleSheet.create({
         marginBlockStart: sizing.size_120,
         color: semanticColor.core.foreground.neutral.subtle,
     },
-    dontBar: {
+    bar: {
         flexDirection: "row",
         alignItems: "center",
         gap: sizing.size_080,
         paddingInline: sizing.size_160,
         paddingBlock: sizing.size_120,
-        backgroundColor: semanticColor.core.background.critical.default,
     },
-    dontText: {
+    barLabel: {
         color: KNOCKOUT,
+        // Let a longer explanation wrap instead of overflowing the bar.
+        flexShrink: 1,
+        minWidth: 0,
     },
 });
