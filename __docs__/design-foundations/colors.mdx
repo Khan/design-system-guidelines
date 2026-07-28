@@ -2,6 +2,7 @@ import {Meta} from "@storybook/addon-docs/blocks";
 import Principle, {PrincipleSet} from "../components/principle";
 import Color from "../components/ColorSwatch";
 import colorsImg from "./assets/colors/colors.png";
+import primitivesGrid from "./assets/colors/primitives-grid.png";
 import semanticTokensImg from "./assets/colors/semantic-tokens.png";
 import accessiblePairingsImg from "./assets/colors/accessible-pairings.png";
 
@@ -20,18 +21,18 @@ Color communicates meaning, directs attention, and reflects the brand. Our syste
 <PrincipleSet>
     <Principle
         label="Foundational"
-        title="Color enhances, never carries"
-        description="Color should support understanding — not be the only way to achieve it. Meaning must survive without it."
+        title="Color supports, never carries"
+        description="Color should enhance understanding, not be the only way to achieve it. Meaning must survive without it."
     />
     <Principle
         label="Intentional"
-        title="Color carries meaning"
+        title="Color has purpose"
         description="Every color in the product communicates something. When color is applied without intention, that meaning erodes. Use it deliberately, or not at all."
     />
     <Principle
         label="Restrained"
-        title="Restraint creates impact"
-        description="A palette used sparingly hits harder. Our primary blue is the most powerful signal in the UI — the more it appears, the less it means. Reserve it, and it works."
+        title="Restraint multiplies impact"
+        description="A palette used sparingly hits harder. Our primary blue is the most powerful signal in the UI — the more it appears, the less it means. Reserve it and it remains effective."
     />
     <Principle
         label="Systematic"
@@ -45,38 +46,28 @@ Color communicates meaning, directs attention, and reflects the brand. Our syste
     />
 </PrincipleSet>
 
-## Color palette
+## Palette
+### Primitives
 
-These are the core colors that define the product's visual identity. Lighter and darker stops of each color exist within the system, but these primary values are the foundation everything else is built from.
+These are the core colors that define the product's visual identity. Lighter and darker stops of each color exist within the system, but these primary values are the foundation upon which everything else is built.
 
-<div style={{display: "flex", flexWrap: "wrap", gap: "16px"}}>
-    <Color title="Blurple" hex="#5753FA" />
-    <Color title="Black" hex="#191918" />
-    <Color title="White" hex="#FFFFFF" />
-    <Color title="Cyan" hex="#28A9FF" />
-    <Color title="Green" hex="#579F6C" />
-    <Color title="Yellow" hex="#FCB706" />
-    <Color title="Orange" hex="#F8551A" />
-    <Color title="Magenta" hex="#E83FA4" />
-    <Color title="Red" hex="#E22D2D" />
-    <Color title="Gray" hex="#8A8B90" />
-</div>
+<img src={primitivesGrid} alt="Primitives color grid" />
 
-## Semantic tokens
+### Semantic tokens
 
-Semantic tokens are the color variables designers and engineers use to apply color across Khan Academy experiences. Rather than referencing raw hex values, tokens are named by intent — what a color does, not what it looks like. This makes it easier to apply color consistently, maintain accessibility, and update the system at scale.
+Semantic color tokens are reusable variables that allow us to apply color across the experience in a consistent, meaningful, and accessible way across Khan Academy experiences. Rather than referencing raw hex values, tokens are named by intent — the purpose a color serves, not what it looks like. These tokens make it easier to apply color consistently, maintain accessibility, and update the system at scale.
 
 <img src={semanticTokensImg} alt="Semantic tokens" />
 
 Tokens are organized by three properties:
 
--   **Layer** — what element you're coloring (background, foreground, border, or shadow)
+-   **Layer** — the element to which a color is applied (background, foreground, border, or shadow)
 -   **Context** — the meaning or purpose (instructive, success, critical, neutral, etc.)
 -   **Intensity** — the visual weight (subtle, default, or strong)
 
-When building in Figma, always apply color using semantic tokens rather than raw values or primitives.
+When working with color, always apply color using the semantic tokens. Never use hard-coded or primitive values.
 
-[Deep dive: Color tokens on Confluence](https://khanacademy.atlassian.net/wiki/spaces/WB/pages/3683221530/Color#Themes-and-Palettes)
+[Deep dive: Semantic Tokens](https://khanacademy.atlassian.net/wiki/spaces/WB/pages/3683221530/Color#Themes-and-Palettes)
 
 ## Usage guidelines
 
@@ -84,17 +75,13 @@ When building in Figma, always apply color using semantic tokens rather than raw
 
 Every color applied in a design — backgrounds, text, icons, borders, shadows — should use a semantic token. If you're reaching for a color swatch or hex value directly, stop and find the token instead.
 
-### Intent over appearance
+### Consistent intent over appearance
 
-Tokens are named for what they do, not what they look like. Choose based on the purpose of the element: guiding a primary action is Instructive, confirming a completed action is Success, signaling an error or destructive action is Critical. If the intent fits, the token is right.
+Tokens are named for what they do, not what they look like. Choose color that aligns with the purpose of the element: guiding a primary action is Instructive, confirming a completed action is Success, signaling an error or destructive action is Critical. If the intent fits, the token is right. A token that looks correct but carries the wrong meaning is still the wrong token. If you're using a Critical token because the red looks good, that's a misuse — users and the system will interpret it as an error state.
 
 ### No primitives or raw hex
 
 Primitive tokens and hex values are the raw ingredients that feed the token system — they're not meant to be applied directly in designs. Using them bypasses the system and breaks consistency across themes and components.
-
-### Matching intent is required
-
-A token that looks correct but carries the wrong meaning is still the wrong token. If you're using a Critical token because the red looks good, that's a misuse — users and the system will interpret it as an error state.
 
 ## Accessible pairings
 
@@ -102,15 +89,11 @@ All color combinations must meet minimum contrast ratios. The applicable contras
 
 <img src={accessiblePairingsImg} alt="Accessible pairings" />
 
-### 3:1 contrast ratio
-
--   Large Text (19–23px + bold weight | ≥ 24px)
--   Distinguishing borders or fills of controls
--   Critical graphics
-
-### 4.5:1 contrast ratio
-
--   Normal Text (≤ 18px)
+| 3:1 contrast ratio | 4.5:1 contrast ratio |
+| --- | --- |
+| Large Text (19–23px + bold weight | ≥ 24px) | Normal Text (≤ 18px)
+| Distinguishing borders or fills of controls |
+| Critical graphics |
 
 ### Recommended combinations
 
