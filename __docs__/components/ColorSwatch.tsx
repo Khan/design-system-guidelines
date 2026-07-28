@@ -146,9 +146,11 @@ export default function Color({
                                 </bdi>
                             </BodyText>
                         )}
-                        <BodyText tag="span" size="xsmall" style={styles.hex}>
-                            <code>{hex}</code>
-                        </BodyText>
+                        {!semanticToken && (
+                            <BodyText tag="span" size="xsmall" style={styles.hex}>
+                                <code>{hex}</code>
+                            </BodyText>
+                        )}
                     </View>
                 </View>
             )}
