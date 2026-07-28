@@ -27,7 +27,7 @@ Motion helps users understand what's happening — where something is going, wha
     <Principle
         label="Fast"
         title="Snappy, not sluggish"
-        description="Teachers are between tasks. Default durations should feel quick. Motion that holds up the interface is motion that fails."
+        description="Every user is between tasks, not settling in to watch an animation. Default durations should feel quick. Motion that holds up the interface is motion that fails."
     />
     <Principle
         label="Accessible"
@@ -43,11 +43,11 @@ Motion helps users understand what's happening — where something is going, wha
 
 ## Exceptions
 
-Two contexts in the product intentionally use more expressive motion. Both still follow the core principles — animate once, reset, respect reduced motion — but with greater range.
+Two contexts in the product intentionally use more expressive motion. Both still follow the core principles — animate once, reset, respect reduced motion — but with greater range, including occasionally exceeding the standard 5-second cap when the moment calls for it.
 
 ### Khanmigo
 
-Khanmigo is a character, and motion is part of what makes it feel alive and personable. Idle animations, reactions, and expressions are expected and encouraged. Animations should play once and reset; they should not loop indefinitely. Replay can be offered on interaction where it adds value.
+Khanmigo is a character, and motion is part of what makes it feel alive and personable. Reactions and expressions are expected and encouraged. Animations should play once and reset; they should not loop indefinitely. Replay can be offered on interaction where it adds value.
 
 <img src={exceptions1Img} alt="Khanmigo motion example" />
 
@@ -88,7 +88,7 @@ Some loading states should be deliberately crafted to reflect the weight of what
 
 Trigger on user action or on entering the viewport — not on a timer.
 After playing, animations should end on something representative of the message, likely the same or similar to the prefers-reduced-motion state. No looping.
-No animations should ever last more than 5 seconds to adhere to accessibility guidelines.
+Animations should stay under 5 seconds by default to adhere to accessibility guidelines. Exceeding this is rare and should be reserved for moments where the extra time serves a real purpose — an intentional loading state built to reflect the weight of what's happening, for example — not a default for routine interactions.
 
 <img src={usageGuidelines4Img} alt="Animation example" />
 

@@ -82,7 +82,7 @@ Use for: primary content cards, content panels, drawers, and components that nee
 
 A tint on an existing layer — not a new layer, just a marked zone within one. The contrast is intentionally subtle: enough to signal structure, not enough to imply depth.
 
-Use for: table header rows, page header backgrounds, and other contexts where a region needs to feel structurally distinct from adjacent content — without implying it's closer to the user than the surface it sits on.
+Use for: table header rows, page header backgrounds, page banners, and other contexts where a region needs to feel structurally distinct from adjacent content — without implying it's closer to the user than the surface it sits on.
 
 <Figure
     src={surface3Img}
@@ -94,7 +94,7 @@ Use for: table header rows, page header backgrounds, and other contexts where a 
 
 A semi-transparent overlay applied over the page when a modal or drawer is open. The scrim signals that the content beneath is behind and unavailable while the overlay requires attention.
 
-Use for: always paired with modal dialogs and drawers using Primary High elevation. Never use a scrim without a modal or drawer, and never open one without a scrim.
+Use for: always paired with modal dialogs and drawers using High elevation. Never use a scrim without a modal or drawer, and never open one without a scrim.
 
 <Figure
     src={surfaceScrimImg}
@@ -167,15 +167,17 @@ Use for: toasts and modals.
 
 ## Using surfaces and elevations together
 
-Surfaces and elevations are independent — either can be applied without the other — but they're often used in combination. A card uses Surface 2 (color lift) and Primary Low (shadow lift) together: the surface color distinguishes the card from the page background laterally, and the shadow establishes its perceived depth. Not every surface needs elevation, and not every elevated component needs a distinct surface color. The test is always whether the combination is communicating something real to the user or just adding visual complexity.
+Surfaces and elevations are independent — either can be applied without the other — but they're often used in combination. A card uses Surface 2 (color lift) and Low (shadow lift) together: the surface color distinguishes the card from the page background laterally, and the shadow establishes its perceived depth. Not every surface needs elevation, and not every elevated component needs a distinct surface color. The test is always whether the combination is communicating something real to the user or just adding visual complexity.
 
 | Component | Surface | Elevation |
 | --- | --- | --- |
-| Background | Surface 1 (or Surface 3) | Base |
-| Container card | Surface 2 | Base |
+| Background | Surface 1 | Base |
+| Page banner | Surface 3 | Base |
+| Container card | Surface 1 or 2 | Base |
 | Interactive card | Surface 2 | Low |
 | Popovers, tooltips | Surface 2 | Mid |
 | Alerts, modals | Surface 2 | High |
+| Scrim (always paired with Alerts, modals above) | Surface scrim | – |
 
 <img src={combinationsImg} alt="Two stacked-layer diagrams showing how surfaces and elevations combine, from the background at Surface 1 or Surface 3 with base elevation up to alerts and modals at Surface 2 with high elevation" />
 
@@ -206,7 +208,7 @@ Low is the default elevation, not a hover state. Interactive states are handled 
 
 ### Scrims belong with elevation high
 
-Modal dialogs using Primary High elevation should always be paired with a scrim over the underlying content. The scrim reinforces the spatial model — the page is behind and unavailable, the modal is above and requires attention. Don't use a scrim without a modal, and don't open a modal without a scrim.
+Modal dialogs using High elevation should always be paired with a scrim over the underlying content. The scrim reinforces the spatial model — the page is behind and unavailable, the modal is above and requires attention. Don't use a scrim without a modal, and don't open a modal without a scrim.
 
 <img src={usageScrimHighImg} alt="A modal dialog at high elevation paired with a scrim dimming the page behind it" />
 
@@ -214,7 +216,7 @@ Modal dialogs using Primary High elevation should always be paired with a scrim 
 
 ### Shadow alone is not enough
 
-Users with low vision, in high-contrast mode, or on poorly calibrated displays may not perceive shadow. Surface color must communicate boundaries without relying on shadow, and text on Surface Base 2 or Base 3 must meet WCAG contrast requirements against those specific backgrounds — not just against Base 1.
+Users with low vision, in high-contrast mode, or on poorly calibrated displays may not perceive shadow. Surface color must communicate boundaries without relying on shadow, and text on Surface 2 or Surface 3 must meet WCAG contrast requirements against those specific backgrounds — not just against Surface 1.
 
 ### Elevation does not replace focus rings
 
@@ -222,8 +224,4 @@ A component that appears elevated does not have an inherent focus state. Focus r
 
 ### Modal dialogs must trap and restore focus
 
-Components using Primary High elevation that create a modal context must trap keyboard focus within the overlay — focus must not be reachable on the dimmed content underneath. When the modal closes, focus must return to the element that opened it.
-
----
-
-<a href="https://www.figma.com/design/G9Yxa0SOlALS078wtq87cM/Design-system-guidelines---Thunderblocks?node-id=12444-40709" target="_blank" rel="noopener noreferrer">Figma source</a>
+Components using High elevation that create a modal context must trap keyboard focus within the overlay — focus must not be reachable on the dimmed content underneath. When the modal closes, focus must return to the element that opened it.
