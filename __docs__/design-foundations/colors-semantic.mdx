@@ -11,20 +11,20 @@ import accessiblePairingsImg from "./assets/colors/accessible-pairings.png";
 <img src={colorsImg} alt="Colors" />
 
 # Semantic Tokens
-Semantic color tokens are second tier of abstraction that organizes color by concept and purpose they serve within the system / our interfaces. When working with color, Core tokens are the preferred tokens set to use in Designs and Code.
+Semantic color tokens are a second tier of abstraction that organizes color by concept and purpose they serve within the system / our interfaces. When working with color, Core tokens are the preferred tokens set to use in Designs and Code.
 
 ## Schema
 
 Within the semantic palette, tokens are organized using the following schema:
 
-**Domain**
-- Layer
-    - Context
-        - Intensity
+- Domain
+    - Layer
+        - Context
+            - Intensity
 
 ### Domain
 
-A domain represents the scope, role, or application of a collection of tokens within the system. Wonder Blocks color tokens have four domains: Core, Learning, Internal, Graphics, and Data Visualization.
+A domain represents the scope, role, or application of a collection of tokens within the system. Wonder Blocks color tokens have 4 domains: Core, Learning, Internal, and Graphics.
 
 ### Layer
 
@@ -57,13 +57,11 @@ Within each layer, tokens are organized by context — the expected application 
 
 | Core | Learning | Internal | Graphics |
 | --- | --- | --- | --- |
-| <li>Base</li><li>Instructive</li><li>Neutral</li><li>Disabled</li><li>Success</li><li>Warning</li><li>Critical</li><li>Knockout</li><li>Overlay</li> | <li>Math</li><li>Gems </li><li>Streaks</li><li>Due</li><li>Mastery / Progress</li><li>Role</li> | <li>Action (Figma use only)</li><li>Feedback</li><li>Focus</li><li>Input</li><li>Link</li><li>Progress (not in code yet)</li><li>Tiles (not in code yet) | <li>Palette</li><li>Characters</li><li>External Brands</li><li>Gems</li><li>Progress</li><li>Role</li><li>Streaks</li><li>Neutral |
+| <ul><li>Base</li><li>Instructive</li><li>Neutral</li><li>Disabled</li><li>Success</li><li>Warning</li><li>Critical</li><li>Knockout</li><li>Overlay</li></ul> | <ul><li>Math</li><li>Gems </li><li>Streaks</li><li>Due</li><li>Mastery / Progress</li><li>Role</li></ul> | <ul><li>Action (Figma use only)</li><li>Feedback</li><li>Focus</li><li>Input</li><li>Link</li><li>Progress (not in code yet)</li><li>Tiles (not in code yet)</li></ul> | <ul><li>Palette</li><li>Characters</li><li>External Brands</li><li>Gems</li><li>Progress</li><li>Role</li><li>Streaks</li><li>Neutral</li></ul> |
 
 ### Intensity Scale
 
-The intensity scale provides three values available to use within each Context. The intensity is determined by the amount of contrast and visual weight a given value has relative to the Core Base Default token, which serves as the anchor color from which the Subtle and Strong values are determined. Subtle intensity has lowest contrast against and Strong intensity has the highest contrast against this anchor value. 
-
-[Learn more about the contrast ratios for Core tokens →]()
+The intensity scale provides three values available to use within each Context. The intensity is determined by the amount of contrast and visual weight a given value has relative to the Core Base Default token, which serves as the anchor color from which the Subtle and Strong values are determined. Subtle intensity has lowest contrast against and Strong intensity has the highest contrast against this anchor value.
 
 ### Example
 
@@ -139,7 +137,7 @@ When patterns of color use emerge across components or categories of components,
 
 ### Contexts
 
-Learning token Layers share the following 5 contexts:
+Learning token Layers share the following 6 contexts:
 
 - Math
 - Gems
