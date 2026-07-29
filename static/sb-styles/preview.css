@@ -80,6 +80,7 @@ is needed to beat Storybook's runtime-injected emotion rules. */
     background-color: var(--wb-semanticColor-core-border-neutral-subtle);
     padding: 2.4rem;
     text-align: left;
+    vertical-align: middle;
 }
 
 .sbdocs .sbdocs-content table tr,
@@ -98,6 +99,7 @@ so they don't double up against the table border. */
     border: none;
     border-bottom: 1px solid #cbcbcd;
     border-inline-end: 1px solid #cbcbcd;
+    vertical-align: top;
 }
 
 .sbdocs .sbdocs-content table th:last-child,
@@ -107,6 +109,10 @@ so they don't double up against the table border. */
 
 .sbdocs .sbdocs-content table tbody tr:last-child td {
     border-bottom: none;
+}
+
+.sbdocs .sbdocs-content table td li {
+    margin-inline-start: var(--wb-sizing-size_160);
 }
 
 .sbdocs {
