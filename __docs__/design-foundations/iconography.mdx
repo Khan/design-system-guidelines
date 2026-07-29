@@ -54,7 +54,7 @@ Phosphor provides icons in six weights: Thin, Light, Regular, Bold, Fill, and Du
 
 ## Sizes and weights
 
-Icon size and weight are paired. The correct weight for any icon is determined by its rendered size — not by surrounding context, emphasis, or preference. If a design calls for an icon at a size not mentioned below like 18px or 22px, round to the nearest approved size. Off-scale icons break the size–weight pairing rule and may introduce rendering artifacts.
+Icon size and weight are paired. In most cases, the correct weight for any icon is determined by its rendered size, not by preference or visual taste — a small, named set of emphasis-based exceptions exist and are called out below. If a design calls for an icon at a size not mentioned below like 18px or 22px, round to the nearest approved size. Off-scale icons break the size–weight pairing rule and may introduce rendering artifacts. This table reflects Phosphor's size–weight pairings. Custom icons (Gem, Class, Role, Subject, Mastery, Content type) generally follow the same size scale, but some appear at additional sizes with their own visual treatment rather than a Bold/Regular/Fill weight — see Custom icons below.
 
 | Size | Weight | Typical use |
 | --- | --- | --- |
@@ -62,10 +62,9 @@ Icon size and weight are paired. The correct weight for any icon is determined b
 | 16px | Bold | Inputs, selects, badges, checkboxes, radio buttons, inline status indicators, conversation buttons, info icon when inline with text or heading |
 | 20px | Bold | Buttons, banners, toasts, standalone icon-only actions (ex. close, back, info) |
 | 24px | Regular | Icon buttons, metric button, Khanmigo within search field, class icons, role icons in role switcher view, subject icons |
-| 40px | – | Role icons |
 | 48px | Regular | Large icon — e.g., the PDF icon shown after a file is added via drag-and-drop, indicating the file type |
 
-Weight exception: low-emphasis affordance icons such as resize handles and drag grips may use Regular where Bold reads as too visually heavy for a background interaction cue. High-emphasis confirmation actions such as the primary CTA check icon may use Bold to ensure the icon reads clearly against a filled background.
+Emphasis exception: two named cases override the size-based weight. Low-emphasis affordance icons such as resize handles and drag grips may use Regular where Bold reads as too visually heavy for a background interaction cue. High-emphasis confirmation actions such as the primary CTA check icon may use Bold to ensure the icon reads clearly against a filled background. Outside of these two named cases, don't adjust weight for emphasis or preference.
 
 ## Usage guidelines
 
@@ -85,13 +84,13 @@ Icons that represent universal, well-understood actions (close, search, back) ma
 
 ### Only Regular, Bold, and Fill weights are approved for use
 
-Thin and Light are too delicate for product UI and fail contrast requirements at small sizes. Duotone introduces two-color complexity that conflicts with our single-color icon system. Fill is reserved exclusively for active or selected states — never use it for decoration, emphasis, or stylistic variation. Components without a toggled or selected state should always use Regular or Bold.
+Thin and Light are too delicate for product UI and fail contrast requirements at small sizes. Duotone introduces two-color complexity that conflicts with Phosphor's single-color icon system used here. Fill is reserved exclusively for active or selected states — never use it for decoration, emphasis, or stylistic variation. Components without a toggled or selected state should always use Regular or Bold.
 
 <img src={usageGuidelines3Img} alt="Visual represenation of which icon weights can be utilized" />
 
 ## Custom icons
 
-A small set of icons exist outside the Phosphor library. These represent concepts specific to Khan Academy that have no suitable equivalent in Phosphor. Custom icons follow the same size, weight, and color rules as Phosphor icons but are maintained separately in the design system.
+A small set of icons exist outside the Phosphor library. These represent concepts specific to Khan Academy that have no suitable equivalent in Phosphor. Custom icons generally follow the same size scale as Phosphor icons but are maintained separately in the design system. Phosphor's weight and single-color rules don't apply here — custom icons are standalone assets, and some intentionally use more than one color where it aids recognition (see Role icons below).
 
 ### Gem
 
@@ -120,13 +119,15 @@ Each subject has a unique icon used to identify it across the product. Subject i
 
 ### Class icons
 
-Every class is assigned a unique shape that travels with it across the product. This is the most meaningful use of shapes — the form carries the object's identity.
+When a class is created, it's automatically assigned a shape from a fixed set. The assignment is random, but no shape repeats until every shape in the set has been used once — then the cycle starts over. There is currently no option for users to choose or change their class's shape.
+
+The shape must always appear paired with the class name — never as a standalone identifier. A shape alone isn't enough to reliably communicate which class it represents; paired with the name, it becomes a fast, recognizable visual anchor that travels with the class across the product.
 
 <img src={classImg} alt="Class icons shown as simpler shapes or shape groupings" />
 
 ### Role icons
 
-Each role — Administrator, Teacher, and Learner — has a distinct shape used as its profile icon throughout the product. The shape makes it easy to identify and switch between roles, especially for users who hold multiple roles.
+Each role — Administrator, Teacher, Learner, and Parent — has a distinct shape used as its profile icon throughout the product. The shape makes it easy to identify and switch between roles, especially for users who hold multiple roles.
 
 <img src={roleImg} alt="Two-tone styled icons for user roles" />
 

@@ -77,7 +77,7 @@ If a layout feels crowded and adding more space doesn't help, the problem is lik
 
 ### Component spacing is already handled
 
-Spacing within components (the padding inside a button, the gap between a label and its input) is defined by the component and shouldn't be overridden. What designers control is the space between components in a layout. If a layout feels off, the fix is almost always in the gaps between components, not inside them.
+Spacing within pre-built system components (like the padding inside a Button) is defined by the component and shouldn't be overridden. What designers control is the space between components in a layout, and the space within groupings they compose themselves — see Grouped content below. If a layout feels off, the fix is almost always in the gaps between components, not inside them.
 
 ### Negative space is a design decision
 
@@ -87,45 +87,45 @@ A large region of intentional emptiness can do real work — focus attention, si
 
 There are several types of spacing we can use to place elements within layouts and components. Although you're most likely going to use them all when designing your products, it's important to know what types of spacing are commonly used.
 
-<img src={paddingImg} alt="Padding illustration" />
-
 ### Padding
 
 Padding is the distance between the outside edge of an element and the content inside of it.
 
-<img src={gapImg} alt="Gap illustration" />
+<img src={paddingImg} alt="Padding illustration" />
 
 ### Gap
 
 Gap is the space between elements inside a container. Unlike padding, it doesn't affect the distance to the container's edge, it only controls how far apart the elements inside are from each other.
 
-<img src={marginsImg} alt="Margins illustration" />
+<img src={gapImg} alt="Gap illustration" />
 
 ### Margins
 
 Margins are the space around the outside edge of a component.
 
+<img src={marginsImg} alt="Margins illustration" />
+
 ## Spacing examples
 
 Here are some examples of use which might help guide your decisions when applying spacing within your designs. These are just suggestions, not strict rules you must follow. If you are unsure about what spacing works best between the components of your design you can use the following examples as a reference point.
-
-<img src={layoutSpacingImg} alt="Layout spacing example" />
 
 ### Layout spacing
 
 Make sure to use vertical spacing as a way to create meaningful blocks of content, using bigger and smaller spaces to improve the visual hierarchy of your layout and to keep a consistent vertical rhythm within the page.
 
+<img src={layoutSpacingImg} alt="Layout spacing example" />
+
+### Grouped content
+
+When you're composing a custom grouping — a card, a module, a section of related content — use padding and gap consistently to create a clear visual hierarchy. Smaller values bring related elements closer together; larger values signal separation between distinct content areas. This is different from spacing inside a pre-built system component (a Button, an Input) — that's fixed by the component and isn't yours to adjust; see Component spacing is already handled above.
+
 <img src={componentSpacingImg} alt="Component spacing example" />
-
-### Component spacing
-
-Use padding and gap consistently within components to create a clear visual hierarchy. Smaller values bring related elements closer together; larger values signal separation between distinct content areas.
-
-<img src={typographySpacingImg} alt="Typography spacing example" />
 
 ### Typography spacing
 
 When using spacing between typographic elements, try to prioritise legibility. You can also use spacing to dictate the visual hierarchy of your text, using tighter spaces to create blocks of content and bigger spaces to separate unrelated content.
+
+<img src={typographySpacingImg} alt="Typography spacing example" />
 
 ## Accessibility
 
@@ -135,7 +135,7 @@ Because the scale uses relative units, spacing grows proportionally when a user 
 
 ### Touch targets require minimum spacing
 
-Interactive elements placed close together must still meet minimum target sizes (24×24px). When interactive elements fall below the minimum size, ensure the control and space between other elements meets the minimum size — padding within the component maintains the target size even when the control components are small.
+Interactive elements placed close together must still meet minimum target sizes (24×24px). When interactive elements fall below the minimum size, ensure the control and space between other elements meets the minimum size — padding within the component maintains the target size even when the control components are small. Pre-built system components already handle this. If you're designing a new component to contribute to the system, this is one of the rules that component needs to satisfy.
 
 ### Whitespace aids readability for cognitive accessibility
 

@@ -11,6 +11,8 @@ import states1Img from "./assets/badges/states-1.png";
 import states2Img from "./assets/badges/states-2.png";
 import states3Img from "./assets/badges/states-3.png";
 import states4Img from "./assets/badges/states-4.png";
+import states5Img from "./assets/badges/states-5.png";
+import iconography1Img from "./assets/badges/iconography-1.png";
 import placement1Img from "./assets/badges/placement-1.png";
 import placement2Img from "./assets/badges/placement-2.png";
 import placement3Img from "./assets/badges/placement-3.png";
@@ -20,6 +22,7 @@ import scoreToStatusMapping3Img from "./assets/badges/score-to-status-mapping-3.
 import copy1Img from "./assets/badges/copy-1.png";
 import copy2Img from "./assets/badges/copy-2.png";
 import copy3Img from "./assets/badges/copy-3.png";
+import copy4Img from "./assets/badges/copy-4.png";
 import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
 
 <Meta title="Design Guidelines / Components / Feedback / Badges" />
@@ -103,13 +106,23 @@ Do use this badge to communicate how many gems can be earned by completing the t
 
 <img src={variants7Img} alt="Variants 7" />
 
-## States
+## What goes inside the badge
 
-### Communicating with text
+Badges highlight only the noteworthy fact — not everything around it. What goes inside the badge depends on what it's representing.
 
-Do prioritize text within badges to communicate meaning, as it provides the clearest context and is accessible to all users. Don’t rely on icons alone; reserve icon-only badges for universally understood null indicators, such as a dash (—) for "No data" or "Not assigned."
+### Status and category badges
 
-<img src={states1Img} alt="States 1" />
+When the badge represents a discrete status with no separate number attached — Draft, Published, Complete, Integrity violation — the full short label belongs inside the badge. There's nothing to separate out; the label itself is the entire fact.
+
+<img src={states1Img} alt="Status and category badges with the full label inside: Integrity violation, Unactivated, Activated" />
+
+### Value and trend badges
+
+When the badge represents a number, percentage, or directional change, keep only the value and its icon inside the badge (↓ -6.3%, ↑ 12%) — or the icon alone when there's no specific number to show. Any text describing what the value refers to (a time period, a category) is a caption explaining the fact, not the fact itself, and stays outside the badge as plain text.
+
+<img src={states5Img} alt="Value and trend badges: keep only the value and icon inside (↓ -6.3%, ↑ 12%) with the describing label as plain text outside, rather than bundling the label into the badge" />
+
+## Iconography
 
 ### When to include icons
 
@@ -117,37 +130,23 @@ Do include an icon only if it instantly conveys the same meaning as the text (a 
 
 <img src={states2Img} alt="States 2" />
 
+### Truly standalone icons
+
+A bare icon with no supporting text anywhere nearby should be reserved for universally understood null indicators, such as a dash (—) for "No data" or "Not assigned."
+
+<img src={iconography1Img} alt="Do and don't examples of standalone icon badges: a bare dash for null data is acceptable, while icon-only trend and status badges without text are not" />
+
 ### Conditional success and warning icon use
 
 Success and warning badges allow for icon variations only to show an up arrow or down arrow when directly indicative of metrics that have gone up or down. For all other use cases, they must use the default system icon.
 
-<img src={states3Img} alt="States 3" />
+<img src={states3Img} alt="Conditional success and warning icon use: default system icons and up or down arrows for metric changes are acceptable; arbitrary icons such as a diagonal arrow or confetti are not" />
 
 ### Fixed icon sets
 
 The icons used in critical, gem, and time status badges serve as foundational system identifiers and should not be altered.
 
 <img src={states4Img} alt="States 4" />
-
-## Placement
-
-### Position
-
-For inline labels (next to a title or metric), place the badge directly after the text it classifies, maintaining vertical alignment with the text baseline.
-
-<img src={placement1Img} alt="Placement 1" />
-
-### Component position
-
-For component statuses (summarizing a card), align the badge to the far-right edge of the component's content area.
-
-<img src={placement2Img} alt="Placement 2" />
-
-### Within tables
-
-For tables, do set a minimum fixed width for all badges within a single column. This minimum width must be sufficient to contain the longest anticipated badge label (e.g., "In progress") to ensure the column's vertical line remains consistent and prevents visual jitter when users scan the data.
-
-<img src={placement3Img} alt="Placement 3" />
 
 ## Score to status mapping
 
@@ -183,6 +182,12 @@ Keep text to a maximum of 3 words so the user can process the information instan
 Do describe the status in the most neutral and factual way possible.
 
 <img src={copy2Img} alt="Copy 2" />
+
+### Sentence case
+
+To be consistent with UX copy guidelines, use sentence case.
+
+<img src={copy4Img} alt="Sentence case badge copy: 'Flagged by moderation' is correct, 'Flagged By Moderation' is not" />
 
 ### Punctuation
 

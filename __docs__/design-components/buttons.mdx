@@ -4,7 +4,6 @@ import variants1Img from "./assets/buttons/variants-1.png";
 import variants2Img from "./assets/buttons/variants-2.png";
 import variants3Img from "./assets/buttons/variants-3.png";
 import states1Img from "./assets/buttons/states-1.png";
-import states2Img from "./assets/buttons/states-2.png";
 import states3Img from "./assets/buttons/states-3.png";
 import states4Img from "./assets/buttons/states-4.png";
 import states5Img from "./assets/buttons/states-5.png";
@@ -17,8 +16,14 @@ import copy4Img from "./assets/buttons/copy-4.png";
 import copy5Img from "./assets/buttons/copy-5.png";
 import copy6Img from "./assets/buttons/copy-6.png";
 import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
-import Button from "@khanacademy/wonder-blocks-button";
+import Button, {ActivityButton} from "@khanacademy/wonder-blocks-button";
+import {ActivityIconButton} from "@khanacademy/wonder-blocks-icon-button";
+import {View} from "@khanacademy/wonder-blocks-core";
+import checkSquareOffsetBold from "@phosphor-icons/core/bold/check-square-offset-bold.svg";
+import pencilBold from "@phosphor-icons/core/bold/pencil-bold.svg";
 import Demo from "../components/Demo";
+
+export const barImageStyle = {width: "100%", display: "block", margin: 0};
 
 <Meta title="Design Guidelines / Components / Buttons / Buttons" />
 
@@ -46,7 +51,7 @@ The choice to use a button is determined by the need to prompt the user to perfo
 | Don’t use when | Recommended alternative | Rationale |
 | --- | --- | --- |
 | The action is inline within a body of text | Text link | Buttons interrupt reading flow. Inline actions should use a text link. |
-| The action is a page-level navigation item | Tabs or nav link | Buttons imply an action with an outcome. Switching between views is navigation, not an action. |
+| The action switches between independent, persistent views (site sections, main nav) | Tabs or nav link | Buttons imply an action with an outcome. This is site navigation, not a task action — different from moving through steps within a single flow (see Tertiary button). |
 | The outcome is revealing options, not executing an action | Dropdown or overflow menu | A button implies something will happen immediately. If the result is showing more choices, use a dropdown or menu pattern instead. |
 
 ## Variants
@@ -57,10 +62,12 @@ Used for one, single critical action that completes the workflow (Submit, Start)
 Don’t use more than one per visible screen area.
 
 <Demo>
-    <Button kind="primary" onClick={() => {}} style={{transform: "scale(1.2)"}}>Primary Button</Button>
+    <Button kind="primary" onClick={() => {}} style={{transform: "scale(1.2)"}}>Primary button</Button>
 </Demo>
 
-<img src={variants1Img} alt="Variants 1" />
+<Demo type="dont" style={{paddingInline: 0, paddingBlock: 0}}>
+    <img src={variants1Img} alt="Variants 1" style={barImageStyle} />
+</Demo>
 
 ### Secondary button
 
@@ -69,23 +76,50 @@ Can be used multiple times on a page if actions are of equal importance.
 Don’t use it for navigation or low-value trivial actions (View details, Preview).
 
 <Demo>
-    <Button kind="secondary" onClick={() => {}} style={{transform: "scale(1.2)"}}>Secondary Button</Button>
+    <Button kind="secondary" onClick={() => {}} style={{transform: "scale(1.2)"}}>Secondary button</Button>
 </Demo>
 
-<img src={variants2Img} alt="Variants 2" />
+<Demo type="dont" style={{paddingInline: 0, paddingBlock: 0}}>
+    <img src={variants2Img} alt="Variants 2" style={barImageStyle} />
+</Demo>
 
 ### Tertiary button
 
-Used exclusively for low-priority actions that change the state on the current screen. Do use for actions that abandon or exit the current workflow (cancel, exit, close), for simple movement backward or through a defined flow (previous, back, next step), or for actions that branch into an optional setup or preference setting (customize, advanced settings).
+Used exclusively for low-priority actions that change the state on the current screen. Do use for actions that abandon or exit the current workflow (cancel, exit, close), for simple movement backward or through a defined flow (previous, back, next step), or for actions that branch into an optional setup or preference setting (customize, advanced settings). This is flow navigation — advancing through steps within a single task — not the page-level navigation described in "When NOT to use"; switching between independent, persistent views should still use Tabs or a nav link.
 Avoid styling links as buttons (e.g., a "Read more" button). To maintain accessibility and meet user expectations, designers and developers must ensure each is coded correctly: links go places, while buttons do things. Confusing these functions breaks core navigation logic and creates significant barriers for users with disabilities.
 
 <Demo>
-    <Button kind="tertiary" onClick={() => {}} style={{transform: "scale(1.2)"}}>Tertiary Button</Button>
+    <Button kind="tertiary" onClick={() => {}} style={{transform: "scale(1.2)"}}>Tertiary button</Button>
 </Demo>
 
-<img src={variants3Img} alt="Variants 3" />
+<Demo type="dont" style={{paddingInline: 0, paddingBlock: 0}}>
+    <img src={variants3Img} alt="Variants 3" style={barImageStyle} />
+</Demo>
 
-## States
+### Neutral button
+
+Neutral tokens help preserve hierarchy balance when multiple kinds of elements with differing visual weights are present in a view. Single-use icon buttons — like an X (close), a back button, or an info icon — should be neutral, not primary/blue. Our current application of them is for icon-only tertiary buttons.
+
+Neutral text buttons are not currently in use. If a use case arises, please reach out to the #design-infra group with your rationale.
+
+<Demo type="dont" style={{gap: "16px", flexDirection: "row", flexWrap: "wrap", justifyContent: "center"}}>
+    <Button actionType="neutral" kind="primary" onClick={() => {}}>Primary button</Button>
+    <Button actionType="neutral" kind="secondary" onClick={() => {}}>Secondary button</Button>
+    <Button actionType="neutral" kind="tertiary" onClick={() => {}}>Tertiary button</Button>
+</Demo>
+
+### Destructive button
+
+Used for permanent, irreversible actions, typically styled with a critical color (e.g., "Delete Class Roster").
+Don’t use red for simple errors or warning, or non-destructive actions.
+
+<img src={states3Img} alt="States 3" />
+
+## Sizing
+
+### Default buttons
+
+{/* TODO: describe default button sizing and when to use it */}
 
 ### Small buttons
 
@@ -94,36 +128,58 @@ Space is constrained: Ideal for actions nested within confined areas like cells 
 Hierarchical balance is needed: Helps avoid "button fatigue" when prominent primary or secondary CTAs are already present, allowing the user to focus on the main task while keeping utilities available.
 Utility-based actions: Perfect for "micro-actions" within a larger workflow, such as table column headings that trigger modals, linking accounts in settings, or batch actions like "Select All."
 
-<img src={states1Img} alt="States 1" />
+<Demo>
+    <Button kind="tertiary" size="small" onClick={() => {}}>Small button</Button>
+</Demo>
 
-### Neutral buttons
+<Demo type="do" style={{paddingInline: 0, paddingBlock: 0}}>
+    <img
+        src={states1Img}
+        alt="A small 'Set reward' button used inside a compact Gem challenge card"
+        style={barImageStyle}
+    />
+</Demo>
 
-Neutral tokens help preserve hierarchy balance when multiple kinds of elements with differing visual weights are present in a view. Our current application of them is for icon-only tertiary buttons.
-Neutral text buttons are not currently in use. If a use case arises, document the rationale before applying.
+### Width
 
-<img src={states2Img} alt="States 2" />
+By default, buttons should hug their content — sized to fit the label plus consistent padding, never wider than necessary. Full-width is the exception, not the default, and should be used deliberately.
 
-### Destructive state
+**Mobile and narrow viewports:** On mobile or in single-column layouts (forms, modals, bottom sheets), stretch the primary action to full-width. This gives it a larger, easier-to-hit target and reinforces it as the clear next step in a constrained space.
 
-Used for permanent, irreversible actions, typically styled with a critical color (e.g., "Delete Class Roster").
-Don’t use red for simple errors or warning, or non-destructive actions.
+**Desktop and wide layouts:** Avoid full-width buttons on desktop unless the button lives inside a narrow container (a sidebar, a card). A full-width button in a wide layout reads as visually heavy and can look like an error state rather than an intentional choice.
 
-<img src={states3Img} alt="States 3" />
+**Grouped buttons:** When multiple buttons appear together (Cancel / Save), keep them hug-width and let them sit side-by-side — full-width only applies when a single button occupies its own row.
 
-### Disabled state
+Don't stretch a button to full-width just to fill unused horizontal space. Width should communicate intent — this is the primary, unmissable action — not just close a layout gap.
+
+## States
+
+### Disabled
 
 Use disabled buttons in cases when you need to prevent a user from acting on items where the action is functionally impossible or forbidden, such as a "Submit" button when previewing an activity.
 Don’t use a disabled button to communicate when conditions for progressing or successfully taking action are not met.
 
-<img src={states4Img} alt="States 4" />
+<Demo>
+    <Button kind="primary" disabled onClick={() => {}} style={{transform: "scale(1.2)"}}>Primary button</Button>
+</Demo>
 
-### Iconography
+<Demo type="dont" style={{paddingInline: 0, paddingBlock: 0}}>
+    <img src={states4Img} alt="States 4" style={barImageStyle} />
+</Demo>
+
+### Loading
+
+Coming soon
+
+## Iconography
 
 Do use an icon if the icon symbolizes the result or category of the action and the icon conveys the same meaning as the text in milliseconds. This helps improve its clarity.Omit if the button works just as well without the icon.
-Icon placement: Icon set to “start” is to indicate action, focus, and category. Icon set to “end” indicates status, direction, or change in context. 
-Icon-only buttons: Do use them only for universally understood actions (search, settings, close, edit) And use the Neutral action (not Progressive).
+Icon placement: Icon set to “start” is to indicate action, emphasis, and category. Icon set to “end” indicates status, direction, or change in context. 
+Icon-only buttons: Do use them only for universally understood actions (search, settings, close, edit) And use the Neutral action (not Progressive/the default color).
 
 <img src={states5Img} alt="States 5" />
+
+## Special cases
 
 ### Buttons for learners
 
@@ -132,7 +188,27 @@ Primary and secondary are reserved for promoting action within the core learning
 Icon buttons are specific to quick tools and actions within the practice/learning mode experience.
 Gem and unlock buttons are for indicating a students total life gems and to notify when they have unlocked a new accessory.
 
-<img src={states6Img} alt="States 6" />
+<Demo>
+    <View style={{gap: "16px", alignItems: "center"}}>
+        <ActivityButton kind="primary" onClick={() => {}}>Primary button</ActivityButton>
+        <ActivityButton kind="secondary" onClick={() => {}}>Secondary button</ActivityButton>
+    </View>
+</Demo>
+
+<Demo>
+    <View style={{flexDirection: "row", gap: "16px", alignItems: "center"}}>
+        <ActivityIconButton kind="primary" icon={checkSquareOffsetBold} label="Check" onClick={() => {}} />
+        <ActivityIconButton kind="secondary" actionType="neutral" icon={pencilBold} label="Draw" onClick={() => {}} />
+    </View>
+</Demo>
+
+<Demo style={{paddingInline: 0, paddingBlock: 0}}>
+    <img
+        src={states6Img}
+        alt="A gem count button showing 542 gems and a 'New unlock' button"
+        style={barImageStyle}
+    />
+</Demo>
 
 ## Placement
 
@@ -147,13 +223,23 @@ The Primary button should be placed in the most visible and logical position for
 If bundled together, the actions should be ordered from lowest priority to highest priority. This helps ensure that the final decision the user makes is the most important one.
 Group related actions together. In a modal or form, the order should generally be: [Secondary: Cancel/Back] followed by [Primary: Submit/Save].
 
-<Demo style={{gap: "16px", flexDirection: "row"}}>
-    <Button kind="tertiary" onClick={() => {}}>Tertiary Button</Button>
-    <Button kind="secondary" onClick={() => {}}>Secondary Button</Button>
-    <Button kind="primary" onClick={() => {}}>Primary Button</Button>
+<Demo style={{gap: "16px", flexDirection: "row", flexWrap: "wrap", justifyContent: "center"}}>
+    <Button kind="tertiary" onClick={() => {}}>Tertiary button</Button>
+    <Button kind="secondary" onClick={() => {}}>Secondary button</Button>
+    <Button kind="primary" onClick={() => {}}>Primary button</Button>
 </Demo>
 
+**When there are too many buttons:** Cap a visible button group at two, occasionally three, when every action genuinely needs equal prominence (Cancel / Save / Save and close). Beyond three, the group stops reading as a hierarchy and starts reading as a list of options.
+
+**Rule of thumb:** If a user has to scan more than three buttons to find the one they want, buttons aren't helping them decide quickly anymore — that's what a menu is for. Consolidate the lower-priority actions into a dropdown or overflow menu, and keep only the single most important action as a standalone button.
+
 ## Copy
+
+### Brevity
+
+Aim for 1-3 words. The text must be immediately scannable.
+
+<img src={copy3Img} alt="Copy 3" />
 
 ### Action focus
 
@@ -168,12 +254,6 @@ Button labels must be a single action phrase. Descriptive or explanatory text mu
 Buttons communicate an action, not context. If users need more information before acting, provide it through helper text, tooltips, or a confirmation dialog — not inside the button label itself.
 
 <img src={copy2Img} alt="Copy 2" />
-
-### Brevity
-
-Aim for 1-3 words. The text must be immediately scannable.
-
-<img src={copy3Img} alt="Copy 3" />
 
 ### Sentence case
 
@@ -192,7 +272,3 @@ Do not use periods, question marks, or exclamation points at the end of button t
 Always use logically paired verbs for opposite actions, as the choice clarifies the type of movement. Previous / Next is used for simple, non-committing pagination through lists or sequences. Back / Next or Back / Continue is used for advancing through procedural flows like multi-step forms or wizards. Never mix terms from different pairs (e.g., avoid "Previous/Continue").
 
 <img src={copy6Img} alt="Copy 6" />
-
----
-
-[Figma source](https://www.figma.com/design/G9Yxa0SOlALS078wtq87cM/Design-system-guidelines---Thunderblocks?node-id=13456-13419&t=6lEHCsAo03k7G4Lr-4)
