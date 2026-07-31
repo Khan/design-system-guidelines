@@ -11,7 +11,9 @@ import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
 
 # Progress stepper
 
-<NeutralBadge label="Multi-step flow" /> Communicates a user's position within a multi-step, sequential flow, signaling how much of the process remains. Two variants exist based on flow complexity and page context.
+<NeutralBadge label="Multi-step flow" />
+
+Communicates a user's position within a multi-step, sequential flow, signaling how much of the process remains. Two variants exist based on flow complexity and page context.
 
 ## When to use
 
@@ -38,7 +40,7 @@ The choice to use a progress stepper is determined by the need to guide a user t
 Segmented bars + numeric counter. No step labels. These are visual indicators only, they are not clickable to navigate between.
 Use for lightweight, motivational flows like onboarding where steps don't need to be named.
 
-Anchored - bottom left
+Anchored - bottom left, since onboarding and similar lightweight flows are typically a full-screen takeover, where the stepper works as a subtle background indicator rather than persistent navigation.
 
 <img src={variants1Img} alt="Variants 1" />
 
@@ -47,17 +49,13 @@ Anchored - bottom left
 Named steps with completion indicators and a progress underline. 
 Use when steps have distinct names, the flow is task-critical, or a user may need to navigate back to a previous step.
 
-Anchored - center top nav
+Anchored - center top nav, since these flows live within the main product UI (like the assign content flow) as a persistent, in-context indicator rather than an overlay.
 
 <img src={variants2Img} alt="Variants 2" />
 
 ## Copy
 
 Applies to step labels in the complex variant only.
-Keep labels to 1–2 words. Use nouns, not verbs — the label orients the user, it doesn't instruct them. Write in sentence case.
+Keep labels to 1–2 words, favoring a single word whenever it stands on its own — reach for two only when one word isn't clear enough. Labels should name the stage rather than instruct the user. Many words work as both nouns and verbs (Review, Order) — that's fine as long as the label reads as the name of the step, not a command ("Review," not "Review & assign"; "Order", not "Set order"). Write in sentence case.
 
 <img src={copyImg} alt="Copy" />
-
----
-
-[Figma source](https://www.figma.com/design/G9Yxa0SOlALS078wtq87cM/Design-system-guidelines---Thunderblocks?node-id=13456-29014)
