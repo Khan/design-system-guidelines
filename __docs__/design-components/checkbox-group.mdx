@@ -6,6 +6,9 @@ import interaction1Img from "./assets/checkbox-group/interaction-1.png";
 import interaction2Img from "./assets/checkbox-group/interaction-2.png";
 import copyImg from "./assets/checkbox-group/copy.png";
 import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
+import Demo from "../components/Demo";
+
+export const barImageStyle = {width: "100%", display: "block", margin: 0};
 
 <Meta title="Design Guidelines / Components / Inputs / Checkbox group" />
 
@@ -24,7 +27,6 @@ The choice to use a checkbox group is based on the requirement for additive filt
 | Use when | Example use |
 | --- | --- |
 | Multiple options from the same dimension can apply simultaneously | Filtering by 6th grade OR 7th grade OR 8th grade at the same time. |
-| The filter should apply instantly without a submit action | Selecting multiple activity types where the results update immediately — unless the checkbox group is inside a combobox or filter modal, where selections are confirmed with Apply. |
 | The selection is part of a form or larger filter context | Inside a filter modal where selections are confirmed with Apply — exposed directly or wrapped in a combobox depending on option count. |
 
 ## When NOT to use
@@ -38,23 +40,29 @@ The choice to use a checkbox group is based on the requirement for additive filt
 
 The choice between exposing a checkbox group directly or wrapping it in a dropdown depends on the number of options and the context it lives in.
 
-<img src={placement1Img} alt="Placement 1" />
-
 ### Default
 
 8 or fewer options — expose the checkbox group directly. More than 8 options — wrap in a dropdown to prevent the list from becoming too long to scan.
 
-<img src={placement2Img} alt="Placement 2" />
+<Demo type="do" explanation="8 or fewer, exposed directly" style={{paddingInline: 0, paddingBlock: 0}}>
+    <img src={placement1Img} alt="A filter set with 8 or fewer options exposed directly, not wrapped in a dropdown" style={barImageStyle} />
+</Demo>
 
 ### Top filter bar
 
 Always wrap in a dropdown regardless of option count. Horizontal space is constrained and exposed groups would break the layout.
+
+<Demo type="do" explanation="top filter bar, always dropdown" style={{paddingInline: 0, paddingBlock: 0}}>
+    <img src={placement2Img} alt="A top filter bar where grade options are wrapped in a dropdown" style={barImageStyle} />
+</Demo>
 
 ## Interaction
 
 ### Additive selection
 
 Any number of options within the group can be selected simultaneously, including zero. Each selection adds to the active filter set — it does not replace previous selections.
+
+Whether selections take effect immediately or wait for confirmation depends on where the group lives: exposed directly in a filter bar, selections apply as soon as they're checked; inside a combobox or filter modal, selections are held until the user presses Apply.
 
 <img src={interaction1Img} alt="Interaction 1" />
 
@@ -67,10 +75,10 @@ If multiple selections are made, the trigger displays a count — for example, "
 
 ## Copy
 
-Option labels should be concise nouns or short noun phrases. Avoid verbs or full sentences. Labels should be parallel in structure — if one option is a noun, all options should be nouns.
+What goes into an option label depends on where its content comes from.
+
+**Category and filter labels:** When you're authoring the labels yourself (filter categories, essay types, grade levels), keep them concise — a noun, a short noun phrase, or an adjective naming a type (Persuasive, Explanatory). Avoid full sentences or instructional phrasing. Labels should be parallel in structure — if one option is a noun, the rest should be too.
+
+**Content titles:** When the option is a pre-existing piece of content (a lesson, quiz, or unit test name), use its actual title as-is. These aren't subject to the conciseness or parallel-structure rule above — they're inherited from the curriculum, not authored for the checkbox group, and shortening or rewording them would break their ability to identify the actual content.
 
 <img src={copyImg} alt="Copy" />
-
----
-
-[Figma source](https://www.figma.com/design/G9Yxa0SOlALS078wtq87cM/Design-system-guidelines---Thunderblocks?node-id=12444-26763&t=6lEHCsAo03k7G4Lr-4)
