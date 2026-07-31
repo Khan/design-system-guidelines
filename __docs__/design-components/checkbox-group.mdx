@@ -6,7 +6,7 @@ import interaction1Img from "./assets/checkbox-group/interaction-1.png";
 import interaction2Img from "./assets/checkbox-group/interaction-2.png";
 import copyImg from "./assets/checkbox-group/copy.png";
 import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
-import Demo from "../components/Demo";
+import Figure from "../components/Figure"
 
 export const barImageStyle = {width: "100%", display: "block", margin: 0};
 
@@ -44,17 +44,13 @@ The choice between exposing a checkbox group directly or wrapping it in a dropdo
 
 8 or fewer options — expose the checkbox group directly. More than 8 options — wrap in a dropdown to prevent the list from becoming too long to scan.
 
-<Demo type="do" explanation="8 or fewer, exposed directly" style={{paddingInline: 0, paddingBlock: 0}}>
-    <img src={placement1Img} alt="A filter set with 8 or fewer options exposed directly, not wrapped in a dropdown" style={barImageStyle} />
-</Demo>
+<Figure type="do" explanation="8 or fewer, exposed directly" src={placement1Img} alt="A filter set with 8 or fewer options exposed directly, not wrapped in a dropdown" />
 
 ### Top filter bar
 
 Always wrap in a dropdown regardless of option count. Horizontal space is constrained and exposed groups would break the layout.
 
-<Demo type="do" explanation="top filter bar, always dropdown" style={{paddingInline: 0, paddingBlock: 0}}>
-    <img src={placement2Img} alt="A top filter bar where grade options are wrapped in a dropdown" style={barImageStyle} />
-</Demo>
+<Figure type="do" explanation="top filter bar, always dropdown" src={placement2Img} alt="A top filter bar where grade options are wrapped in a dropdown" />
 
 ## Interaction
 
