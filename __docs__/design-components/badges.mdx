@@ -49,7 +49,7 @@ The choice to use a badge is determined by the need for a brief, immediate visua
 
 | Don’t use when | Recommended alternative | Rationale |
 | --- | --- | --- |
-| Signaling a critical alert | Transient message (toast or banner) | Do not use for communicating errors, warnings, or urgent system feedback that requires user attention or action. Badges are low-priority indicators. |
+| Signaling a system-wide critical alert | Transient message (toast or banner) | Do not use for global, session-wide errors or urgent system feedback (a service outage, a failed save). Badges label the state of a specific item, not the system as a whole — see Critical error status below for that distinction. |
 | Labeling a permanent identity or category | Tertiary text, tag, or chip | Do not use a Badge for organizational categories or "types" that don't regularly change (e.g., Subject names, District name, User IDs, or Student count). Badges are for state; Tags are for identity. |
 | Prompting a call-to-action | Button or link | Do not use a Badge to drive a user to click or perform an action. They communicate what is, not what to do. |
 | Displaying complex meta-data | Tooltip or inline text | Do not use for conveying long, multi-line data or complex contextual help. If the information cannot fit into one word, use a tooltip or standard text. |
@@ -59,7 +59,7 @@ The choice to use a badge is determined by the need for a brief, immediate visua
 
 ### Critical error status
 
-This category is reserved exclusively for signals that communicate risk, failure, or urgency. The color must be used to trigger an immediate “Stop and Address” behavior from the user.
+This category is reserved exclusively for signals that communicate risk, failure, or urgency about a specific item — not a system-wide alert (see When NOT to use). The color must be used to trigger an immediate “Stop and Address” behavior from the user.
 Do signal a critical error when inaction has a negative consequence (missing a deadline, failing score, data failure).
 
 <img src={variants1Img} alt="Variants 1" />
@@ -132,19 +132,19 @@ Do include an icon only if it instantly conveys the same meaning as the text (a 
 
 ### Truly standalone icons
 
-A bare icon with no supporting text anywhere nearby should be reserved for universally understood null indicators, such as a dash (—) for "No data" or "Not assigned."
+A bare icon with no text anywhere nearby at all should be reserved for universally understood null indicators, such as a dash (—) for "No data" or "Not assigned." A bare icon with plain text beside it (like an arrow next to "above school trend") is a value or trend badge — see Value and trend badges above.
 
 <img src={iconography1Img} alt="Do and don't examples of standalone icon badges: a bare dash for null data is acceptable, while icon-only trend and status badges without text are not" />
 
-### Conditional success and warning icon use
+### Icons that can change
 
-Success and warning badges allow for icon variations only to show an up arrow or down arrow when directly indicative of metrics that have gone up or down. For all other use cases, they must use the default system icon.
+Success and warning badges have exactly one icon substitution allowed: a plain up or down arrow, used only when directly indicative of a metric trend. No other icon swaps are permitted — not a stylized trend arrow, not a decorative icon like confetti, nothing else. For all other cases, use the default system icon.
 
 <img src={states3Img} alt="Conditional success and warning icon use: default system icons and up or down arrows for metric changes are acceptable; arbitrary icons such as a diagonal arrow or confetti are not" />
 
-### Fixed icon sets
+### Icons that cannot change
 
-The icons used in critical, gem, and time status badges serve as foundational system identifiers and should not be altered.
+Critical, gem, and time badges never change their icon. These are fixed system identifiers with no exceptions.
 
 <img src={states4Img} alt="States 4" />
 
@@ -153,7 +153,7 @@ The icons used in critical, gem, and time status badges serve as foundational sy
 ### Scoring semantics and thresholds
 
 To govern score badges effectively, use critical, warning, and success badges with clear percentage thresholds.
-Critical badges: &lt;50%, Warning badges: 60–99%, and Success badges: completion (non-mastery) or 100%.
+Critical badges: below 50%, Warning badges: 50–99%, and Success badges: 100%.
 
 <img src={scoreToStatusMapping1Img} alt="Score to status mapping 1" />
 
@@ -194,7 +194,3 @@ To be consistent with UX copy guidelines, use sentence case.
 Do not use periods, question marks, or exclamation points in badge copy. Badges are meant to be instantly scannable status indicators.
 
 <img src={copy3Img} alt="Copy 3" />
-
----
-
-[Figma source](https://www.figma.com/design/G9Yxa0SOlALS078wtq87cM/Design-system-guidelines---Thunderblocks?node-id=13456-39138&t=6lEHCsAo03k7G4Lr-4)
