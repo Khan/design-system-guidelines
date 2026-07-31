@@ -1,16 +1,16 @@
 import {Meta} from "@storybook/addon-docs/blocks";
 import Principle, {PrincipleSet} from "../components/principle";
 import Color from "../components/ColorSwatch";
-import colorsImg from "./assets/colors/colors.png";
+import semanticTokensHeroImg from "./assets/colors/semantic-tokens-hero.png";
 import primitivesGrid from "./assets/colors/primitives-grid.png";
 import semanticTokensImg from "./assets/colors/semantic-tokens.png";
 import accessiblePairingsImg from "./assets/colors/accessible-pairings.png";
 
-<Meta title="Design Guidelines / Foundations / Colors / Semantic Colors" />
+<Meta title="Design Guidelines / Foundations / Colors / Semantic tokens" />
 
-<img src={colorsImg} alt="Colors" />
+<img src={semanticTokensHeroImg} alt="Semantic tokens" />
 
-# Semantic Tokens
+# Semantic tokens
 Semantic color tokens are a second tier of abstraction that organizes color by concept and purpose they serve within the system / our interfaces. When working with color, Core tokens are the preferred tokens set to use in Designs and Code.
 
 ## Schema
@@ -59,7 +59,7 @@ Within each layer, tokens are organized by context — the expected application 
 | --- | --- | --- | --- |
 | <ul><li>Base</li><li>Instructive</li><li>Neutral</li><li>Disabled</li><li>Success</li><li>Warning</li><li>Critical</li><li>Knockout</li><li>Overlay</li></ul> | <ul><li>Math</li><li>Gems </li><li>Streaks</li><li>Due</li><li>Mastery / Progress</li><li>Role</li></ul> | <ul><li>Action (Figma use only)</li><li>Feedback</li><li>Focus</li><li>Input</li><li>Link</li><li>Progress (not in code yet)</li><li>Tiles (not in code yet)</li></ul> | <ul><li>Palette</li><li>Characters</li><li>External Brands</li><li>Gems</li><li>Progress</li><li>Role</li><li>Streaks</li><li>Neutral</li></ul> |
 
-### Intensity Scale
+### Intensity scale
 
 The intensity scale provides three values available to use within each Context. The intensity is determined by the amount of contrast and visual weight a given value has relative to the Core Base Default token, which serves as the anchor color from which the Subtle and Strong values are determined. Subtle intensity has lowest contrast against and Strong intensity has the highest contrast against this anchor value.
 
@@ -77,7 +77,7 @@ This schema is designed to be shared between domains. Some tokens in both the Co
 
 Now that we’ve outlined the schema for our semantic tokens, let’s take a deeper look at how these concepts work in practice across our Color system.
 
-## Core Tokens
+## Core tokens
 
 Core tokens are intended to power a majority of the components in the Khan Academy experience. These tokens are largely scoped to the system’s functions — its rules and opinions.
 
@@ -131,7 +131,7 @@ Knockout tokens, available for Border and Foreground categories, style elements 
 
 Overlay tokens are transparent, background-only tokens that style the full page background that separates an overlay UI component, such as a modal, from the main UI elements underneath it by masking them.
 
-## Learning Tokens
+## Learning tokens
 
 When patterns of color use emerge across components or categories of components, it is appropriate to consider creating a new domain of semantic tokens abstracted for the specific use cases the tokens serve in the system. Learning is a distinct domain of tokens specific to the context of Learning activities and environments. Learning tokens are not consumed outside of this context, Core tokens are intended to meet that need.
 
@@ -162,7 +162,7 @@ Streak tokens style elements that present Streak metrics in the experience.
 
 Due tokens style elements that communicate the due date of an activity. Due tokens have two values: Due and Overdue. Overdue uses the Critical token schema from the Core tokens domain.
 
-#### Mastery / Progress
+#### Mastery / progress
 
 Mastery / Progress tokens style elements that communicate a learner’s progress in completing a learning activity or mastering a subject. Mastery / Progress tokens use several token categories from the Core tokens domain.
 
@@ -170,7 +170,7 @@ Mastery / Progress tokens style elements that communicate a learner’s progress
 
 Role tokens style elements present in features directly tied to a user's account.
 
-## Internal Tokens
+## Internal tokens
 
 The Internal domain differs in architecture from the Core and Learning domains. When patterns of color use emerge across components or categories of components, it is appropriate to consider creating a third tier of semantic tokens abstracted for the specific use cases the tokens serve in the system.
 
@@ -180,7 +180,7 @@ We use Figma Variables to reduce the number of unique component instances we nee
 
 **Internal tokens are consumed only by the Wonder Blocks system**. They are not to be used outside of official design system components in code, Core tokens should be used instead.
 
-## Graphics Tokens
+## Graphics tokens
 
 The Graphics domain styles custom graphics, illustrations, and icons in our system. These tokens cannot be used to style the interface, components, or Phosphor icons, only the custom graphic elements within contained the interface or components.
 
@@ -203,7 +203,7 @@ Palette tokens style decorative graphic elements — elements without a specific
 
 Character tokens style the visual appearance of Brand characters utilized across our experiences, including Khanmigo and Khanductor.
 
-#### External Brands
+#### External brands
 
 External brand tokens style brand assets of third-party brands, such as the services allowed for third-party sign-in.
 
