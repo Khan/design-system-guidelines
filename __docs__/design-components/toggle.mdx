@@ -2,9 +2,14 @@ import {Meta} from "@storybook/addon-docs/blocks";
 import toggleImg from "./assets/toggle/toggle.png";
 import placementImg from "./assets/toggle/placement.png";
 import interaction1Img from "./assets/toggle/interaction-1.png";
-import interaction2Img from "./assets/toggle/interaction-2.png";
+import interaction2DoImg from "./assets/toggle/interaction-2-do.png";
+import interaction2DontImg from "./assets/toggle/interaction-2-dont.png";
 import copyImg from "./assets/toggle/copy.png";
+import preferencesPlacementImg from "./assets/toggle/preferences-placement.png";
+import preferencesInteractionImg from "./assets/toggle/preferences-interaction.png";
+import preferencesCopyImg from "./assets/toggle/preferences-copy.png";
 import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
+import Figure from "../components/Figure";
 
 <Meta title="Design Guidelines / Components / Inputs / Toggle" />
 
@@ -12,7 +17,7 @@ import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
 
 # Toggle
 
-<NeutralBadge label="Binary/Boolean filtering" /> A simple on/off mechanism used for a quick, either-or choice to include/exclude items based on a single boolean attribute.
+<NeutralBadge label="Binary/Boolean control" /> A simple on/off mechanism used for a quick, either-or choice — filtering results by a single boolean attribute, or switching a setting or preference on and off.
 
 ## When to use
 
@@ -21,31 +26,31 @@ The choice to use a toggle is determined by the need for an immediate, singular 
 | Use when | Example use |
 | --- | --- |
 | The choice is strictly binary | On/Off, Include/Exclude, True/False |
-| The action takes effect immediately without confirmation | Toggling "Show only completed tasks" instantly filters the list |
-| The state is always visible and needs to be persistent | A global constraint that remains active across the session until the user turns it off |
+| The action takes effect immediately without confirmation | Toggling "Show only completed tasks" instantly filters the list; toggling "Receive email from Khan Academy" instantly saves the preference |
+| The state is always visible and needs to be persistent | A global constraint that remains active across the session until the user turns it off; a notification preference that stays set until changed in account settings |
 
 ## When NOT to use
 
-| Don’t use when | Recommended alternative | Rationale |
+| Don't use when | Recommended alternative | Rationale |
 | --- | --- | --- |
 | There are 3 or more possible states | Checkbox group | Toggles are only appropriate for binary decisions. More states need a different selection pattern. |
-| Multiple options can be selected at the same time | Checkbox group | Toggles act on a single attribute. Additive filtering across multiple options requires checkboxes. |
-| The action requires an Apply button to commit | Checkbox or form input + apply button | Toggles activate immediately. If the user needs to review before confirming, the pattern breaks. Exception: filter modal — see Interaction. |
+| Multiple options can be selected at the same time | Checkbox group | Toggles act on a single attribute. Selecting multiple options at once — whether additive filtering or enabling several related settings — requires checkboxes. |
+| The action requires an Apply button to commit | Checkbox or form input + apply button | Toggles activate immediately. If the user needs to review before confirming, the pattern breaks. Exception: filter modal — see Filtering. |
 
-## Placement
+## Filtering
+
+### Placement
 
 Place the toggle after primary filters (like Date or Course). This positions it as a high-level global constraint applied after the core dimensions have been selected.
 Never place a toggle before dropdowns or inline within a list of results.
 
 <img src={placementImg} alt="Placement" />
 
-## Interaction
-
 ### No filter chips
 
 Toggles do not generate filter chips in the filter bar. Because the toggle is always visible and explicit in the UI, a chip would be redundant.
 
-<img src={interaction1Img} alt="Interaction 1" />
+<Figure type="dont" caption="toggle state should not appear as a chip" src={interaction1Img} alt="A filter bar where an active toggle has incorrectly generated a filter chip" />
 
 ### Filter modal
 
@@ -53,15 +58,32 @@ When a toggle lives inside a filter modal, it does not apply immediately. The ef
 Inside a filter modal, the label sits to the left of the toggle, not inline to the right as it does in the filter bar. An optional short description can sit below the label to add context when the toggle's purpose isn't self-evident from the label alone.
 Only one toggle should be visible in the filter bar at a time. If additional boolean filters are needed, they belong inside the filter modal accessed via "More filters."
 
-<img src={interaction2Img} alt="Interaction 2" />
+<Figure type="do" caption='multiple toggles grouped inside "More filters" modal' src={interaction2DoImg} alt="Multiple toggles grouped under Display options inside the More filters modal" />
 
-## Copy
+<Figure type="dont" caption="multiple toggles exposed directly in the filter bar" src={interaction2DontImg} alt="Multiple toggles exposed directly in the filter bar" />
 
-The label must always be visible next to the toggle. It should clearly communicate what happens when the toggle is on — not what state it is in.
-Keep labels concise and action-oriented. Avoid vague words like "Filter" or labels that describe the off state.
+### Copy
+
+The label must always be visible next to the toggle. It should clearly communicate what happens when the toggle is on — not what state it is in. Keep labels concise and action-oriented, describing the effect (e.g., "Show only completed tasks"). Avoid vague words like "Filter" or labels that describe the off state.
 
 <img src={copyImg} alt="Copy" />
 
----
+## Preferences
 
-[Figma source](https://www.figma.com/design/G9Yxa0SOlALS078wtq87cM/Design-system-guidelines---Thunderblocks?node-id=12444-33996)
+### Placement
+
+The toggle sits to the left of its label, with the label inline to the right — the same order as the filter bar, and the reverse of the filter modal, where the label sits to the left of the toggle.
+
+<img src={preferencesPlacementImg} alt="Preferences placement" />
+
+### Instant save
+
+Preference toggles save instantly on change. There is no deferred or confirm step — unlike the filter modal exception in Filtering, every preference toggle takes effect immediately.
+
+<img src={preferencesInteractionImg} alt="Preferences interaction" />
+
+### Copy
+
+The label names the setting itself as a noun phrase (e.g., "New assignment notifications," "Receive email from Khan Academy") — not an instruction to turn it on (avoid "Enable new assignment notifications" or "Turn on..."). It should still be clear what turning the toggle on enables.
+
+<img src={preferencesCopyImg} alt="Preferences copy" />
