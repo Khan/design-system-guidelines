@@ -34,12 +34,13 @@ The choice to use active filters is determined by the need to provide immediate 
 
 ## What generates an active filter
 
-Not every control in the filter bar produces a chip. The test is whether the control's own display already shows the complete, specific value at a glance. If a selection is short and fully legible on the control itself (like "Last 30 days"), a chip would just repeat it. If the control has to truncate long text or summarize multiple selections as a count (like "School: Addison Middle..." or "Grades: 2 selected"), a chip is what actually tells the user the full, specific value — one chip per value when multiple are selected.
+Not every control in the filter bar produces a chip. The deciding factor is who owns the control's starting value. If the product supplies a default and the control can never be cleared to empty, a value is always present regardless of what the user does — a chip couldn't distinguish an actual choice from the baseline, so none appears. If the user is the one introducing a value at all — the control starts empty or inactive until they act — a chip appears as soon as they do, since its presence signals a real, removable choice.
 
 | Control type | Generates an active filter? | Why |
 | --- | --- | --- |
-| Standard dropdown or inline filter button | Yes | Long or multi-value selections get truncated or summarized as a count on the control itself (e.g. "Addison Middle...", "2 selected") — chips restore full legibility, one per value when multiple are selected. |
-| Embedded filter dropdown (e.g. Date, defaulting to Last 30 days) | No | Preset values are designed to stay short and complete on the control itself (e.g. "Last 30 days," "Last 7 days"), so nothing needs to be hidden or truncated. |
+| Standard dropdown or inline filter button | Yes | Starts empty or inactive — any value present means the user chose it. Long or multi-value selections also get truncated or summarized as a count on the control itself (e.g. "Addison Middle...", "2 selected"); chips restore full legibility, one per value when multiple are selected. |
+| Embedded filter dropdown (e.g. Date, defaulting to Last 30 days) | No | The product supplies a default and the control can't be cleared to empty — a value is always present regardless of user action, so a chip couldn't signal an actual choice. |
+| Date inline filter button | Yes | No date is pre-applied — the control starts empty until the user adds one. Its presence, even when short and fully legible on the control itself (e.g. "Nov 1 – Nov 30"), signals a real, removable choice the user made. |
 | Search field | No | The typed term is fully visible in the field itself. |
 | Toggle | No | Its on/off state is a complete, unambiguous indicator, always visible on the control. |
 | Segmented control | No | The selected segment stays fully visible and highlighted on the control itself. |

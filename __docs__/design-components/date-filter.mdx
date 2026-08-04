@@ -42,6 +42,7 @@ The choice to use a date filter is determined by the need to filter data based o
 The product pre-applies a date. Data is always scoped to a time period — the user never sees an unfiltered state. They can change the selection, but cannot clear it entirely.
 Use this when there are pages where showing all-time data would be overwhelming or meaningless — e.g. a teacher dashboard where "Today" is a sensible default. The product owns the initial state.
 There is always a value in the trigger. If no user selection has been made, the product default shows (e.g. Today).
+Because the product supplies this default and the control can never be cleared to empty, changing the selection does not generate an active filter chip (see Active filters).
 
 <img src={variants1Img} alt="A basic example of a Date filter opened with the first `Today` option selected, followed by `This week` and `Last 30 days`, each with the actual accompanying date or date range as subtext. At the bottom is a `Custom Range` affordance after a horizontal separator." />
 
@@ -50,6 +51,7 @@ There is always a value in the trigger. If no user selection has been made, the 
 No date is pre-applied. Data defaults to all time. The user chooses to add a date filter — clicking the inactive inline filter button opens the same predefined options. Once applied, the button shows the active range and gains a clear (×) control.
 Use this when there are pages where all-time data is a valid and expected default — e.g. a roster or gradebook where the user may or may not want to narrow by date. The user owns the initial state.
 The × control clears back to all-time (unfiltered). This is the key distinction from the standard variant — this one can be cleared.
+Because no date is pre-applied, any value shown here was chosen by the user. Applying one generates an active filter chip, even though the range is already visible on the button itself (see Active filters).
 
 <img src={variants2Img} alt="Shows the transition of an empty `Date` filter being filled in. Once filled in, a calendar icon appears at the start of the input followed by the range and then a `clear` icon affordance" />
 
@@ -62,6 +64,7 @@ The × control clears back to all-time (unfiltered). This is the key distinction
 | Can be cleared | No – always has a value | Yes – X returns to all-time |
 | Trigger appearance | Full-width dropdown with current value | Inactive until user adds filter, once selected becomes active state of inline filter button |
 | Options on open | Today / This week / Last 30 days / Custom range | Today / This week / Last 30 days / Custom range |
+| Generates an active filter chip | No | Yes |
 
 ## Placement
 

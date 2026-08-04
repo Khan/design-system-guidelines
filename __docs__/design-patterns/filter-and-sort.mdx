@@ -51,57 +51,53 @@ Regardless of which components are selected for your specific use case, the syst
 
 This section illustrates the logic framework in practice, transitioning from broad keyword discovery to granular category refinement. It demonstrates how the UI maintains data integrity through cascading logic while providing immediate visual feedback and reset options as users interact with the filter bar.
 
-<img src={logicFrameworkHowTheyPlayTogether1Img} alt="Logic framework: how they play together 1" />
-
 ### Filter bar
 
 The horizontal filter bar is located directly above the content list to provide immediate access to data refinement tools.
 It can feature things like (and in this order) Search field for keyword queries, embedded dropdowns for high-priority + preset selections (e.g., Last 30 days), compact additive dropdowns for common categories (e.g. School and Grade), and for advanced segments, the More Filters button opens a comprehensive modal for less frequent criteria.
 
-<img src={logicFrameworkHowTheyPlayTogether2Img} alt="Logic framework: how they play together 2" />
+<img src={logicFrameworkHowTheyPlayTogether1Img} alt="Logic framework: how they play together 1" />
 
 ### Search field
 
 A search field allowing users to type keywords to find specific items within the dataset. As you type, the system provides a list of auto-suggestions—such as specific class names—to help you find what you need faster. Once you select a suggestion or press enter, the main results list will refresh to display your matches.
 
-<img src={logicFrameworkHowTheyPlayTogether3Img} alt="Logic framework: how they play together 3" />
-
-<img src={logicFrameworkHowTheyPlayTogether4Img} alt="Logic framework: how they play together 4" />
+<img src={logicFrameworkHowTheyPlayTogether2Img} alt="Logic framework: how they play together 2" />
 
 ### Embedded filter dropdown (single-select)
 
 This variation is used for essential criteria that require a value to be active at all times, such as Date. Typically restricted to a single selection at a time to maintain a clear, focused data view. Because these are fundamental to the dataset, they remain visible in the filter bar as the primary anchors for the results displayed. Only use this for high-level "View" toggles (e.g., Date Range or Department) where the system cannot show "All" data without a primary category being selected.
 Use them sparingly (1–2 max) to avoid over-constraining the data and forcing a "Zero Results" state before discovery begins.
 
-<img src={logicFrameworkHowTheyPlayTogether5Img} alt="Logic framework: how they play together 5" />
+<img src={logicFrameworkHowTheyPlayTogether3Img} alt="Logic framework: how they play together 3" />
 
-<img src={logicFrameworkHowTheyPlayTogether6Img} alt="Logic framework: how they play together 6" />
+<img src={logicFrameworkHowTheyPlayTogether4Img} alt="Logic framework: how they play together 4" />
 
 ### Compact additive dropdown (single or multi-select)
 
 This specific style of dropdown is designed for high-frequency use within the horizontal filter bar. It allows users to manage common data categories—such as School or Grade—efficiently within a limited space.
 Limit to 4 max of these categories to prevent UI clutter and ensure the most common data segments remain accessible.
 
-<img src={logicFrameworkHowTheyPlayTogether7Img} alt="Logic framework: how they play together 7" />
+<img src={logicFrameworkHowTheyPlayTogether5Img} alt="Logic framework: how they play together 5" />
+
+<img src={logicFrameworkHowTheyPlayTogether6Img} alt="Logic framework: how they play together 6" />
 
 ### More filters modal
 
 The More filters component serves as a secondary control center for complex or less frequent filtering needs, ensuring the primary interface remains uncluttered.
 
-<img src={logicFrameworkHowTheyPlayTogether8Img} alt="Logic framework: how they play together 8" />
+<img src={logicFrameworkHowTheyPlayTogether7Img} alt="Logic framework: how they play together 7" />
 
 ### Active filters
 
 Active filters are displayed directly below the filter bar to provide transparent feedback on the current dataset.
 
-<img src={logicFrameworkHowTheyPlayTogether9Img} alt="Logic framework: how they play together 9" />
-
-<img src={logicFrameworkHowTheyPlayTogether10Img} alt="Logic framework: how they play together 10" />
+<img src={logicFrameworkHowTheyPlayTogether8Img} alt="Logic framework: how they play together 8" />
 
 ### Clear filters
 
 A "Clear filters" button appears as soon as a single selection is made. This ensures users can return to a neutral state instantly without manual deselection, regardless of how many components are currently in use.
 
----
+<img src={logicFrameworkHowTheyPlayTogether9Img} alt="Logic framework: how they play together 9" />
 
-[Figma source](https://www.figma.com/design/G9Yxa0SOlALS078wtq87cM/Design-system-guidelines---Thunderblocks?node-id=12444-24346&t=6FYCtPGYxddWaqet-4)
+<img src={logicFrameworkHowTheyPlayTogether10Img} alt="Logic framework: how they play together 10" />
