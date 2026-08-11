@@ -5,7 +5,6 @@ import surfacesAndElevationsImg from "./assets/surfaces-and-elevations/surfaces-
 import surfacesOverviewImg from "./assets/surfaces-and-elevations/surfaces-overview.png";
 import surface1Img from "./assets/surfaces-and-elevations/surface-1.png";
 import surface2Img from "./assets/surfaces-and-elevations/surface-2.png";
-import surface3Img from "./assets/surfaces-and-elevations/surface-3.png";
 import surfaceScrimImg from "./assets/surfaces-and-elevations/surface-scrim.png";
 import elevationOverviewImg from "./assets/surfaces-and-elevations/elevation-overview.png";
 import elevationBaseImg from "./assets/surfaces-and-elevations/elevation-base.png";
@@ -43,16 +42,15 @@ Surfaces are background colors. Elevations are shadows. Both are separate decisi
 
 ## Surfaces
 
-The system has three surface colors. They are always used to create color-based differentiation between regions.
+The system has two surface colors. They are always used to create color-based differentiation between regions.
 
 | Surface | Token |
 | --- | --- |
 | Surface 1 – Subtle | `semanticColor.core.background.base.subtle` |
 | Surface 2 – Default | `semanticColor.core.background.base.default` |
-| Surface 3 | `semanticColor.core.background.base.strong` |
 | Surface scrim | `semanticColor.core.background.overlay.default` |
 
-<img src={surfacesOverviewImg} alt="Swatches for Surface 1 - Subtle, Surface 2 - Default, Surface 3, and Surface scrim" />
+<img src={surfacesOverviewImg} alt="Swatches for Surface 1 - Subtle, Surface 2 - Default, and Surface scrim" />
 
 ### Surface 1
 
@@ -76,18 +74,6 @@ Use for: primary content cards, content panels, drawers, and components that nee
     src={surface2Img}
     alt="Mockup of a content card standing out as the focal object on the page"
     caption="Containers that are the main focus of the page have a Surface 2 background color."
-/>
-
-### Surface 3
-
-A tint on an existing layer — not a new layer, just a marked zone within one. The contrast is intentionally subtle: enough to signal structure, not enough to imply depth.
-
-Use for: table header rows, page header backgrounds, page banners, and other contexts where a region needs to feel structurally distinct from adjacent content — without implying it's closer to the user than the surface it sits on.
-
-<Figure
-    src={surface3Img}
-    alt="Mockup of a table with a tinted Surface 3 header row"
-    caption="Table header has a Surface 3 background color to help define it as the header and differentiate it from the rest of the page."
 />
 
 ### Surface scrim
@@ -172,22 +158,21 @@ Surfaces and elevations are independent — either can be applied without the ot
 | Component | Surface | Elevation |
 | --- | --- | --- |
 | Background | Surface 1 | Base |
-| Page banner | Surface 3 | Base |
 | Container card | Surface 1 or 2 | Base |
 | Interactive card | Surface 2 | Low |
 | Popovers, tooltips | Surface 2 | Mid |
 | Alerts, modals | Surface 2 | High |
 | Scrim (always paired with Alerts, modals above) | Surface scrim | – |
 
-<img src={combinationsImg} alt="Two stacked-layer diagrams showing how surfaces and elevations combine, from the background at Surface 1 or Surface 3 with base elevation up to alerts and modals at Surface 2 with high elevation" />
+<img src={combinationsImg} alt="Two stacked-layer diagrams showing how surfaces and elevations combine, from the background at Surface 1 with base elevation up to alerts and modals at Surface 2 with high elevation" />
 
 ## Usage guidelines
 
-### Surface 1 and Surface 3 always sit at base elevation
+### Surface 1 always sits at base elevation
 
-Surface 1 is the ground itself, and Surface 3 is simply a color shift within an existing surface to mark internal structure. Applying elevation to either would imply they're separate objects floating above the page, which contradicts their role. Only Surface 2 components — cards, panels, and drawers — earn elevation because they're meant to read as distinct objects sitting on top of the background.
+Surface 1 is the ground itself. Applying elevation to it would imply it's a separate object floating above the page, which contradicts its role. Only Surface 2 components — cards, panels, and drawers — earn elevation because they're meant to read as distinct objects sitting on top of the background.
 
-<img src={usageSurfaceBaseImg} alt="Surface 1 and Surface 3 regions shown flat at base elevation with no shadow" />
+<img src={usageSurfaceBaseImg} alt="Surface 1 regions shown flat at base elevation with no shadow" />
 
 ### Elevation is a page-level decision
 
@@ -216,7 +201,7 @@ Modal dialogs using High elevation should always be paired with a scrim over the
 
 ### Shadow alone is not enough
 
-Users with low vision, in high-contrast mode, or on poorly calibrated displays may not perceive shadow. Surface color must communicate boundaries without relying on shadow, and text on Surface 2 or Surface 3 must meet WCAG contrast requirements against those specific backgrounds — not just against Surface 1.
+Users with low vision, in high-contrast mode, or on poorly calibrated displays may not perceive shadow. Surface color must communicate boundaries without relying on shadow, and text on Surface 2 must meet WCAG contrast requirements against that background — not just against Surface 1.
 
 ### Elevation does not replace focus rings
 
