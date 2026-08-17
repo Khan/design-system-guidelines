@@ -1,0 +1,113 @@
+import {Meta} from "@storybook/addon-docs/blocks";
+import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
+import Figure from "../components/Figure";
+import radioButtonImg from "./assets/radio-button/radio-button.png";
+import defaultSelectionImg from "./assets/radio-button/default-selection.png";
+import disabledImg from "./assets/radio-button/disabled.png";
+import exposedImg from "./assets/radio-button/exposed.png";
+import dropdownAltImg from "./assets/radio-button/dropdown-alt.png";
+import filterBarDoImg from "./assets/radio-button/filter-bar-do.png";
+import filterBarDontImg from "./assets/radio-button/filter-bar-dont.png";
+import immediateSelectionImg from "./assets/radio-button/immediate-selection.png";
+import noSelectionImg from "./assets/radio-button/no-selection.png";
+import avoidNestingImg from "./assets/radio-button/avoid-nesting.png";
+
+<Meta title="Design Guidelines / Components / Inputs / Radio button" />
+
+<img src={radioButtonImg} alt="Radio button" />
+
+# Radio button
+
+<NeutralBadge label="Mutually exclusive selection" />
+
+A mutually exclusive selection mechanism used to allow users to choose only one option from a small, visible set of choices.
+
+## When to use
+
+The choice to use radio buttons is determined by the need to present a small, visible set of mutually exclusive options where only one can be selected at a time.
+
+| Use when | Example use |
+| --- | --- |
+| The selection is mutually exclusive — only one item can be chosen | Filtering messages by importance: "High," "Medium," or "Low." |
+| The list is small and visible, typically 2 to 4 options, so the user can compare choices easily without an extra action | Selecting a country, or a status like Complete, In Progress, or To Do. |
+| The list is small enough that exposing it costs less than a single-select dropdown (one action vs. two) | — |
+
+## When NOT to use
+
+| Don't use when | Recommended alternative | Rationale |
+| --- | --- | --- |
+| The user needs to select multiple items (A, B, and C) | Checkbox group | Radio buttons cannot be used when more than one item can be chosen at a time. |
+| The list contains more than 5 options | Single-select dropdown | Beyond 5 options, a dropdown conserves vertical screen space. |
+| It's a simple, global on/off constraint that affects the entire view | Toggle | For a simple, global ON/OFF constraint, a toggle is visually clearer. |
+
+## States
+
+### Default selection
+
+One option should always be pre-selected to prevent the user from being in an ambiguous or unvalidated state.
+
+<img src={defaultSelectionImg} alt="A radio group of four options with the first option pre-selected" />
+
+### Disabled
+
+Primarily used when a prerequisite action has not been fulfilled. Once the dependency is met, it no longer displays as disabled, indicating it can now be used.
+
+<img src={disabledImg} alt="A single radio option shown grayed out in its disabled state" />
+
+## Placement
+
+### Exposed groups vs. dropdown
+
+**Exposed:** if there are 8 or fewer options, display them as an exposed list so users can quickly compare and select. **Dropdown:** if there are more than 8 options, contain them within a single-select dropdown to conserve vertical space.
+
+<img src={exposedImg} alt="A modal with a short radio group exposed as a list — “To help with your children’s school learning” and “To homeschool your children”" />
+
+<img src={dropdownAltImg} alt="A settings form where a long list of states is contained in a single-select dropdown showing “California”" />
+
+### Top filter bar
+
+Regardless of the number of options, radio buttons must always be displayed as a single-select dropdown in the top horizontal filter bar to maintain a clean layout and conserve horizontal space.
+
+<Figure
+    src={filterBarDoImg}
+    alt="A top filter bar where course options are contained in a single-select dropdown"
+    caption="use a single-select dropdown for radio options in the top filter bar."
+    type="do"
+/>
+
+<Figure
+    src={filterBarDontImg}
+    alt="A top filter bar with radio options exposed directly next to the filter dropdowns"
+    caption="expose radio options directly in the top filter bar."
+    type="dont"
+/>
+
+## Interaction
+
+### Immediate, single selection
+
+Clicking any option immediately selects it and deselects the previously chosen option within the group.
+
+<img src={immediateSelectionImg} alt="Two side-by-side radio groups showing selection moving from the first option to the second when clicked" />
+
+### No selection is impossible
+
+Once an option is selected, the user cannot easily return to a zero-selected state without selecting a distinct "None" or "All" option.
+
+<Figure
+    src={noSelectionImg}
+    alt="A radio group left with no option selected"
+    caption="allow a group to sit in a zero-selected state once a choice has been made."
+    type="dont"
+/>
+
+### Avoid nesting
+
+Do not nest radio buttons within one another, as this creates complex dependencies and severely damages clarity.
+
+<Figure
+    src={avoidNestingImg}
+    alt="A radio group with two options nested and indented beneath a parent option"
+    caption="nest radio buttons within one another."
+    type="dont"
+/>

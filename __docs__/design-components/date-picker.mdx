@@ -1,0 +1,54 @@
+import {Meta} from "@storybook/addon-docs/blocks";
+import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
+import datePickerImg from "./assets/date-picker/date-picker.png";
+import standaloneImg from "./assets/date-picker/standalone.png";
+import customRangeModalImg from "./assets/date-picker/custom-range-modal.png";
+import interactionImg from "./assets/date-picker/interaction.png";
+
+<Meta title="Design Guidelines / Components / Inputs / Date picker" />
+
+<img src={datePickerImg} alt="Date picker" />
+
+# Date picker
+
+<NeutralBadge label="Point-in-time selection" />
+
+A text input paired with a calendar popover for selecting a specific date. Supports direct keyboard entry and point-and-click calendar selection.
+
+## When to use
+
+The choice to use a date picker is determined by the need to select a specific date — either to filter data or to set a value, such as a due date or event date.
+
+| Use when | Example use |
+| --- | --- |
+| The user selects one exact date | Setting a due date for an assignment |
+| Used inside the date filter's "Set custom range" modal as the From / To input mechanism | Teacher sets Dec 1 – Dec 23 as a reporting window |
+| Creating events or reminders that require a precise date | Setting a test date in a course calendar |
+
+## When NOT to use
+
+| Don't use when | Recommended alternative | Rationale |
+| --- | --- | --- |
+| Filtering by a relative time period | Date filter | Relative options like "Today" and "This week" are faster for analytics contexts |
+| Only month and year are needed | Dropdown (MM/YY) | A full calendar is overkill when day-level precision isn't needed |
+| Date and time are both needed | Date time picker | This component handles dates only — no time selection |
+
+## Variants
+
+### Stand-alone date picker
+
+A text input with a calendar icon. The user can type directly in MM/DD/YYYY format or click the calendar icon to open the popover. Used for due dates, event scheduling, or any field requiring a single specific date. The calendar icon signals that a calendar popover will open — never use a caret here.
+
+<img src={standaloneImg} alt="A “Due date” field showing 5/4/2026 with an open calendar popover for May 2026, the 4th circled as the selected day" />
+
+### Date picker in custom range modal
+
+Used inside the date filter's "Set custom range" modal. Two date picker inputs — From and To — each with a calendar icon. This variant only appears inside the date filter modal, never standalone. See the [Date filter documentation](https://khan.github.io/design-system-guidelines/?path=/docs/design-guidelines-components-inputs-date-filter--docs) for full context.
+
+<img src={customRangeModalImg} alt="A “Set custom range” modal with From (December 1, 2025) and To (December 23, 2025) date picker fields and an Apply button" />
+
+## Interaction
+
+Users can type directly (MM/DD/YYYY) or click the calendar icon to pick visually. The two entry methods must stay in sync — typing a valid date highlights it in the calendar, and clicking a date updates the text field immediately.
+
+<img src={interactionImg} alt="A “Due date” field being typed as “5/4” while the calendar popover highlights May 4 in sync with the input" />
