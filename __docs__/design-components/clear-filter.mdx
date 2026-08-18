@@ -7,13 +7,13 @@ import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
 
 <Meta title="Design Guidelines / Components / Inputs / Clear filter" />
 
-<img src={clearFilterImg} alt="Clear filter" />
+<img src={clearFilterImg} alt="Decorative banner showing a “School: Addison Middle School” active filter with a remove (×) button next to a “Clear filters” link, set over abstract orange, yellow, and blue shapes." />
 
 # Clear filter
 
 <NeutralBadge label="State reset" />
 
-Ensures users can return to a neutral dataset instantly without manual deselection, regardless of how many components are currently in use.
+A tertiary button that removes every active filter in a single action, regardless of how many are applied.
 
 ## When to use
 
@@ -21,35 +21,75 @@ The choice to use a clear filters button is determined by the need to provide a 
 
 | Use when | Example use |
 | --- | --- |
-| A single selection narrows the data | Selecting a single school from a dropdown menu. |
 | A filter combination returns an empty state | Clearing all criteria after "0 results" are found for specific teacher/grade combinations. |
-| Dismissing multiple active filters individually would be time-intensive | Returning to a full class report after narrowing by three specific grades. |
+| Dismissing active filters individually would be time-intensive | Returning to a full class report after narrowing by three specific grades, or after a single multi-select produces one active filter per value. |
 
 ## When NOT to use
 
 | Don’t use when | Recommended alternative | Rationale |
 | --- | --- | --- |
-| Clearing a required filter with no empty state | Dropdown selection | Do not "clear" required parameters (like Date) that cannot have a "none" state. The value should instead revert to its system default. |
+| Clearing a control that can't be empty | Leave the control at its current value | Controls that always hold a value — the embedded Date dropdown defaulting to Last 30 days, for example — define the scope of the view rather than narrowing within it, so they never generate an active filter and Clear filters never touches them. Don't attach a clear affordance to these, and don't revert them to a system default: the current value may be one the user deliberately set. This applies to the embedded Date dropdown, not the Date inline filter button, which the user introduces and which Clear filters does remove. |
 | Resetting a data entry form | Individual field editing | Do not implement "Clear all" functionality on forms. While "Clear filters" is a helpful escape hatch for viewing data, a "Reset form" button leads to accidental data loss. To ensure a safe user experience, avoid any global action that wipes unsaved user input. |
+
+## What Clear filters resets
+
+Clear filters removes exactly the selections that generate an active filter — no more. If a control produces an active filter, Clear filters clears it; if it doesn't, Clear filters leaves it alone. Everything the button will remove is already visible on screen as an active filter, so the user can see the full consequence of the action before taking it.
+
+The deciding line is scope versus filter. Filters narrow within a frame; scope defines the frame. A control the product supplies a value for, and that can never be empty, isn't narrowing anything relative to a baseline — it is the baseline. The verb is the test: clear means remove to empty, so only a control with an empty state can be cleared. Returning a control to a default value is a reset, a different action that would need its own label.
+
+| Control type | Cleared by Clear filters? | Why |
+| --- | --- | --- |
+| Standard dropdown or inline filter button | Yes | Starts empty or inactive, so any value present is a user choice. Generates an active filter, and Clear filters removes it — including every value in a multi-select, not just the first. |
+| Date inline filter button | Yes | No date is pre-applied; the user introduces it, and it generates an active filter. Cleared along with the rest. |
+| Embedded filter dropdown (e.g. Date, defaulting to Last 30 days) | No | The product supplies the starting value and the control can't be cleared to empty, so it never generates an active filter. This is scope, not a filter — and reverting it would change a value the user may have deliberately set. |
+| Search field | No | The typed term generates no active filter and stays fully visible in the field. Clearing it silently would remove a narrowing the user can already see and undo directly. |
+| Toggle | No | Its on/off state generates no active filter and is always visible on the control itself. |
+| Segmented control | No | The selected segment generates no active filter and stays visible and highlighted on the control. |
+
+Because the action is scoped to active filters, keep the label scoped to match — "Clear filters," not "Reset" or "Clear all," which imply a wider blast radius than the button delivers.
+
+## Variants
+
+Clear filters has a single variant. Its appearance does not change with the number or type of active filters applied.
 
 ## States
 
 ### Hidden (inactive)
 
-The button should not be visible if no filters are applied, preventing UI clutter.
+The button should not be visible if no active filters are present, preventing UI clutter.
 
-<img src={statesHiddenImg} alt="Hidden (inactive)" />
+<img src={statesHiddenImg} alt="A report filter bar with a search field, a “Last 30 days” date filter, and inactive School, Grade, and More filters controls. No active filters are applied, so no Clear filters button appears. The view shows 120 results." />
 
 ### Default (active)
 
-Appears as a small tertiary button once a filter is triggered.
+Appears as a [tertiary button](https://khan.github.io/design-system-guidelines/?path=/docs/design-guidelines-components-buttons-buttons--docs) at the small size — `kind="tertiary"`, `size="small"` — once a filter is triggered.
 Avoid using red or other high-caution colors. Clearing filters is an inconsequential action that does not delete data; use neutral styling to keep focus on primary actions.
 
-<img src={statesDefaultImg} alt="Default (active)" />
+<img src={statesDefaultImg} alt="The same filter bar with School and Grades filters applied, shown as active School and Grades controls. Below the bar, an active filters row lists School: Addison Middle School, Grade: 7th grade, and Subject: Math, with the Clear filters button at the end of the row. The view shows 4 results." />
+
+## Interaction
+
+Activating Clear filters removes all active filters at once and updates the results immediately. The action takes effect without a confirmation step — clearing filters changes what is displayed, never the underlying data, so there is nothing to lose and nothing to confirm.
+
+### Focus
+
+The button removes itself from the page as it acts: once the last active filter is gone, the button is hidden. This destroys the user's focus position, so focus must be moved deliberately rather than left to fall back to the top of the document. On activation, move focus to the results region, which should carry `tabindex="-1"` and an accessible name. This keeps a keyboard user moving toward the content they just asked to see, rather than dropping them back into the filter controls they have finished with.
+
+### Announcement
+
+Removing the filters changes the results without moving the user, which a screen reader user has no way to detect. Announce the outcome through a polite live region on the results region — both that the filters were cleared and how many results are now shown, for example "All filters cleared. Showing 248 results." A polite announcement waits for a natural pause rather than interrupting, which is appropriate for a non-urgent, user-initiated change.
+
+### Layout stability
+
+The button sits within the active filters row, which already appears and disappears with the filters themselves. It therefore introduces no layout shift beyond the row's own, and the row should reserve its height consistently so results below do not jump as filters are added and removed.
 
 ## Placement
 
-Position the "Clear filters" button directly following the list of active filter chips.
-It should sit between the filter bar (controls) and the data (results), providing a clear bridge between the two.
+Position the "Clear filters" button directly following the list of [active filters](https://khan.github.io/design-system-guidelines/?path=/docs/design-guidelines-components-inputs-active-filters--docs).
+It should sit between the filter bar (controls) and the data (results), providing a clear bridge between the two. For the full filtering pattern, see [Filter and sort](https://khan.github.io/design-system-guidelines/?path=/docs/design-guidelines-patterns-filter-and-sort--docs).
 
-<img src={placementImg} alt="Placement" />
+<img src={placementImg} alt="An active filters row — School: Addison Middle School, Grade: 7th grade, and Subject: Math, each removable — followed by the Clear filters button at the end of the row, sitting between the filter bar above and the results list below." />
+
+## Copy
+
+The label is always "Clear filters" — sentence case, plural, no ending punctuation. Do not substitute "Reset", "Clear all", or "Clear". "Reset" and "Clear all" both promise a wider blast radius than the button delivers, and the singular "Clear filter" suggests it acts on one filter rather than all of them.

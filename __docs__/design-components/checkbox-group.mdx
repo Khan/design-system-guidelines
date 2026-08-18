@@ -36,19 +36,18 @@ The choice to use a checkbox group is based on the requirement for additive filt
 | Only one option can apply at a time | Radio buttons | Radio buttons clearly communicate mutually exclusive constraints — checkboxes imply multiple selections are valid. |
 | The choice is binary or a single immediate global action | Toggle | A toggle is more appropriate for a single on/off action. Checkbox groups are primarily used for selection within a group. |
 
-## Placement
+## Exposed or dropdown
 
-The choice between exposing a checkbox group directly or wrapping it in a dropdown depends on the number of options and the context it lives in.
+- 5 or fewer — always exposed.
+- 6 to 8 — exposed by default. A dropdown is acceptable only when the options are familiar and ordered and the user doesn't need to compare them.
+- More than 8 — dropdown.
+- Top filter bar — always a dropdown, regardless of count.
 
-### Default
-
-8 or fewer options — expose the checkbox group directly. More than 8 options — wrap in a dropdown to prevent the list from becoming too long to scan.
-
-<Figure type="do" caption="8 or fewer, exposed directly" src={placement1Img} alt="A filter set with 8 or fewer options exposed directly, not wrapped in a dropdown" />
+<Figure type="do" caption="5 or fewer, exposed directly" src={placement1Img} alt="A filter set with two exposed checkbox groups — Essay types with 3 options and Categories with 4 options — shown directly, not wrapped in a dropdown" />
 
 ### Top filter bar
 
-Always wrap in a dropdown regardless of option count. Horizontal space is constrained and exposed groups would break the layout.
+Horizontal space is constrained, so exposed groups would break the layout.
 
 <Figure type="do" caption="top filter bar, always dropdown" src={placement2Img} alt="A top filter bar where grade options are wrapped in a dropdown" />
 

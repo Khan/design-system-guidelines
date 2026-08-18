@@ -25,7 +25,7 @@ import copyOrderingImg from "./assets/dropdown-select/copy-ordering.png";
 
 # Dropdown select
 
-<NeutralBadge label="Dimension/Selection control" />
+<NeutralBadge label="Predefined list selection" />
 
 A selection control used in forms, modals, settings panels, and filter bars. Can start empty or with a product default. Single-select and multi-select variants.
 
@@ -35,17 +35,38 @@ The choice to use a dropdown is based on the need to select from a predefined li
 
 | Use when | Rule | Example use |
 | --- | --- | --- |
-| Selecting a single value | One option must be chosen from a list | Selecting a course in a filter bar or form |
-| Selecting multiple values | More than one option can be chosen simultaneously | Selecting multiple grades to filter a report |
-| List is too long for radio buttons or checkboxes | More than ~5 options benefit from a compact list | Selecting a school from a district-wide list |
+| Selecting a single value | One option must be chosen from a list. | Selecting a course in a filter bar or form. |
+| Selecting multiple values | More than one option can be chosen simultaneously. | Selecting multiple grades to filter a report. |
+| List is too long for radio buttons or checkboxes | More than 8 options, or 6 to 8 options that are familiar and ordered. | Selecting a school from a district-wide list. |
 
 ## When NOT to use
 
-| Don't use when | Recommended alternative | Rationale |
+| Don’t use when | Recommended alternative | Rationale |
 | --- | --- | --- |
-| Only 2–3 options exist (unless part of the filter bar) | Radio buttons or checkbox group | Visible options reduce clicks and cognitive load |
-| The user is opting in to filter | Filter combobox | The filter combobox pattern is designed for additive, clearable filtering |
-| Filtering by a time period | Date filter | The date filter handles temporal filtering with predefined relative options |
+| Eight or fewer options exist and the user needs to compare them (unless part of the filter bar) | Radio buttons or checkbox group | Visible options reduce clicks and cognitive load. The filter bar is the exception: horizontal space is shared across several controls, so options stay collapsed until requested even when the list is short. |
+| The user is opting in to filter | Inline filter button | An inline filter button is added to the bar by the user and can be removed again. A dropdown select is placed there by the product and stays. |
+| Filtering by a time period | Date filter | The date filter handles temporal filtering with predefined relative options. |
+
+## Exposed or dropdown
+
+- 5 or fewer — always exposed.
+- 6 to 8 — exposed by default. A dropdown is acceptable only when the options are familiar and ordered and the user doesn't need to compare them.
+- More than 8 — dropdown.
+- Top filter bar — always a dropdown, regardless of count.
+
+## In the filter bar
+
+The filter bar holds two controls that look alike once opened. The difference is who decided the filter is there.
+
+A dropdown select is a dimension the product has placed in the bar — Course, Date, School. It is always visible, whether or not it currently holds a value, because the view is defined in terms of it.
+
+An inline filter button is a filter the user opts into. It is not in the bar until they add it. Activating it opens a menu that looks and behaves like a dropdown select, which is why the two are easy to confuse once open — but it can be removed entirely, and the view is complete without it.
+
+The test: if the view cannot be described without the dimension, it is a dropdown select. If the user introduced it, it is an inline filter button.
+
+Whether either control produces an active filter is a separate question, decided by whether it carries a product default. See [Active filters](?path=/docs/design-guidelines-components-inputs-active-filters--docs).
+
+The inline filter button is not yet documented in this system. Treat this as known design debt.
 
 ## Variants
 
@@ -69,13 +90,13 @@ The label sits inside the field to the left of the value. Used in filter bars an
 
 ### Single-select
 
-One option can be selected. Selecting immediately applies and closes the menu. A filled blue circle with a checkmark marks the active item.
+One option can be selected. Selecting an option commits it immediately and closes the menu. In a form this sets the field value; in a filter bar it re-queries the data. A filled blue circle with a checkmark marks the active item.
 
 <img src={singleSelectImg} alt="An open single-select menu listing Geometry 1, Algebra 1, and Algebra 2, with Algebra 2 marked active by a filled blue checkmark circle" />
 
 ### Multi-select
 
-Multiple options can be selected via checkboxes. A search field appears for long lists. Changes are not applied until the user taps Apply. The trigger label after selection shows the item name when one is selected, and "2 selected", "3 selected", and so on when more than one is selected.
+Multiple options can be selected via checkboxes. A search field appears for long lists. Changes are not applied until the user selects Apply. The trigger label after selection shows the item name when one is selected, and "2 selected", "3 selected", and so on when more than one is selected.
 
 <img src={multiSelectImg} alt="An open multi-select menu with grade checkboxes and an Apply button; after applying, the trigger collapses to read “Grade: 6th grade”" />
 
@@ -85,25 +106,25 @@ Multiple options can be selected via checkboxes. A search field appears for long
 
 These states apply primarily to the label-above variant, which has vertical space for context labels, helper text, and error messages. The inline variant may support some states depending on context, but the label-above variant is the default for stateful interactions.
 
-### Context
+### Required fields
 
-Use "Required" as an inline label next to the field label instead of an asterisk. This is more accessible and explicit — users don't need to find and interpret a legend.
+Use "Required" as an inline label next to the field label instead of an asterisk. This is more accessible and explicit — users don’t need to find and interpret a legend.
 
 <img src={stateContextImg} alt="A “Grade” dropdown with a “Required” label to the right of the field label instead of an asterisk" />
 
 ### Helper text
 
-Used for helpful description text that would otherwise be hidden in a placeholder. Helper text is persistent — it stays visible before and after the user makes a selection. Use it when the context genuinely aids the user's decision.
+Used for helpful description text that would otherwise be hidden in a placeholder. Helper text is persistent — it stays visible before and after the user makes a selection. Use it when the context genuinely aids the user’s decision.
 
 <img src={stateHelperTextImg} alt="A “Primary language” dropdown with persistent helper text explaining that languages marked with an asterisk are not fully quality-tested" />
 
 ### Error
 
-If the user submits or taps Apply without selecting a required item, the dropdown gains a red border and displays an actionable error message below the field. The label also turns red. The error clears once a valid selection is made.
+If the user submits or selects Apply without selecting a required item, the dropdown gains a red border and displays an actionable error message below the field. The label also turns red. The error clears once a valid selection is made.
 
 <img src={stateErrorImg} alt="A “Grade” dropdown in its error state: red label, red border, and the message “Select at least one grade” below the field" />
 
-### Read only
+### Read-only
 
 Displays the current value while explicitly preventing interaction. Unlike disabled, read-only maintains clear color contrast — the content is still meant to be read. Always include helper text explaining why the field is locked.
 
@@ -122,27 +143,29 @@ Used when a prerequisite action has not been fulfilled. The field is grayed out 
 Add a search field inside the menu when the list is long or when users are likely to know the specific item they need. Applies to both single-select and multi-select. Trigger conditions:
 
 -   **Large data sets:** the list contains more than 10–15 items or requires significant scrolling.
--   **Known-item search:** users are likely to know the specific name of the item they're looking for (e.g., a specific school, student, or unit).
+-   **Known-item search:** users are likely to know the specific name of the item they’re looking for (e.g., a specific school, student, or unit).
 -   **Alphabetical / categorical lists:** the list is long enough that manual scanning becomes inefficient.
 
 <img src={inMenuSearchImg} alt="An open “Select school(s)” menu with a “Search schools” field at the top above a scrollable, checkbox list of schools" />
 
 ### Multi-select requires apply
 
-Checking or unchecking items does not apply until the user taps Apply. This prevents the data from re-filtering on every checkbox tap, which would be disorienting.
+Checking or unchecking items does not apply until the user selects Apply. This prevents the data from re-filtering on every selection, which would be disorienting.
 
-<img src={multiSelectApplyImg} alt="A multi-select grade menu with two boxes checked and an Apply button, collapsing to a “Grade: 2 selected” trigger only after Apply is tapped" />
+Dismissing the menu without applying — clicking outside it or pressing Escape — discards the pending changes and leaves the previous selection intact. Dismissal is the cancel path, so no separate Cancel button is needed.
+
+<img src={multiSelectApplyImg} alt="A multi-select grade menu with two boxes checked and an Apply button, collapsing to a “Grade: 2 selected” trigger only after Apply is selected" />
 
 ## Copy
 
 ### Label clarity and truncation
 
-Option labels must be clear, concise, and immediately understandable, avoiding ambiguity, jargon, or excessive abbreviation. The label displayed in the closed dropdown must fit on a single line and truncate with an ellipsis (…) if necessary, to prevent line wrapping and maintain the component's compact footprint.
+Option labels must be clear, concise, and immediately understandable, avoiding ambiguity, jargon, or excessive abbreviation. The label displayed in the closed dropdown must fit on a single line and truncate with an ellipsis (…) if necessary, to prevent line wrapping and maintain the component’s compact footprint.
 
 <img src={copyTruncationImg} alt="Side-by-side comparison: a recommended dropdown truncating “12 grade advanced placeme…” on one line, versus a discouraged dropdown wrapping “12 grade advanced placement” onto two lines" />
 
 ### Logical ordering
 
-Order options logically. This can mean arranging them alphabetically, numerically, by popularity, or by functional grouping, depending on what best supports the user's scanning process.
+Order options logically. This can mean arranging them alphabetically, numerically, by popularity, or by functional grouping, depending on what best supports the user’s scanning process.
 
 <img src={copyOrderingImg} alt="Two menus showing ordering strategies: a status list ordered by functional grouping (To do, In progress, Complete) and a state list ordered alphabetically (Alabama, Alaska, Arizona)" />

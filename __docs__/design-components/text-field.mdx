@@ -26,7 +26,7 @@ The choice to use a text field is determined by the need to capture specific, of
 | Use when | Example use |
 | --- | --- |
 | Capturing a short-to-medium length input where no predefined selection exists | Entering a student's first name or an assignment title. |
-| The user needs to provide a unique detail or description | Naming a new class, such as 'Period 3 – Algebra'. |
+| The user needs to provide a unique detail or description | Naming a new class, such as "Period 3 – Algebra". |
 | Defining parameters as part of a multi-step workflow | Filling out account details during a new teacher onboarding. |
 
 ## When NOT to use
@@ -35,50 +35,51 @@ The choice to use a text field is determined by the need to capture specific, of
 | --- | --- | --- |
 | The options are finite and known in advance | Dropdown / select | If there is a finite, known list of options, a text field creates unnecessary typing and potential errors. |
 | The user is searching for or retrieving existing content | Search field | Search fields include specific behaviors like "clear" buttons and search icons that standard text fields lack. |
-| The input requires multiple lines or paragraph-length content | Text area | Text fields are intended for single lines of text. For paragraphs, use a multi-line text area. |
+| The input requires multiple lines or paragraph-length content | Text area | Text fields are intended for single lines of text. For paragraphs, use a multi-line text area. The text area is not yet documented in this system; treat this as known design debt. |
 
-## States
+## Anatomy
 
 ### Standard text field
 
 Label is positioned outside and above the input box. The input box is empty until text is entered.
 
-<img src={states1Img} alt="States 1" />
+<img src={states1Img} alt="A “Username” field shown twice: an empty default field above, and below it the same field in its active state with a text cursor and a darker border" />
 
 ### Placeholder text
 
 Serves as a brief, transient hint inside an input field to help guide user input. It is best used to demonstrate specific formatting like MM/DD/YYYY, or clarify ambiguous labels with style examples such as "Ms. Z."
 Because this text disappears when a user begins typing, it must never replace a persistent external label.
 
-<img src={states2Img} alt="States 2" />
+<img src={states2Img} alt="A “Name” field with the sub-label “Start Description” and gray placeholder text reading “Example: Ms. Z” inside the input" />
 
-### Context
+### Required fields
 
-Context to replace asterisks and instead say Required to indicate necessary field.
+Use "Required" as an inline label next to the field label instead of an asterisk. This is more accessible and explicit — users don’t need to find and interpret a legend.
 
-<img src={states3Img} alt="States 3" />
+<img src={states3Img} alt="An “Email” field with a “Required” label inline to the right of the field label, above an empty input" />
 
 ### Helper text
 
 Used for any helpful description text that would otherwise be hidden in a placeholder. This information is more useful when persistent, and sits below the label and above the input.
 
-<img src={states4Img} alt="States 4" />
+<img src={states4Img} alt="A “Name” field with helper text “This is the name your students see” between the label and the empty input" />
+
+## States
 
 ### Error
 
 If the input is invalid, the label and border turn red, accompanied by specific error text below the field.
 
-<img src={states5Img} alt="States 5" />
+<img src={states5Img} alt="A “Username” field in its error state: red label, a red border around the value “meeeeeeeels@aim.com”, and a red error message below reading “No account found with that username. Please try again or create a new account”" />
 
-### Read only
+### Read-only
 
-Used to display a component's value while explicitly prohibiting user interaction or editing. Unlike a fully disabled component, it maintains clear color contrast to ensure the selected content is easily visible and readable.
-This state requires explicit helper text (e.g., "Only teachers can edit this") to explain why the control is locked.
+Displays the current value while explicitly preventing interaction. Unlike disabled, read-only maintains clear color contrast — the content is still meant to be read. Always include helper text explaining why the field is locked.
 
-<img src={states6Img} alt="States 6" />
+<img src={states6Img} alt="A read-only “Name” field showing “Ema Carinyo” on a shaded background, with a lock icon and the helper text “Only teachers can edit this”" />
 
 ### Disabled
 
-Primarily used when a prerequisite action has not been fulfilled. Once the dependency is met, it no longer displays as disabled, indicating it can now be used.
+Used when a prerequisite action has not been fulfilled. The field is grayed out and non-interactive. Once the dependency is met, it no longer displays as disabled. Do not use disabled when read-only is more appropriate — disabled implies unavailability, not restriction.
 
-<img src={states7Img} alt="States 7" />
+<img src={states7Img} alt="A “Password” field in its disabled state: a grayed-out label above an empty, faintly outlined input that cannot be interacted with" />

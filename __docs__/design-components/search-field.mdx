@@ -4,7 +4,6 @@ import searchFieldImg from "./assets/search-field/search-field.png";
 import defaultActiveImg from "./assets/search-field/default-active.png";
 import scopeClarityImg from "./assets/search-field/scope-clarity.png";
 import contextualPlacementImg from "./assets/search-field/contextual-placement.png";
-import autoSuggestionImg from "./assets/search-field/auto-suggestion.png";
 import clearButtonImg from "./assets/search-field/clear-button.png";
 
 <Meta title="Design Guidelines / Components / Inputs / Search field" />
@@ -29,11 +28,11 @@ The choice to use a search field is determined by the need to efficiently locate
 
 ## When NOT to use
 
-| Don't use when | Recommended alternative | Rationale |
+| Don’t use when | Recommended alternative | Rationale |
 | --- | --- | --- |
-| The available options are fixed, small, and mutually exclusive | Dropdown, checkbox, or radio group | Don't use a search field when the options are fixed, small, and mutually exclusive (e.g., selecting "Draft" or "Published" status). |
+| The available options are fixed, small, and mutually exclusive | Dropdown, checkbox, or radio group | Typing to reach one of a handful of known options is slower than picking from them, and it forces the user to guess the exact wording. |
 | The user is narrowing a preference with a binary choice | Toggle / checkbox | For binary choices like "Show assigned skills only," use a toggle instead of a search query. |
-| The input is intended to collect new data, not retrieve existing data | Standard text input | Don't use search-field styling for inputs that collect new data (e.g., "Student name" on a registration form). Search is for retrieval. |
+| The input is intended to collect new data, not retrieve existing data | Text field | Search styling promises retrieval. A field that looks like search but stores what the user types misrepresents what the input does. |
 
 ## States
 
@@ -43,12 +42,6 @@ The search field is bordered and displays placeholder text like "Search." When a
 
 <img src={defaultActiveImg} alt="Two search fields: a default field with a magnifier icon and placeholder, and an active field showing a text cursor and a clear icon" />
 
-### Scope clarity
-
-Optionally add placeholder text (e.g., "Search students…") or an adjacent scope selector to make clear what the field searches.
-
-<img src={scopeClarityImg} alt="A search field whose placeholder reads “Search report,” clarifying its scope" />
-
 ## Placement
 
 ### Contextual placement
@@ -57,16 +50,26 @@ The search field must be placed immediately adjacent to the content list or data
 
 <img src={contextualPlacementImg} alt="A report page with the search field placed directly above the results table it filters, alongside the other filter controls" />
 
-## Interactions
-
-### Auto-suggestion
-
-As the user types, a menu appears below the field containing high-confidence matches. These can include metadata labels (e.g., "Class") to give context for each suggestion.
-
-<img src={autoSuggestionImg} alt="A search field with “A” typed, showing a suggestion menu of Algebra 1, Advanced Algebra 1, AP Calculus, and Pre-Algebra Basics, each tagged “Class”" />
+## Interaction
 
 ### Clear button
 
-Once text is entered, a visible clear/reset button (an "X") should appear inside the input field so the user can easily erase the query and restore the full list.
+Once text is entered, a clear button (an X) appears inside the field so the user can erase the query without selecting and deleting the text.
+
+Selecting it clears the field and submits in a single action, restoring the unfiltered list. This is not an exception to the submission rule — that rule exists to stop results churning on every keystroke, and clearing is one deliberate action. Leaving the results filtered after the field is emptied would show an empty search box above a narrowed list, which states two contradictory things at once.
+
+Focus stays in the field after clearing. A user who clears a search is usually about to type a different one. This differs from Clear filters, where the button removes itself when activated and focus has to be moved deliberately.
 
 <img src={clearButtonImg} alt="A search field with a text cursor and a clear “X” button at the end of the input" />
+
+A search term is cleared only from the field. It does not produce an active filter, and Clear filters does not remove it — a user who clears all filters while a search is still applied will see results that remain narrowed by the search term. See [Active filters](?path=/docs/design-guidelines-components-inputs-active-filters--docs) and [Clear filter](?path=/docs/design-guidelines-components-inputs-clear-filter--docs).
+
+## Copy
+
+The placeholder names what the field searches rather than labelling the field. "Search students" tells the user the scope; "Search" on its own leaves them guessing whether it covers the table, the page, or the whole product.
+
+Write placeholders in sentence case with no ending punctuation — "Search students", not "Search students…" or "Search."
+
+Where the scope is too broad to carry in a placeholder, pair the field with an adjacent scope selector so the user can see and change what is being searched.
+
+<img src={scopeClarityImg} alt="A search field whose placeholder reads “Search report,” clarifying its scope" />
