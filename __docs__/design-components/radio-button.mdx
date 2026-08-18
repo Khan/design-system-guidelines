@@ -28,37 +28,23 @@ The choice to use radio buttons is determined by the need to present a small, vi
 
 | Use when | Example use |
 | --- | --- |
-| The selection is mutually exclusive — only one item can be chosen | Filtering messages by importance: "High," "Medium," or "Low." |
-| The list is small and visible, typically 2 to 4 options, so the user can compare choices easily without an extra action | Selecting a country, or a status like Complete, In Progress, or To Do. |
-| The list is small enough that exposing it costs less than a single-select dropdown (one action vs. two) | — |
+| The selection is mutually exclusive — only one item can be chosen | Choosing Khanmigo’s voice: Voice 1, Voice 2, or Voice 3. |
+| The options are few enough to compare side by side without opening a menu | Choosing an assignment status: To do, In progress, or Complete. |
 
 ## When NOT to use
 
 | Don't use when | Recommended alternative | Rationale |
 | --- | --- | --- |
 | The user needs to select multiple items (A, B, and C) | Checkbox group | Radio buttons cannot be used when more than one item can be chosen at a time. |
-| The list contains more than 5 options | Single-select dropdown | Beyond 5 options, a dropdown conserves vertical screen space. |
+| The list contains more than 8 options | Single-select dropdown | Beyond 8 options, scanning an exposed list costs more than opening a menu. |
 | It's a simple, global on/off constraint that affects the entire view | Toggle | For a simple, global ON/OFF constraint, a toggle is visually clearer. |
 
-## States
+## Exposed or dropdown
 
-### Default selection
-
-One option should always be pre-selected to prevent the user from being in an ambiguous or unvalidated state.
-
-<img src={defaultSelectionImg} alt="A radio group of four options with the first option pre-selected" />
-
-### Disabled
-
-Primarily used when a prerequisite action has not been fulfilled. Once the dependency is met, it no longer displays as disabled, indicating it can now be used.
-
-<img src={disabledImg} alt="A single radio option shown grayed out in its disabled state" />
-
-## Placement
-
-### Exposed groups vs. dropdown
-
-**Exposed:** if there are 8 or fewer options, display them as an exposed list so users can quickly compare and select. **Dropdown:** if there are more than 8 options, contain them within a single-select dropdown to conserve vertical space.
+- 5 or fewer — always exposed.
+- 6 to 8 — exposed by default. A dropdown is acceptable only when the options are familiar and ordered and the user doesn't need to compare them.
+- More than 8 — dropdown.
+- Top filter bar — always a dropdown, regardless of count.
 
 <img src={exposedImg} alt="A modal with a short radio group exposed as a list — “To help with your children’s school learning” and “To homeschool your children”" />
 
@@ -66,7 +52,7 @@ Primarily used when a prerequisite action has not been fulfilled. Once the depen
 
 ### Top filter bar
 
-Regardless of the number of options, radio buttons must always be displayed as a single-select dropdown in the top horizontal filter bar to maintain a clean layout and conserve horizontal space.
+Horizontal space is shared across several controls, so exposed options would break the layout.
 
 <Figure
     src={filterBarDoImg}
@@ -82,6 +68,22 @@ Regardless of the number of options, radio buttons must always be displayed as a
     type="dont"
 />
 
+## States
+
+### Default selection
+
+Pre-select one option so the group is never in an ambiguous or unvalidated state.
+
+The exception is a choice that must be deliberate — consent, a survey answer, or anything where "the user didn’t answer" is meaningful information. Pre-selecting makes it impossible to tell a real choice from an untouched form. In those cases, start with no option selected and treat the group as required.
+
+<img src={defaultSelectionImg} alt="A radio group of four options with the first option pre-selected" />
+
+### Disabled
+
+Used when a prerequisite action has not been fulfilled. The field is grayed out and non-interactive. Once the dependency is met, it no longer displays as disabled. Do not use disabled when read-only is more appropriate — disabled implies unavailability, not restriction.
+
+<img src={disabledImg} alt="A single radio option shown grayed out in its disabled state" />
+
 ## Interaction
 
 ### Immediate, single selection
@@ -90,14 +92,14 @@ Clicking any option immediately selects it and deselects the previously chosen o
 
 <img src={immediateSelectionImg} alt="Two side-by-side radio groups showing selection moving from the first option to the second when clicked" />
 
-### No selection is impossible
+### Returning to no selection
 
-Once an option is selected, the user cannot easily return to a zero-selected state without selecting a distinct "None" or "All" option.
+Once an option is selected, the user cannot return to a zero-selected state. Radio buttons have no mechanism for deselection — choosing one option only moves the selection elsewhere. If "none" is a legitimate answer, provide it as an explicit option rather than expecting the user to clear the group.
 
 <Figure
     src={noSelectionImg}
-    alt="A radio group left with no option selected"
-    caption="allow a group to sit in a zero-selected state once a choice has been made."
+    alt='A radio group — Voice 1, Voice 2, and Voice 3, each with a play button — with no option selected and no explicit "None" option'
+    caption='omit a "None" option when "none" is a valid answer'
     type="dont"
 />
 

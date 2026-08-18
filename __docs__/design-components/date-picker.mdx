@@ -21,34 +21,51 @@ The choice to use a date picker is determined by the need to select a specific d
 
 | Use when | Example use |
 | --- | --- |
-| The user selects one exact date | Setting a due date for an assignment |
-| Used inside the date filter's "Set custom range" modal as the From / To input mechanism | Teacher sets Dec 1 – Dec 23 as a reporting window |
-| Creating events or reminders that require a precise date | Setting a test date in a course calendar |
+| The user needs to select one exact date | Setting a due date for an assignment. |
+| The user needs to schedule an event or reminder on a precise date | Setting a test date in a course calendar. |
 
 ## When NOT to use
 
-| Don't use when | Recommended alternative | Rationale |
+| Don’t use when | Recommended alternative | Rationale |
 | --- | --- | --- |
-| Filtering by a relative time period | Date filter | Relative options like "Today" and "This week" are faster for analytics contexts |
-| Only month and year are needed | Dropdown (MM/YY) | A full calendar is overkill when day-level precision isn't needed |
-| Date and time are both needed | Date time picker | This component handles dates only — no time selection |
+| Filtering by a relative time period | Date filter | Relative options like "Today" and "This week" are faster for analytics contexts. |
+| Only month and year are needed | Dropdown (MM/YY) | A full calendar is overkill when day-level precision isn’t needed. |
+| Date and time are both needed | Date time picker | This component handles dates only — no time selection. A combined date and time picker is not yet part of the system; treat this as known design debt rather than an available alternative. |
 
 ## Variants
 
+Both variants use a calendar icon, never a caret. The icon signals that a calendar popover will open — a caret would imply a dropdown list.
+
 ### Stand-alone date picker
 
-A text input with a calendar icon. The user can type directly in MM/DD/YYYY format or click the calendar icon to open the popover. Used for due dates, event scheduling, or any field requiring a single specific date. The calendar icon signals that a calendar popover will open — never use a caret here.
+A text input with a calendar icon. The user can type directly in MM/DD/YYYY format or click the calendar icon to open the popover. Used for due dates, event scheduling, or any field requiring a single specific date.
 
-<img src={standaloneImg} alt="A “Due date” field showing 5/4/2026 with an open calendar popover for May 2026, the 4th circled as the selected day" />
+<img src={standaloneImg} alt='A "Due date" field showing 05/04/2026, with an open calendar popover for May 2026 and the 4th circled as the selected day' />
 
 ### Date picker in custom range modal
 
-Used inside the date filter's "Set custom range" modal. Two date picker inputs — From and To — each with a calendar icon. This variant only appears inside the date filter modal, never standalone. See the [Date filter documentation](https://khan.github.io/design-system-guidelines/?path=/docs/design-guidelines-components-inputs-date-filter--docs) for full context.
+Used inside the date filter’s "Set custom range" modal. Two date picker inputs — From and To — each with a calendar icon. This variant only appears inside the date filter modal, never stand-alone. See the [Date filter documentation](?path=/docs/design-guidelines-components-inputs-date-filter--docs) for full context.
 
 <img src={customRangeModalImg} alt="A “Set custom range” modal with From (December 1, 2025) and To (December 23, 2025) date picker fields and an Apply button" />
+
+## Date constraints
+
+Not every date is selectable in every context. Where a date is constrained, express the constraint in the calendar itself rather than letting the user make an invalid choice and correcting them afterward.
+
+| Constraint | Behavior |
+| --- | --- |
+| To must not precede From | In the custom range modal, the To calendar disables every date earlier than the selected From date. If the user changes From to a date later than the current To, clear the To value rather than silently reordering the two — reordering reassigns a date the user chose as a start and relabels it as an end. |
+| Unavailable dates | Render disabled dates dimmed and in place, never removed. Keeping them in the grid preserves the shape of the month so the user can still orient by week. Disabled dates are not focusable and are exposed to assistive technology as unavailable. |
+| Dates outside an allowed range, typed directly | Accept the keystrokes as the user types and surface the problem when the field is committed, rather than blocking mid-entry. Partial input is not yet a wrong answer. |
 
 ## Interaction
 
 Users can type directly (MM/DD/YYYY) or click the calendar icon to pick visually. The two entry methods must stay in sync — typing a valid date highlights it in the calendar, and clicking a date updates the text field immediately.
 
-<img src={interactionImg} alt="A “Due date” field being typed as “5/4” while the calendar popover highlights May 4 in sync with the input" />
+<img src={interactionImg} alt='A "Due date" field mid-entry showing "05/04" with a text cursor, while the calendar popover for May 2026 highlights the 4th in sync with the input' />
+
+## Copy
+
+Label the field for the date being set, not the control — "Due date", not "Date picker" or "Select a date". Use sentence case and no ending punctuation.
+
+Use MM/DD/YYYY as the placeholder so the expected format is visible before the user types. Do not rely on a label or helper text alone to communicate format.

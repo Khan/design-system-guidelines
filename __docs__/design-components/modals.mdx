@@ -23,9 +23,9 @@ import copyActionsImg from "./assets/modals/copy-actions.png";
 
 # Modals
 
-<NeutralBadge label="Focused task/Decision" />
+<NeutralBadge label="Focused task or decision" />
 
-A high-focus container used to isolate a user's attention for a specific sub-task or critical decision. Modals require an explicit action or dismissal before the user can return to the primary background content.
+A high-focus container used to isolate a user’s attention for a specific sub-task or critical decision. Modals require an explicit action or dismissal before the user can return to the primary background content.
 
 ## When to use
 
@@ -33,62 +33,64 @@ The choice to use a modal is determined by the need for complete user focus and 
 
 | Use when | Example use |
 | --- | --- |
-| A high-stakes decision requires the user's full attention | Setting up a classroom game. |
+| A high-stakes decision requires the user’s full attention | Setting up a classroom game. |
 | The task is important but must not leave the page or take up a full-page view | Adding multiple students to a roster. |
 | The system requires an explicit "Confirm" or "Cancel" before proceeding | Restarting an exercise or confirming a deletion. |
-| A short sequential flow of 2–3 steps is needed without leaving the page | Adding a class — choosing an import method, then confirming details. |
+| A short sequential flow is needed without leaving the page | Adding a class — choosing an import method, then confirming details. |
 | Supplementary content is needed without fully navigating away from the current page | Displaying a long description during an assessment so students can reference it without leaving. |
 
 ## When NOT to use
 
-Avoid modals when the task doesn't require the user's full attention, when the content is too complex to contain, or when a lighter in-context interaction would be less disruptive.
+Avoid modals when the task doesn’t require the user’s full attention, when the content is too complex to contain, or when a lighter in-context interaction would be less disruptive.
 
-| Don't use when | Recommended alternative | Rationale |
+| Don’t use when | Recommended alternative | Rationale |
 | --- | --- | --- |
-| The user needs to reference or monitor background content | Side drawer | Don't use a modal if the user needs to glance at background context, or if the information is supplemental (e.g., Gem achievements) and should coexist with the main task. |
+| The user needs to reference or monitor background content | Side drawer | Don’t use a modal if the user needs to glance at background context, or if the information is supplemental (e.g., Gem achievements) and should coexist with the main task. The side drawer is not yet documented in this system; treat this as known design debt. |
 | The content is dense or complex enough to need its own page | Full page or side drawer | If the task requires significant scrolling, more complex multi-step flows, or heavy content, it belongs on its own page — not inside a modal. |
-| The interaction is a simple binary choice or lightweight edit | Popover or inline edit | Don't use a modal for a single binary choice or a simple rename; it's too interruptive for "light" actions. |
-| A modal is already open | Redesign the flow | Never stack modals. A second modal on top of the first creates disorientation and breaks the user's mental model of where they are. |
+| The interaction is a simple binary choice or lightweight edit | Popover | Don’t use a modal for a single binary choice or a simple rename; it’s too interruptive for "light" actions. |
+| A modal is already open | Redesign the flow | Never stack task modals. A second modal that introduces new content or choices disorients the user and breaks their sense of where they are. The one exception is a confirmation that resolves the dismissal of the modal beneath it — see Dismissal and unsaved state. |
 
 ## Variants
 
-Modals are a universal container, but their internal logic changes based on the user's goal. The following sections detail the modal flavors used across the product.
+Modals are a universal container, but their internal logic changes based on the user’s goal. The following sections detail the modal flavors used across the product.
 
-### Confirmation flow
+### Confirmation
 
-Verification of intent before a disruptive action. Use for destructive or non-reversible actions.
+Use for destructive or non-reversible actions.
 
 <img src={confirmationFlowImg} alt="A “Start over?” confirmation modal centered over a dimmed exercise page, warning that starting over clears progress, with Start over and Keep going actions" />
 
-### Functional task flow
+### Functional task
 
-Scoped data entry or sub-task completion. Use for tasks like "Add class" or "Add students."
+Use for tasks like "Add class" or "Add students."
 
-**Multi-step logic:** for flows with 2–3 steps, include a "Back" button and a confirmation modal to protect data entry if the user attempts to exit early.
+Multi-step flows have additional requirements — see Multi-step flows under Interaction.
 
 <img src={functionalTaskFlowImg} alt="An “Add your students” modal over a dimmed roster page, offering class-link, manual, and Google Classroom import options with Cancel and Continue" />
 
-### Selection (configuration) flow
+### Selection (configuration)
 
-Setting view parameters. Use for complex, multi-faceted filtering or export settings.
+Use for complex, multi-faceted filtering or export settings.
 
-<img src={selectionFlowImg} alt="A “More filters” modal over a dimmed report, with display options, course, subject checkboxes, and practice fields, plus Clear all and Apply filters" />
+See [Modals - selection](?path=/docs/design-guidelines-components-overlays-modals-selection--docs).
 
-### Contextual education flow
+<img src={selectionFlowImg} alt="A “More filters” modal over a dimmed report, with display options, course, subject checkboxes, and practice fields, plus Reset filters and Apply filters" />
 
-On-demand learning. Triggered by info icons. Keeps the explanation local to the context.
+### Contextual education
+
+Triggered by info icons. Keeps the explanation local to the context.
 
 <img src={contextualEducationFlowImg} alt="A “Mastery learning” explainer modal over a dimmed page, describing what mastery learning is and how it is scored, with a Got it button" />
 
-### Marketing and announcement flow
+### Marketing and announcement
 
-Feature adoption. Highly visual, system-initiated interruptions to showcase new value.
+Highly visual, system-initiated interruptions to showcase new value.
 
 <img src={marketingFlowImg} alt="A visual “Customize Khanmigo” announcement modal with a colorful accessory grid and a Customize Khanmigo button, over a dimmed page" />
 
 ### Media
 
-To display rich media alongside contextual detail. Always read-only — no footer actions.
+Always read-only — no footer actions.
 
 <img src={mediaImg} alt="A read-only media modal showing a Gauguin painting on the left with its title, attribution, and description on the right — no footer actions" />
 
@@ -101,18 +103,18 @@ To display rich media alongside contextual detail. Always read-only — no foote
 | Selection (configuration) | To narrow down or configure exactly what is being viewed. | Applying advanced filters to a student report. |
 | Contextual education | To provide rich, on-demand explanation of a specific term or feature. | Clicking an (i) icon for "What is mastery?" |
 | Marketing and announcement | To drive adoption of new features or highlight system value. | Promoting the new Live Mode game upon login. |
-| Media | To display rich media alongside contextual detail. Always read-only. | Expanding an artwork to view its full description. |
+| Media | To display rich media alongside contextual detail. | Expanding an artwork to view its full description. |
 
 ## Sizing reference
 
-Modals use a fixed-width, dynamic-height framework. Choose a size based on the density and intent of the content.
+Modals use a set of fixed widths with dynamic height. Choose a size based on the density and intent of the content. Marketing and Media are the exceptions — Marketing may exceed the standard widths, and Media fills the viewport.
 
 | Variant | Recommended size | Why |
 | --- | --- | --- |
 | Confirmation | Small (400px) | Keeps the focus tight on the decision; prevents the text from stretching too wide. |
+| Contextual education | Small or Medium (400–600px) | Large enough for a diagram but small enough that the user still feels "connected" to the page they were just on. |
 | Functional task | Medium (600px) | The "Goldilocks" size for standard forms and readability. |
 | Selection (configuration) | Large (800px) | Necessary for multi-column layouts or complex data sets. |
-| Contextual education | Small or Medium (400–600px) | Large enough for a diagram but small enough that the user still feels "connected" to the page they were just on. |
 | Marketing and announcement | Large or Custom (800px+) | These are "storytelling" modals. They often need room for high-res illustrations, videos, or feature cards. |
 | Media | Full screen | Maximizes the visibility of the image or media type being displayed. |
 
@@ -120,27 +122,43 @@ Modals use a fixed-width, dynamic-height framework. Choose a size based on the d
 
 ### Centered overlay
 
-Modals always appear centered horizontally and vertically within the viewport, over a darkened overlay. The overlay must cover all background content — never partially.
+Modals always appear centered horizontally and vertically within the viewport, over a darkened overlay. The overlay must cover all background content — never partially. The Media variant is the exception — it fills the viewport rather than sitting centered within it.
 
 <img src={placementCenteredImg} alt="A modal centered horizontally and vertically in the viewport over a darkened page, with crosshair guides showing the center alignment" />
 
 ### Actions always bottom right
 
-Primary and secondary actions are always anchored to the bottom right of the modal. Never center-align or left-align modal actions.
+Primary and secondary actions are always anchored to the bottom right of the modal. Never center-align or left-align modal actions. This rule is inverted for right-to-left languages, where actions anchor to the bottom left. The Media variant is the exception — it is read-only and has no footer actions.
 
 <img src={placementActionsImg} alt="A modal with its primary and secondary actions anchored to the bottom-right corner, highlighted with a dashed outline" />
 
+### Overflow
+
+A modal’s height grows with its content up to the height of the viewport, less a margin so the overlay stays visible on all sides. Past that point the body scrolls while the title and the actions stay pinned — the user must never have to scroll to reach the primary action.
+
+Background content does not scroll while a modal is open. Scrolling the overlay scrolls nothing.
+
 ## Interaction
+
+### Focus
+
+Opening a modal moves focus into it — to the first interactive element, or to the modal itself when the content is read-only. While the modal is open, focus is trapped inside it: tabbing past the last element returns to the first, and background content is unreachable by keyboard.
+
+Closing the modal returns focus to the element that opened it, so a keyboard user resumes where they left off rather than at the top of the page.
+
+The modal is exposed to assistive technology as a dialog, labelled by its title, with background content hidden.
 
 ### Dismissal and unsaved state
 
 Users can dismiss a modal via the X button in the top right, clicking the overlay, or pressing the Escape key. For functional task modals, if the modal contains unsaved changes, dismissal must trigger a warning — never silently discard user input.
 
+This confirmation is the only permitted second layer. It resolves the dismissal of the modal beneath it and nothing else — it introduces no new task, offers no route to a third layer, and on resolution either returns the user to the modal they were in or closes both.
+
 <img src={interactionDismissalImg} alt="A “Discard changes?” modal warning that unsaved changes will be lost, with a Keep editing button and a red Discard button" />
 
 ### Multi-step flows
 
-A modal can support a short sequential flow of 2–3 steps when each step is simple and self-contained. If the flow grows beyond 3 steps or requires significant input at each stage, move it to a full page with the complex stepper instead.
+A modal can support a short sequential flow of 2–3 steps when each step is simple and self-contained. If the flow grows beyond 3 steps or requires significant input at each stage, move it to a full page with the [Progress stepper](?path=/docs/design-guidelines-components-feedback-progress-stepper--docs) instead.
 
 <img src={interactionMultistepImg} alt="Step one of an “Add your students” multi-step modal, selecting an import method before continuing to the next step" />
 
@@ -148,16 +166,18 @@ A modal can support a short sequential flow of 2–3 steps when each step is sim
 
 ### Pairings
 
+Modal actions use the [Buttons](?path=/docs/design-guidelines-components-buttons-buttons--docs) component. Three pairings apply:
+
 -   **Standard (Primary + Secondary):** used for neutral functional tasks (e.g., "Add students"). The secondary button (outlined) provides a clear, accessible exit that feels equal in importance to the task.
 -   **Nudge (Primary + Tertiary):** used for confirmations. The primary solid button represents the "path of least resistance." Whether this is the safe choice or the requested action depends on the risk involved (see Directional logic).
 -   **Destructive (Danger + Tertiary):** used for permanent actions. The primary button is red (e.g., "Delete class") and "Cancel" is a Tertiary button to highlight the severity.
 
-<img src={buttonsPairingsImg} alt="Three button pairings: Standard (Cancel + blue Save), Nudge (Clear all + blue Apply filters), and Destructive (Cancel + red Delete class)" />
+<img src={buttonsPairingsImg} alt="Three button pairings: Standard (Cancel + blue Save), Nudge (Reset filters + blue Apply filters), and Destructive (Cancel + red Delete class)" />
 
 ### Directional logic
 
 -   **High-risk nudges:** when an action results in a loss of progress (e.g., "Start over"), the Primary button pivots to the safe/positive action (e.g., "Keep going"). This prevents "auto-pilot" clicks from causing accidental data loss.
--   **Standard intent:** when an action is neutral or expected (e.g., "Log out"), the Primary button remains the requested action. Since there is no data loss to prevent, the system respects the user's explicit command to exit.
+-   **Standard intent:** when an action is neutral or expected (e.g., "Log out"), the Primary button remains the requested action. Since there is no data loss to prevent, the system respects the user’s explicit command to exit.
 
 <img src={buttonsDirectionalImg} alt="Two examples: a high-risk nudge where Keep going is the primary button next to a Start over link, and a standard case where Logout is primary next to a Cancel link" />
 

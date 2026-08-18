@@ -10,7 +10,7 @@ import categoryLabelsImg from "./assets/modals-selection/category-labels.png";
 import toggleBehaviorImg from "./assets/modals-selection/toggle-behavior.png";
 import adaptiveControlsImg from "./assets/modals-selection/adaptive-controls.png";
 import parentChildImg from "./assets/modals-selection/parent-child.png";
-import clearAllImg from "./assets/modals-selection/clear-all.png";
+import resetFiltersImg from "./assets/modals-selection/reset-filters.png";
 
 <Meta title="Design Guidelines / Components / Overlays / Modals - selection" />
 
@@ -18,13 +18,13 @@ import clearAllImg from "./assets/modals-selection/clear-all.png";
 
 # Modals - selection
 
-<NeutralBadge label="Complex selection/Filtering" />
+<NeutralBadge label="Complex filtering" />
 
 A secondary control center for complex or less frequent filtering needs, ensuring the primary interface remains uncluttered. Allows users to manage multiple data dimensions in a focused environment without losing the context of their current report.
 
 ## When to use
 
-The choice to use a modal selection is determined by the need to provide access to extended filtering criteria that would otherwise overwhelm the horizontal real estate of the primary filter bar.
+The choice to use the selection modal is determined by the need to provide access to extended filtering criteria that would otherwise overwhelm the horizontal real estate of the primary filter bar.
 
 | Use when | Example use |
 | --- | --- |
@@ -35,9 +35,9 @@ The choice to use a modal selection is determined by the need to provide access 
 
 Avoid the selection modal when the filtering need is simple enough to be handled directly in the filter bar, or when a pre-selected default should always be visible to the user.
 
-| Don't use when | Recommended alternative | Rationale |
+| Don’t use when | Recommended alternative | Rationale |
 | --- | --- | --- |
-| A filter needs to be pre-selected or always visible | Embedded filter dropdown | If a filter option is preselected, such as Date set to "Last 30 days," nothing pre-filtered should be hidden in a modal selection. |
+| A filter needs to be pre-selected or always visible | Embedded filter dropdown | If a filter option is preselected, such as Date set to "Last 30 days," nothing pre-filtered should be hidden in the selection modal. |
 | Only one additional filter is needed | Standard dropdown | If only one additional filter is needed, a simple dropdown in the filter bar is more efficient than a modal. |
 | The user needs to search by keyword | Search field | Users expect search to be a persistent, high-level action in the primary UI rather than hidden in a modal. |
 
@@ -45,13 +45,9 @@ Avoid the selection modal when the filtering need is simple enough to be handled
 
 ### Default modal
 
-All filters are secondary by default when the modal is first opened or currently applied. The modal displays all the available filter sections simultaneously. Changes only apply to the main report after the user clicks the "Apply filters" button.
+All filters are secondary by default when the modal is first opened or currently applied. The modal displays all the available filter sections simultaneously.
 
-<img src={defaultModalImg} alt="A “More filters” modal over a dimmed report showing all filter sections at once — Display options, Course, Subject, and Practice — with Clear all and Apply filters in the footer" />
-
-The "More filters" button in the primary UI should display a numeric badge (e.g., "2") to indicate how many hidden filters are currently active.
-
-<img src={filterBadgeImg} alt="A filter bar where the “More filters” button carries a “2” badge, with the two active hidden filters shown as chips below" />
+<img src={defaultModalImg} alt="A “More filters” modal over a dimmed report showing all filter sections at once — Display options, Course, Subject, and Practice — with Reset filters and Apply filters in the footer" />
 
 ## Placement
 
@@ -59,7 +55,11 @@ The "More filters" button in the primary UI should display a numeric badge (e.g.
 
 Trigger the modal from a button labeled "More filters" located at the end of the primary filter bar.
 
+The "More filters" button in the primary UI should display a numeric badge (e.g., "2") to indicate how many hidden filters are currently active.
+
 <img src={commonPlacementImg} alt="A filter bar with Last 30 days, School, and Grade filters followed by a “More filters” button at the end" />
+
+<img src={filterBadgeImg} alt="A filter bar where the “More filters” button carries a “2” badge, with the two active hidden filters shown as chips below" />
 
 ### Internal layout
 
@@ -69,13 +69,21 @@ Group filters into clearly labeled sections using headings — e.g. "Display opt
 
 ### Footer actions
 
-The "Clear all" button should always be in the bottom left, anchored to the footer. "Apply filters" is the primary action bottom right. This button pair must always be visible — never buried below the fold.
+The "Reset filters" button is always in the bottom left, anchored to the footer. "Apply filters" is the primary action, bottom right. This button pair must always be visible — never buried below the fold.
 
-<img src={footerActionsImg} alt="The selection modal footer highlighted, with Clear all anchored bottom-left and Apply filters bottom-right" />
+<img src={footerActionsImg} alt="The selection modal footer highlighted, with Reset filters anchored bottom-left and Apply filters bottom-right" />
 
 ## Interaction
 
-When designing the content of the modal, refer to the specific documentation for components like dropdowns, radio buttons, checkboxes, and toggles to ensure input consistency. For backdrop behavior, sizing, and animations, refer to the [Modals documentation](https://khan.github.io/design-system-guidelines/?path=/docs/design-guidelines-components-overlays-modals--docs).
+When designing the content of the modal, refer to the specific documentation for components like [dropdowns](?path=/docs/design-guidelines-components-inputs-dropdown-select--docs), [radio buttons](?path=/docs/design-guidelines-components-inputs-radio-button--docs), [checkboxes](?path=/docs/design-guidelines-components-inputs-checkbox-group--docs), and [toggles](?path=/docs/design-guidelines-components-inputs-toggle--docs) to ensure input consistency. For backdrop behavior, sizing, and animations, refer to the [Modals documentation](?path=/docs/design-guidelines-components-overlays-modals--docs).
+
+### Applying changes
+
+Nothing in this modal reaches the report until the user selects "Apply filters". Every control — dropdowns, checkboxes, toggles — holds its pending value inside the modal until then, so the user can set several filters at once without the report re-querying between each one.
+
+Dismissing the modal with the X, the Escape key, or a click on the overlay discards pending changes and leaves the report unchanged. Filters are non-destructive and quick to redo, so dismissal does not warn — unlike a functional task modal, which must warn before discarding entered data.
+
+Reopening the modal shows the filters currently applied to the report, not the pending state that was abandoned.
 
 ### Layout — category labels
 
@@ -91,7 +99,7 @@ Within the modal, toggles should be placed full-width and left-aligned, with the
 
 ### Dynamic content — adaptive controls
 
-Dropdowns can transform into exposed checkboxes when the available options are significantly reduced (e.g., through other filter selections). This improves scanability when a long list becomes a short, manageable set of choices.
+Dropdowns transform into exposed checkboxes when the available options drop to five or fewer, following the [option-count rule](?path=/docs/design-guidelines-components-inputs-checkbox-group--docs) used across the system. Five is the trigger rather than the wider six-to-eight band, because that band calls for a judgment about the content — one that can’t be re-made at runtime. A single fixed threshold keeps the transformation predictable instead of flipping as the user filters.
 
 <img src={adaptiveControlsImg} alt="Before and after: a Course dropdown collapses into a short set of exposed checkboxes (Algebra 1, Geometry, Algebra 2, Trigonometry) once the option list is reduced" />
 
@@ -99,10 +107,18 @@ Dropdowns can transform into exposed checkboxes when the available options are s
 
 Support hierarchies that filter one option based on a parent selection — e.g. selecting a "Practice" enables a "Test" dropdown.
 
+When a parent selection changes, the child keeps its value if that value is still available under the new parent, and is cleared if it is not. Never carry forward a child selection the user can no longer see — an orphaned value produces a filter state nothing in the interface explains. Where the new parent has no children, the child control returns to its disabled state.
+
+The clearing happens in the modal, visibly, at the moment the parent changes — not silently on Apply.
+
 <img src={parentChildImg} alt="A Practice dropdown set to “Placements” enabling a dependent “Select a test” dropdown below it, both highlighted" />
 
-### Clear all behavior
+### Reset filters behavior
 
-Clicking "Clear all" inside the modal resets all filter selections within the modal to their default state and closes the modal, applying the cleared state to the report immediately.
+Selecting "Reset filters" returns every control in the modal to its default value — dropdowns, checkboxes, and any toggles set within the modal. It resets to defaults rather than clearing to empty: a toggle that ships on returns to on, not off.
 
-<img src={clearAllImg} alt="The selection modal footer with the “Clear all” button highlighted" />
+The modal stays open and nothing reaches the report until the user selects "Apply filters". Reset is a change like any other made here, so it follows the same commit path — the user can see what the reset did, adjust from there, and dismiss without committing if they change their mind.
+
+This is not the same action as Clear filters in the filter bar, which removes active filters from the report rather than returning controls to their defaults. Clear and reset are distinct verbs in this system: clear removes to empty, reset returns to a default. See [Clear filter](?path=/docs/design-guidelines-components-inputs-clear-filter--docs).
+
+<img src={resetFiltersImg} alt="The selection modal footer with the “Reset filters” button highlighted" />
