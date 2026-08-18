@@ -1,0 +1,107 @@
+import {Meta} from "@storybook/addon-docs/blocks";
+import Principle, {PrincipleSet} from "../components/principle";
+import headerImg from "./assets/layout/header.png";
+import learningImg from "./assets/layout/learning.png";
+import jobImg from "./assets/layout/job.png";
+import onboardingImg from "./assets/layout/onboarding.png";
+import settingsImg from "./assets/layout/settings.png";
+
+<Meta title="Design Guidelines / Foundations / Layout" />
+
+<img src={headerImg} alt="Layout" />
+
+# Layout
+
+Layout answers two questions: what kind of screen is this, and what is the user here to do? Each layout type has a clear purpose, a default density, and a set of screen contexts it's designed for. Before arranging elements on a screen, identify the layout type — that decision then guides every one that follows.
+
+## Principles
+
+<PrincipleSet>
+    <Principle
+        label="Purpose"
+        title="One purpose per screen"
+        description="Every layout type is built around a single user job. When a screen tries to do two things, it does neither well. If content doesn't serve the primary job, it belongs in a different layout."
+    />
+    <Principle
+        label="Density"
+        title="Density matches context"
+        description="A Job screen should feel minimal. A Reports screen can carry more. The right amount of information is determined by what the layout is for — not by what's available to show."
+    />
+    <Principle
+        label="Contract"
+        title="Set expectations, then meet them"
+        description="Users associate layout shapes with functions. A screen that looks like a form should behave like one. Surprising users with extra content or unrelated actions breaks the implicit contract."
+    />
+    <Principle
+        label="Disclosure"
+        title="Reveal depth progressively"
+        description="Detail belongs one level down, not on the surface. Use drawers, modals, and sub-pages to give users more without burdening the primary layout with it."
+    />
+</PrincipleSet>
+
+## Types of layouts
+
+Every screen maps to one of six layout types. Each is defined by the user's job, the contexts it's built for, and a default density.
+
+### Dashboard (get an overview and navigate)
+
+A bird's-eye view of the system's current state with entry points to tasks and deeper exploration. Users aren't completing a task here — they're orienting themselves and deciding where to go next.
+
+**When to use:** Student home screen, teacher class view, admin overview.
+**Density:** High — users need to scan a lot of information efficiently.
+
+### Learning (learn something new, step by step)
+
+The primary surface where a student engages with content — exercises, articles, videos, or a Khanmigo conversation. Everything else in KA exists to get students here. Teachers also use a version of this layout when working with Khanmigo directly.
+
+**When to use:** Any time the user is actively learning or in conversation with Khanmigo.
+**Density:** Low — the student needs focus. Nothing competes with the content.
+
+<img src={learningImg} alt="Wireframe of a Learning layout: a slim left rail and header frame a single large content area that dominates the screen" />
+
+### Job (complete a task or fill a form)
+
+A focused flow for completing a task — either a single step or a sequence of steps. The user has one thing to accomplish and the layout clears everything else out of the way. When a task requires multiple sequential decisions, a progress indicator at the top shows the user where they are and how much is left. Complexity is managed by breaking it across steps, not by cramming it onto one screen.
+
+**When to use:** Any task or flow that requires full focus, like creating or editing an assignment or an assessment.
+**Density:** Low — one task, one focus per step.
+
+<img src={jobImg} alt="Wireframe of a Job layout: a centered column of task content with a progress indicator up top and primary and secondary actions in a fixed footer" />
+
+### Onboarding (get oriented before starting)
+
+A setup flow for first-time users establishing context — creating a class, joining a class, configuring a profile. Similar in structure to a multi-step Job flow but distinct in purpose: new users need clarity above everything else, so nothing competes with the current step.
+
+**When to use:** First-time teacher class creation, a student joining a class for the first time, new account setup.
+**Density:** Low — one focus per step.
+
+<img src={onboardingImg} alt="Wireframe of an Onboarding layout: a two-column setup screen with an illustration panel on the left, a short form on the right, and step dots in the footer" />
+
+### Reports (browse or analyze data)
+
+A view for reviewing data, tracking progress, and identifying patterns over time. Users come here to read and interpret information — and to act on it. Reports surface what's happening and give teachers a clear path to what to do next.
+
+**When to use:** Assignment completion rates, student progress over time, class performance summaries, mastery by skill.
+**Density:** High — users are here to scan and compare data, so the layout can carry more information than most. The risk isn't too much data — it's data without clear hierarchy.
+
+### Settings (configure or control preferences)
+
+A screen for managing preferences and configurations. Navigation between topics sits above or alongside; the content area handles the active topic. Users come here to adjust something specific and leave — it's rarely a destination in itself.
+
+**When to use:** Account settings, class preferences, notification configuration, accessibility options.
+**Density:** Medium.
+
+<img src={settingsImg} alt="Wireframe of a Settings layout: a left navigation rail and a tabbed content area holding the controls for the active topic" />
+
+## Information density
+
+Each layout carries a density contract — a promise about how much the user should expect. Adding content beyond that contract doesn't make a screen more helpful; it makes it noisier.
+
+| Layout | Belongs | Doesn't belong |
+| --- | --- | --- |
+| Dashboard | High-level metrics, status, navigation to tasks and reports. | Editable fields, long-form content, deep drill-downs inline. |
+| Learning | One concept per step. Focused content, progress, a clear next action. | Multiple concepts at once, optional paths, dense reference material. |
+| Job | Only what's needed to complete the action. Fields, instructions, confirmation. | Metrics, related content, contextual tips, "while you're here" info. |
+| Onboarding | The single most important thing to understand or do right now. | Full feature explanations, settings, advanced options, edge cases. |
+| Reports | Data tables, charts, filters, date ranges. Summary metrics at the top. | Editable fields, task flows, onboarding prompts, unrelated calls to action. |
+| Settings | Controls grouped by topic. Labels and descriptions that aid decisions. | Marketing copy, onboarding prompts, unrelated calls to action. |
