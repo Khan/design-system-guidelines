@@ -19,6 +19,7 @@
         "@khanacademy/wonder-blocks-button": "^11.7.5",
         "@khanacademy/wonder-blocks-clickable": "^8.2.7",
         "@khanacademy/wonder-blocks-core": "^12.4.4",
+        "@khanacademy/wonder-blocks-dropdown": "^10.12.0",
         "@khanacademy/wonder-blocks-icon": "^5.3.21",
         "@khanacademy/wonder-blocks-icon-button": "11.4.4",
         "@khanacademy/wonder-blocks-link": "^10.3.7",
