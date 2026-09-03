@@ -8,8 +8,10 @@ import internalLayoutImg from "./assets/modals-selection/internal-layout.png";
 import footerActionsImg from "./assets/modals-selection/footer-actions.png";
 import categoryLabelsImg from "./assets/modals-selection/category-labels.png";
 import toggleBehaviorImg from "./assets/modals-selection/toggle-behavior.png";
-import adaptiveControlsImg from "./assets/modals-selection/adaptive-controls.png";
-import parentChildImg from "./assets/modals-selection/parent-child.png";
+import adaptiveControls1Img from "./assets/modals-selection/adaptive-controls-1.png";
+import adaptiveControls2Img from "./assets/modals-selection/adaptive-controls-2.png";
+import parentChild1Img from "./assets/modals-selection/parent-child-1.png";
+import parentChild2Img from "./assets/modals-selection/parent-child-2.png";
 import resetFiltersImg from "./assets/modals-selection/reset-filters.png";
 
 <Meta title="Design Guidelines / Components / Overlays / Modals - selection" />
@@ -29,7 +31,7 @@ The choice to use the selection modal is determined by the need to provide acces
 | Use when | Example use |
 | --- | --- |
 | Housing secondary filters used less frequently than primary anchors | Moving specific filter options into the modal to keep the main header clean. |
-| The filtering interaction combines multiple input types that are too complex for the filter bar | Selecting a Practice type activates a previously disabled Test type dropdown below it — the modal gives dependent filters the space to reveal themselves without cluttering the filter bar. |
+| The filtering interaction combines multiple input types that are too complex for the filter bar | Selecting a Practice type reveals a Test type dropdown below it — the modal gives dependent filters the space to reveal themselves without cluttering the filter bar. |
 
 ## When NOT to use
 
@@ -99,19 +101,23 @@ Within the modal, toggles should be placed full-width and left-aligned, with the
 
 ### Dynamic content — adaptive controls
 
-Dropdowns transform into exposed checkboxes when the available options drop to five or fewer, following the [option-count rule](?path=/docs/design-guidelines-components-inputs-checkbox-group--docs) used across the system. Five is the trigger rather than the wider six-to-eight band, because that band calls for a judgment about the content — one that can’t be re-made at runtime. A single fixed threshold keeps the transformation predictable instead of flipping as the user filters.
+Dropdowns transform into exposed checkboxes when the available options drop to five or fewer, following the option-count rule used across the system. Five is the trigger rather than the wider six-to-eight band, because that band calls for a judgment about the content — one that can’t be re-made at runtime. A single fixed threshold keeps the transformation predictable instead of flipping as the user filters.
 
-<img src={adaptiveControlsImg} alt="Before and after: a Course dropdown collapses into a short set of exposed checkboxes (Algebra 1, Geometry, Algebra 2, Trigonometry) once the option list is reduced" />
+<img src={adaptiveControls1Img} alt="A Course row shown as a “Select a course” dropdown while the option list is still long" />
+
+<img src={adaptiveControls2Img} alt="The same Course row after the option list is reduced, now shown as exposed checkboxes: Algebra 1, Geometry, Algebra 2, and Trigonometry" />
 
 ### Dynamic content — parent/child logic
 
-Support hierarchies that filter one option based on a parent selection — e.g. selecting a "Practice" enables a "Test" dropdown.
+Support hierarchies where one filter only applies once another is set — e.g. selecting a "Practice" reveals a "Test" dropdown.
 
-When a parent selection changes, the child keeps its value if that value is still available under the new parent, and is cleared if it is not. Never carry forward a child selection the user can no longer see — an orphaned value produces a filter state nothing in the interface explains. Where the new parent has no children, the child control returns to its disabled state.
+The child control is not displayed until the parent holds a value. When the parent changes, the child keeps its value if that value is still available under the new parent, and is cleared if it is not. Never carry forward a child selection the user can no longer see — an orphaned value produces a filter state nothing in the interface explains. When the parent is cleared, or the new parent has no children, the child is removed along with any value it held.
 
-The clearing happens in the modal, visibly, at the moment the parent changes — not silently on Apply.
+The change happens in the modal, visibly, at the moment the parent changes — not silently on Apply.
 
-<img src={parentChildImg} alt="A Practice dropdown set to “Placements” enabling a dependent “Select a test” dropdown below it, both highlighted" />
+<img src={parentChild1Img} alt="A More filters modal with Practice set to “Placements” and no dependent control below it yet" />
+
+<img src={parentChild2Img} alt="The same modal after the parent is set, with a dependent “Select a test” dropdown now revealed beneath Practice, both highlighted" />
 
 ### Reset filters behavior
 

@@ -7,13 +7,13 @@ import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
 
 <Meta title="Design Guidelines / Components / Inputs / Clear filter" />
 
-<img src={clearFilterImg} alt="Decorative banner showing a “School: Addison Middle School” active filter with a remove (×) button next to a “Clear filters” link, set over abstract orange, yellow, and blue shapes." />
+<img src={clearFilterImg} alt="Decorative banner showing a “School: Addison Middle School” active filter with a remove (×) button next to a “Clear all filters” link, set over abstract orange, yellow, and blue shapes." />
 
 # Clear filter
 
 <NeutralBadge label="State reset" />
 
-A tertiary button that removes every active filter in a single action, regardless of how many are applied.
+A tertiary button that removes every filter the user applied in a single action, regardless of how many are in use.
 
 ## When to use
 
@@ -28,37 +28,32 @@ The choice to use a clear filters button is determined by the need to provide a 
 
 | Don’t use when | Recommended alternative | Rationale |
 | --- | --- | --- |
-| Clearing a control that can't be empty | Leave the control at its current value | Controls that always hold a value — the embedded Date dropdown defaulting to Last 30 days, for example — define the scope of the view rather than narrowing within it, so they never generate an active filter and Clear filters never touches them. Don't attach a clear affordance to these, and don't revert them to a system default: the current value may be one the user deliberately set. This applies to the embedded Date dropdown, not the Date inline filter button, which the user introduces and which Clear filters does remove. |
+| Clearing a control that can't be empty | Leave the control at its current value | Controls that always hold a value — the embedded Date dropdown defaulting to Last 30 days, for example — define the scope of the view rather than narrowing within it, so there is no empty state to clear them to and Clear filters never touches them. Don't attach a clear affordance to these, and don't revert them to a system default: the current value may be one the user deliberately set. This applies to the embedded Date dropdown, not the Date inline filter button, which the user introduces and which Clear filters does remove. |
 | Resetting a data entry form | Individual field editing | Do not implement "Clear all" functionality on forms. While "Clear filters" is a helpful escape hatch for viewing data, a "Reset form" button leads to accidental data loss. To ensure a safe user experience, avoid any global action that wipes unsaved user input. |
 
-## What Clear filters resets
+## What Clear all filters resets
 
-Clear filters removes exactly the selections that generate an active filter — no more. If a control produces an active filter, Clear filters clears it; if it doesn't, Clear filters leaves it alone. Everything the button will remove is already visible on screen as an active filter, so the user can see the full consequence of the action before taking it.
+Clear all filters removes every filter the user applied. See the table below for which controls that includes.
 
-The deciding line is scope versus filter. Filters narrow within a frame; scope defines the frame. A control the product supplies a value for, and that can never be empty, isn't narrowing anything relative to a baseline — it is the baseline. The verb is the test: clear means remove to empty, so only a control with an empty state can be cleared. Returning a control to a default value is a reset, a different action that would need its own label.
-
-| Control type | Cleared by Clear filters? | Why |
+| Control type | Cleared by Clear all filters? | Why |
 | --- | --- | --- |
-| Standard dropdown or inline filter button | Yes | Starts empty or inactive, so any value present is a user choice. Generates an active filter, and Clear filters removes it — including every value in a multi-select, not just the first. |
+| Standard dropdown or inline filter button | Yes | Starts empty or inactive, so any value present is a user choice. Generates an active filter, and Clear all filters removes it — including every value in a multi-select, not just the first. |
 | Date inline filter button | Yes | No date is pre-applied; the user introduces it, and it generates an active filter. Cleared along with the rest. |
-| Embedded filter dropdown (e.g. Date, defaulting to Last 30 days) | No | The product supplies the starting value and the control can't be cleared to empty, so it never generates an active filter. This is scope, not a filter — and reverting it would change a value the user may have deliberately set. |
-| Search field | No | The typed term generates no active filter and stays fully visible in the field. Clearing it silently would remove a narrowing the user can already see and undo directly. |
-| Toggle | No | Its on/off state generates no active filter and is always visible on the control itself. |
-| Segmented control | No | The selected segment generates no active filter and stays visible and highlighted on the control. |
+| Toggle | Yes | Off is its empty state, so an on toggle is a narrowing the user applied. It generates no active filter, but the reset follows what the user constrained, not what appears as a chip. |
+| Embedded filter dropdown (e.g. Date, defaulting to Last 30 days) | No | The product supplies the starting value and the control can't be cleared to empty. This is scope, not a filter — and reverting it would change a value the user may have deliberately set. |
+| Segmented control | No | One segment is always selected, so there is no empty state to clear to. Switching views is scope, not narrowing. |
+| Sort control | No | Sorting changes the order of results, not which results are shown. It narrows nothing, so there is nothing for the button to clear. |
+| Search field | No | The query is authored text, not a selection. Clearing it would destroy input the user can't restore by re-picking, and the field clears in place on its own. |
 
-Because the action is scoped to active filters, keep the label scoped to match — "Clear filters," not "Reset" or "Clear all," which imply a wider blast radius than the button delivers.
-
-## Variants
-
-Clear filters has a single variant. Its appearance does not change with the number or type of active filters applied.
+Because the reset reaches past the chip row, the label says so — "Clear all filters," not "Clear filters." The "all" signals that narrowings without chips go too.
 
 ## States
 
 ### Hidden (inactive)
 
-The button should not be visible if no active filters are present, preventing UI clutter.
+The button should not be visible if no filters are applied, preventing UI clutter.
 
-<img src={statesHiddenImg} alt="A report filter bar with a search field, a “Last 30 days” date filter, and inactive School, Grade, and More filters controls. No active filters are applied, so no Clear filters button appears. The view shows 120 results." />
+<img src={statesHiddenImg} alt="A report filter bar with a search field, a “Last 30 days” date filter, and inactive School, Grade, and More filters controls. No active filters are applied, so no Clear all filters button appears. The view shows 120 results." />
 
 ### Default (active)
 
@@ -77,7 +72,7 @@ The button removes itself from the page as it acts: once the last active filter 
 
 ### Announcement
 
-Removing the filters changes the results without moving the user, which a screen reader user has no way to detect. Announce the outcome through a polite live region on the results region — both that the filters were cleared and how many results are now shown, for example "All filters cleared. Showing 248 results." A polite announcement waits for a natural pause rather than interrupting, which is appropriate for a non-urgent, user-initiated change.
+Removing the filters changes the results without moving the user, which a screen reader user has no way to detect. Announce the outcome through the # results text.
 
 ### Layout stability
 
@@ -92,4 +87,4 @@ It should sit between the filter bar (controls) and the data (results), providin
 
 ## Copy
 
-The label is always "Clear filters" — sentence case, plural, no ending punctuation. Do not substitute "Reset", "Clear all", or "Clear". "Reset" and "Clear all" both promise a wider blast radius than the button delivers, and the singular "Clear filter" suggests it acts on one filter rather than all of them.
+The label is always "Clear all filters" — sentence case, plural, no ending punctuation. Do not substitute "Reset", "Clear all", or "Clear".

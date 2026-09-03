@@ -42,7 +42,7 @@ Not every control in the filter bar produces a chip. The deciding factor is who 
 | Embedded filter dropdown (e.g. Date, defaulting to Last 30 days) | No | The product supplies a default and the control can't be cleared to empty — a value is always present regardless of user action, so a chip couldn't signal an actual choice. |
 | Date inline filter button | Yes | No date is pre-applied — the control starts empty until the user adds one. Its presence, even when short and fully legible on the control itself (e.g. "Nov 1 – Nov 30"), signals a real, removable choice the user made. |
 | Search field | No | The typed term is fully visible in the field itself. |
-| Toggle | No | Its on/off state is a complete, unambiguous indicator, always visible on the control. |
+| Toggle | No | Its on/off state is a complete, unambiguous indicator, always visible on the control. It still counts as a filter the user applied, so Clear all filters turns it off. |
 | Segmented control | No | The selected segment stays fully visible and highlighted on the control itself. |
 
 ## States
@@ -50,14 +50,14 @@ Not every control in the filter bar produces a chip. The deciding factor is who 
 Each active filter displays the filter category and its selected value — for example, "School: Addison Middle School." A dismiss icon allows the user to deactivate that specific filter.
 When more active filters exist than can fit on one line, they wrap to a second line to maintain full transparency.
 
-<img src={statesImg} alt="States" />
+<img src={statesImg} alt="A report filter bar with search, date, and school controls, above five active filter pills that wrap onto a second line, each showing a category and value with a dismiss icon, followed by a Clear all filters link" />
 
 ## Placement
 
 Active filters sit directly below the filter bar, creating a clear visual link between the controls and the data they affect.
 They sit above the data visualization — cards, charts, or tables — acting as a bridge between the filtering interface and the displayed data.
 
-<img src={placementImg} alt="Placement" />
+<img src={placementImg} alt="A report page showing active filter pills positioned directly below the filter bar and above the results count and data area" />
 
 ## Copy
 
