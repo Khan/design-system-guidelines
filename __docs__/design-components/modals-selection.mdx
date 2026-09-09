@@ -93,6 +93,14 @@ Category labels sit to the left to provide an anchor point for the filter contro
 
 <img src={categoryLabelsImg} alt="The selection modal with a highlighted left column of category labels aligned against the filter controls on the right" />
 
+### Layout — exposed options
+
+Exposed checkboxes and radio options lay out in up to two columns across the control area. Two columns keep a full eight-option list about the height of a four-option one, so a section stays scannable at the top of the count range.
+
+Order options down the first column, then the second, so reading order matches list order. This is also the only arrangement where source order, visual order, and tab order agree.
+
+A section never scrolls on its own. The modal body is the only scrolling region, and the footer is pinned — "Apply filters" stays reachable however long the content runs.
+
 ### Toggle behavior
 
 Within the modal, toggles should be placed full-width and left-aligned, with the label on the left and the toggle aligned to the right.
@@ -101,7 +109,9 @@ Within the modal, toggles should be placed full-width and left-aligned, with the
 
 ### Dynamic content — adaptive controls
 
-Dropdowns transform into exposed checkboxes when the available options drop to five or fewer, following the option-count rule used across the system. Five is the trigger rather than the wider six-to-eight band, because that band calls for a judgment about the content — one that can’t be re-made at runtime. A single fixed threshold keeps the transformation predictable instead of flipping as the user filters.
+Filter options are drawn from the data, so list length isn’t fixed — a teacher with four courses and a district admin with twenty meet the same filter at different lengths. When a list resolves to eight or fewer options, the dropdown is replaced by exposed checkboxes, following the [option-count rule](./?path=/docs/design-guidelines-components-inputs-dropdown-select--docs#exposed-or-dropdown) used across the system.
+
+The form is decided when the modal opens and holds until it closes. A control never changes shape while the user is in the modal, even if another selection narrows its options — a control that changes form mid-interaction moves a target the user is aiming at and casts doubt on selections already made.
 
 <img src={adaptiveControls1Img} alt="A Course row shown as a “Select a course” dropdown while the option list is still long" />
 
