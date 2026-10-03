@@ -4,6 +4,8 @@ import placementImg from "./assets/toggle/placement.png";
 import interaction1Img from "./assets/toggle/interaction-1.png";
 import interaction2DoImg from "./assets/toggle/interaction-2-do.png";
 import interaction2DontImg from "./assets/toggle/interaction-2-dont.png";
+import clearFiltersImg from "./assets/toggle/clear-filters.png";
+import filterModalBadgeImg from "./assets/toggle/filter-modal-badge.png";
 import copyImg from "./assets/toggle/copy.png";
 import preferencesPlacementImg from "./assets/toggle/preferences-placement.png";
 import preferencesInteractionImg from "./assets/toggle/preferences-interaction.png";
@@ -26,8 +28,8 @@ The choice to use a toggle is determined by the need for an immediate, singular 
 | Use when | Example use |
 | --- | --- |
 | The choice is strictly binary | On/Off, Include/Exclude, True/False |
-| The action takes effect immediately without confirmation | Toggling "Show only completed tasks" instantly filters the list; toggling "Receive email from Khan Academy" instantly saves the preference |
-| The state is always visible and needs to be persistent | A global constraint that remains active across the session until the user turns it off; a notification preference that stays set until changed in account settings |
+| The action takes effect immediately without confirmation | Toggling "Show only completed tasks" instantly filters the list; toggling "Receive email from Khan Academy" instantly saves the preference. Exception: inside the More filters modal the effect is deferred until Apply — see [Filter modal](#filter-modal) under Filtering. |
+| The state is always visible and needs to be persistent | A global constraint that remains active across the session until the user turns it off or clears filters; a notification preference that stays set until changed in account settings |
 
 ## When NOT to use
 
@@ -41,10 +43,18 @@ The choice to use a toggle is determined by the need for an immediate, singular 
 
 ### Placement
 
-Place the toggle after primary filters (like Date or Course). This positions it as a high-level global constraint applied after the core dimensions have been selected.
+A filter toggle can sit in the filter bar or inside the More filters modal.
+
+In the filter bar, place the toggle after primary filters (like Date or Course). This positions it as a high-level global constraint applied after the core dimensions have been selected.
 Never place a toggle before dropdowns or inline within a list of results.
 
 <img src={placementImg} alt="Placement" />
+
+Only one toggle should be visible in the filter bar at a time. If additional boolean filters are needed, they belong inside the filter modal accessed via "More filters." For how a toggle behaves once it is there, see [Filter modal](#filter-modal).
+
+<Figure type="do" caption='multiple toggles grouped inside "More filters" modal' src={interaction2DoImg} alt="Multiple toggles grouped under Display options inside the More filters modal" />
+
+<Figure type="dont" caption="multiple toggles exposed directly in the filter bar" src={interaction2DontImg} alt="Multiple toggles exposed directly in the filter bar" />
 
 ### No filter chips
 
@@ -52,15 +62,24 @@ Toggles do not generate filter chips in the filter bar. Because the toggle is al
 
 <Figure type="dont" caption="toggle state should not appear as a chip" src={interaction1Img} alt="A filter bar where an active toggle has incorrectly generated a filter chip" />
 
+### Clear all filters
+
+An on toggle is an active constraint on the data even though it generates no filter chip. It activates the Clear filters button, and selecting Clear filters turns the toggle off.
+
+Generating no chip is a display rule, not an exemption from the reset. The toggle's own visible state is what stands in for a chip — either the toggle itself in view, or the count indicator on the "More filters" button when it sits inside the modal. The constraint it applies is as real as any chip's, so a user clearing the view expects it gone.
+
+<img src={clearFiltersImg} alt="A filter bar with a Show only completed tasks toggle switched on and no filter chips below it, with the Clear filters button present because the toggle is active" />
+
 ### Filter modal
 
 When a toggle lives inside a filter modal, it does not apply immediately. The effect is deferred until the user applies the modal filters. This is the only context where a toggle does not produce an instant result.
 Inside a filter modal, the label sits to the left of the toggle, not inline to the right as it does in the filter bar. An optional short description can sit below the label to add context when the toggle's purpose isn't self-evident from the label alone.
-Only one toggle should be visible in the filter bar at a time. If additional boolean filters are needed, they belong inside the filter modal accessed via "More filters."
 
-<Figure type="do" caption='multiple toggles grouped inside "More filters" modal' src={interaction2DoImg} alt="Multiple toggles grouped under Display options inside the More filters modal" />
+A toggle inside a filter modal ships off. Nothing in the More filters modal should be pre-applied — a filter the user did not choose, sitting behind a button, narrows the data with nothing on screen to say so.
 
-<Figure type="dont" caption="multiple toggles exposed directly in the filter bar" src={interaction2DontImg} alt="Multiple toggles exposed directly in the filter bar" />
+When the user turns a modal toggle on and applies, it counts toward the numeric badge on the More filters button. With no chip and the modal closed, the badge is the only signal that the toggle is on.
+
+<Figure type="do" caption="display an applied modal toggle as a badge count, not as an active filter chip." src={filterModalBadgeImg} alt="A filter bar with a numeric badge on the More filters button and no filter chips below, with the Clear all filters button present because a modal toggle is applied" />
 
 ### Copy
 
@@ -86,4 +105,4 @@ Preference toggles save instantly on change. There is no deferred or confirm ste
 
 The label names the setting itself as a noun phrase (e.g., "New assignment notifications," "Receive email from Khan Academy") — not an instruction to turn it on (avoid "Enable new assignment notifications" or "Turn on..."). It should still be clear what turning the toggle on enables.
 
-<img src={preferencesCopyImg} alt="Preferences copy" />
+<img src={preferencesCopyImg} alt="Two preference toggles compared: “New assignment notifications” marked with a green check, and “Enable new assignment notifications” marked with a red cross" />

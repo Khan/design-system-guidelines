@@ -86,7 +86,7 @@ Triggered by info icons. Keeps the explanation local to the context.
 
 Highly visual, system-initiated interruptions to showcase new value.
 
-<img src={marketingFlowImg} alt="A visual “Customize Khanmigo” announcement modal with a colorful accessory grid and a Customize Khanmigo button, over a dimmed page" />
+<img src={marketingFlowImg} alt="A visual “Check out your new collection!” announcement modal, badged “New”, with a colorful accessory grid, a “New unlock” label, and a Customize Khanmigo button, over a dimmed page" />
 
 ### Media
 
@@ -117,6 +117,16 @@ Modals use a set of fixed widths with dynamic height. Choose a size based on the
 | Selection (configuration) | Large (800px) | Necessary for multi-column layouts or complex data sets. |
 | Marketing and announcement | Large or Custom (800px+) | These are "storytelling" modals. They often need room for high-res illustrations, videos, or feature cards. |
 | Media | Full screen | Maximizes the visibility of the image or media type being displayed. |
+
+## Surface and elevation
+
+The modal container uses Surface 2 – Default and sits at High elevation, so it reads as a distinct object floating above the page. It is always paired with a Surface scrim covering all background content — a modal is never opened without a scrim. The Media variant is the exception: it fills the viewport rather than sitting centered over the scrim. See [Surfaces and elevations](?path=/docs/design-guidelines-foundations-surfaces-and-elevations--docs).
+
+| Element | Value | Token |
+| --- | --- | --- |
+| Modal container | Surface 2 – Default | `semanticColor.core.background.base.default` |
+| Container elevation | High | `boxShadow.high` |
+| Background | Surface scrim | `semanticColor.core.background.overlay.default` |
 
 ## Placement
 
@@ -166,7 +176,7 @@ A modal can support a short sequential flow of 2–3 steps when each step is sim
 
 ### Pairings
 
-Modal actions use the [Buttons](?path=/docs/design-guidelines-components-buttons-buttons--docs) component. Three pairings apply:
+Modal actions use the [Buttons](?path=/docs/design-guidelines-components-buttons-buttons--docs) component. Never use the chonky buttons for learners in a modal. Three pairings apply:
 
 -   **Standard (Primary + Secondary):** used for neutral functional tasks (e.g., "Add students"). The secondary button (outlined) provides a clear, accessible exit that feels equal in importance to the task.
 -   **Nudge (Primary + Tertiary):** used for confirmations. The primary solid button represents the "path of least resistance." Whether this is the safe choice or the requested action depends on the risk involved (see Directional logic).
