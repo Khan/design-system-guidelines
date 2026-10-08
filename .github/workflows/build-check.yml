@@ -9,6 +9,8 @@ on:
 
 jobs:
     build:
+        # This name is what branch rulesets list as the required check.
+        name: Build check
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v5
