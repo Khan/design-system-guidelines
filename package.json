@@ -9,8 +9,11 @@
     },
     "scripts": {
         "start": "storybook dev -p 56789",
-        "build": "storybook build --stats-json",
-        "typecheck": "tsc --noEmit"
+        "build": "pnpm design-md && storybook build --stats-json",
+        "design-md": "node scripts/design-md/generate.ts",
+        "lint:design-md": "design.md lint design-md/DESIGN.md",
+        "test": "node --test \"scripts/**/*.test.ts\"",
+        "typecheck": "tsc --noEmit && tsc -p scripts/design-md"
     },
     "dependencies": {
         "@khanacademy/wonder-blocks-announcer": "^1.1.2",
@@ -35,10 +38,12 @@
         "react-router-dom-v5-compat": "^6.30.0"
     },
     "devDependencies": {
+        "@google/design.md": "0.4.0",
         "@storybook/addon-a11y": "10.3.5",
         "@storybook/addon-docs": "10.3.5",
         "@storybook/addon-mcp": "^0.6.0",
         "@storybook/react-vite": "10.3.5",
+        "@types/node": "^24.19.1",
         "@types/react": "^18.2.0",
         "@types/react-dom": "^18.2.0",
         "chromatic": "^18.0.1",
@@ -46,6 +51,7 @@
         "storybook": "10.3.5",
         "storybook-addon-tag-badges": "^3.1.0",
         "typescript": "5.7.3",
-        "vite": "^6.0.11"
+        "vite": "^6.0.11",
+        "yaml": "^2.9.1"
     }
 }
