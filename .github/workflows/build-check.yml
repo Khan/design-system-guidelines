@@ -1,6 +1,7 @@
 # PR status check: the Storybook must compile (one unclosed JSX tag in any
 # MDX file breaks the whole site, so this gates merges even though the
-# Chromatic workflow also builds).
+# Chromatic workflow also builds), and the generated design-md/ files must
+# match their templates and the installed tokens.
 name: Build check
 
 on:
@@ -8,6 +9,8 @@ on:
 
 jobs:
     build:
+        # This name is what branch rulesets list as the required check.
+        name: Build check
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v5
@@ -24,4 +27,18 @@ jobs:
 
             - run: pnpm typecheck
 
+            - run: pnpm test
+
+            # Also regenerates design-md/ from design-md-src/ and the
+            # installed wonder-blocks-tokens.
             - run: pnpm build
+
+            - name: design-md is up to date
+              run: |
+                  if [ -n "$(git status --porcelain -- design-md/)" ]; then
+                    git status --porcelain -- design-md/
+                    echo "::error::design-md/ is stale or hand-edited. Run 'pnpm install && pnpm design-md' and commit the result."
+                    exit 1
+                  fi
+
+            - run: pnpm lint:design-md
