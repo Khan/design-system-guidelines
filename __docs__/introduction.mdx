@@ -57,10 +57,6 @@ If you have the Claude Desktop app other clients (Cursor, etc.), add this to you
 }
 ```
 
-#### DESIGN.md: theming anything as Khan Academy
-
-For work outside a Wonder Blocks codebase (slide decks, diagrams, prototypes, Claude artifacts), point your agent at [DESIGN.md](https://khan.github.io/design-system-guidelines/design-md/DESIGN.md). It's a single Markdown file with Khan Academy's colors, type, shape, and elevation, plus a short guide per output type. Token values are regenerated from Wonder Blocks on every build.
-
 #### Hosting locally 
 
 You can host locally to test your changes to the guidelines. It will also operate faster without network latency, but make sure you have the latest version of the guidelines before you start if that's your goal.
@@ -76,6 +72,10 @@ Then point your agent to the local MCP endpoint:
 ```
 http://localhost:56789/mcp
 ```
+
+#### DESIGN.md: theming anything as Khan Academy
+
+For KA theming outside the `frontend` repo, for example to brand artifacts like slide decks, diagrams, and outside prototypes, point your agent at [DESIGN.md](https://khan.github.io/design-system-guidelines/design-md/DESIGN.md). It's a single Markdown file with Khan Academy's colors, type, shape, and elevation, plus a short guide per output type. Token values are regenerated from Wonder Blocks on every build.
 
 ## Who maintains this?
 
