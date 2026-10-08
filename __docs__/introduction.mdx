@@ -27,24 +27,28 @@ It's for the whole org. Designers use it most, but anyone scoping, reviewing, or
 We believe that early and frequent usage of the DSG from early ideation to solution validation is the best way to ensure that:
 
 - Our product feels consistent and cohesive across all of our experiences for all our Learners, Teachers, Parents, and Admins
-- Our Design, PM and Engineering teams are aligned on how to build and ship features and don't have to waste time debating already solved problems
-- We can focus our time across disciplines on solving (and supporting) **new**, **novel** problems instead of rehashing old ones.
+- Our Design, PM and Engineering teams have a shared language for talking about UI, and are aligned on how to build features
+- We can focus on solving **new** problems instead of rehashing old ones.
 
 ### Agentic usage
 
-The Design System Guidelines are created to be just as useful for agents and their skills.
+The Design System Guidelines are created to be useful for agents as well as humans.
 
-Simply add the MCP server to your agent of choice, and it should return information relevant to your query and guide your workflows in the right direction.
+Simply add the MCP server to your agent of choice:
+
+```
+https://main--6a5008743971119020a6233b.chromatic.com/mcp
+```
 
 #### Connect your agent to the MCP
 
-If you have the **`Claude CLI`** tool, open up Terminal and run:
+If you have the **`claude` CLI** tool, open up Terminal and run:
 
 ```sh
 claude mcp add --transport http --scope user design-guidelines https://main--6a5008743971119020a6233b.chromatic.com/mcp
 ```
 
-If you have the Claude Desktop app other clients (Cursor, etc.), add this to your MCP configuration (or ask the agent to do it for you):
+If you have the Claude Desktop app, or another client (Cursor, etc.), add this to your MCP configuration (or ask the agent to do it for you):
 
 ```json
 {
@@ -57,11 +61,19 @@ If you have the Claude Desktop app other clients (Cursor, etc.), add this to you
 }
 ```
 
-#### Hosting locally 
+### Hosting locally
 
 You can host locally to test your changes to the guidelines. It will also operate faster without network latency, but make sure you have the latest version of the guidelines before you start if that's your goal.
 
-You can run the Design Guidelines Storybook locally by going to the cloned `design-system-guidelines` repo folder and running:
+First, go to the `design-system-guidelines` folder in your terminal, fetch the latest code, and install the dependencies:
+
+```sh
+cd ~/khan/design-system-guidelines
+git pull
+pnpm i
+```
+
+Start the server:
 
 ```sh
 pnpm start
