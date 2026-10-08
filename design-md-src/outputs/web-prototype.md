@@ -115,9 +115,6 @@ Every interactive element needs this.
 - Radius {{tb:border.radius.radius_080}} and padding {{tb:sizing.size_160}} by default. Use {{tb:border.radius.radius_120}} and {{tb:sizing.size_240}} for larger, roomier cards.
 - To lift a card, add `{{name:boxShadow.low}}` on top of the border.
 
-> **Draft:** pending design review. The earlier draft used 12px / 24px as the
-> card default; these values follow the Wonder Blocks `Card` defaults.
-
 ### Banner / callout
 
 - Background, icon, and text come from the intent's feedback tokens (`--wb-semanticColor-feedback-<intent>-subtle-…`). Info is bg `{{tb:semanticColor.feedback.info.subtle.background}}`, icon `{{tb:semanticColor.feedback.info.subtle.icon}}`, text `{{tb:semanticColor.feedback.info.subtle.text}}`.

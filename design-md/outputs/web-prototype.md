@@ -115,9 +115,6 @@ Every interactive element needs this.
 - Radius 8px and padding 16px by default. Use 12px and 24px for larger, roomier cards.
 - To lift a card, add `--wb-boxShadow-low` on top of the border.
 
-> **Draft:** pending design review. The earlier draft used 12px / 24px as the
-> card default; these values follow the Wonder Blocks `Card` defaults.
-
 ### Banner / callout
 
 - Background, icon, and text come from the intent's feedback tokens (`--wb-semanticColor-feedback-<intent>-subtle-…`). Info is bg `#EBF1FD`, icon `#5753FA`, text `#363498`.
