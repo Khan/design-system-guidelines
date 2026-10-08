@@ -42,15 +42,15 @@ palette defaults:
 | 5 | Orange | `#F8551A` | `#F8551A` |
 | 6 | Yellow | `#FCB706` | `#FCB706` |
 
-Yellow isn't a token (see the core file's graphics palette).
+Yellow isn't a token (see the core file's graphics palette). With many series on a dark surface, series 1 can use the lighter `#6C82FF` for contrast.
 
 **Rules:**
 
 - **Direct labels beat legends.** Label lines at their ends and bars at their tips.
-- **Highlight, don't rainbow.** When one series matters, color it blue and mute the rest to `#CBCBCD` (dark: `#4A4C53`).
+- **Highlight, don't rainbow.** When one series matters, color it `#5753FA` (dark: `#6C82FF`, because the fill blue fails 3:1 on dark surfaces) and mute the rest to `#8A8B90` (dark: `#8A8B90`). Label muted series in subtle text (`#717279`; dark `#A0A1A4`), not in the line color.
 - More than 6 series is too many: group the small ones into "Other".
 - Don't put green next to red to mean good versus bad without labels, and never let color be the only encoding.
-- Gridlines are 1px `#CBCBCD`, and axes are `#8A8B90`. Axis labels are 14px `#4A4C53` with tabular figures.
+- Gridlines are 1px `#CBCBCD` (dark `#4A4C53`), and axes are `#8A8B90` (dark `#8A8B90`). Axis labels are 14px `#4A4C53` (dark `#CBCBCD`) with tabular figures.
 - Learning progress uses the core file's learning-state colors (not started, attempted, complete), not the categorical palette.
 - Lines are 2px; points are 6–8px. Bars have a 4px radius at the value end only.
 - Meaningful marks need 3:1 contrast against the background.

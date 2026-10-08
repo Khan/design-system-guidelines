@@ -129,7 +129,7 @@ wins if anything here disagrees. The guidance is hosted in
 | Diagram, flowchart, or chart | [outputs/diagrams-and-data-viz.md](https://khan.github.io/design-system-guidelines/design-md/outputs/diagrams-and-data-viz.md) |
 | Something else | This file plus the closest guide. State your assumptions. |
 
-Guides may extend this file but never override it.
+Guides may extend this file but never override it. Each value has one home: when a guide points to another guide for something (slides point to the data viz guide for chart colors), that guide wins.
 
 ## Which theme
 

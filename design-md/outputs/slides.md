@@ -23,11 +23,14 @@ extend it with display sizes. These aren't tokens.
 
 | Role | Size / line height | Weight |
 | --- | --- | --- |
-| Hero (title slide, big number) | 96 / 104px | 800 |
+| Hero (title slide, big number) | 96 / 104px | 800 (display only; extends the product weights) |
 | Display (statement) | 64 / 72px | 700 |
 | Slide title | 48 / 56px | 700 |
-| Card title | 40 / 48px or 32 / 40px | 700 |
-| Body | 24–28px, line height 1.4 | 500 |
+| Section number (divider) | 48 / 56px | 700 |
+| Card title | 40 / 48px, or 32 / 40px in three-up and stat cards | 700 |
+| Quote | 40 / 48px | 600 |
+| Body | 28px on the canvas, 24px inside cards; line height 1.4 | 500 |
+| Badge (recommendation, delta) | 20 / 28px | 700 |
 | Caption / source | 20px | 500 |
 
 Use `letter-spacing: -0.01em` to `-0.02em` on display sizes, and tabular
@@ -36,27 +39,32 @@ figures for numbers. Font: Plus Jakarta Sans, sentence case.
 ## Surfaces and elevation
 
 Slides use the same surface model as product UI: a quiet canvas with content
-on cards.
+on cards. **All values below are already sized for the 1920×1080 canvas**;
+don't scale them again. Hex values are given because deck tools can't load
+CSS.
 
 | Element | thunderblocks | syl-dark | Notes |
 | --- | --- | --- | --- |
 | Canvas | `#F8F9FB` | `#151521` | `core-background-base-subtle` |
 | Card fill | `#FFFFFF` | `#252531` | `core-background-base-default` |
-| Card border | 1px `#CBCBCD` (2px when exporting at 1920 wide) | `#4A4C53` | Always present |
-| Card lift | `0 2px 2px 0 color-mix(in srgb, #252368 20%, transparent)`, scaled ×2 | `0 2px 2px 0 rgba(21,21,33,0.60)`, scaled ×2 | One card per slide at most, on top of the border |
+| Card border | 2px `#CBCBCD` | 2px `#4A4C53` | Always present (the product's 1px, doubled for the canvas) |
+| Card lift | `0 4px 4px 0`, color `#252368` at 20% opacity | `0 4px 4px 0`, `rgba(21,21,33,0.6)` | One card per slide at most, on top of the border. The product's `boxShadow.low` doubled; in CSS, `color-mix(in srgb, #252368 20%, transparent)` |
 | Card radius | 24px | same | `radius_240`, the slide-frame radius |
 | Card padding | 48px | same | Use 32px in dense cards |
-| Text | `#151521` / secondary `#4A4C53` | `#EDEDEE` / `#CBCBCD` | |
-| Accent | `#5753FA` | `#5753FA` | One filled indigo element per slide |
+| Text | `#151521` / secondary `#4A4C53` / subtle `#717279` | `#EDEDEE` / `#CBCBCD` / `#A0A1A4` | |
+| Accent fill | `#5753FA` with `#FFFFFF` text | `#5753FA` with `#FFFFFF` text | Filled shapes, badges, the focal stat card, the divider. One filled indigo element per slide |
+| Accent text, icons, lines | `#5753FA` | `#6C82FF` | An indigo word, icon, quotation mark, or chart series. The fill color fails 3:1 on dark cards, so use this one |
 
 Rules:
 
 - **At most one elevated card per slide.** The lift says "this is the point."
 - **Cards never nest.** Group inside a card with spacing, not another card.
 - `boxShadow.mid` and `boxShadow.high` are never used on slides: nothing floats.
-- **Text never sits directly on accent shapes.** Geometric accents from the graphics palette sit in corners and behind cards, never behind text.
+- **Text never sits directly on accent shapes.** Geometric accents from the graphics palette are optional on any layout; they sit in corners and behind cards, never behind text.
 - Gutters between cards are 24px, from the grid.
-- For a dark deck or a dark band, switch the whole slide to the `syl-dark` column; the card rules stay the same.
+- For a dark deck or a dark band, switch the whole slide to the `syl-dark` column; the card rules stay the same. Graphics-palette accent shapes use the same hex values in both themes.
+- **Spacing:** 48px between the slide title and the card row; content blocks are vertically centered when a slide has no title.
+- **Badges** on slides are 20 / 28px weight 700, 4px / 16px padding, and a 16px radius (the product's 8px, doubled). Arrows in delta badges can be text characters (↑ ↓).
 
 ## Layouts
 
@@ -75,9 +83,9 @@ Each layout names the one element that carries the indigo accent.
 └──────────────────────────────────────────────┘
 ```
 
-- Full-bleed `#FFFFFF` canvas. **No cards.**
+- Full-bleed card-fill canvas (`#FFFFFF`; dark `#252531`), the one layout that doesn't use the subtle canvas. **No cards.**
 - Title spans columns 1–8. Geometric accent shapes (graphics palette) cluster in the top-right corner, clear of the text.
-- **Accent:** one indigo shape in the cluster.
+- **Accent:** one indigo shape in the cluster. Draw the other shapes from non-blue hues in the graphics palette.
 
 ### 2. Section divider
 
@@ -90,7 +98,7 @@ Each layout names the one element that carries the indigo accent.
 └──────────────────────────────────────────────┘
 ```
 
-- Full-bleed `#5753FA` (or `#151521`) fill with `#FFFFFF` text. **No cards.**
+- Full-bleed `#5753FA` fill with `#FFFFFF` text, in both themes. (A neutral alternative is `#151521` with `#FFFFFF` text; in dark that's `#FFFFFF` with `#151521`.) **No cards.**
 - **Accent:** the fill itself. Use dividers sparingly; they're the loudest slide in the deck.
 
 ### 3. Statement / key idea
@@ -106,7 +114,7 @@ Each layout names the one element that carries the indigo accent.
 ```
 
 - One centered card on the canvas, spanning columns 3–10. **This card gets `boxShadow.low`.**
-- **Accent:** a single indigo word, underline, or small shape inside the card. Don't fill the card.
+- **Accent:** a single word, underline, or small shape in the accent text color. Don't fill the card.
 
 ### 4. Two-column
 
@@ -123,7 +131,7 @@ Each layout names the one element that carries the indigo accent.
 
 - Two equal cards (6 + 6 columns), each with a card title and up to 3 bullets. For comparisons and before/after.
 - Neither card is lifted, unless one is the recommendation. Then lift that one.
-- **Accent:** the recommended card's title or a small indigo badge on it.
+- **Accent:** a small filled indigo badge (for example "Recommended") on the lifted card. Without a recommendation, use one word in the slide title in the accent text color instead.
 
 ### 5. Three-up cards
 
@@ -139,8 +147,9 @@ Each layout names the one element that carries the indigo accent.
 ```
 
 - Three cards (4 + 4 + 4), each with a 48px Phosphor icon, a short title, and one line.
+- Icons are Phosphor (`regular` weight) at 48px. If the tool can't load them, use a labeled placeholder rather than drawing your own.
 - Use intent-subtle backgrounds (`core-background-<intent>-subtle`) only when the cards *mean* success, warning, or critical, and pair them with an icon or label.
-- **Accent:** icons in `#5753FA`; card fills stay neutral.
+- **Accent:** icons in the accent text color; card fills stay neutral. No card is lifted.
 
 ### 6. Big number / stats
 
@@ -156,8 +165,8 @@ Each layout names the one element that carries the indigo accent.
 ```
 
 - 2–4 stat cards in equal columns, each with a hero-size number (tabular figures), a label, and an optional delta badge.
-- One card may be the **focal stat**: an indigo-filled card (`#5753FA`) with knockout text. That's the slide's one accent, so no other card is lifted.
-- Deltas use success or critical colors with an arrow icon, never color alone.
+- One card may be the **focal stat**: an indigo-filled card (`#5753FA`, border the same color) with all text, including labels, in `#FFFFFF`. That's the slide's one accent. It isn't lifted, and neither is any other card.
+- Deltas are small badges with an arrow icon, never color alone: success is `#E3F7E3` with `#24432D` text (dark `#1A2924` / `#D5F3D5`), and critical is `#FFEBEB` with `#8E1C1C` (dark `#3B141A` / `#FBB1B1`).
 
 ### 7. Chart + takeaway
 
@@ -174,7 +183,7 @@ Each layout names the one element that carries the indigo accent.
 
 - A chart card (8 columns) and a takeaway card (4 columns). Lift the takeaway card.
 - The chart follows the [diagrams and data viz guide](https://khan.github.io/design-system-guidelines/design-md/outputs/diagrams-and-data-viz.md): direct labels instead of legends, categorical order.
-- **Accent:** the highlighted series in the chart is the indigo; other series are muted.
+- **Accent:** the highlighted series. All chart colors (highlight, muted series, gridlines, axes, labels) come from the diagrams and data viz guide; this guide only changes their size.
 
 ### 8. Quote / testimonial
 
@@ -189,11 +198,12 @@ Each layout names the one element that carries the indigo accent.
 ```
 
 - One card (columns 2–11) with a large quote and attribution in `#717279`.
-- Optional avatar circle (`radius_full`). Use a real photo or a labeled placeholder; don't draw a face.
-- **Accent:** a large indigo opening quotation mark.
+- The quotation mark is about 160px tall. Optional 80px avatar circle (`radius_full`). Use a real photo or a labeled placeholder; don't draw a face.
+- No card is lifted.
+- **Accent:** a large opening quotation mark in the accent text color.
 
 ## Charts and diagrams on slides
 
 Follow the
 [diagrams and data viz guide](https://khan.github.io/design-system-guidelines/design-md/outputs/diagrams-and-data-viz.md),
-scaling strokes and labels up for the 1920 canvas (2–3px strokes, 20px+ labels).
+for every chart color. On the 1920 canvas, double its sizes: 4px lines, 2px gridlines, and 20px+ labels.

@@ -42,15 +42,15 @@ palette defaults:
 | 5 | Orange | `{{tb:semanticColor.graphics.characters.flesh.orange.background.default}}` | `{{dark:semanticColor.graphics.characters.flesh.orange.background.default}}` |
 | 6 | Yellow | `#FCB706` | `#FCB706` |
 
-Yellow isn't a token (see the core file's graphics palette).
+Yellow isn't a token (see the core file's graphics palette). With many series on a dark surface, series 1 can use the lighter `{{dark:semanticColor.core.foreground.instructive.default}}` for contrast.
 
 **Rules:**
 
 - **Direct labels beat legends.** Label lines at their ends and bars at their tips.
-- **Highlight, don't rainbow.** When one series matters, color it blue and mute the rest to `{{tb:semanticColor.core.border.neutral.subtle}}` (dark: `{{dark:semanticColor.core.border.neutral.subtle}}`).
+- **Highlight, don't rainbow.** When one series matters, color it `{{tb:semanticColor.core.foreground.instructive.default}}` (dark: `{{dark:semanticColor.core.foreground.instructive.default}}`, because the fill blue fails 3:1 on dark surfaces) and mute the rest to `{{tb:semanticColor.core.border.neutral.default}}` (dark: `{{dark:semanticColor.core.border.neutral.default}}`). Label muted series in subtle text (`{{tb:semanticColor.core.foreground.neutral.subtle}}`; dark `{{dark:semanticColor.core.foreground.neutral.subtle}}`), not in the line color.
 - More than 6 series is too many: group the small ones into "Other".
 - Don't put green next to red to mean good versus bad without labels, and never let color be the only encoding.
-- Gridlines are {{tb:border.width.thin}} `{{tb:semanticColor.core.border.neutral.subtle}}`, and axes are `{{tb:semanticColor.core.border.neutral.default}}`. Axis labels are {{tb:font.body.size.small}} `{{tb:semanticColor.core.foreground.neutral.default}}` with tabular figures.
+- Gridlines are {{tb:border.width.thin}} `{{tb:semanticColor.core.border.neutral.subtle}}` (dark `{{dark:semanticColor.core.border.neutral.subtle}}`), and axes are `{{tb:semanticColor.core.border.neutral.default}}` (dark `{{dark:semanticColor.core.border.neutral.default}}`). Axis labels are {{tb:font.body.size.small}} `{{tb:semanticColor.core.foreground.neutral.default}}` (dark `{{dark:semanticColor.core.foreground.neutral.default}}`) with tabular figures.
 - Learning progress uses the core file's learning-state colors (not started, attempted, complete), not the categorical palette.
 - Lines are 2px; points are 6–8px. Bars have a {{tb:border.radius.radius_040}} radius at the value end only.
 - Meaningful marks need 3:1 contrast against the background.
