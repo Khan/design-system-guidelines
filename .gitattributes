@@ -1,2 +1,5 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Written by scripts/design-md/generate.ts, which always emits LF
+design-md/** text eol=lf

@@ -31,6 +31,8 @@ This repo (`@khanacademy/design-guidelines`) is a **Storybook 10 site that docum
 - **Phosphor icons are from `@phosphor-icons/core`.** `import checkCircleBold from "@phosphor-icons/core/bold/check-circle-bold.svg";` (weights: `bold`, `fill`, `regular`, …). Do not import `@phosphor-icons/react`
 - **Color comes from tokens, not raw hex.** Hardcoded hex will not adapt to theming. Tokens live inside the `.tsx` helper components used in `.mdx`.  `style={{}}` is only for demo *layout* scaffolding (widths, gaps, flexbox) — never for colors.
 
+- **DESIGN.md is generated.** To change Khan Academy's DESIGN.md, edit the templates in `design-md-src/`, never `design-md/`, then run `pnpm design-md` and commit both. See the README's "DESIGN.md" section for the template syntax.
+
 ---
 
 ## Choosing a do/dont mechanism

@@ -171,7 +171,10 @@ describe("render: front matter", () => {
             const template = fm(line);
 
             // Act, Assert
-            assert.throws(() => render(template, "test.md", ctx), TemplateError);
+            assert.throws(
+                () => render(template, "test.md", ctx),
+                /test\.md:2: front-matter references must be inside a double-quoted string/,
+            );
         });
     }
 });

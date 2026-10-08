@@ -153,6 +153,24 @@ function checkFrontMatter(
     ctx: RenderContext,
     errors: Array<string>,
 ): void {
+    // An unquoted `{{…}}` parses as a YAML flow map, which the scalar check
+    // below can't see, so first check each reference's line directly: it
+    // must follow an odd number of unescaped double quotes.
+    for (let i = 1; i < fmEnd; i++) {
+        for (const match of templateLines[i].matchAll(REF)) {
+            const before = templateLines[i].slice(0, match.index);
+            const quotes = before.replace(/\\./g, "").split('"').length - 1;
+            if (quotes % 2 === 0) {
+                errors.push(
+                    `${file}:${i + 1}: front-matter references must be inside a double-quoted string`,
+                );
+            }
+        }
+    }
+    if (errors.length > 0) {
+        return;
+    }
+
     const templateYaml = templateLines.slice(1, fmEnd).join("\n");
     const lineCounter = new LineCounter();
     const templateDoc = parseDocument(templateYaml, {lineCounter});
