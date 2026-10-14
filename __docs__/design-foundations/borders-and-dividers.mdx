@@ -5,7 +5,6 @@ import headerImg from "./assets/borders-and-dividers/header.png";
 import borderColorsImg from "./assets/borders-and-dividers/border-colors.png";
 import subtleBorderImg from "./assets/borders-and-dividers/subtle-border.png";
 import defaultBorderImg from "./assets/borders-and-dividers/default-border.png";
-import strongBorderImg from "./assets/borders-and-dividers/strong-border.png";
 import focusBorderImg from "./assets/borders-and-dividers/focus-border.png";
 import stateInputsImg from "./assets/borders-and-dividers/state-inputs.png";
 import stateCardImg from "./assets/borders-and-dividers/state-card.png";
@@ -21,7 +20,7 @@ import lineDividersImg from "./assets/borders-and-dividers/line-dividers.png";
 
 # Borders and dividers
 
-Borders and lines define edges and separation — and are critical for accessibility. Without them, users with vision differences can't distinguish groups of elements from one another within the spatial system defined by surfaces and elevations.
+Borders define edges; dividers separate elements. Together with [Spacing](?path=/docs/design-guidelines-foundations-spacing--docs), they enable users to perceive how elements are grouped hierarchically.
 
 ## Principles
 
@@ -31,32 +30,26 @@ Borders and lines define edges and separation — and are critical for accessibi
         title="Use the lightest tool that works"
         description="Spacing, then lines, then borders — each step up adds more visual weight. Only reach for the heavier tool when the lighter one isn't enough."
     />
-    <Principle
-        label="Revealing"
-        title="Describe structure, don't impose it"
-        description="Borders follow decisions, they don't make them. You add a border because something is a card — not to make something feel like a card."
-    />
 </PrincipleSet>
 
 ## Borders
 
-A border makes an edge explicit — it says this is where something begins or ends. Use a border when that boundary carries meaning: when a container needs to be visibly distinct from what surrounds it, or when an element's interactive affordance needs to be communicated at a glance.
+A border makes an edge explicit — it says this is where something begins or ends. Use a border when that boundary carries meaning: when what's inside behaves differently from what's outside.
 
-The system has three neutral border colors, ordered by contrast. Weight stays constant at `border.width.thin` (1px); only the color token changes.
+The system has two neutral border colors, ordered by contrast. Weight stays constant at `border.width.thin` (1px); only the color token changes. A thicker border (`border.width.medium`, 2px) is only ever used for hover and focus states.
 
 | Color | Token |
 | --- | --- |
 | Subtle | `semanticColor.core.border.neutral.subtle` |
 | Default | `semanticColor.core.border.neutral.default` |
-| Strong | `semanticColor.core.border.neutral.strong` |
 
-<img src={borderColorsImg} alt="Three rounded squares showing the Subtle, Default, and Strong border colors from lowest to highest contrast" />
+<img src={borderColorsImg} alt="Two rounded squares showing the Subtle and Default border colors, from lower to higher contrast" />
 
 ### Subtle border
 
-Borders are one of several styles added to a container, component, or element. Although Subtle Border might not look like much, working together with surface, elevation, and radius it's critical to defining visual boundaries that keep the system above accessibility minimums for contrast.
+Subtle border doesn't meet 3:1 contrast on its own — and doesn't need to when the border isn't essential for identifying the component or understanding its state. The test: if the border disappeared, would the interface still make sense? If so, Subtle works, because other cues like a text label, surface color, elevation, or an icon already identify the element. If the border is the only thing showing where an interactive element is, use Default.
 
-Use for: cards and containers where elevation provides additional definition; radio buttons and circular controls where shape carries the affordance; and areas where the border supports differentiation but doesn't have to work alone.
+Use for: cards, panels, dropdown menus, neutral buttons, dynamic action buttons, etc.
 
 <Figure
     src={subtleBorderImg}
@@ -76,19 +69,13 @@ Use for: form inputs, selects, and textareas on flat surfaces where the border a
     caption="The text input uses a default border to meet contrast requirements — ensuring the field edge is perceivable for all users."
 />
 
-### Strong border
-
-Reserved for contexts that require maximum contrast between a border and its background — beyond what Default provides. Not currently in use, but available when a component needs to be unambiguously distinct from a surface where Default no longer meets contrast requirements.
-
-Use for: edge cases where Default border contrast is insufficient against a non-standard background.
-
-<img src={strongBorderImg} alt="Placeholder panel labeled “No current use cases” for the strong border" />
-
 ### Focus border
 
-Applied when an element receives focus — either through keyboard navigation or on initial click. For most interactive elements, focus is shown as a blue outer ring. For some inputs like the chat text field, focus is indicated by a thicker border in the default border color instead.
+Applied when an element receives focus — either through keyboard navigation or on initial click.
 
 Use for: all interactive elements when focused — buttons, inputs, links, checkboxes, selects. Always high-contrast. Never suppressed.
+
+Do not set focus states manually using borders. Instead, use the [focus package](https://khan.github.io/wonder-blocks/?path=/docs/packages-styles-focus-styles--docs#when-to-use&globals=pseudo.focusVisible:!true) offered in Wonder Blocks to apply a consistent focus treatment.
 
 <Figure
     src={focusBorderImg}
@@ -116,7 +103,14 @@ Use for: selected, active, error, and disabled states on form inputs and interac
 
 ## Dividers
 
-Dividers are the lightest structural tool — a 1px horizontal rule that marks a boundary without claiming an edge. They work in four specific contexts: tables, headers and footers, section dividers within containers, and as the right alternative to borders inside an already-bordered container. Don't reach for a line when spacing alone already creates enough separation — a line on top of adequate spacing is redundant.
+A divider is a 1px hairline in `semanticColor.core.border.neutral.subtle` that marks a boundary between elements. Dividers work in four specific contexts:
+
+- To separate table cells
+- To separate headers and footers from their associated content
+- To divide a container into sections
+- To separate the items of a searchable list
+
+Use a divider when adjacent regions behave differently — a fixed header above scrolling content, or list rows that are each their own target. When regions behave the same — like groups of form fields under their own headings — the job is grouping and hierarchy, and spacing and headings are usually enough. Add a divider only when spacing can't do the job alone: dense content like data tables, where more space would cost too much, or groups that need to read as distinct at a glance.
 
 ### Table dividers
 
@@ -144,43 +138,43 @@ Use for: separating labeled filter groups within a panel or modal, and dividing 
 
 ## Choosing between borders and lines
 
-Inside a container, the right separator depends on what the list is _for_ — not how many items are in it. Item count is a signal, not the rule. Curated shortlists tend to be short; browsable lists tend to be long — but a short list can still need dividers if it's fundamentally a search experience. The clearest tell is whether the list has a search or filter control: if it does, treat it as a browsing pattern and use dividers, regardless of how few results are currently showing.
+Choose by where the list sits and what it's for, not how many items it has. Two tests decide it: if the list has a search or filter control, or if it already sits inside a container — like the content card in a Job layout — use line dividers.
 
 | Use bordered cells when | Use line dividers when |
 | --- | --- |
-| The set is small and curated | The list is browsable or searchable |
-| Each option is a deliberate choice | The user scans for a match, not a decision |
+| The set is short and fixed, and the user picks one | The user scans or searches the list |
 | There is no search or filter control | A search or filter control is present |
+| Options sit directly on the page background | The list sits inside a container |
 
 ### Bordered cells
 
-When the options are a small, curated set and the moment is a deliberate decision — pick one of these few considered choices. The gap and full border around each option is what makes it read as its own weighty, standalone unit worth pausing on, not a row to scan past.
+Use bordered cells for a short, fixed set of options where the user picks one — like choosing which class to enter. The options sit directly on the page background, so each one needs its own border to define its edge. The gap and border around each option make every choice stand out on its own.
 
 <Figure
     src={borderedCellsImg}
-    alt="A short “Select a course” list where each of three options sits in its own bordered cell, with one selected"
-    caption="Bordered cells work here because the list is short and each item is just a course name — three options, nothing more. The selected state uses the focus border color with a checkmark to confirm the choice."
+    alt="A short “Enter a class” list where each of three class periods sits in its own bordered cell, with the first one selected"
+    caption="Bordered cells work here because the list is short, has no search, and sits directly on the page background — each class needs its own edge. The selected state uses the focus border color with a filled radio button to confirm the choice."
 />
 
 ### Line dividers
 
-When the list is something to scan or search — a browsable catalog, a filtered result set, any list where the user is looking for a match rather than weighing a few options. A single outer container with hairline dividers is lighter than repeated borders at any length, which is why it's still the right choice even when a search or filter narrows the list down to just a few results.
+Use line dividers for lists the user scans or searches — like a course catalog or a filtered set of results. These lists usually sit inside a container, such as the content card in a Job layout, which already defines the edge. One outer border with hairlines between rows stays light, and it's still the right choice when a filter narrows the list to just a few items.
 
 <Figure
     src={lineDividersImg}
     alt="A searchable course catalog inside one container, its rows separated by hairline dividers, with one row selected"
-    caption="Line dividers work here because each item carries a title, metadata, and an external link — adding borders on top of that detail would make the list feel heavy. The outer container defines the space; lines are enough to separate the rows."
+    caption="Line dividers work here because the list has a filter control and sits inside the Job layout's content container. The container defines the space; lines are enough to separate the rows, even with a title, metadata, and info link in each one."
 />
 
 ## Accessibility
 
 ### Focus rings must meet contrast requirements
 
-The focus ring must have a contrast ratio of at least 3:1 against adjacent colors. This applies in both light and dark mode. Do not use low-contrast or thin focus styles — users who rely on keyboard navigation depend on them.
+The focus ring must have a contrast ratio of at least 3:1 against adjacent colors. This applies in both light and dark mode. Do not use low-contrast or thin focus styles; users who rely on keyboard navigation need prominent focus markers.
 
-### Borders cannot be the only signal for error states
+### Borders must not be the only signal for error states
 
-Color alone is not sufficient to communicate state. A red border on an error field must be accompanied by an error message, an icon, or another non-color indicator. Users with color vision deficiencies need a redundant signal.
+Color alone is not sufficient to communicate state, because users with color vision deficiencies might not perceive it. A red border on an error field must be accompanied by an error message, an icon, or another non-color indicator.
 
 ### Ensure dividers are not mistaken for interactive elements
 
