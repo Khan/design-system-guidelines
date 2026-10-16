@@ -1,0 +1,262 @@
+import {Meta} from "@storybook/addon-docs/blocks";
+import Figure from "../components/Figure";
+import headingHierarchyImg from "./assets/data-reports/heading-hierarchy.png";
+import containerControlsImg from "./assets/data-reports/container-controls.png";
+import ownSectionImg from "./assets/data-reports/own-section.png";
+import headerImg from "./assets/data-reports/header.png";
+import emptyContainerImg from "./assets/data-reports/empty-container.png";
+import emptyPageImg from "./assets/data-reports/empty-page.png";
+import filteredContainerImg from "./assets/data-reports/filtered-container.png";
+import filteredPageImg from "./assets/data-reports/filtered-page.png";
+import errorPageLoadImg from "./assets/data-reports/error-page-load.png";
+import errorPageUpdateImg from "./assets/data-reports/error-page-update.png";
+import errorContainerImg from "./assets/data-reports/error-container.png";
+
+<Meta title="Design Guidelines / Patterns / Data reports" />
+
+<img src={headerImg} alt="Data reports" />
+
+# Data reports
+
+This guide defines how data is laid out on a page. Data appears in one of two layouts, and each has its own rules. It applies to every data visualization component. For chart colors, number formatting, and writing, see [Data visualization](?path=/docs/design-guidelines-foundations-data-visualization--docs).
+
+| Layout | Use when | Controls |
+| --- | --- | --- |
+| Container | One chart or table that needs a few controls, or none | Inside the container, top right |
+| Own page or section | The data needs more controls than fit beside the H3 | Above the data |
+
+## Page order
+
+Reports read top to bottom, from overview to detail.
+
+| Order | Content | Controls |
+| --- | --- | --- |
+| 1 | Summary stats, like a row of stat cards | None |
+| 2 | Containers | Inside each container |
+| 3 | Own section, like a full table | Filter bar above the data |
+
+Data with its own section always goes at the **bottom** of the page. Never place it above containers or between them.
+
+> **TODO:** Add guidance on ordering containers, and an image of a full report.
+
+### Control scope
+
+Controls only change the data they sit with, never data above them.
+
+- **Container controls** change only that container.
+- **Filter bar controls** change only the data below them in that section.
+- **Never place a filter bar above containers.** Containers always sit higher on the page, so a filter bar can never affect a container.
+
+## Containers
+
+### Heading hierarchy
+
+Containers use two heading levels. Each has a different job.
+
+| Level | Placement | Purpose | Example |
+| --- | --- | --- | --- |
+| H2 | Outside the container | Context or label | "Growth over time" |
+| H3 | Inside the container | The insight | "Students are moving up, but five have never left Beginning." |
+
+- The H2 draws the eye down the page and tells readers what the containers below are about.
+- Either heading can have a description below it. Add one only if it's truly needed.
+
+<Figure
+    src={headingHierarchyImg}
+    alt="An H2 sits above a chart container, and an H3 with a description sits inside it at the top left. Both headings are highlighted."
+    caption="The H2 sits outside the container. The H3 and its optional description sit inside."
+/>
+
+### Container controls
+
+Controls live inside the container, at the top right, on the same line as the H3. They must fit on one line without wrapping.
+
+<Figure
+    src={containerControlsImg}
+    alt="A chart container with a This year date filter, view toggle, and download button highlighted on one line at the top right, beside the H3."
+    caption="Container controls fit on one line beside the H3."
+/>
+
+## Own page or section
+
+### When data needs its own page or section
+
+A container has outgrown inline controls when the data needs:
+
+- More than about three controls.
+- Any control that opens a multi-field popover.
+
+This is usually a sign the data needs its own page or a significant section of a page.
+
+### Page and section controls
+
+Controls sit outside and above the data, not inside a container. See [Filter and sort](?path=/docs/design-guidelines-patterns-filter-and-sort--docs) for filter bar guidance.
+
+<Figure
+    src={ownSectionImg}
+    alt="An Activation page with a title and description. A highlighted filter bar with search, Last 30 days, School, Grade, and More filters sits above a table of teachers and student account activation."
+    caption="With a search field and four filters, this data gets its own page. Controls sit above the table, not inside a container."
+/>
+
+## Insights and actions
+
+> **TODO:** Add guidance for insights and actions.
+
+## States
+
+### Empty states
+
+An empty state's copy depends on why the data is missing. Its placement depends on the layout. Name what's missing, say when data will appear or what to do, and offer an action only when the user can fix it from there.
+
+| Layout | Show | Action |
+| --- | --- | --- |
+| One container is empty; others have data | An empty state inside that container | Secondary button, only if the fix happens here |
+| Every container would be empty for the same reason | One empty state in place of all containers | One primary button |
+| Own page or section | An empty state in place of the data, below the controls | One primary button, only if the fix happens here |
+
+Any layout can be empty because of its filters. See [Filtered to nothing](#filtered-to-nothing).
+
+Every data report empty state uses the **No report data** spot illustration, in every layout and for every cause. The illustration is decorative; the headline and body carry the meaning.
+
+#### Empty container
+
+- Keep the H2 so readers still know what the section is. The empty state replaces the H3 and the chart.
+- Write copy specific to that container: "No growth data yet," not "No report data yet."
+- Keep only controls that could change the result, like a date filter. Hide the view toggle and download.
+- Leave out the button when the fix happens somewhere else, like students finishing a test.
+
+<Figure
+    src={emptyContainerImg}
+    alt="A Growth over time container shows an empty state reading 'No growth data yet. Growth shows here after students finish their first unit test.' with only a This year date filter. A Skills mastered container with data sits below it."
+    caption="The H2 and date filter stay. The empty state replaces the H3 and chart, with no button."
+/>
+
+#### Empty page or section
+
+- Keep the page or section title and description.
+- Keep controls that could change the result, like search and filters. Hide controls that act on data, like download.
+- The empty state replaces the table or chart, directly below the controls.
+
+<Figure
+    src={emptyPageImg}
+    alt="A report page with search, Last 30 days, School, and Grade controls above an empty state reading 'No teachers yet. Sync your district roster to see account activation.' and a Sync roster primary button."
+    caption="Filters stay. The empty state replaces the table, below the controls."
+/>
+
+#### Filtered to nothing
+
+This applies to containers and to pages or sections.
+
+- Keep the controls that caused the empty result visible, so users can see and change them.
+- In a page or section, offer "Clear filters" as a secondary button. See [Filter and sort](?path=/docs/design-guidelines-patterns-filter-and-sort--docs).
+- In a container, point to the control instead: "Try a different date range." Skip the button; the control is right there.
+
+<Figure
+    src={filteredContainerImg}
+    alt="A Growth over time container with a Last 7 days date filter and an empty state reading 'No growth data for this date range. Try a different date range.' A Skills mastered container with data sits below it."
+    caption="In a container, the copy points to the date filter. No button."
+/>
+
+<Figure
+    src={filteredPageImg}
+    alt="A report page with search, date, School, and Grades filters and active filter chips for Addison Middle School, 6th grade, and 7th grade, plus a Clear filters link. Below, an empty state reads 'No results for these filters. Try a different date range or clear your filters.' with a Clear filters secondary button."
+    caption="In a page or section, active filters stay visible and Clear filters is a secondary button."
+/>
+
+### Empty state copy
+
+| Part | Rule | Example |
+| --- | --- | --- |
+| Headline | Name what's missing. Sentence case, no period. Use "yet" when data is coming. | No growth data yet |
+| Body | One sentence: why it's empty, or when data will appear. End with a period. | Add students to your class to start tracking their progress. |
+| Button | Verb first, 1–3 words. Only when the user can fix it here. | Add students |
+
+Use "yet" to tell teachers nothing is broken; the data is on its way. Cut filler like "available" and "begin."
+
+| Cause | Headline | Body | Action |
+| --- | --- | --- | --- |
+| Not set up | No report data yet | Add students to your class to start tracking their progress. | Add students |
+| Waiting on activity | No activity yet | Data shows here once students start practicing. | None |
+| Filtered to nothing | No results for these filters | Try a different date range or clear your filters. | Clear filters (page or section only) |
+| Not enough data | Not enough data yet | Check back after students complete more skills. | None |
+
+### Loading
+
+> **TODO:** Add guidance for loading states.
+
+### Error
+
+An error state means data failed to load. It's never the user's fault, so the copy says what happened and offers a way to try again.
+
+#### Full page errors
+
+A full page error affects the whole page or section. What to show depends on whether any data loaded.
+
+| Situation | Show | Action |
+| --- | --- | --- |
+| Nothing loaded | An error state in place of the data, below the controls | Primary "Try again" button |
+| Earlier data loaded, but the update failed | **One** banner at the top of the content area, above the controls. Keep the earlier data. | "Try again" link in the banner |
+
+- Keep the page title, description, and controls.
+- Use one error for the page, not one per container.
+- Never hide data that already loaded. Say when it's from.
+- Make sure screen readers announce the error when it appears.
+
+<Figure
+    src={errorPageLoadImg}
+    alt="A report page with search and filter controls above an error state with the error spot illustration, reading 'Page couldn't load. Couldn't load this report. Try again in a moment.' and a Try again primary button."
+    caption="Nothing loaded: the error state replaces the data, below the controls."
+/>
+
+<Figure
+    src={errorPageUpdateImg}
+    alt="A report page with a warning banner at the top of the content area reading 'Couldn't update. Showing data from 9:15 AM.' with a Try again link. The search and filter controls sit below the banner, above a table of teachers that still shows the earlier data."
+    caption="The update failed: one banner at the top, and the earlier data stays visible."
+/>
+
+> **TODO:** Decide what to show if "Try again" keeps failing.
+
+#### Container errors
+
+When one container's data fails to load, show the error inside that container. The rest of the page still works.
+
+- Keep the H2 and the container's controls.
+- Use the error spot illustration, not No report data. An empty state says data is on its way; an error says something broke.
+- Offer a secondary "Try again" button.
+- Make sure screen readers announce the error when it appears.
+
+<Figure
+    src={errorContainerImg}
+    alt="A Growth over time container shows the error spot illustration and reads 'Couldn't load growth data. Something went wrong on our end. Try again in a moment.' with a Try again secondary button. A Skills mastered container that loaded normally sits below it."
+    caption="One container failed. Its H2 and controls stay, and the rest of the page still works."
+/>
+
+#### Container couldn't update
+
+> **TODO:** Add guidance for a container that shows earlier data after a refresh fails.
+
+#### Error copy
+
+Say what happened, then offer a way to try again. Don't blame the user. Don't show error codes, technical messages, "Error:" prefixes, "Oops," or "please."
+
+| Situation | Message | Action |
+| --- | --- | --- |
+| Container couldn't load | Headline: Couldn't load growth data<br />Body: Something went wrong on our end. Try again in a moment. | Try again |
+| Page couldn't load | Headline: Couldn't load this report<br />Body: Something went wrong on our end. Try again in a moment. | Try again |
+| Page couldn't update | Couldn't update. Showing data from 9:15 AM. | Try again |
+
+### Partial or processing data
+
+> **TODO:** Add guidance for partial or processing data.
+
+### Not enough data
+
+> **TODO:** Add guidance for not enough data.
+
+### No access
+
+> **TODO:** Add guidance for when a user doesn't have access to the data.
+
+### Too much data
+
+> **TODO:** Add guidance for too much data.
