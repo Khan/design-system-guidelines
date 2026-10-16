@@ -144,7 +144,7 @@ Each layout names the one element that carries the indigo accent.
 
 - Three cards (4 + 4 + 4), each with a 48px Phosphor icon, a short title, and one line.
 - Icons are Phosphor (`regular` weight) at 48px. If the tool can't load them, use a labeled placeholder rather than drawing your own.
-- For Khan Academy concepts (content types, learning states, gems, streaks), use the official icons from the [asset catalog](../assets/index.md) instead of Phosphor. On dark slides, replace the content-type icons' `#4A4C53` fill with `#CBCBCD` in the SVG markup before inserting it, since slide tools can't apply CSS.
+- For Khan Academy concepts (content types, learning states, gems, streaks), use the official files from the [asset catalog](../assets/index.md) instead of Phosphor. On dark slides, swap the circled icons' colors for their dark values (the catalog has the table) in the SVG markup before inserting it, since slide tools can't apply CSS.
 - Use intent-subtle backgrounds (`core-background-<intent>-subtle`) only when the cards *mean* success, warning, or critical, and pair them with an icon or label.
 - **Accent:** icons in the accent text color; card fills stay neutral. No card is lifted.
 

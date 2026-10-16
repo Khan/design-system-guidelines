@@ -50,7 +50,7 @@ Notes:
 - **The 62.5% root matters.** Without it, sizing and font tokens come out 1.6× too big. If the host page controls the root font size, don't load the stylesheet. Copy the px values from the core file instead.
 - **`data-wb-theme` works on any element.** Put `data-wb-theme="syl-dark"` on one section to get a dark band inside a light page.
 - **Build with the CSS variables, not hex,** so dark mode works for free. Variable names are `--wb-` plus the token path joined with dashes, for example `--wb-semanticColor-action-primary-progressive-default-background`, `--wb-sizing-size_160`, `--wb-border-radius-radius_080`, or `--wb-boxShadow-mid`.
-- **Page structure:** a `base-subtle` page background, `base-default` cards, one primary button, and Phosphor icons ([web package](https://phosphoricons.com) or inline SVGs). For Khan Academy concepts (content types, learning states, gems, streaks), inline the official SVGs from the [asset catalog](../assets/index.md) instead, and set the content-type icons' fill to `var(--wb-semanticColor-core-foreground-neutral-default)` so they follow the theme.
+- **Page structure:** a `base-subtle` page background, `base-default` cards, one primary button, and Phosphor icons ([web package](https://phosphoricons.com) or inline SVGs). For Khan Academy concepts (content types, learning states, gems, streaks), inline the official SVGs from the [asset catalog](../assets/index.md) instead. In a page that supports both themes, set the circled icons' fills to their `--wb-semanticColor-learning-…` CSS variables so they follow the theme.
 
 ## Layout
 

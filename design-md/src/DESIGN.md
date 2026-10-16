@@ -260,9 +260,10 @@ for text:
 | Attempted | `{{tb:semanticColor.learning.background.progress.attempted.default}}` | `{{tb:semanticColor.learning.foreground.progress.attempted.strong}}` |
 | Complete | `{{tb:semanticColor.learning.background.progress.complete.default}}` | `{{tb:semanticColor.learning.foreground.progress.complete.strong}}` |
 
-Each state has an official icon (attempted, familiar, proficient, mastery,
-complete, retry) in the [asset catalog](assets/index.md#learning-states).
-Use those instead of drawing state marks.
+These are the colors of the progress icons in the
+[asset catalog](assets/index.md#progress): circle = fill, glyph = icon / mark,
+with a darker edge (`learning-shadow-progress-<state>-default`). Use the icon
+files instead of drawing state marks.
 
 ### Color rules
 
@@ -375,17 +376,14 @@ In React, use the actual Wonder Blocks components
 ### Khan Academy icons
 
 Phosphor is for UI glyphs such as arrows, close, and settings. When you show a
-Khan Academy concept, use the official icon from the
-[asset catalog](assets/index.md) instead. That covers a content type (video,
-article, quiz, unit test), a learning state (attempted, familiar, proficient,
-mastery), or a motivation icon (gem, streak). Never use a Phosphor lookalike,
-and never draw one.
+Khan Academy concept, use the official file from the
+[asset catalog](assets/index.md) instead. Never use a Phosphor lookalike, and
+never draw one.
 
-- Fetch the file and inline its SVG markup, or copy it into your project. Use it at its native size (48px; gem and streak are 56px) or scale it evenly.
-- Keep the colors as they are, with one exception. **Dark theme:** the content-type icons are a single `{{tb:semanticColor.core.foreground.neutral.default}}` fill. On `syl-dark` surfaces, recolor that fill to `{{dark:semanticColor.core.foreground.neutral.default}}` (`core-foreground-neutral-default`).
-  - Where CSS works, inline the SVG and set `fill="var({{name:semanticColor.core.foreground.neutral.default}})"` so it follows the theme.
-  - Where it doesn't (slides, image exports), replace the hex in the SVG markup before you insert the file.
-  - Leave learning-state and motivation icons unchanged in both themes.
+- **Activities and progress** (video, article, quiz, unit test; attempted, familiar, proficient, mastery) are circled icons: the glyph sits in a circle with a solid bottom edge, and the circle's color is the learning state. A content type the learner hasn't started is a gray circled icon from `icons/activities/`. Once they've started it, show a mastery-level circled icon from `icons/progress/` instead. Use the circled icon whole; don't take the glyph out or redraw the circle.
+- **Motivation** icons (gem, streak) are standalone multicolor glyphs, without a circle.
+- Fetch the file and inline its SVG markup, or copy it into your project. Circled icons are 50px wide (55px tall with the edge), and gem and streak are 56px. Scale evenly.
+- **Dark theme:** the files use `thunderblocks` colors, and every circled-icon color is a learning-state token. On `syl-dark` surfaces, swap each hex for its dark value using the catalog's tables, all in one pass. Where CSS works, you can set the fills to the token CSS variables instead. Motivation icons don't change.
 - Next to a text label, the icon is decorative (`aria-hidden="true"`). On its own, give it `role="img"` and the concept's name as its accessible name.
 
 ## Illustration & characters

@@ -52,10 +52,15 @@ export function generate(options: GenerateOptions): GenerateResult {
     }
 
     const rendered = new Map<string, string | Buffer>();
+    const errors: Array<string> = [];
     for (const rel of sources.filter((rel) => !rel.endsWith(".md"))) {
+        // Served URLs are case-sensitive but macOS checkouts aren't, so a
+        // capitalized or spaced name can work locally and 404 in CI.
+        if (!/^[a-z0-9][a-z0-9._/-]*$/.test(rel)) {
+            errors.push(`${srcLabel}/${rel}: asset names must be lowercase kebab-case`);
+        }
         rendered.set(rel, fs.readFileSync(path.join(srcDir, rel)));
     }
-    const errors: Array<string> = [];
     for (const rel of templates) {
         const source = fs.readFileSync(path.join(srcDir, rel), "utf8").replace(/\r\n/g, "\n");
         errors.push(...checkLinks(source, rel, `${srcLabel}/${rel}`, sources));

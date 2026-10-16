@@ -281,6 +281,16 @@ describe("generate", () => {
         assert.deepEqual(run().written, []);
     });
 
+    it("rejects asset names that aren't lowercase kebab-case", () => {
+        // Arrange
+        fs.writeFileSync(path.join(tmp, "src/DESIGN.md"), "x");
+        fs.mkdirSync(path.join(tmp, "src/assets"));
+        fs.writeFileSync(path.join(tmp, "src/assets/icon-Unit Test.svg"), "<svg/>");
+
+        // Act, Assert
+        assert.throws(run, /assets\/icon-Unit Test\.svg: asset names must be lowercase kebab-case/);
+    });
+
     it("rejects a relative link to a file with no template", () => {
         // Arrange
         fs.writeFileSync(path.join(tmp, "src/DESIGN.md"), "x\n[a](outputs/missing.md)");
