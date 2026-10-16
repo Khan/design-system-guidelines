@@ -240,4 +240,66 @@ describe("generate", () => {
         assert.deepEqual(fs.readdirSync(path.join(tmp, "out")), ["DESIGN.md"]);
         assert.equal(fs.readFileSync(path.join(tmp, "out/DESIGN.md"), "utf8"), "previous");
     });
+
+    it("accepts relative links between templates and the canonical URL", () => {
+        // Arrange
+        fs.writeFileSync(
+            path.join(tmp, "src/DESIGN.md"),
+            "<https://khan.github.io/design-system-guidelines/design-md/DESIGN.md>\n" +
+                "[a](outputs/a.md#top) [ext](https://example.com/x.md) [here](#top)",
+        );
+        fs.writeFileSync(path.join(tmp, "src/outputs/a.md"), "[core](../DESIGN.md) [b](b.md)");
+        fs.writeFileSync(path.join(tmp, "src/outputs/b.md"), "```\n[not checked](nope.md)\n```");
+
+        // Act
+        const result = run();
+
+        // Assert
+        assert.equal(result.written.length, 3);
+    });
+
+    it("copies non-Markdown files as-is and links to them", () => {
+        // Arrange
+        fs.mkdirSync(path.join(tmp, "src/assets"));
+        fs.writeFileSync(path.join(tmp, "src/assets/logo.svg"), "<svg>{{tb:nope}}</svg>");
+        fs.writeFileSync(path.join(tmp, "src/.DS_Store"), "junk");
+        fs.writeFileSync(path.join(tmp, "src/DESIGN.md"), "[logo](assets/logo.svg)");
+        fs.mkdirSync(path.join(tmp, "out/assets"), {recursive: true});
+        fs.writeFileSync(path.join(tmp, "out/assets/old.svg"), "<svg/>");
+
+        // Act
+        const result = run();
+
+        // Assert
+        assert.deepEqual(result.written, ["assets/logo.svg", "DESIGN.md"]);
+        assert.deepEqual(result.deleted, ["assets/old.svg"]);
+        assert.equal(
+            fs.readFileSync(path.join(tmp, "out/assets/logo.svg"), "utf8"),
+            "<svg>{{tb:nope}}</svg>",
+        );
+        assert.equal(fs.existsSync(path.join(tmp, "out/.DS_Store")), false);
+        assert.deepEqual(run().written, []);
+    });
+
+    it("rejects a relative link to a file with no template", () => {
+        // Arrange
+        fs.writeFileSync(path.join(tmp, "src/DESIGN.md"), "x\n[a](outputs/missing.md)");
+
+        // Act, Assert
+        assert.throws(run, /src\/DESIGN\.md:2: relative link "outputs\/missing\.md" doesn't match any file in src/);
+    });
+
+    for (const [file, line] of [
+        ["DESIGN.md", "[a](https://khan.github.io/design-system-guidelines/design-md/outputs/a.md)"],
+        ["outputs/a.md", "<https://khan.github.io/design-system-guidelines/design-md/DESIGN.md>"],
+    ]) {
+        it(`rejects a published-URL self-link in ${file}`, () => {
+            // Arrange
+            fs.writeFileSync(path.join(tmp, "src/DESIGN.md"), "x");
+            fs.writeFileSync(path.join(tmp, "src", file), line);
+
+            // Act, Assert
+            assert.throws(run, /:1: link to other DESIGN\.md files with a relative path/);
+        });
+    }
 });

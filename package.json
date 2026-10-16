@@ -11,7 +11,7 @@
         "start": "storybook dev -p 56789",
         "build": "pnpm design-md && storybook build --stats-json",
         "design-md": "node scripts/design-md/generate.ts",
-        "lint:design-md": "design.md lint design-md/DESIGN.md",
+        "lint:design-md": "design.md lint design-md/published/DESIGN.md",
         "test": "node --test \"scripts/**/*.test.ts\"",
         "typecheck": "tsc --noEmit && tsc -p scripts/design-md"
     },
