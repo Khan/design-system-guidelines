@@ -1,0 +1,70 @@
+import {Meta} from "@storybook/addon-docs/blocks";
+import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
+import {Do, Dont} from "../components/DoDont";
+
+<Meta title="Design Guidelines / Components / Data visualization / Data tables" />
+
+# Data tables
+
+<NeutralBadge label="Details for each student or item" />
+
+Data tables answer "Who exactly, and what do I do?" They list each student or item with exact values, and can include small visuals like progress bars and flags.
+
+> **TODO:** Add a header image.
+
+> **TODO:** Confirm whether data tables are built with Wonder Blocks or another library.
+
+## <Do /> When to use
+
+| Use when | Example |
+| --- | --- |
+| Readers need to find or act on individual students or items | Each student's status, performance level, and score |
+| Readers compare exact values across many columns | Assignments with type, due date, completion, and flags |
+
+## <Dont /> When NOT to use
+
+| Don't use when | Use instead |
+| --- | --- |
+| The takeaway is one value | [Summary cards](?path=/docs/design-guidelines-components-data-visualization-summary-cards--docs) |
+| Readers need to see a pattern or trend | [Distribution charts](?path=/docs/design-guidelines-components-data-visualization-distribution-charts--docs) or [Trend charts](?path=/docs/design-guidelines-components-data-visualization-trend-charts--docs) |
+
+## Variants
+
+### Table with summary tabs
+
+Tabs above the table show a count for each group and filter the table to it. Example: "Where students placed," with tabs for This class, Beginning, Approaching, and Demonstrating.
+
+| Tab part | Example |
+| --- | --- |
+| Label | Approaching |
+| Count | 8 students |
+| Context | 40% of this class |
+
+- The first tab shows everyone.
+- Tab counts add up to the first tab's total, minus students with no result. Say how many: "2 did not complete."
+
+### Grouped table
+
+Rows are grouped by status under collapsible headers, each with a count. Example: assignments grouped into Needs attention, In progress, Upcoming, and Completed.
+
+- Put the group that needs action first, and open it by default.
+- Collapse groups that don't need action, like Upcoming and Completed.
+- Pair each group's color with an icon and its name.
+
+## In-cell visuals
+
+| Visual | Use for | Rule |
+| --- | --- | --- |
+| Progress bar | Completion | Always show the value next to it: 16/20 |
+| Status pill | A row's state | Text plus color: Completed, In progress |
+| Flag | Something that needs action | Icon plus text: "3 need help" |
+| Missing value | No data | Show `—`. See [Missing and zero values](?path=/docs/design-guidelines-foundations-data-visualization--docs#missing-and-zero-values). |
+
+<ul>
+    <li><Do /> Keep one visual per cell.</li>
+    <li><Dont /> Use a flag's color without its icon and text.</li>
+</ul>
+
+> **TODO:** Define how the Attention color role appears in tables.
+
+> **TODO:** Decide whether mastery or assessment views need a student-by-skill grid (heatmap).

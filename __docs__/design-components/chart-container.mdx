@@ -1,0 +1,66 @@
+import {Meta} from "@storybook/addon-docs/blocks";
+import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
+import {Do, Dont} from "../components/DoDont";
+
+<Meta title="Design Guidelines / Components / Data visualization / Chart container" />
+
+# Chart container
+
+<NeutralBadge label="Frame for a chart or table" />
+
+A container holds one chart or table with its heading, title, controls, and footer. Every progress, distribution, and trend chart sits inside one. For how containers are laid out on a page, see [Data reports](?path=/docs/design-guidelines-patterns-data-reports--docs).
+
+Data visualization components are built with Highcharts, not Wonder Blocks.
+
+> **TODO:** Link to the shared Highcharts theme once it exists.
+
+> **TODO:** Add a header image.
+
+## <Do /> When to use
+
+| Use when | Example |
+| --- | --- |
+| Showing one chart or table that needs a few controls, or none | Growth over time, with a date filter and download |
+
+## <Dont /> When NOT to use
+
+| Don't use when | Use instead |
+| --- | --- |
+| The headline is a single value | [Summary cards](?path=/docs/design-guidelines-components-data-visualization-summary-cards--docs) |
+| The data needs more than about three controls | Its own page or section. See [Data reports](?path=/docs/design-guidelines-patterns-data-reports--docs). |
+
+## Anatomy
+
+| Part | Placement | Required |
+| --- | --- | --- |
+| Section heading (H2) | Above the container | Yes, except in empty and error states |
+| Title (H3) | Inside, top left. States the insight. | Yes |
+| Description | Below the title | When it adds context |
+| Controls | Inside, top right, on the same line as the title | Optional |
+| Chart or table | Below the title | Yes |
+| Legend | Below the title, or below the chart | Only when series can't be labeled directly |
+| Footer | Bottom. Data source and last-updated time. | Yes |
+
+For the parts of the chart itself, like axes and data labels, see [Anatomy](?path=/docs/design-guidelines-foundations-data-visualization--docs#anatomy) in Data visualization.
+
+> **TODO:** Add an anatomy diagram.
+
+## Controls
+
+Controls are optional. See [Container controls](?path=/docs/design-guidelines-patterns-data-reports--docs#container-controls) in Data reports for which ones to use and where they go.
+
+### Chart and table toggle
+
+Every chart with detailed data has an accessible data table. The view toggle lets anyone switch to it.
+
+> **TODO:** Define the toggle: its default view, its icons and labels, and whether it appears on every chart.
+
+## States
+
+Empty and error states replace the title and chart, and keep the section heading and controls. See [States](?path=/docs/design-guidelines-patterns-data-reports--docs#states) in Data reports.
+
+## Shared chart parts
+
+These parts appear across every chart type.
+
+> **TODO:** Define each shared part: legend, tooltip, target or reference line, change indicator (↑ ↓ with text), and loading skeleton.

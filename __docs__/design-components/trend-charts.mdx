@@ -1,0 +1,49 @@
+import {Meta} from "@storybook/addon-docs/blocks";
+import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
+import {Do, Dont} from "../components/DoDont";
+
+<Meta title="Design Guidelines / Components / Data visualization / Trend charts" />
+
+# Trend charts
+
+<NeutralBadge label="Change over time" />
+
+Trend charts answer "How has it changed?" A line chart shows a value across time, like growth across units or assessments.
+
+> **TODO:** Add a header image.
+
+## <Do /> When to use
+
+| Use when | Example |
+| --- | --- |
+| Readers need to see the direction of change across three or more periods | Growth over time, by unit |
+
+## <Dont /> When NOT to use
+
+| Don't use when | Use instead |
+| --- | --- |
+| There are only one or two periods | A [stat card](?path=/docs/design-guidelines-components-data-visualization-summary-cards--docs#stat-card) with a change: "↑ 10 points from last assessment" |
+| Comparing categories that aren't in time order | [Distribution charts](?path=/docs/design-guidelines-components-data-visualization-distribution-charts--docs) |
+
+## Anatomy
+
+| Part | Rule |
+| --- | --- |
+| Title | States the trend: "Scores rose every unit this term" |
+| Time axis | Periods in order, evenly spaced |
+| Value axis | Scale and units |
+| Line | 2px, in the role's outline color. See [Fills and outlines](?path=/docs/design-guidelines-foundations-data-visualization--docs#fills-and-outlines). |
+| Points | One per period. Label values when there are few points. |
+
+## Usage guidelines
+
+<ul>
+    <li><Do /> Use the [Single series](?path=/docs/design-guidelines-foundations-data-visualization--docs#single-series) role for one line, and [Categorical](?path=/docs/design-guidelines-foundations-data-visualization--docs#categorical) for up to four.</li>
+    <li><Do /> Label lines directly at their ends instead of using a legend.</li>
+    <li><Do /> Leave a gap for a missing period. Don't draw it as zero. See [Missing and zero values](?path=/docs/design-guidelines-foundations-data-visualization--docs#missing-and-zero-values).</li>
+    <li><Dont /> Show more than four lines. Fold the rest into "Other," or use a table.</li>
+</ul>
+
+> **TODO:** Decide whether a single line gets a light area fill below it.
+
+> **TODO:** Define how to mark a target or comparison line, like a district average.

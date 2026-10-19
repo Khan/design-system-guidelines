@@ -1,0 +1,70 @@
+import {Meta} from "@storybook/addon-docs/blocks";
+import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
+import {Do, Dont} from "../components/DoDont";
+
+<Meta title="Design Guidelines / Components / Data visualization / Progress charts" />
+
+# Progress charts
+
+<NeutralBadge label="Progress toward a goal" />
+
+Progress charts answer "How close are we to the goal?" They show a current value against a target.
+
+> **TODO:** Add a header image.
+
+## <Do /> When to use
+
+| Use when | Example |
+| --- | --- |
+| There's one goal and one current value | Gem challenge: 1,245 of 1,500 gems |
+| Readers compare progress to where they should be by now | Grade level target: 37 skills against today's target of 35 |
+
+## <Dont /> When NOT to use
+
+| Don't use when | Use instead |
+| --- | --- |
+| There's no goal or target | [Summary cards](?path=/docs/design-guidelines-components-data-visualization-summary-cards--docs) |
+| Readers need to see how progress changed over time | [Trend charts](?path=/docs/design-guidelines-components-data-visualization-trend-charts--docs) |
+| Showing progress as a gauge or dial | A progress bar. See [Choosing a chart](?path=/docs/design-guidelines-foundations-data-visualization--docs#choosing-a-chart). |
+
+## Variants
+
+### Goal card
+
+A compact card for one goal, like a class challenge. It stands alone, not in a chart container.
+
+| Part | Required | Example |
+| --- | --- | --- |
+| Title | Yes | Gem challenge |
+| Context | Yes | Period 3, Precalculus |
+| Progress bar | Yes | |
+| Value and goal | Yes | 1,245 of 1,500 |
+| Time left | When there's a deadline | 1 day left |
+| Details | Optional | Your contribution: 217. Reward: Pizza party. |
+
+Motivation goals, like gem challenges, use the [Motivation](?path=/docs/design-guidelines-foundations-data-visualization--docs#motivation) color role.
+
+### Target bar
+
+A progress bar with a target marker, inside a [chart container](?path=/docs/design-guidelines-components-data-visualization-chart-container--docs). Use it when "on track" depends on the date.
+
+| Part | Required | Example |
+| --- | --- | --- |
+| Title | Yes. States where the class stands. | Class is ahead of target, with 37 skills |
+| Legend | Yes | Class skills (38), Today's target (35) |
+| Bar | Yes | |
+| Target marker | Yes, labeled | Target: 35 |
+| Start and end labels | Yes | 0 skills, September; 70 skills, May |
+
+## Usage guidelines
+
+<ul>
+    <li><Do /> Show the current value and the goal as text, not only as bar length.</li>
+    <li><Do /> Label the target marker with its value.</li>
+    <li><Do /> Use the Attention role only when progress falls behind the target and someone needs to act.</li>
+    <li><Dont /> Fill the bar past 100%. Say "Goal reached" and show the final value.</li>
+</ul>
+
+> **TODO:** Confirm whether the goal card is built with Highcharts or Wonder Blocks.
+
+> **TODO:** Decide how to show a goal that's been passed.

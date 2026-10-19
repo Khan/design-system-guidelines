@@ -1,0 +1,79 @@
+import {Meta} from "@storybook/addon-docs/blocks";
+import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
+import {Do, Dont} from "../components/DoDont";
+
+<Meta title="Design Guidelines / Components / Data visualization / Summary cards" />
+
+# Summary cards
+
+<NeutralBadge label="The headline at a glance" />
+
+Summary cards answer "What's the headline?" They show key numbers in words and digits, with no chart to decode. Detail is one click away.
+
+> **TODO:** Add a header image.
+
+## <Do /> When to use
+
+| Use when | Example |
+| --- | --- |
+| One value tells the story | Students assessed: 11,033 |
+| Readers compare a few subjects or classes on the same measures | Algebra 1, Geometry, and HS ELA, each with an average score and level |
+
+## <Dont /> When NOT to use
+
+| Don't use when | Use instead |
+| --- | --- |
+| Readers need to see change over time | [Trend charts](?path=/docs/design-guidelines-components-data-visualization-trend-charts--docs) |
+| Readers need to see where students fall | [Distribution charts](?path=/docs/design-guidelines-components-data-visualization-distribution-charts--docs) |
+| Readers need to act on individual students | [Data tables](?path=/docs/design-guidelines-components-data-visualization-data-tables--docs) |
+
+## Variants
+
+### Stat card
+
+Shows one metric. Use a row of two to four at the top of a report.
+
+| Part | Required | Example |
+| --- | --- | --- |
+| Label | Yes | Students assessed |
+| Info tooltip | Optional | How the metric is calculated |
+| Value | Yes | 11,033 |
+| Context or change | Optional | 40% of total students assessed; ↓ 1 subject at risk |
+
+- Pair a change arrow with text. The arrow and its color never carry the meaning alone.
+- Use the Attention color for a change only when that direction needs action. See [Color](?path=/docs/design-guidelines-foundations-data-visualization--docs#color).
+
+### Comparison card
+
+Shows one subject or class with a few key numbers and an insight sentence. Stack comparison cards in a list under a section heading to compare them.
+
+| Part | Required | Example |
+| --- | --- | --- |
+| Name | Yes | Algebra 1 |
+| Count | Yes | 7,211 students assessed |
+| Key metric | Yes | Avg 820 |
+| Level | When the metric maps to a level | Demonstrating |
+| Insight sentence | Yes | Climbing steadily — up 10 points, with 35% of students now scoring at grade level. |
+| Link | Yes | Chevron to the full report |
+
+<ul>
+    <li><Do /> Show the same metrics in the same order on every card in the list.</li>
+    <li><Do /> Write the level as a word, so color is never the only signal.</li>
+    <li><Do /> Let the insight sentence carry the change: "up 10 points."</li>
+    <li><Dont /> Put a chart in a comparison card. Link to the full report instead.</li>
+</ul>
+
+> **TODO:** Decide whether comparison cards also show a change indicator, or the insight sentence alone.
+
+### Insight sentences
+
+- Start with a direction: Climbing, Declining, Slipping, Steady.
+- Include one number that backs it up.
+- Keep it to one sentence.
+
+> **TODO:** Decide who writes insight sentences (templates or AI), and move these rules to Writing for data if they apply to every chart.
+
+## Accessibility
+
+- Each card is one link target with an accessible name, like "Algebra 1 report."
+- Read the level and the change as text, not as color or an arrow icon.
