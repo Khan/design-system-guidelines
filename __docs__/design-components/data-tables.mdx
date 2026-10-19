@@ -34,6 +34,13 @@ Data tables answer "Who exactly, and what do I do?" They list each student or it
 
 ## Variants
 
+### Basic table
+
+Rows of items with a header row of column labels. Start here, and add tabs or groups only when readers need them.
+
+- Put the column readers scan by first, usually the student or item name.
+- Write column labels in sentence case, and keep them short: "Total students," not "Total number of students."
+
 ### Table with summary tabs
 
 Tabs above the table show a count for each group and filter the table to it. Example: "Where students placed," with tabs for This class, Beginning, Approaching, and Demonstrating.
@@ -46,6 +53,7 @@ Tabs above the table show a count for each group and filter the table to it. Exa
 
 - The first tab shows everyone.
 - Tab counts add up to the first tab's total, minus students with no result. Say how many: "2 did not complete."
+- Percentages use the first tab's total, including students with no result.
 
 <Figure
     src={summaryTabsImg}
@@ -59,6 +67,7 @@ Rows are grouped by status under collapsible headers, each with a count. Example
 
 - Put the group that needs action first, and open it by default.
 - Collapse groups that don't need action, like Upcoming and Completed.
+- Keep In progress open. Readers check it often.
 - Pair each group's color with an icon and its name.
 
 <Figure
@@ -67,20 +76,73 @@ Rows are grouped by status under collapsible headers, each with a count. Example
     caption="Needs attention comes first and is open. Groups that don't need action are collapsed."
 />
 
+## Content
+
+### Names
+
+- Show names as first then last: "Amelia Abalos."
+- Sort names by last name by default.
+
+### Column alignment
+
+Left-align every column, including numbers, so values line up under their labels.
+
+### Missing values
+
+Show `—` when there's no data. See [Missing and zero values](?path=/docs/design-guidelines-foundations-data-visualization--docs#missing-and-zero-values).
+
 ## In-cell visuals
 
 | Visual | Use for | Rule |
 | --- | --- | --- |
 | Progress bar | Completion | Always show the value next to it: 16/20 |
-| Status pill | A row's state | Text plus color: Completed, In progress |
-| Flag | Something that needs action | Icon plus text: "3 need help" |
-| Missing value | No data | Show `—`. See [Missing and zero values](?path=/docs/design-guidelines-foundations-data-visualization--docs#missing-and-zero-values). |
+| Status badge | A row's state | Text plus color: Completed, In progress |
+| Flag | Something that needs action | Icon plus text that says what happened: "3 need help," "Rushed 3 times" |
+
+### Flags
+
+Flags are [badges](?path=/docs/design-guidelines-components-feedback-badges--docs). Their severity decides the badge.
+
+| Severity | Use when | Badge | Example |
+| --- | --- | --- | --- |
+| Critical | Something already went wrong, or a deadline passed | [Critical error](?path=/docs/design-guidelines-components-feedback-badges--docs#critical-error-status) | Overdue, 4 didn't finish |
+| Warning | Someone may need help, but nothing has failed yet | [Warning](?path=/docs/design-guidelines-components-feedback-badges--docs#warning-status) | 3 need help, Rushed 3 times |
 
 <ul>
-    <li><Do /> Keep one visual per cell.</li>
+    <li><Do /> Stack up to two flags in a cell, most severe first.</li>
+    <li><Do /> Place a flag about a single value, like Overdue, next to that value.</li>
+    <li><Dont /> Show a flag as a number alone, like "3×." Say what it counts.</li>
     <li><Dont /> Use a flag's color without its icon and text.</li>
 </ul>
 
-> **TODO:** Define how the Attention color role appears in tables.
+## Interaction
+
+### Sorting
+
+- Make a column sortable when readers need to find the highest, lowest, or a specific item.
+- Show a default sort, and mark the sorted column with an arrow.
+- Sorting happens within each group in a grouped table.
+
+### Row actions
+
+- Put actions for one row in a "…" menu at the end of the row.
+- Add a checkbox column only when there are bulk actions. When rows are selected, show the selected count and the bulk actions above the table.
+
+### Long tables
+
+- Show up to 50 rows, then paginate.
+- Keep the header row visible when the table scrolls.
+
+## States
+
+Empty and error states follow [Data reports](?path=/docs/design-guidelines-patterns-data-reports--docs#states). A table that's filtered to nothing keeps its tabs, filters, and header row visible.
+
+## Accessibility
+
+- Mark header cells as column headers, so screen readers read the column name with each value.
+- Summary tabs are tabs: arrow keys move between them, and the selected tab is announced.
+- Group headers are buttons that announce whether the group is open or closed, and how many rows it has.
+- Label each checkbox and "…" menu with its row: "Select Unit 3," "Actions for Unit 3."
+- Read flags and badges as text, not color.
 
 > **TODO:** Decide whether mastery or assessment views need a student-by-skill grid (heatmap).
