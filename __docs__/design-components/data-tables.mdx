@@ -1,6 +1,7 @@
 import {Meta} from "@storybook/addon-docs/blocks";
 import headerImg from "./assets/data-tables/header.png";
 import summaryTabsImg from "./assets/data-tables/summary-tabs.png";
+import groupedTableImg from "./assets/data-tables/grouped-table.png";
 import Figure from "../components/Figure";
 import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
 import {Do, Dont} from "../components/DoDont";
@@ -59,6 +60,12 @@ Rows are grouped by status under collapsible headers, each with a count. Example
 - Put the group that needs action first, and open it by default.
 - Collapse groups that don't need action, like Upcoming and Completed.
 - Pair each group's color with an icon and its name.
+
+<Figure
+    src={groupedTableImg}
+    alt="Assignments grouped under four collapsible headers, each with an icon and a count. Needs attention (3) is open first, with flags like Overdue, 4 didn't finish, and 3 need help. In progress (2) is open below it. Upcoming (27) and Completed (7) are collapsed. Each row shows the assignment, type, due date, and completion as a value like 16/20 next to a progress bar."
+    caption="Needs attention comes first and is open. Groups that don't need action are collapsed."
+/>
 
 ## In-cell visuals
 
