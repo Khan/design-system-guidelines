@@ -1,5 +1,7 @@
 import {Meta} from "@storybook/addon-docs/blocks";
 import headerImg from "./assets/data-tables/header.png";
+import summaryTabsImg from "./assets/data-tables/summary-tabs.png";
+import Figure from "../components/Figure";
 import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
 import {Do, Dont} from "../components/DoDont";
 
@@ -43,6 +45,12 @@ Tabs above the table show a count for each group and filter the table to it. Exa
 
 - The first tab shows everyone.
 - Tab counts add up to the first tab's total, minus students with no result. Say how many: "2 did not complete."
+
+<Figure
+    src={summaryTabsImg}
+    alt="A Where students placed table. Four tabs sit above it: This class, 20 students, 2 did not complete (selected); Beginning, 5 students; Approaching, 8 students; Demonstrating, 5 students. Each tab shows its share of the class. The table lists students with status, performance level, score, rushing flags, and recommendations."
+    caption="The first tab shows the whole class. Each level tab filters the table to its students."
+/>
 
 ### Grouped table
 
