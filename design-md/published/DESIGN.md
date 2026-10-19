@@ -130,10 +130,11 @@ its text, resolve them against that address.
 | Product UI in a Wonder Blocks codebase | [outputs/product-ui.md](outputs/product-ui.md) |
 | Standalone web prototype, HTML page, or Claude artifact | [outputs/web-prototype.md](outputs/web-prototype.md) |
 | Slide deck | [outputs/slides.md](outputs/slides.md) |
-| Diagram, flowchart, or chart | [outputs/diagrams-and-data-viz.md](outputs/diagrams-and-data-viz.md) |
+| Diagram or flowchart | [outputs/diagrams.md](outputs/diagrams.md) |
+| Chart or data visualization | No guide yet. Use this file's colors and contrast rules, and state your assumptions. |
 | Something else | This file plus the closest guide. State your assumptions. |
 
-Guides may extend this file but never override it. Each value has one home: when a guide points to another guide for something (slides point to the data viz guide for chart colors), that guide wins.
+Guides may extend this file but never override it. Each value has one home: when a guide points to another guide for something (slides point to the diagrams guide for diagram colors), that guide wins.
 
 ## Which theme
 

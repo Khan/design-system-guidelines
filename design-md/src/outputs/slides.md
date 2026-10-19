@@ -179,8 +179,8 @@ Each layout names the one element that carries the indigo accent.
 ```
 
 - A chart card (8 columns) and a takeaway card (4 columns). Lift the takeaway card.
-- The chart follows the [diagrams and data viz guide](diagrams-and-data-viz.md): direct labels instead of legends, categorical order.
-- **Accent:** the highlighted series. All chart colors (highlight, muted series, gridlines, axes, labels) come from the diagrams and data viz guide; this guide only changes their size.
+- There's no data visualization guide yet. Take chart colors from the core DESIGN.md, never let color be the only encoding, and state your assumptions.
+- **Accent:** the lifted takeaway card.
 
 ### 8. Quote / testimonial
 
@@ -199,8 +199,7 @@ Each layout names the one element that carries the indigo accent.
 - No card is lifted.
 - **Accent:** a large opening quotation mark in the accent text color.
 
-## Charts and diagrams on slides
+## Diagrams on slides
 
-Follow the
-[diagrams and data viz guide](diagrams-and-data-viz.md),
-for every chart color. On the 1920 canvas, double its sizes: 4px lines, 2px gridlines, and 20px+ labels.
+Follow the [diagrams guide](diagrams.md) for every diagram color. On the 1920
+canvas, double its sizes: 3–4px connectors and doubled label sizes.
