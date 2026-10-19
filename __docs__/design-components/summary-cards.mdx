@@ -10,6 +10,8 @@ import {Do, Dont} from "../components/DoDont";
 
 Summary cards answer "What's the headline?" They show key numbers in words and digits, with no chart to decode. Detail is one click away.
 
+Summary cards are built with Wonder Blocks, using the Thunderblocks theme.
+
 > **TODO:** Add a header image.
 
 ## <Do /> When to use
@@ -39,9 +41,18 @@ Shows one metric. Use a row of two to four at the top of a report.
 | Info tooltip | Optional | How the metric is calculated |
 | Value | Yes | 11,033 |
 | Context or change | Optional | 40% of total students assessed; ↓ 1 subject at risk |
+| Arrow | When the card is clickable | → |
 
+- Format the value with the [Number formatting](?path=/docs/design-guidelines-foundations-data-visualization--docs#number-formatting) rules: "11,033," "1.2K," "−7 pts."
+- Show a change as a [value and trend badge](?path=/docs/design-guidelines-components-feedback-badges--docs#value-and-trend-badges). Only the value and its arrow go inside the badge ("↓ 1"). The description stays outside as text ("subject at risk").
 - Pair a change arrow with text. The arrow and its color never carry the meaning alone.
 - Use the Attention color for a change only when that direction needs action. See [Color](?path=/docs/design-guidelines-foundations-data-visualization--docs#color).
+
+#### Clickable stat cards
+
+- Make a stat card clickable only when there's a detail view for that metric.
+- Show an arrow on every clickable card. A card without an arrow isn't clickable.
+- In a row, cards can mix: some clickable, some not.
 
 ### Comparison card
 
@@ -75,5 +86,6 @@ Shows one subject or class with a few key numbers and an insight sentence. Stack
 
 ## Accessibility
 
-- Each card is one link target with an accessible name, like "Algebra 1 report."
+- A clickable card is one link target with an accessible name, like "Algebra 1 report" or "Students assessed details."
+- A stat card that isn't clickable isn't focusable.
 - Read the level and the change as text, not as color or an arrow icon.
