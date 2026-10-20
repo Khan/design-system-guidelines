@@ -40,10 +40,12 @@ Distribution charts sit inside a [chart container](?path=/docs/design-guidelines
 | Part | Rule | Example |
 | --- | --- | --- |
 | Title | States the insight | Most students completed five to eight assignments |
-| Category axis | Ranges in order, equal width, with no overlaps. Use an en dash in range labels. | none, 1–2, 3–4 … 11+ |
-| Value axis | Counts or percentages, starting at zero, labeled with units. Optional when every bar has a data label. | Students: 0, 10, 20, 30 |
+| Category axis | Ranges in order, equal width, with no overlaps. Use an en dash in range labels. Labeled with what's counted. | Assignments completed: none, 1–2, 3–4 … 11+ |
+| Value axis | Counts or percentages, starting at zero, labeled with units. Optional when every bar has a data label. | Students: 0, 10, 20 … 50 |
 | Bars | Choose colors by role. See [Color](?path=/docs/design-guidelines-foundations-data-visualization--docs#color) in Data visualization. | |
-| Data labels | The count on or above each bar | 28 |
+| Data labels | The value on or above each bar | 40 |
+
+> **TODO:** Define what tooltips show, since every bar already has a data label.
 
 ### Example
 
@@ -60,11 +62,13 @@ A school-wide assignments completed chart that follows every rule on this page. 
 ### Ranges
 
 <ul>
-    <li><Do /> Use 4 to 8 ranges.</li>
+    <li><Do /> Use 4 to 8 ranges. In a chart grouped by level, use more only when level thresholds require it.</li>
     <li><Do /> Choose ranges that match thresholds that mean something to the reader, like levels or goals.</li>
     <li><Do /> Keep ranges the same width so bar heights compare fairly. In a chart grouped by level, ranges follow level thresholds instead.</li>
     <li><Do /> Show a "none" range when zero is possible. The students with zero are often the ones who need help.</li>
     <li><Do /> When values have no maximum, end with an open range, like "11+," so every value has a place.</li>
+    <li><Do /> Keep empty ranges, and label them "0." Dropping them makes the ranges look evenly spread when they aren't.</li>
+    <li><Dont /> Sort ranges by bar height. That turns the chart into a ranking and hides the shape.</li>
 </ul>
 
 ### Title and description
@@ -84,6 +88,7 @@ A school-wide assignments completed chart that follows every rule on this page. 
 
 <ul>
     <li><Do /> Use vertical bars for ordered ranges. Use horizontal bars when range labels are long.</li>
+    <li><Dont /> Rotate range labels. When they don't fit, like on a narrow screen, switch to horizontal bars.</li>
     <li><Do /> When some ranges carry the title's point, highlight them with the [Emphasis](?path=/docs/design-guidelines-foundations-data-visualization--docs#emphasis) role and gray the rest.</li>
     <li><Do /> When a range needs action, use the [Attention](?path=/docs/design-guidelines-foundations-data-visualization--docs#attention) role.</li>
     <li><Dont /> Color bars differently for any other reason, except in a chart grouped by level.</li>
@@ -100,7 +105,7 @@ Score ranges are grouped under the levels they belong to, like Beginning, Approa
 | Level band | A line under each level's ranges | |
 | Level name | Below the band, with an info tooltip that gives the level's score range | Approaching |
 | Level count | Below the level name. Links to the students in that level. | 8 students |
-| Bars | One color per level, from light to dark as levels go up | |
+| Bars | Colors come from the Assessment or Mastery role | |
 
 <ul>
     <li><Do /> Line range boundaries up with level thresholds. No range crosses two levels.</li>
@@ -118,7 +123,7 @@ Score ranges are grouped under the levels they belong to, like Beginning, Approa
 
 ## States
 
-Empty and error states follow [Data reports](?path=/docs/design-guidelines-patterns-data-reports--docs#states).
+Empty and error states follow [Data reports](?path=/docs/design-guidelines-patterns-data-reports--docs#states). For groups too small to chart, see [Not enough data](?path=/docs/design-guidelines-patterns-data-reports--docs#not-enough-data).
 
 ## Accessibility
 
