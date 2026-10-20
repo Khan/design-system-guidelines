@@ -17,7 +17,7 @@ import viewToggleImg from "./assets/chart-container/view-toggle.png";
 
 A container holds one chart with its heading, title, controls, and footer. Every distribution chart, trend chart, and progress target bar sits inside one. For how containers are laid out on a page, see [Data reports](?path=/docs/design-guidelines-patterns-data-reports--docs).
 
-Charts are built with Highcharts, not Wonder Blocks.
+Charts are built with Highcharts, not Wonder Blocks. Progress charts are the exception: they're built with Wonder Blocks, using the Thunderblocks theme.
 
 > **TODO:** Link to the shared Highcharts theme once it exists.
 
@@ -37,17 +37,29 @@ Charts are built with Highcharts, not Wonder Blocks.
 | The data needs more than about three controls | Its own page or section. See [Data reports](?path=/docs/design-guidelines-patterns-data-reports--docs). | Controls that don't fit on one line crowd the title and wrap. |
 | Fitting two charts in one container | Two containers, one chart each | Each container's title states one insight. Two charts compete for one title. |
 
+## Sizes
+
+| Size | Use for | Example |
+| --- | --- | --- |
+| Large | Reports, where readers study the data | Growth over time on a teacher report |
+| Small | Dashboards and side panels, where readers glance | Gem challenge on the student dashboard |
+
+- A small container holds less: one chart and a few values, with no controls.
+- In a small container, the title names the topic, like "Gem challenge." The values carry the insight.
+
 ## Anatomy
 
-| Part | Placement | Required |
-| --- | --- | --- |
-| Section heading (H2) | Above the container | Yes |
-| Title (H3) | Inside, top left. States the insight. | Yes, except in empty and error states |
-| Description | Below the title | When it adds context |
-| Controls | Inside, top right, on the same line as the title | Optional |
-| Chart | Below the title | Yes |
-| Legend | Below the title and description, above the chart | Only when series can't be labeled directly |
-| Footer | Bottom. When the data was last updated. | Yes |
+| Part | Placement | Large | Small |
+| --- | --- | --- | --- |
+| Section heading (H2) | Above the container | Yes | No |
+| Title (H3) | Inside, top left | Yes. States the insight. Not shown in empty and error states. | Yes. Names the topic. |
+| Description | Below the title | When it adds context | Context only, like the class name |
+| Controls | Inside, top right, on the same line as the title | Optional | No |
+| Chart | Below the title | Yes | Yes |
+| Legend | Below the title and description, above the chart | Only when series can't be labeled directly | No |
+| Footer | Bottom. When the data was last updated. | Yes | Optional |
+
+> **TODO:** Confirm whether small containers need the footer.
 
 For the parts of the chart itself, like axes and data labels, see [Anatomy](?path=/docs/design-guidelines-foundations-data-visualization--docs#anatomy) in Data visualization.
 
@@ -114,7 +126,7 @@ Empty and error states replace the title and chart, and keep the section heading
 
 ## Accessibility
 
-- Use real heading levels: the section heading is an H2 and the title is an H3.
+- Use real heading levels: the section heading is an H2 and the title is an H3. In a small container, the title is the container's heading.
 - Give each control an accessible name that includes the chart's topic: "Download growth data."
 - The view toggle announces which view is selected.
 - Every chart has a short text summary of its takeaway. See [Accessibility](?path=/docs/design-guidelines-foundations-data-visualization--docs#accessibility) in Data visualization.
