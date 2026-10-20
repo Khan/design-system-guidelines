@@ -2,7 +2,6 @@ import {Meta} from "@storybook/addon-docs/blocks";
 import headerImg from "./assets/data-tables/header.png";
 import basicTableImg from "./assets/data-tables/basic-table.png";
 import summaryTabsImg from "./assets/data-tables/summary-tabs.png";
-import groupedTableImg from "./assets/data-tables/grouped-table.png";
 import Figure from "../components/Figure";
 import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
 import {Do, Dont} from "../components/DoDont";
@@ -39,7 +38,7 @@ Data tables are built with Wonder Blocks, using the Thunderblocks theme. Charts 
 
 ### Basic table
 
-Rows of items with a header row of column labels. Start here, and add tabs or groups only when readers need them.
+Rows of items with a header row of column labels. Start here, and add summary tabs only when readers need them.
 
 - Put the column readers scan by first, usually the student or item name.
 - Write column labels in sentence case, and keep them short: "Total students," not "Total number of students."
@@ -68,21 +67,6 @@ Tabs above the table show a count for each group and filter the table to it. Exa
     src={summaryTabsImg}
     alt="A Where students placed table. Four tabs sit above it: This class, 20 students, 2 did not complete (selected); Beginning, 5 students; Approaching, 8 students; Demonstrating, 5 students. Each tab shows its share of the class. The table lists students with status, performance level, score, rushing flags, and recommendations."
     caption="The first tab shows the whole class. Each level tab filters the table to its students."
-/>
-
-### Grouped table
-
-Rows are grouped by status under collapsible headers, each with a count. Example: assignments grouped into Needs attention, In progress, Upcoming, and Completed.
-
-- Put the group that needs action first, and open it by default.
-- Collapse groups that don't need action, like Upcoming and Completed.
-- Keep In progress open. Readers check it often.
-- Pair each group's color with an icon and its name.
-
-<Figure
-    src={groupedTableImg}
-    alt="Assignments grouped under four collapsible headers, each with an icon and a count. Needs attention (3) is open first, with flags like Overdue, 4 didn't finish, and 3 need help. In progress (2) is open below it. Upcoming (27) and Completed (7) are collapsed. Each row shows the assignment, type, due date, and completion as a value like 16/20 next to a progress bar."
-    caption="Needs attention comes first and is open. Groups that don't need action are collapsed."
 />
 
 ## Content
@@ -131,7 +115,6 @@ Flags are [badges](?path=/docs/design-guidelines-components-feedback-badges--doc
 
 - Make a column sortable when readers need to find the highest, lowest, or a specific item.
 - Show a default sort, and mark the sorted column with an arrow.
-- Sorting happens within each group in a grouped table.
 
 ### Row actions
 
@@ -151,7 +134,6 @@ Empty and error states follow [Data reports](?path=/docs/design-guidelines-patte
 
 - Mark header cells as column headers, so screen readers read the column name with each value.
 - Summary tabs are tabs: arrow keys move between them, and the selected tab is announced.
-- Group headers are buttons that announce whether the group is open or closed, and how many rows it has.
 - Label each checkbox and "…" menu with its row: "Select Unit 3," "Actions for Unit 3."
 - Read flags and badges as text, not color.
 
