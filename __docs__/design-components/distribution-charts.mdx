@@ -6,9 +6,11 @@ import {Do, Dont} from "../components/DoDont";
 
 # Distribution charts
 
-<NeutralBadge label="Where students fall" />
+<NeutralBadge label="How a group is spread out" />
 
-Distribution charts answer "Where do students fall?" A bar chart shows how many students land in each range, like the number of skills mastered.
+Distribution charts answer "How is the group spread out?" A bar chart shows how many students, classes, or schools land in each range, like the number of skills mastered.
+
+Distribution charts sit inside a [chart container](?path=/docs/design-guidelines-components-data-visualization-chart-container--docs). Charts are built with Highcharts, not Wonder Blocks.
 
 > **TODO:** Add a header image.
 
@@ -17,6 +19,8 @@ Distribution charts answer "Where do students fall?" A bar chart shows how many 
 | Use when | Example use |
 | --- | --- |
 | Readers need to see how a group spreads across ranges | Skills mastered: how many students mastered none, 1–2, 3–4, and so on |
+| Readers need to spot how many are at the low or high end | How many students haven't mastered any skills yet |
+| An admin needs to see how schools or classes spread across a measure | Schools by average score: how many fall in 700–749, 750–799, and so on |
 
 ## <Dont /> When NOT to use
 
@@ -25,25 +29,58 @@ Distribution charts answer "Where do students fall?" A bar chart shows how many 
 | Showing change over time | [Trend charts](?path=/docs/design-guidelines-components-data-visualization-trend-charts--docs) | Bars in a distribution are ranges, not time periods. Readers would read a trend that isn't there. |
 | Showing how one group splits into levels, like Beginning, Approaching, and Demonstrating | A [comparison card](?path=/docs/design-guidelines-components-data-visualization-summary-cards--docs#comparison-card) with an insight sentence, linking to the detail | A sentence states the split faster than a chart readers have to decode. |
 | Readers need each individual's or item's value | [Data tables](?path=/docs/design-guidelines-components-data-visualization-data-tables--docs) | A distribution groups values into ranges, so individual values are lost. |
+| The group is small, like fewer than 10 students | [Data tables](?path=/docs/design-guidelines-components-data-visualization-data-tables--docs) or an insight sentence | With few students, bars are too short to compare. Each student's value is clearer. |
 
 ## Anatomy
 
 | Part | Rule | Example |
 | --- | --- | --- |
-| Title | States the insight | Most students mastered four to eight skills |
-| Category axis | Ranges in order, equal width. Include an empty range, and end with an open range. | none, 1–2, 3–4 … 11+ |
-| Value axis | Counts, starting at zero | 0, 10, 20, 30 |
-| Bars | [Single series](?path=/docs/design-guidelines-foundations-data-visualization--docs#single-series) color | |
+| Title | States the insight | Most students mastered five to eight skills |
+| Category axis | Ranges in order, equal width, with no overlaps. Use an en dash in range labels. | none, 1–2, 3–4 … 11+ |
+| Value axis | Counts or percentages, starting at zero, labeled with units. Optional when every bar has a data label. | Students: 0, 10, 20, 30 |
+| Bars | [Single series](?path=/docs/design-guidelines-foundations-data-visualization--docs#single-series) color, with a light fill and darker outline. See [Fills and outlines](?path=/docs/design-guidelines-foundations-data-visualization--docs#fills-and-outlines). | |
+| Data labels | The count on or above each bar | 28 |
+| Gridlines | Optional. Keep them subtle. | |
+
+> **TODO:** Add an example image.
 
 ## Usage guidelines
 
+### Ranges
+
 <ul>
+    <li><Do /> Use 4 to 8 ranges.</li>
+    <li><Do /> Choose ranges that match thresholds that mean something to the reader, like levels or goals.</li>
     <li><Do /> Keep ranges the same width so bar heights compare fairly.</li>
-    <li><Do /> Show a "none" range. Students with zero are often the ones who need help.</li>
+    <li><Do /> Show a "none" range when zero is possible. The students with zero are often the ones who need help.</li>
+    <li><Do /> End with an open range, like "11+," so every value has a place.</li>
+</ul>
+
+### Values
+
+<ul>
+    <li><Do /> Use counts when readers act on individuals, and percentages to compare groups of different sizes. See [Number formatting](?path=/docs/design-guidelines-foundations-data-visualization--docs#number-formatting).</li>
     <li><Dont /> Start the value axis above zero. It exaggerates differences.</li>
-    <li><Dont /> Color bars differently unless one range needs action. Then use the Attention role.</li>
+</ul>
+
+### Bars
+
+<ul>
+    <li><Do /> Use vertical bars for ordered ranges. Use horizontal bars when range labels are long.</li>
+    <li><Dont /> Color bars differently unless one range needs action. Then use the [Attention](?path=/docs/design-guidelines-foundations-data-visualization--docs#attention) role.</li>
 </ul>
 
 ## Comparing groups
 
 > **TODO:** Define a horizontal bar variant for comparing classes, schools, or periods on one measure.
+
+## States
+
+Empty and error states follow [Data reports](?path=/docs/design-guidelines-patterns-data-reports--docs#states).
+
+## Accessibility
+
+- Every chart has a short text summary of its takeaway. See [Accessibility](?path=/docs/design-guidelines-foundations-data-visualization--docs#accessibility) in Data visualization.
+- Label each bar with its count, so values don't depend on reading the axis.
+- Bars can be focused with the keyboard. Each announces its range and count: "5–6 skills: 28 students."
+- A bar in the Attention color also has a text label, so color is never the only signal.
