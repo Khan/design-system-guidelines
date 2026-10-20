@@ -4,7 +4,7 @@ import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
 import {Do, Dont} from "../components/DoDont";
 import Demo from "../components/Demo";
 import Figure from "../components/Figure";
-import {GradeLevelTargetExample} from "./assets/progress-charts/ProgressExamples";
+import {GradeLevelTargetExample, SchoolComparisonExample} from "./assets/progress-charts/ProgressExamples";
 import gemChallengeImg from "./assets/progress-charts/gem-challenge.png";
 
 <Meta title="Design Guidelines / Components / Data visualization / Progress charts" />
@@ -135,7 +135,25 @@ For dashboards and side panels, like the student dashboard. Keep it to the bar a
 
 ### Comparing groups
 
-> **TODO:** Decide whether admins need to compare progress across schools or classes after drilling in.
+> **TODO:** Decide whether admins need to compare progress across schools or classes. The example below shows the idea.
+
+Several groups against the same goal, in one large container. Every bar measures the same goal, and one expected by today marker lines up across all of them, so readers can see at a glance who's ahead and who's behind.
+
+| Part | Example |
+| --- | --- |
+| Section heading | Assignments completed by school |
+| Title | 2 of 5 schools are behind schedule |
+| Description | Goal: 1,200 assignments per school by May 29 |
+| Rows | One per group: name, bar, value, and the gap |
+| Expected by today marker | One label above the bars, lined up on every bar |
+
+> **Note:** This is a placeholder built for these docs, not the production chart. It will be replaced with the Highcharts version once it exists.
+
+<Demo>
+    <SchoolComparisonExample />
+</Demo>
+
+If this variant is needed, decide its sort order, whether falling behind uses a warning color, and how many groups it can show before a table works better.
 
 ## States
 

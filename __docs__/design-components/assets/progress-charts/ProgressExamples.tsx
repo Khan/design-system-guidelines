@@ -10,6 +10,7 @@ import {
     semanticColor,
     sizing,
 } from "@khanacademy/wonder-blocks-tokens";
+import {StatusBadge} from "@khanacademy/wonder-blocks-badge";
 import downloadSimpleBold from "@phosphor-icons/core/bold/download-simple-bold.svg";
 
 // Bar colors are primitives (Blue 50/40 for Single series, Gray 10 for the
@@ -181,6 +182,154 @@ export function GradeLevelTargetExample(): React.ReactElement {
     );
 }
 
+/**
+ * A large-container comparison: several schools against the same goal, with
+ * one expected by today marker lined up across every bar. Used on the
+ * Progress charts page under Comparing groups:
+ *
+ * ```mdx
+ * import {SchoolComparisonExample} from "./assets/progress-charts/ProgressExamples";
+ * <SchoolComparisonExample />
+ * ```
+ */
+export function SchoolComparisonExample(): React.ReactElement {
+    const [range, setRange] = React.useState("this-year");
+    const goal = 1200;
+    const expected = 520;
+    const schools: Array<[string, number]> = [
+        ["Lincoln Middle", 690],
+        ["Roosevelt Middle", 610],
+        ["Addison Middle", 540],
+        ["Jefferson Middle", 470],
+        ["Garfield Middle", 380],
+    ];
+    const behind = schools.filter(([, v]) => v < expected).length;
+    const markerLeft = `${(expected / goal) * 100}%`;
+    return (
+        <View style={styles.root}>
+            <Heading size="medium" tag="h5" style={styles.text}>
+                Assignments completed by school
+            </Heading>
+            <View style={styles.container}>
+                <View style={styles.header}>
+                    <View>
+                        <Heading size="small" tag="h6">
+                            {behind} of {schools.length} schools are behind
+                            schedule
+                        </Heading>
+                        <BodyText size="small" style={styles.subtle}>
+                            Goal: 1,200 assignments per school by May 29
+                        </BodyText>
+                    </View>
+                    <View style={styles.controls}>
+                        <SingleSelect
+                            aria-label="Date range for assignments completed by school"
+                            placeholder="Date range"
+                            selectedValue={range}
+                            onChange={setRange}
+                        >
+                            <OptionItem label="This year" value="this-year" />
+                            <OptionItem
+                                label="This semester"
+                                value="this-semester"
+                            />
+                        </SingleSelect>
+                        <IconButton
+                            icon={downloadSimpleBold}
+                            kind="secondary"
+                            actionType="neutral"
+                            size="medium"
+                            aria-label="Download assignments completed by school"
+                            onClick={() => {}}
+                        />
+                    </View>
+                </View>
+                <View style={styles.compare}>
+                    <View style={styles.compareRow} aria-hidden={true}>
+                        <View style={styles.compareName} />
+                        <View style={styles.compareBarCell}>
+                            <View
+                                style={[
+                                    styles.markerLabel,
+                                    {left: markerLeft},
+                                ]}
+                            >
+                                <BodyText
+                                    size="xsmall"
+                                    weight="bold"
+                                    style={styles.text}
+                                >
+                                    Expected by today: {expected}
+                                </BodyText>
+                            </View>
+                        </View>
+                        <View style={styles.compareValue} />
+                    </View>
+                    {schools.map(([name, value]) => {
+                        const gap = value - expected;
+                        const status =
+                            gap < 0
+                                ? `${-gap} behind schedule`
+                                : `${gap} ahead of schedule`;
+                        return (
+                            <View key={name} style={styles.compareRow}>
+                                <BodyText
+                                    size="small"
+                                    style={[styles.text, styles.compareName]}
+                                >
+                                    {name}
+                                </BodyText>
+                                <View style={styles.compareBarCell}>
+                                    <ProgressBar
+                                        value={value}
+                                        goal={goal}
+                                        target={expected}
+                                        color={SINGLE}
+                                        valueText={`${name}: ${value.toLocaleString()} of ${goal.toLocaleString()} assignments. ${status}.`}
+                                    />
+                                </View>
+                                <View style={styles.compareValue}>
+                                    <BodyText size="small" style={styles.text}>
+                                        {value.toLocaleString()}
+                                    </BodyText>
+                                    {gap < 0 ? (
+                                        <StatusBadge
+                                            kind="warning"
+                                            label={`${-gap} behind`}
+                                        />
+                                    ) : (
+                                        <BodyText
+                                            size="small"
+                                            style={styles.subtle}
+                                        >
+                                            +{gap}
+                                        </BodyText>
+                                    )}
+                                </View>
+                            </View>
+                        );
+                    })}
+                    <View style={styles.compareRow} aria-hidden={true}>
+                        <View style={styles.compareName} />
+                        <View style={[styles.compareBarCell, styles.scale]}>
+                            <BodyText size="xsmall" style={styles.subtle}>
+                                0
+                            </BodyText>
+                            <BodyText size="xsmall" style={styles.subtle}>
+                                1,200
+                            </BodyText>
+                        </View>
+                        <View style={styles.compareValue} />
+                    </View>
+                </View>
+                <BodyText size="small" style={[styles.subtle, styles.footer]}>
+                    Updated today, 9:15 AM
+                </BodyText>
+            </View>
+        </View>
+    );
+}
+
 const styles = StyleSheet.create({
     root: {
         width: "100%",
@@ -255,6 +404,37 @@ const styles = StyleSheet.create({
     },
     endLabel: {
         alignItems: "flex-end",
+    },
+    compare: {
+        gap: sizing.size_040,
+    },
+    compareRow: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: sizing.size_120,
+        minHeight: 32,
+    },
+    compareName: {
+        width: 140,
+        flexShrink: 0,
+    },
+    compareBarCell: {
+        position: "relative",
+        flexGrow: 1,
+        flexShrink: 1,
+        minWidth: 0,
+    },
+    compareValue: {
+        width: 130,
+        flexShrink: 0,
+        flexDirection: "row",
+        justifyContent: "flex-end",
+        alignItems: "center",
+        gap: sizing.size_080,
+    },
+    scale: {
+        flexDirection: "row",
+        justifyContent: "space-between",
     },
     footer: {
         borderTop: `${border.width.thin} solid ${HAIRLINE}`,
