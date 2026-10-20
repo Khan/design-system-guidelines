@@ -1,6 +1,9 @@
 import {Meta} from "@storybook/addon-docs/blocks";
 import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
 import {Do, Dont} from "../components/DoDont";
+import Figure from "../components/Figure";
+import statCardsImg from "./assets/summary-cards/stat-cards.png";
+import statCardsClickableImg from "./assets/summary-cards/stat-cards-clickable.png";
 
 <Meta title="Design Guidelines / Components / Data visualization / Summary cards" />
 
@@ -18,7 +21,7 @@ Summary cards are built with Wonder Blocks, using the Thunderblocks theme.
 
 | Use when | Example use |
 | --- | --- |
-| One value tells the story | Students assessed: 11,033 |
+| One value tells the story, and a few of them sit side by side | District overview: Students assessed, Subjects on target, District growth |
 | Readers compare a few subjects or classes on the same measures | Algebra 1, Geometry, and HS ELA, each with an average score and level |
 
 ## <Dont /> When NOT to use
@@ -33,27 +36,41 @@ Summary cards are built with Wonder Blocks, using the Thunderblocks theme.
 
 ### Stat card
 
-Shows one metric. Use a row of two to four at the top of a report.
+Shows one metric. Stat cards sit in a row of 2 to 4, under a section heading that names the group, like "District overview."
 
 | Part | Required | Example |
 | --- | --- | --- |
 | Label | Yes | Students assessed |
-| Info tooltip | Optional | How the metric is calculated |
-| Value | Yes | 11,033 |
+| Info tooltip | Optional. Beside the label, for more context. | How the metric is calculated |
+| Value | Yes | 11,033; 2 of 3; −7 pts |
 | Context or change | Optional | 40% of total students assessed; ↓ 1 subject at risk |
-| Arrow | When the card is clickable | → |
+| Caret right icon | When the card is clickable | › |
 
+- Use at least 2 and at most 4 stat cards in a row.
+- Stat cards have no controls and no last-updated footer.
 - Format the value with the [Number formatting](?path=/docs/design-guidelines-foundations-data-visualization--docs#number-formatting) rules: "11,033," "1.2K," "−7 pts."
 - Show a change as a [value and trend badge](?path=/docs/design-guidelines-components-feedback-badges--docs#value-and-trend-badges). Only the value and its arrow go inside the badge ("↓ 1"). The description stays outside as text ("subject at risk").
 - Give a rank its total: "8th of 24 classes," not "8th."
 - Pair a change arrow with text. The arrow and its color never carry the meaning alone.
 - Use the Attention color for a change only when that direction needs action. See [Color](?path=/docs/design-guidelines-foundations-data-visualization--docs#color).
 
+<Figure
+    src={statCardsImg}
+    alt="A District overview section heading above three stat cards. Students assessed: 11,033, 40% of total students assessed. Subjects on target: 2 of 3, with a down arrow badge reading 1 and the text subject at risk. District growth: −7 pts, with a down arrow badge and the text from last assessment. Each label has an info icon."
+    caption="Three stat cards under a section heading. Each label has an optional info tooltip."
+/>
+
 #### Clickable stat cards
 
 - Make a stat card clickable only when there's a detail view for that metric.
-- Show an arrow on every clickable card. A card without an arrow isn't clickable.
+- Show a caret right icon on every clickable card, at the top right. A card without one isn't clickable.
 - In a row, cards can mix: some clickable, some not.
+
+<Figure
+    src={statCardsClickableImg}
+    alt="A Classes overview section heading above three clickable stat cards, each with a caret right icon at the top right. Classes on pace: 3 of 5, 2 classes at risk. Mastery average: Familiar, 2 classes below familiar. Growth over time: +2.1 pts, with an up arrow badge and the text above school trend."
+    caption="Clickable stat cards show a caret right icon at the top right."
+/>
 
 ### Comparison card
 
@@ -87,6 +104,6 @@ Shows one subject or class with a few key numbers and an insight sentence. Stack
 
 ## Accessibility
 
-- A clickable card is one link target with an accessible name, like "Algebra 1 report" or "Students assessed details."
+- A clickable card is one link target with an accessible name, like "Algebra 1 report" or "Students assessed details." The caret right icon is decorative.
 - A stat card that isn't clickable isn't focusable.
 - Read the level and the change as text, not as color or an arrow icon.
