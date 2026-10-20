@@ -4,6 +4,7 @@ import {Do, Dont} from "../components/DoDont";
 import Figure from "../components/Figure";
 import headingHierarchyImg from "./assets/chart-container/heading-hierarchy.png";
 import controlsImg from "./assets/chart-container/controls.png";
+import viewToggleImg from "./assets/chart-container/view-toggle.png";
 
 <Meta title="Design Guidelines / Components / Data visualization / Chart container" />
 
@@ -91,9 +92,15 @@ When the data needs more than about three controls, it outgrows a container. See
 
 ### Chart and table toggle
 
-Every chart with detailed data has an accessible table view of the same data. The view toggle lets anyone switch to it. This is part of the chart, not a separate [data table](?path=/docs/design-guidelines-components-data-visualization-data-tables--docs).
+The view toggle is optional. It switches the chart to a table of the same data.
 
-> **TODO:** Define the toggle: its default view, its icons and labels, and whether it appears on every chart.
+<Figure
+    src={viewToggleImg}
+    alt="A line chart container with the chart and table view toggle outlined at the top right, between the This year date filter and the download button. The chart view is selected."
+    caption="The view toggle sits with the other controls, beside the title."
+/>
+
+> **TODO:** Define when a chart needs the view toggle and when it doesn't, plus its default view, icons, and labels.
 
 ## States
 
