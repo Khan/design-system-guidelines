@@ -13,7 +13,7 @@ import {AssignmentsCompletedChart} from "./assets/distribution-charts/Assignment
 
 <NeutralBadge label="How a group is spread out" />
 
-Distribution charts answer "How is the group spread out?" A bar chart shows how many students, classes, or schools land in each range, like the number of skills mastered.
+Distribution charts answer "How is the group spread out?" A bar chart shows how many students, classes, or schools land in each range, like the number of assignments completed.
 
 Distribution charts sit inside a [chart container](?path=/docs/design-guidelines-components-data-visualization-chart-container--docs). Charts are built with Highcharts, not Wonder Blocks.
 
@@ -21,8 +21,8 @@ Distribution charts sit inside a [chart container](?path=/docs/design-guidelines
 
 | Use when | Example use |
 | --- | --- |
-| Readers need to see how a group spreads across ranges | Skills mastered: how many students mastered none, 1–2, 3–4, and so on |
-| Readers need to spot how many are at the low or high end | How many students haven't mastered any skills yet |
+| Readers need to see how a group spreads across ranges | Assignments completed: how many students completed none, 1–2, 3–4, and so on |
+| Readers need to spot how many are at the low or high end | How many students haven't completed any assignments yet |
 | An admin needs to see how schools or classes spread across a measure | Schools by average score: how many fall in 700–749, 750–799, and so on |
 | Readers need to see how a group splits into levels, and where scores fall within each level | Assessment scores grouped into Beginning, Approaching, and Demonstrating. See [Grouped by level](#grouped-by-level). |
 
@@ -30,7 +30,7 @@ Distribution charts sit inside a [chart container](?path=/docs/design-guidelines
 
 | Don’t use when | Recommended alternative | Rationale |
 | --- | --- | --- |
-| The main metric can be said in words or one number, like "4 students haven't mastered any skills yet" | A [stat card](?path=/docs/design-guidelines-components-data-visualization-summary-cards--docs#stat-card) | Plain text is faster to read than a chart to decode. Use a chart only when the shape of the data matters. |
+| The main metric can be said in words or one number, like "4 students haven't completed any assignments yet" | A [stat card](?path=/docs/design-guidelines-components-data-visualization-summary-cards--docs#stat-card) | Plain text is faster to read than a chart to decode. Use a chart only when the shape of the data matters. |
 | Showing change over time | [Trend charts](?path=/docs/design-guidelines-components-data-visualization-trend-charts--docs) | Bars in a distribution are ranges, not time periods. Readers would read a trend that isn't there. |
 | Readers need each individual's or item's value | [Data tables](?path=/docs/design-guidelines-components-data-visualization-data-tables--docs) | A distribution groups values into ranges, so individual values are lost. |
 | The group is small, like fewer than 10 students | [Data tables](?path=/docs/design-guidelines-components-data-visualization-data-tables--docs) or an insight sentence | With few students, bars are too short to compare. Each student's value is clearer. |
@@ -39,7 +39,7 @@ Distribution charts sit inside a [chart container](?path=/docs/design-guidelines
 
 | Part | Rule | Example |
 | --- | --- | --- |
-| Title | States the insight | Most students mastered five to eight skills |
+| Title | States the insight | Most students completed five to eight assignments |
 | Category axis | Ranges in order, equal width, with no overlaps. Use an en dash in range labels. | none, 1–2, 3–4 … 11+ |
 | Value axis | Counts or percentages, starting at zero, labeled with units. Optional when every bar has a data label. | Students: 0, 10, 20, 30 |
 | Bars | Choose colors by role. See [Color](?path=/docs/design-guidelines-foundations-data-visualization--docs#color) in Data visualization. | |
@@ -122,6 +122,6 @@ Empty and error states follow [Data reports](?path=/docs/design-guidelines-patte
 
 - Every chart has a short text summary of its takeaway. See [Accessibility](?path=/docs/design-guidelines-foundations-data-visualization--docs#accessibility) in Data visualization.
 - Label each bar with its count, so values don't depend on reading the axis.
-- Bars can be focused with the keyboard. Each announces its range and count: "5–6 skills: 28 students."
+- Bars can be focused with the keyboard. Each announces its range and count: "5–6 assignments: 40 students."
 - A bar in the Attention color also has a text label, so color is never the only signal.
 - In a chart grouped by level, each level announces its name and count: "Approaching: 8 students."
