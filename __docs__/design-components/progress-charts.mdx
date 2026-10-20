@@ -2,7 +2,9 @@ import {Meta} from "@storybook/addon-docs/blocks";
 import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
 import {Do, Dont} from "../components/DoDont";
 import Demo from "../components/Demo";
-import {GradeLevelTargetExample, GemChallengeExample} from "./assets/progress-charts/ProgressExamples";
+import Figure from "../components/Figure";
+import {GradeLevelTargetExample} from "./assets/progress-charts/ProgressExamples";
+import gemChallengeImg from "./assets/progress-charts/gem-challenge.png";
 
 <Meta title="Design Guidelines / Components / Data visualization / Progress charts" />
 
@@ -83,23 +85,24 @@ For dashboards and side panels, like the student dashboard. Keep it to the bar a
 
 | Part | Example |
 | --- | --- |
-| Title | Gem challenge |
-| Context | QAing |
+| Title | Gem challenge, with an info tooltip |
+| Context | Period 3, Precalculus |
+| Illustration | Optional, like a trophy |
 | Bar | No marker |
-| Value and goal | 52 of 80 gems |
-| Time left | 12 days left |
-| Details | Up to two rows, like Your contribution: 9 gems and Reward: October certificate |
+| Time left | 1 day left |
+| Value and goal | 1,245 of 1,500 gems |
+| Details | Up to two rows, like Your contribution: 217 and Reward: Pizza party |
 
 <ul>
     <li><Do /> Keep a small container to one bar and up to four values.</li>
     <li><Dont /> Add controls, a legend, or a today's target marker to a small container. If readers need them, use a large container.</li>
 </ul>
 
-> **Note:** This is a placeholder built for these docs, not the production chart. It will be replaced with the Highcharts version once it exists.
-
-<Demo>
-    <GemChallengeExample />
-</Demo>
+<Figure
+    src={gemChallengeImg}
+    alt="A small Gem challenge card for Period 3, Precalculus, with a trophy illustration. A magenta progress bar is about three quarters full. Below it, a 1 day left badge and 1245 of 1500 gems, then Your contribution: 217 and Reward: Pizza party."
+    caption="The gem challenge card from the student dashboard: one bar and a few values, with no controls or marker."
+/>
 
 ## Usage guidelines
 
@@ -142,6 +145,6 @@ Empty and error states follow [Data reports](?path=/docs/design-guidelines-patte
 ## Accessibility
 
 - Every progress chart has a text summary: "38 of 70 skills. Today's target is 35. 3 skills ahead of target."
-- Read the value and goal as text: "52 of 80 gems."
+- Read the value and goal as text: "1,245 of 1,500 gems."
 - Announce the today's target marker with its value: "Today's target: 35."
 - Color is never the only signal. The title or values say whether the group is ahead or behind.

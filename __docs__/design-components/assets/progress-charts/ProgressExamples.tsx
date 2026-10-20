@@ -4,7 +4,6 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {Heading, BodyText} from "@khanacademy/wonder-blocks-typography";
 import {SingleSelect, OptionItem} from "@khanacademy/wonder-blocks-dropdown";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
-import {DueBadge} from "@khanacademy/wonder-blocks-badge";
 import {
     border,
     fade,
@@ -13,12 +12,11 @@ import {
 } from "@khanacademy/wonder-blocks-tokens";
 import downloadSimpleBold from "@phosphor-icons/core/bold/download-simple-bold.svg";
 
-// Bar colors are primitives (Blue 50/40 for Single series, Magenta 30 for
-// Motivation, Gray 10 for the target marker) until data visualization
+// Bar colors are primitives (Blue 50/40 for Single series, Gray 10 for the
+// target marker) until data visualization
 // semantic tokens exist in Wonder Blocks. See the Color TODO in the Data
 // visualization foundation.
 const SINGLE = {fill: "#8DA2FF", outline: "#6C82FF"};
-const MOTIVATION = {fill: "#E83FA4", outline: "#E83FA4"};
 const MARKER = "#4A4C53";
 
 const TEXT = semanticColor.core.foreground.neutral.default;
@@ -183,60 +181,6 @@ export function GradeLevelTargetExample(): React.ReactElement {
     );
 }
 
-/**
- * A small-container progress chart: the gem challenge on the student
- * dashboard. One bar and a few values, with no controls, legend, or marker.
- *
- * ```mdx
- * import {GemChallengeExample} from "./assets/progress-charts/ProgressExamples";
- * <GemChallengeExample />
- * ```
- */
-export function GemChallengeExample(): React.ReactElement {
-    const value = 52;
-    const goal = 80;
-    return (
-        <View style={[styles.container, styles.small]}>
-            <View>
-                <Heading size="small" tag="h6">
-                    Gem challenge
-                </Heading>
-                <BodyText size="small" style={styles.subtle}>
-                    QAing
-                </BodyText>
-            </View>
-            <ProgressBar
-                value={value}
-                goal={goal}
-                color={MOTIVATION}
-                valueText={`${value} of ${goal} gems`}
-            />
-            <View style={styles.row}>
-                <DueBadge label="12 days left" />
-                <BodyText size="small" weight="bold" style={styles.text}>
-                    {value} of {goal} gems
-                </BodyText>
-            </View>
-            <View style={styles.row}>
-                <BodyText size="small" style={styles.text}>
-                    Your contribution
-                </BodyText>
-                <BodyText size="small" style={styles.text}>
-                    9 gems
-                </BodyText>
-            </View>
-            <View style={styles.row}>
-                <BodyText size="small" style={styles.text}>
-                    Reward
-                </BodyText>
-                <BodyText size="small" style={styles.text}>
-                    October certificate
-                </BodyText>
-            </View>
-        </View>
-    );
-}
-
 const styles = StyleSheet.create({
     root: {
         width: "100%",
@@ -255,10 +199,6 @@ const styles = StyleSheet.create({
         borderRadius: border.radius.radius_120,
         padding: sizing.size_200,
         gap: sizing.size_160,
-    },
-    small: {
-        maxWidth: 320,
-        gap: sizing.size_120,
     },
     header: {
         flexDirection: "row",
@@ -315,12 +255,6 @@ const styles = StyleSheet.create({
     },
     endLabel: {
         alignItems: "flex-end",
-    },
-    row: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-        gap: sizing.size_080,
     },
     footer: {
         borderTop: `${border.width.thin} solid ${HAIRLINE}`,
