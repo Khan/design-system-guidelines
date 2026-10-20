@@ -6,11 +6,11 @@ import {Do, Dont} from "../components/DoDont";
 
 # Chart container
 
-<NeutralBadge label="Frame for a chart or table" />
+<NeutralBadge label="Frame for a chart" />
 
-A container holds one chart or table with its heading, title, controls, and footer. Every progress, distribution, and trend chart sits inside one. For how containers are laid out on a page, see [Data reports](?path=/docs/design-guidelines-patterns-data-reports--docs).
+A container holds one chart with its heading, title, controls, and footer. Every distribution chart, trend chart, and progress target bar sits inside one. For how containers are laid out on a page, see [Data reports](?path=/docs/design-guidelines-patterns-data-reports--docs).
 
-Charts are built with Highcharts, not Wonder Blocks. [Data tables](?path=/docs/design-guidelines-components-data-visualization-data-tables--docs) are built with Wonder Blocks.
+Charts are built with Highcharts, not Wonder Blocks.
 
 > **TODO:** Link to the shared Highcharts theme once it exists.
 
@@ -20,12 +20,13 @@ Charts are built with Highcharts, not Wonder Blocks. [Data tables](?path=/docs/d
 
 | Use when | Example |
 | --- | --- |
-| Showing one chart or table that needs a few controls, or none | Growth over time, with a date filter and download |
+| Showing one chart that needs a few controls, or none | Growth over time, with a date filter and download |
 
 ## <Dont /> When NOT to use
 
 | Don't use when | Use instead |
 | --- | --- |
+| Showing a table of students or items | [Data tables](?path=/docs/design-guidelines-components-data-visualization-data-tables--docs) |
 | The headline is a single value | [Summary cards](?path=/docs/design-guidelines-components-data-visualization-summary-cards--docs) |
 | The data needs more than about three controls | Its own page or section. See [Data reports](?path=/docs/design-guidelines-patterns-data-reports--docs). |
 
@@ -37,7 +38,7 @@ Charts are built with Highcharts, not Wonder Blocks. [Data tables](?path=/docs/d
 | Title (H3) | Inside, top left. States the insight. | Yes |
 | Description | Below the title | When it adds context |
 | Controls | Inside, top right, on the same line as the title | Optional |
-| Chart or table | Below the title | Yes |
+| Chart | Below the title | Yes |
 | Legend | Below the title, or below the chart | Only when series can't be labeled directly |
 | Footer | Bottom. Data source and last-updated time. | Yes |
 
@@ -51,7 +52,7 @@ Controls are optional. See [Container controls](?path=/docs/design-guidelines-pa
 
 ### Chart and table toggle
 
-Every chart with detailed data has an accessible data table. The view toggle lets anyone switch to it.
+Every chart with detailed data has an accessible table view of the same data. The view toggle lets anyone switch to it. This is part of the chart, not a separate [data table](?path=/docs/design-guidelines-components-data-visualization-data-tables--docs).
 
 > **TODO:** Define the toggle: its default view, its icons and labels, and whether it appears on every chart.
 
