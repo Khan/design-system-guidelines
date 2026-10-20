@@ -1,6 +1,8 @@
 import {Meta} from "@storybook/addon-docs/blocks";
 import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
 import {Do, Dont} from "../components/DoDont";
+import Demo from "../components/Demo";
+import {GradeLevelTargetExample, GemChallengeExample} from "./assets/progress-charts/ProgressExamples";
 
 <Meta title="Design Guidelines / Components / Data visualization / Progress charts" />
 
@@ -52,6 +54,8 @@ Today's target is where the group should be by today to reach the goal on time. 
 
 Progress charts appear in both container sizes. See [Sizes](?path=/docs/design-guidelines-components-data-visualization-chart-container--docs#sizes) in Chart container.
 
+> **Note:** The examples below are placeholders built for these docs, not the production components.
+
 ### Large container
 
 For reports. The title states where the group stands against today's target.
@@ -66,6 +70,10 @@ For reports. The title states where the group stands against today's target.
 
 Label the bar's values directly. A legend isn't needed when the value and the marker are labeled.
 
+<Demo>
+    <GradeLevelTargetExample />
+</Demo>
+
 ### Small container
 
 For dashboards and side panels, like the student dashboard. Keep it to the bar and a few values.
@@ -75,14 +83,18 @@ For dashboards and side panels, like the student dashboard. Keep it to the bar a
 | Title | Gem challenge |
 | Context | QAing |
 | Bar | No marker |
-| Value and goal | 0 of 80 gems |
+| Value and goal | 52 of 80 gems |
 | Time left | 12 days left |
-| Details | Up to two rows, like Your contribution: 0 and Reward: October certificate |
+| Details | Up to two rows, like Your contribution: 9 gems and Reward: October certificate |
 
 <ul>
     <li><Do /> Keep a small container to one bar and up to four values.</li>
     <li><Dont /> Add controls, a legend, or a today's target marker to a small container. If readers need them, use a large container.</li>
 </ul>
+
+<Demo>
+    <GemChallengeExample />
+</Demo>
 
 ## Usage guidelines
 
