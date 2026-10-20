@@ -65,6 +65,7 @@ For reports. The title states where the group stands against today's target.
 | Section heading | Grade level target |
 | Title | 3 skills ahead of target |
 | Description | 38 of 70 skills · Target date May 29 |
+| Controls | Date filter, download |
 | Bar | With a labeled today's target marker, and start and end labels |
 | Footer | Updated today, 9:15 AM |
 
@@ -102,17 +103,33 @@ For dashboards and side panels, like the student dashboard. Keep it to the bar a
 
 ## Usage guidelines
 
+### Title and description
+
 <ul>
-    <li><Do /> Show the current value and the goal as text, not only as bar length.</li>
-    <li><Do /> Label the today's target marker with its value: "Today's target: 35."</li>
     <li><Do /> State the gap in the title of a large container: "3 skills ahead of target," not "Class is ahead of target."</li>
+    <li><Do /> Show the current value and the goal as text, not only as bar length.</li>
+</ul>
+
+### Values
+
+<ul>
     <li><Dont /> Fill the bar past 100%. Say "Goal reached" and show the final value.</li>
+</ul>
+
+> **TODO:** Decide what to show when a goal is reached early, and when a deadline passes before the goal is reached.
+
+### Bars
+
+<ul>
+    <li><Do /> Label the today's target marker with its value: "Today's target: 35."</li>
     <li><Dont /> Show progress as a gauge or dial. Gauges are harder to read and compare, and take more space for the same value.</li>
 </ul>
 
 > **TODO:** Decide whether falling behind today's target uses the [Attention](?path=/docs/design-guidelines-foundations-data-visualization--docs#attention) role.
 
-> **TODO:** Decide what to show when a goal is reached early, and when a deadline passes before the goal is reached.
+## Variants
+
+### Comparing groups
 
 > **TODO:** Decide whether admins need to compare progress across schools or classes after drilling in.
 
@@ -125,6 +142,6 @@ Empty and error states follow [Data reports](?path=/docs/design-guidelines-patte
 ## Accessibility
 
 - Every progress chart has a text summary: "38 of 70 skills. Today's target is 35. 3 skills ahead of target."
-- Read the value and goal as text: "0 of 80 gems."
+- Read the value and goal as text: "52 of 80 gems."
 - Announce the today's target marker with its value: "Today's target: 35."
 - Color is never the only signal. The title or values say whether the group is ahead or behind.

@@ -15,9 +15,7 @@ import {AssignmentsCompletedChart} from "./assets/distribution-charts/Assignment
 
 Distribution charts answer "How is the group spread out?" A bar chart shows how many students, classes, or schools land in each range, like the number of assignments completed.
 
-Distribution charts sit inside a large [chart container](?path=/docs/design-guidelines-components-data-visualization-chart-container--docs#sizes). Charts are built with Highcharts, not Wonder Blocks.
-
-> **TODO:** Decide whether distribution charts can appear in a small container.
+Distribution charts sit inside a large [chart container](?path=/docs/design-guidelines-components-data-visualization-chart-container--docs). Charts are built with Highcharts, not Wonder Blocks.
 
 ## <Do /> When to use
 
@@ -49,15 +47,34 @@ Distribution charts sit inside a large [chart container](?path=/docs/design-guid
 
 > **TODO:** Define what tooltips show, since every bar already has a data label.
 
-### Example
+## Sizes
 
-A school-wide assignments completed chart that follows every rule on this page. The ranges that carry the title's point use the Emphasis role. Bars can be focused with the keyboard, and the view toggle switches to a table.
+See [Sizes](?path=/docs/design-guidelines-components-data-visualization-chart-container--docs#sizes) in Chart container.
+
+### Large container
+
+For reports. The title states the insight about the group's spread.
+
+| Part | Example |
+| --- | --- |
+| Section heading | Assignments completed |
+| Title | Most students completed five to eight assignments |
+| Description | 74 of 92 students |
+| Controls | Date filter, view toggle, download |
+| Bars | The ranges that carry the title's point use the Emphasis role |
+| Footer | Updated Oct 20, 2026, 9:15 AM |
+
+The example follows every rule on this page. Bars can be focused with the keyboard, and the view toggle switches to a table.
 
 > **Note:** This is a placeholder built for these docs, not the production chart. It will be replaced with the Highcharts version once it exists.
 
 <Demo>
     <AssignmentsCompletedChart />
 </Demo>
+
+### Small container
+
+> **TODO:** Decide whether distribution charts can appear in a small container.
 
 ## Usage guidelines
 
