@@ -10,6 +10,8 @@ import {Do, Dont} from "../components/DoDont";
 
 Progress charts answer "How close are we to the goal?" A progress bar shows a current value against a goal, and can mark where the group should be by today.
 
+Progress means how far along, never how well. A progress chart never shows a score or outcome.
+
 Progress charts sit inside a [chart container](?path=/docs/design-guidelines-components-data-visualization-chart-container--docs), large or small. They're built with Wonder Blocks, using the Thunderblocks theme.
 
 > **TODO:** Add a header image.
@@ -21,12 +23,14 @@ Progress charts sit inside a [chart container](?path=/docs/design-guidelines-com
 | There's one goal and one current value | Gem challenge: 1,245 of 1,500 gems |
 | Readers compare progress to where they should be by today | Grade level target: 38 skills against today's target of 35 |
 | An admin checks progress for a whole school or district | District skills goal: 41,200 of 60,000 skills |
+| Readers track how much of an assignment or assessment is done | Unit test: 14 of 20 students finished |
 
 ## <Dont /> When NOT to use
 
 | Don’t use when | Recommended alternative | Rationale |
 | --- | --- | --- |
 | Readers only need to know ahead or behind, not how far along the goal they are, like "The class is 3 skills ahead of target" | A [stat card](?path=/docs/design-guidelines-components-data-visualization-summary-cards--docs#stat-card) | Plain text is faster to read than a chart to decode. Use a bar when seeing how much of the goal is left matters. |
+| Showing a score or outcome, like Beginning, Approaching, or Demonstrating | [Distribution charts](?path=/docs/design-guidelines-components-data-visualization-distribution-charts--docs#grouped-by-level) grouped by level, or a [comparison card](?path=/docs/design-guidelines-components-data-visualization-summary-cards--docs#comparison-card) | A bar reads as how far along, not how well. A full bar would look like success even when scores are low. |
 | There's no goal or target | [Summary cards](?path=/docs/design-guidelines-components-data-visualization-summary-cards--docs) | Progress needs something to measure against. Without a goal, a bar's length means nothing. |
 | Readers need to see how progress changed over time | [Trend charts](?path=/docs/design-guidelines-components-data-visualization-trend-charts--docs) | A progress bar shows where things stand today, not how they got there. |
 | Showing progress as a gauge or dial | A progress bar. See [Choosing a chart](?path=/docs/design-guidelines-foundations-data-visualization--docs#choosing-a-chart). | Gauges are harder to read and compare, and take more space for the same value. |
