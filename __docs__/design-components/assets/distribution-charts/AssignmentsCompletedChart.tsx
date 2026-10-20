@@ -22,7 +22,7 @@ const BASELINE = semanticColor.core.border.neutral.default;
 
 type Range = {label: string; students: number; emphasized: boolean};
 
-// School-wide example: 74 of 92 students mastered five to eight skills.
+// School-wide example: 74 of 92 students completed five to eight assignments.
 const data: Array<Range> = [
     {label: "none", students: 2, emphasized: false},
     {label: "1–2", students: 3, emphasized: false},
@@ -50,7 +50,7 @@ function Bars(): React.ReactElement {
             viewBox={`0 0 ${WIDTH} 270`}
             width="100%"
             role="group"
-            aria-label="Bar chart of students by number of skills mastered, school-wide"
+            aria-label="Bar chart of students by number of assignments completed, school-wide"
         >
             {TICKS.map((tick) => (
                 <g key={tick}>
@@ -94,7 +94,7 @@ function Bars(): React.ReactElement {
                         className={`dv-bar ${css(styles.bar)}`}
                         tabIndex={0}
                         role="img"
-                        aria-label={`${range.label === "none" ? "No" : range.label} skills: ${range.students} students`}
+                        aria-label={`${range.label === "none" ? "No" : range.label} assignments: ${range.students} students`}
                     >
                         <path
                             d={`M${x},${BOTTOM} V${top + r} Q${x},${top} ${x + r},${top} H${x + barWidth - r} Q${x + barWidth},${top} ${x + barWidth},${top + r} V${BOTTOM} Z`}
@@ -131,7 +131,7 @@ function Bars(): React.ReactElement {
                 fontSize={12}
                 style={{fill: TEXT_SUBTLE}}
             >
-                Skills mastered
+                Assignments completed
             </text>
         </svg>
     );
@@ -143,7 +143,7 @@ function DataTable(): React.ReactElement {
             <thead>
                 <tr>
                     <th scope="col" className={css(styles.th)}>
-                        Skills mastered
+                        Assignments completed
                     </th>
                     <th scope="col" className={css(styles.th)}>
                         Students
@@ -163,31 +163,31 @@ function DataTable(): React.ReactElement {
 }
 
 /**
- * A school-wide "Skills mastered" distribution chart in a chart container,
+ * A school-wide "Assignments completed" distribution chart in a chart container,
  * built to the Chart container and Distribution charts guidelines. Used on
  * the Distribution charts page:
  *
  * ```mdx
- * import {SkillsMasteredChart} from "./assets/distribution-charts/SkillsMasteredChart";
- * <SkillsMasteredChart />
+ * import {AssignmentsCompletedChart} from "./assets/distribution-charts/AssignmentsCompletedChart";
+ * <AssignmentsCompletedChart />
  * ```
  */
 // Headings are h5/h6 so the demo stays out of the docs page's table of
 // contents while keeping a real section heading and title for screen readers.
-export function SkillsMasteredChart(): React.ReactElement {
+export function AssignmentsCompletedChart(): React.ReactElement {
     const [range, setRange] = React.useState("this-year");
     const [view, setView] = React.useState<"chart" | "table">("chart");
 
     return (
         <View style={styles.root}>
             <Heading size="medium" tag="h5" style={styles.sectionHeading}>
-                Skills mastered
+                Assignments completed
             </Heading>
             <View style={styles.container}>
                 <View style={styles.header}>
                     <View>
                         <Heading size="small" tag="h6">
-                            Most students mastered five to eight skills
+                            Most students completed five to eight assignments
                         </Heading>
                         <BodyText size="small" style={styles.subtle}>
                             74 of 92 students
@@ -195,7 +195,7 @@ export function SkillsMasteredChart(): React.ReactElement {
                     </View>
                     <View style={styles.controls}>
                         <SingleSelect
-                            aria-label="Date range for skills mastered"
+                            aria-label="Date range for assignments completed"
                             placeholder="Date range"
                             selectedValue={range}
                             onChange={setRange}
@@ -229,7 +229,7 @@ export function SkillsMasteredChart(): React.ReactElement {
                             kind="secondary"
                             actionType="neutral"
                             size="medium"
-                            aria-label="Download skills mastered data"
+                            aria-label="Download assignments completed data"
                             onClick={() => {}}
                         />
                     </View>
