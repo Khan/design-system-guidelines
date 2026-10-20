@@ -22,13 +22,13 @@ Distribution charts sit inside a [chart container](?path=/docs/design-guidelines
 | Readers need to see how a group spreads across ranges | Skills mastered: how many students mastered none, 1–2, 3–4, and so on |
 | Readers need to spot how many are at the low or high end | How many students haven't mastered any skills yet |
 | An admin needs to see how schools or classes spread across a measure | Schools by average score: how many fall in 700–749, 750–799, and so on |
+| Readers need to see how a group splits into levels, and where scores fall within each level | Assessment scores grouped into Beginning, Approaching, and Demonstrating. See [Grouped by level](#grouped-by-level). |
 
 ## <Dont /> When NOT to use
 
 | Don’t use when | Recommended alternative | Rationale |
 | --- | --- | --- |
 | Showing change over time | [Trend charts](?path=/docs/design-guidelines-components-data-visualization-trend-charts--docs) | Bars in a distribution are ranges, not time periods. Readers would read a trend that isn't there. |
-| Showing how one group splits into levels, like Beginning, Approaching, and Demonstrating | A [comparison card](?path=/docs/design-guidelines-components-data-visualization-summary-cards--docs#comparison-card) with an insight sentence, linking to the detail | A sentence states the split faster than a chart readers have to decode. |
 | Readers need each individual's or item's value | [Data tables](?path=/docs/design-guidelines-components-data-visualization-data-tables--docs) | A distribution groups values into ranges, so individual values are lost. |
 | The group is small, like fewer than 10 students | [Data tables](?path=/docs/design-guidelines-components-data-visualization-data-tables--docs) or an insight sentence | With few students, bars are too short to compare. Each student's value is clearer. |
 
@@ -52,7 +52,7 @@ Distribution charts sit inside a [chart container](?path=/docs/design-guidelines
 <ul>
     <li><Do /> Use 4 to 8 ranges.</li>
     <li><Do /> Choose ranges that match thresholds that mean something to the reader, like levels or goals.</li>
-    <li><Do /> Keep ranges the same width so bar heights compare fairly.</li>
+    <li><Do /> Keep ranges the same width so bar heights compare fairly. In a chart grouped by level, ranges follow level thresholds instead.</li>
     <li><Do /> Show a "none" range when zero is possible. The students with zero are often the ones who need help.</li>
     <li><Do /> End with an open range, like "11+," so every value has a place.</li>
 </ul>
@@ -68,10 +68,33 @@ Distribution charts sit inside a [chart container](?path=/docs/design-guidelines
 
 <ul>
     <li><Do /> Use vertical bars for ordered ranges. Use horizontal bars when range labels are long.</li>
-    <li><Dont /> Color bars differently unless one range needs action. Then use the [Attention](?path=/docs/design-guidelines-foundations-data-visualization--docs#attention) role.</li>
+    <li><Dont /> Color bars differently unless one range needs action, or the chart is grouped by level. For action, use the [Attention](?path=/docs/design-guidelines-foundations-data-visualization--docs#attention) role.</li>
 </ul>
 
-## Comparing groups
+## Variants
+
+### Grouped by level
+
+Score ranges are grouped under the levels they belong to, like Beginning, Approaching, and Demonstrating. Use it when readers need both the split into levels and where scores fall within each level.
+
+| Part | Rule | Example |
+| --- | --- | --- |
+| Level band | A line under each level's ranges | |
+| Level name | Below the band, with an info tooltip that gives the level's score range | Approaching |
+| Level count | Below the level name. Links to the students in that level. | 8 students |
+| Bars | One color per level, from light to dark as levels go up | |
+
+<ul>
+    <li><Do /> Line range boundaries up with level thresholds. No range crosses two levels.</li>
+    <li><Do /> Make each level count match the total of its bars.</li>
+    <li><Do /> Label every band with its level name, so color is never the only signal.</li>
+</ul>
+
+> **TODO:** Define level colors with the [Assessment](?path=/docs/design-guidelines-foundations-data-visualization--docs#assessment) and [Mastery](?path=/docs/design-guidelines-foundations-data-visualization--docs#mastery) color roles.
+
+> **TODO:** Define where the level count link goes, as part of insights and actions.
+
+### Comparing groups
 
 > **TODO:** Define a horizontal bar variant for comparing classes, schools, or periods on one measure.
 
@@ -85,3 +108,4 @@ Empty and error states follow [Data reports](?path=/docs/design-guidelines-patte
 - Label each bar with its count, so values don't depend on reading the axis.
 - Bars can be focused with the keyboard. Each announces its range and count: "5–6 skills: 28 students."
 - A bar in the Attention color also has a text label, so color is never the only signal.
+- In a chart grouped by level, each level announces its name and count: "Approaching: 8 students."
