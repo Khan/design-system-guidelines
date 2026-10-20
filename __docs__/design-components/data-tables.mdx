@@ -12,9 +12,9 @@ import {Do, Dont} from "../components/DoDont";
 
 # Data tables
 
-<NeutralBadge label="Details for each student or item" />
+<NeutralBadge label="Details for each individual or item" />
 
-Data tables answer "Who exactly, and what do I do?" They list each student or item with exact values, and can include small visuals like progress bars and flags.
+Data tables answer "Who exactly, and what do I do?" They list each individual or item, like a school, class, teacher, or student, with exact values, and can include small visuals like progress bars and flags.
 
 Data tables are built with Wonder Blocks, using the Thunderblocks theme. Charts are built with Highcharts.
 
@@ -24,7 +24,7 @@ Data tables are built with Wonder Blocks, using the Thunderblocks theme. Charts 
 
 | Use when | Example |
 | --- | --- |
-| Readers need to find or act on individual students or items | Each student's status, performance level, and score |
+| Readers need to find or act on individuals or items | A district admin looks up each teacher's classes and students; a teacher checks each student's score |
 | Readers compare exact values across many columns | Assignments with type, due date, completion, and flags |
 
 ## <Dont /> When NOT to use
@@ -40,7 +40,7 @@ Data tables are built with Wonder Blocks, using the Thunderblocks theme. Charts 
 
 Rows of items with a header row of column labels. Start here, and add summary tabs only when readers need them.
 
-- Put the column readers scan by first, usually the student or item name.
+- Put the column readers scan by first, usually the name of the school, class, teacher, or student.
 - Write column labels in sentence case, and keep them short: "Total students," not "Total number of students."
 
 <Figure
@@ -59,9 +59,9 @@ Tabs above the table show a count for each group and filter the table to it. Exa
 | Count | 8 students |
 | Context | 40% of this class |
 
-- The first tab shows everyone.
-- Tab counts add up to the first tab's total, minus students with no result. Say how many: "2 did not complete."
-- Percentages use the first tab's total, including students with no result.
+- The first tab shows the whole group.
+- Tab counts add up to the first tab's total, minus any with no result. Say how many: "2 did not complete."
+- Percentages use the first tab's total, including any with no result.
 
 <Figure
     src={summaryTabsImg}
