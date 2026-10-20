@@ -78,7 +78,7 @@ function ProgressBar({
 
 /**
  * A large-container progress chart: the Grade level target on a teacher
- * report, with a labeled today's target marker. Used on the Progress charts
+ * report, with a labeled expected by today marker. Used on the Progress charts
  * page:
  *
  * ```mdx
@@ -100,10 +100,10 @@ export function GradeLevelTargetExample(): React.ReactElement {
                 <View style={styles.header}>
                     <View>
                         <Heading size="small" tag="h6">
-                            3 skills ahead of target
+                            3 skills ahead of schedule
                         </Heading>
                         <BodyText size="small" style={styles.subtle}>
-                            {value} of {goal} skills · Target date May 29
+                            {value} of {goal} skills · Goal date May 29
                         </BodyText>
                     </View>
                     <View style={styles.controls}>
@@ -135,7 +135,7 @@ export function GradeLevelTargetExample(): React.ReactElement {
                         goal={goal}
                         target={target}
                         color={SINGLE}
-                        valueText={`${value} of ${goal} skills. Today's target is ${target}. 3 skills ahead of target.`}
+                        valueText={`${value} of ${goal} skills. Expected by today: ${target}. 3 skills ahead of schedule.`}
                     />
                     <View style={styles.labels} aria-hidden={true}>
                         <View>
@@ -157,7 +157,7 @@ export function GradeLevelTargetExample(): React.ReactElement {
                                 weight="bold"
                                 style={styles.text}
                             >
-                                Today's target: {target}
+                                Expected by today: {target}
                             </BodyText>
                             <BodyText size="xsmall" style={styles.subtle}>
                                 Oct 20

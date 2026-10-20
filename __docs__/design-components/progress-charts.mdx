@@ -1,4 +1,5 @@
 import {Meta} from "@storybook/addon-docs/blocks";
+import headerImg from "./assets/progress-charts/header.png";
 import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
 import {Do, Dont} from "../components/DoDont";
 import Demo from "../components/Demo";
@@ -7,6 +8,8 @@ import {GradeLevelTargetExample} from "./assets/progress-charts/ProgressExamples
 import gemChallengeImg from "./assets/progress-charts/gem-challenge.png";
 
 <Meta title="Design Guidelines / Components / Data visualization / Progress charts" />
+
+<img src={headerImg} alt="Progress charts" />
 
 # Progress charts
 
@@ -18,23 +21,21 @@ Progress charts sit inside a [chart container](?path=/docs/design-guidelines-com
 
 > **TODO:** Confirm whether progress charts are built with Highcharts or Wonder Blocks.
 
-> **TODO:** Add a header image.
-
 ## <Do /> When to use
 
 | Use when | Example use |
 | --- | --- |
 | Readers need to see how far along they are toward a goal | Gems toward a class challenge, or assignments completed toward a school or district goal |
-| Readers need to see whether progress is on track for a deadline | Skills mastered against today's target |
+| Readers need to see whether progress is on track for a deadline | Skills mastered against where the class is expected to be by today |
 | Readers need to see how much of a task is done | Students who finished an assignment or assessment |
 
 ## <Dont /> When NOT to use
 
 | Don’t use when | Recommended alternative | Rationale |
 | --- | --- | --- |
-| Readers only need to know ahead or behind, not how far along the goal they are, like "The class is 3 skills ahead of target" | A [stat card](?path=/docs/design-guidelines-components-data-visualization-summary-cards--docs#stat-card) | Plain text is faster to read than a chart to decode. Use a bar when seeing how much of the goal is left matters. |
+| Readers only need to know ahead or behind, not how far along the goal they are, like "The class is 3 skills ahead of schedule" | A [stat card](?path=/docs/design-guidelines-components-data-visualization-summary-cards--docs#stat-card) | Plain text is faster to read than a chart to decode. Use a bar when seeing how much of the goal is left matters. |
 | Showing a score or outcome, like Beginning, Approaching, or Demonstrating | [Distribution charts](?path=/docs/design-guidelines-components-data-visualization-distribution-charts--docs#grouped-by-level) grouped by level, or a [comparison card](?path=/docs/design-guidelines-components-data-visualization-summary-cards--docs#comparison-card) | A bar reads as how far along, not how well. A full bar would look like success even when scores are low. |
-| There's no goal or target | [Summary cards](?path=/docs/design-guidelines-components-data-visualization-summary-cards--docs) | Progress needs something to measure against. Without a goal, a bar's length means nothing. |
+| There's no goal | [Summary cards](?path=/docs/design-guidelines-components-data-visualization-summary-cards--docs) | Progress needs something to measure against. Without a goal, a bar's length means nothing. |
 | Readers need to see how progress changed over time | [Trend charts](?path=/docs/design-guidelines-components-data-visualization-trend-charts--docs) | A progress bar shows where things stand today, not how they got there. |
 
 ## Anatomy
@@ -43,16 +44,16 @@ Progress charts sit inside a [chart container](?path=/docs/design-guidelines-com
 | --- | --- | --- |
 | Value and goal | Always as text, not only as bar length | 1,245 of 1,500 gems |
 | Bar | Fills to the current value. Choose colors by role. See [Color](?path=/docs/design-guidelines-foundations-data-visualization--docs#color). | |
-| Today's target marker | When "on track" depends on the date. Labeled with its value. | Today's target: 35 |
+| Expected by today marker | When "on track" depends on the date. Labeled with its value. | Expected by today: 35 |
 | Start and end labels | In large containers, when the bar spans a time period | 0 skills, Sept 1; 70 skills, May 29 |
 
 Gem challenges and other motivation goals use the [Motivation](?path=/docs/design-guidelines-foundations-data-visualization--docs#motivation) color role.
 
-### Today's target
+### Expected by today
 
-Today's target is where the group should be by today to reach the goal on time. It spreads the goal evenly across school days, so it doesn't move on weekends or holidays.
+Expected by today is where the group should be by today to reach the goal on time. It spreads the goal evenly across school days, so it doesn't move on weekends or holidays.
 
-> **TODO:** Confirm how today's target is calculated.
+> **TODO:** Confirm how the expected by today value is calculated.
 
 ## Sizes
 
@@ -60,15 +61,15 @@ Progress charts appear in both container sizes. See [Sizes](?path=/docs/design-g
 
 ### Large container
 
-For reports. The title states where the group stands against today's target.
+For reports. The title states whether the group is ahead of or behind schedule.
 
 | Part | Example |
 | --- | --- |
 | Section heading | Grade level target |
-| Title | 3 skills ahead of target |
-| Description | 38 of 70 skills · Target date May 29 |
+| Title | 3 skills ahead of schedule |
+| Description | 38 of 70 skills · Goal date May 29 |
 | Controls | Date filter, download |
-| Bar | With a labeled today's target marker, and start and end labels |
+| Bar | With a labeled expected by today marker, and start and end labels |
 | Footer | Updated today, 9:15 AM |
 
 Label the bar's values directly. A legend isn't needed when the value and the marker are labeled.
@@ -95,7 +96,7 @@ For dashboards and side panels, like the student dashboard. Keep it to the bar a
 
 <ul>
     <li><Do /> Keep a small container to one bar and up to four values.</li>
-    <li><Dont /> Add controls, a legend, or a today's target marker to a small container. If readers need them, use a large container.</li>
+    <li><Dont /> Add controls, a legend, or an expected by today marker to a small container. If readers need them, use a large container.</li>
 </ul>
 
 <Figure
@@ -109,7 +110,7 @@ For dashboards and side panels, like the student dashboard. Keep it to the bar a
 ### Title and description
 
 <ul>
-    <li><Do /> State the gap in the title of a large container: "3 skills ahead of target," not "Class is ahead of target."</li>
+    <li><Do /> State the gap in the title of a large container: "3 skills ahead of schedule," not "Class is ahead of schedule."</li>
     <li><Do /> Show the current value and the goal as text, not only as bar length.</li>
 </ul>
 
@@ -124,11 +125,11 @@ For dashboards and side panels, like the student dashboard. Keep it to the bar a
 ### Bars
 
 <ul>
-    <li><Do /> Label the today's target marker with its value: "Today's target: 35."</li>
+    <li><Do /> Label the expected by today marker with its value: "Expected by today: 35."</li>
     <li><Dont /> Show progress as a gauge or dial. Gauges are harder to read and compare, and take more space for the same value.</li>
 </ul>
 
-> **TODO:** Decide whether falling behind today's target uses the [Attention](?path=/docs/design-guidelines-foundations-data-visualization--docs#attention) role.
+> **TODO:** Decide whether falling behind schedule uses the [Attention](?path=/docs/design-guidelines-foundations-data-visualization--docs#attention) role.
 
 ## Variants
 
@@ -144,7 +145,7 @@ Empty and error states follow [Data reports](?path=/docs/design-guidelines-patte
 
 ## Accessibility
 
-- Every progress chart has a text summary: "38 of 70 skills. Today's target is 35. 3 skills ahead of target."
+- Every progress chart has a text summary: "38 of 70 skills. Expected by today: 35. 3 skills ahead of schedule."
 - Read the value and goal as text: "1,245 of 1,500 gems."
-- Announce the today's target marker with its value: "Today's target: 35."
+- Announce the expected by today marker with its value: "Expected by today: 35."
 - Color is never the only signal. The title or values say whether the group is ahead or behind.
