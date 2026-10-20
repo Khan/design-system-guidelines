@@ -1,7 +1,5 @@
 import {Meta} from "@storybook/addon-docs/blocks";
 import Figure from "../components/Figure";
-import headingHierarchyImg from "./assets/data-reports/heading-hierarchy.png";
-import containerControlsImg from "./assets/data-reports/container-controls.png";
 import ownSectionImg from "./assets/data-reports/own-section.png";
 import headerImg from "./assets/data-reports/header.png";
 import emptyContainerImg from "./assets/data-reports/empty-container.png";
@@ -59,44 +57,7 @@ Controls only change the data they sit with, never data above them.
 
 ## Containers
 
-### Heading hierarchy
-
-Containers use the section heading and title from [chart anatomy](?path=/docs/design-guidelines-foundations-data-visualization--docs#anatomy). Each has a different job.
-
-| Part | Level | Placement | Purpose | Example |
-| --- | --- | --- | --- | --- |
-| Section heading | H2 | Outside the container | Names the topic | "Growth over time" |
-| Title | H3 | Inside the container | States the insight | "Students are moving up, but five have never left Beginning." |
-
-- Every container has a section heading. The title is required, except in empty and error states.
-- The section heading draws the eye down the page and tells readers what the containers below are about.
-- Either heading can have a description below it. Add one only if it's truly needed.
-
-<Figure
-    src={headingHierarchyImg}
-    alt="An H2 sits above a chart container, and an H3 with a description sits inside it at the top left. Both headings are highlighted."
-    caption="The H2 sits outside the container. The H3 and its optional description sit inside."
-/>
-
-### Container controls
-
-Controls live inside the container, at the top right, on the same line as the H3. They must fit on one line without wrapping.
-
-Controls are optional. Add one only when it helps the reader answer the chart's question.
-
-| Control | Use when |
-| --- | --- |
-| Date filter | The reader may need a different time range |
-| View toggle | The same data works as a chart and as a table |
-| Download | The reader needs the data outside the product |
-
-> **TODO:** Confirm the supported container controls and link to their components.
-
-<Figure
-    src={containerControlsImg}
-    alt="A chart container with a This year date filter, view toggle, and download button highlighted on one line at the top right, beside the H3."
-    caption="Container controls fit on one line beside the H3."
-/>
+A container holds one chart with its section heading, title, and controls. For its anatomy, headings, and controls, see [Chart container](?path=/docs/design-guidelines-components-data-visualization-chart-container--docs).
 
 ## Own page or section
 

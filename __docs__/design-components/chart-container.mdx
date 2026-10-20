@@ -1,6 +1,9 @@
 import {Meta} from "@storybook/addon-docs/blocks";
 import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
 import {Do, Dont} from "../components/DoDont";
+import Figure from "../components/Figure";
+import headingHierarchyImg from "./assets/chart-container/heading-hierarchy.png";
+import controlsImg from "./assets/chart-container/controls.png";
 
 <Meta title="Design Guidelines / Components / Data visualization / Chart container" />
 
@@ -46,9 +49,45 @@ For the parts of the chart itself, like axes and data labels, see [Anatomy](?pat
 
 > **TODO:** Add an anatomy diagram.
 
+### Headings
+
+The section heading and title each have a different job.
+
+| Part | Purpose | Example |
+| --- | --- | --- |
+| Section heading (H2) | Names the topic | "Growth over time" |
+| Title (H3) | States the insight | "Students are moving up, but five have never left Beginning." |
+
+- The section heading draws the eye down the page and tells readers what the containers below are about.
+- Either heading can have a description below it. Add one only if it's truly needed.
+
+<Figure
+    src={headingHierarchyImg}
+    alt="An H2 sits above a chart container, and an H3 with a description sits inside it at the top left. Both headings are highlighted."
+    caption="The H2 sits outside the container. The H3 and its optional description sit inside."
+/>
+
 ## Controls
 
-Controls are optional. See [Container controls](?path=/docs/design-guidelines-patterns-data-reports--docs#container-controls) in Data reports for which ones to use and where they go.
+Controls live inside the container, at the top right, on the same line as the title. They must fit on one line without wrapping.
+
+Controls are optional. Add one only when it helps the reader answer the chart's question.
+
+| Control | Use when |
+| --- | --- |
+| Date filter | The reader may need a different time range |
+| View toggle | The same data works as a chart and as a table |
+| Download | The reader needs the data outside the product |
+
+When the data needs more than about three controls, it outgrows a container. See [Own page or section](?path=/docs/design-guidelines-patterns-data-reports--docs#own-page-or-section) in Data reports.
+
+> **TODO:** Confirm the supported container controls and link to their components.
+
+<Figure
+    src={controlsImg}
+    alt="A chart container with a This year date filter, view toggle, and download button highlighted on one line at the top right, beside the H3."
+    caption="Container controls fit on one line beside the title."
+/>
 
 ### Chart and table toggle
 
