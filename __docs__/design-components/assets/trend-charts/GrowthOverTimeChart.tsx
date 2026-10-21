@@ -9,7 +9,7 @@ import chartLineBold from "@phosphor-icons/core/bold/chart-line-bold.svg";
 import tableBold from "@phosphor-icons/core/bold/table-bold.svg";
 import downloadSimpleBold from "@phosphor-icons/core/bold/download-simple-bold.svg";
 
-// Line colors are primitives (Blue 40 line, Blue 50 fill for Single series)
+// Line colors are primitives (Blue 40 line, Blue 50 fill for Progress and amounts)
 // until data visualization semantic tokens exist in Wonder Blocks. See the
 // Color TODO in the Data visualization foundation.
 const LINE = "#6C82FF";

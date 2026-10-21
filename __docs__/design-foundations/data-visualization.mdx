@@ -112,21 +112,21 @@ Hex values on this page are a visual reference for designers. Don't use them in 
 
 ### Color roles
 
-Assessment, mastery, motivation, and score data each have their own role. Every other chart uses the generic roles, starting with Single series.
+Choose the role by what the color shows, not where the data comes from. Assessment, Mastery, and Scores are for **results**, like levels and scores. How much or how far along, like how much of an assessment a class has finished, uses Progress and amounts. Motivation data always uses Motivation.
 
 | Role | Use when | Fill | Outline and line |
 | --- | --- | --- | --- |
-| <span id="single-series">Single series</span> | One quantity on the chart, like a distribution or a total over time. This is the default. | <Swatch name="Blue 50" hex="#8DA2FF" /> | <Swatch name="Blue 40" hex="#6C82FF" /> |
+| <span id="progress-and-amounts">Progress and amounts</span> | How much or how far along: completion, usage, counts, or progress on an assignment or assessment. This is the default. | <Swatch name="Blue 50" hex="#8DA2FF" /> | <Swatch name="Blue 40" hex="#6C82FF" /> |
 | <span id="categorical">Categorical</span> | Two to four series the reader tracks separately. Apply colors in order. | <Swatch name="Cyan 40" hex="#57BAFD" /> <Swatch name="Orange 40" hex="#F97B4F" /> <Swatch name="Magenta 40" hex="#F670C1" /> <Swatch name="Green 40" hex="#72BB82" /> | <Swatch name="Cyan 20" hex="#2485C7" /> <Swatch name="Orange 30" hex="#F8551A" /> <Swatch name="Magenta 30" hex="#E83FA4" /> <Swatch name="Green 30" hex="#579F6C" /> |
 | <span id="neutral">Neutral</span> | A mark is context, not the subject, like "Other" or the middle of a diverging scale | <Swatch name="Gray 60" hex="#CBCBCD" /> | <Swatch name="Gray 30" hex="#8A8B90" /> |
 | <span id="emphasis">Emphasis</span> | One series is the point, and the rest are there to compare against | <Swatch name="Blue 50 (emphasized)" hex="#8DA2FF" /> <Swatch name="Gray 60 (rest)" hex="#CBCBCD" /> | <Swatch name="Blue 40 (emphasized)" hex="#6C82FF" /> <Swatch name="Gray 30 (rest)" hex="#8A8B90" /> |
 | <span id="attention">Attention</span> | Items fall short of a threshold and someone needs to act | <Swatch name="Yellow 30 (below)" hex="#FCB706" /> <Swatch name="Gray 60 (rest)" hex="#CBCBCD" /> | <Swatch name="Yellow 10 (below)" hex="#966B00" /> <Swatch name="Gray 30 (rest)" hex="#8A8B90" /> |
 | <span id="annotation">Annotation</span> | Words and reference marks that aren't data, like a target line or a district average | <Swatch name="Gray 10 (text and callouts)" hex="#4A4C53" /> | <Swatch name="Gray 30 (reference lines)" hex="#8A8B90" /> |
-| <span id="scores">Scores</span> | Scores from low to high, like assignment scores or a standards heat map | <Swatch name="Red 50" hex="#F97F7F" /> <Swatch name="Orange 60" hex="#FEBFB1" /> <Swatch name="Yellow 40" hex="#FCC539" /> <Swatch name="Green 60" hex="#BCEBBB" /> <Swatch name="Green 40" hex="#72BB82" /> | <Swatch name="Red 40" hex="#ED5656" /> <Swatch name="Orange 40" hex="#F97B4F" /> <Swatch name="Yellow 10" hex="#966B00" /> <Swatch name="Green 40" hex="#72BB82" /> <Swatch name="Green 30" hex="#579F6C" /> |
+| <span id="scores">Scores</span> | Coloring each score by how high it is, like a standards heat map or assignment scores. A line of average scores over time uses Progress and amounts. | <Swatch name="Red 50" hex="#F97F7F" /> <Swatch name="Orange 60" hex="#FEBFB1" /> <Swatch name="Yellow 40" hex="#FCC539" /> <Swatch name="Green 60" hex="#BCEBBB" /> <Swatch name="Green 40" hex="#72BB82" /> | <Swatch name="Red 40" hex="#ED5656" /> <Swatch name="Orange 40" hex="#F97B4F" /> <Swatch name="Yellow 10" hex="#966B00" /> <Swatch name="Green 40" hex="#72BB82" /> <Swatch name="Green 30" hex="#579F6C" /> |
 | <span id="motivation">Motivation</span> | Motivation data, like a gem challenge | <Swatch name="Magenta 30" hex="#E83FA4" /> | |
 | <span id="errors">Errors</span> | Error states, like a chart that failed to load. Never for data. | <Swatch name="Red 30" hex="#E22D2D" /> | |
-| <span id="assessment">Assessment</span> | Assessment results | TODO | TODO |
-| <span id="mastery">Mastery</span> | Mastery levels | TODO | TODO |
+| <span id="assessment">Assessment</span> | Assessment results, like performance levels. Not progress on an assessment. | TODO | TODO |
+| <span id="mastery">Mastery</span> | Mastery levels. Not progress toward mastery. | TODO | TODO |
 
 > **TODO:** Confirm the Scores colors and the score range each one covers, and define the Assessment, Mastery, and Motivation roles.
 
@@ -136,7 +136,8 @@ Assessment, mastery, motivation, and score data each have their own role. Every 
     <li><Do /> Give every filled mark a 1px outline in the role's outline color. Light fills don't reach 3:1 contrast on their own, so the outline carries it. Draw lines in the outline color at 2px.</li>
     <li><Do /> Keep a series' color the same across every chart in the view. Past four series, fold the rest into "Other" in Neutral gray, or use a table.</li>
     <li><Do /> Use Attention only when falling short is really bad, and only on data marks, not text. If it's just a comparison, use Emphasis.</li>
-    <li><Dont /> Use blue for assessment, mastery, motivation, or score data. They have their own roles.</li>
+    <li><Do /> Use Progress and amounts for progress on anything, including assessments and mastery: "18 of 25 students finished the assessment."</li>
+    <li><Dont /> Use Progress and amounts blue for results, like performance levels, mastery levels, or scores, or for motivation data. They have their own roles.</li>
     <li><Dont /> Use Magenta 30 as a fill outside motivation data.</li>
     <li><Dont /> Use Errors red for data, including low scores. Scores use lighter reds, so a low score doesn't read as a broken chart.</li>
 </ul>
