@@ -30,6 +30,7 @@ This repo (`@khanacademy/design-guidelines`) is a **Storybook 10 site that docum
 - **Assets** always import: `import headerImg from "./assets/<page>/header.png"; <img src={headerImg} alt="…" />`. A raw `src="./assets/..."` string will not survive Vite bundling. Every image needs meaningful `alt`.
 - **Phosphor icons are from `@phosphor-icons/core`.** `import checkCircleBold from "@phosphor-icons/core/bold/check-circle-bold.svg";` (weights: `bold`, `fill`, `regular`, …). Do not import `@phosphor-icons/react`
 - **Color comes from tokens, not raw hex.** Hardcoded hex will not adapt to theming. Tokens live inside the `.tsx` helper components used in `.mdx`.  `style={{}}` is only for demo *layout* scaffolding (widths, gaps, flexbox) — never for colors.
+- **Links follow the Wonder Blocks patterns.** Whether to use markdown or a raw `<a>` depends on the link type; see [Links](#links).
 
 ---
 
@@ -69,6 +70,24 @@ When it's a genuine judgment call, surface the trade-off to the user rather than
 
 ---
 
+## Links
+
+Links must follow the `wonder-blocks` repo's conventions listed below:
+
+| Link to | Write it as | Why |
+| --- | --- | --- |
+| A heading on the same page | `[Text](#heading-slug)` | Markdown; scrolls in place. |
+| Another page in this Storybook (optionally a heading on it) | `<a href="./?path=/docs/<page-id>--docs#heading-slug">Text</a>` | The Wonder Blocks pattern. `./` resolves correctly on GitHub Pages and Chromatic. |
+| An external site | `[Text](https://…)` | Markdown; rendered by the Wonder Blocks `Link`. |
+| An external site that refuses to load inside another page (Figma, Confluence, Google Docs, GitHub) | `<a href="https://…" target="_blank" rel="noopener noreferrer">Text</a>` | Docs render inside an iframe, so these sites show "refused to connect" unless opened in a new tab. |
+
+- **Page ID**: the `<Meta title>` lowercased, with spaces, `/` and punctuation turned into single hyphens, plus `--docs`. `Design Guidelines / Patterns / Data reports` → `design-guidelines-patterns-data-reports--docs`; `… / Overlays / Modals - selection` → `…-overlays-modals-selection--docs`. When unsure, open the page in Storybook and copy `?path=…` from the address bar.
+- **Heading slug**: the heading text lowercased, punctuation dropped, spaces turned into hyphens. `## Making a useful chart` → `#making-a-useful-chart`.
+- **Never** write internal links as `?path=…` (resolves against `iframe.html` and loads inside the docs frame), `/?path=…` (breaks on GitHub Pages), or absolute `khan.github.io/design-system-guidelines` URLs (leaves the current host).
+- **Not sure whether a site loads inside another page?** Check its headers: `curl -sI <url> | grep -iE 'x-frame-options|frame-ancestors'`. If you see `DENY` or `SAMEORIGIN`, or a `frame-ancestors` list without `*`, use the new-tab form.
+
+---
+
 ## Authoring a new page
 
 Key rules:
@@ -94,6 +113,7 @@ Key rules:
 3. Open the Storybook **Accessibility** addon panel on the page; resolve violations (a11y is set to fail CI).
 4. Use the **Theme** toolbar to spot-check `syl-dark` — confirm nothing is hardcoded to a light-only color. (Note: the **RTL** toolbar toggle affects *stories* only, not docs pages, so RTL can't be previewed here — rely on tokens/logical properties and the WB components, which handle direction.)
 5. Confirm the page appears in the expected sidebar location.
+6. Click each new or changed link. Internal links should land on the right page and heading. Links to sites that refuse to load inside another page should open a new tab.
 
 ---
 

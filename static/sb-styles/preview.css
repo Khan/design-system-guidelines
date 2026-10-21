@@ -62,6 +62,10 @@ html {
     overflow: hidden;
 }
 
+.sbdocs a {
+    font-weight: var(--wb-font-weight-bold);
+}
+
 .sbdocs .docblock-source {
     background: var(--wb-semanticColor-core-background-neutral-subtle);
 }
