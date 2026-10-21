@@ -4,7 +4,8 @@ import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
 import {Do, Dont} from "../components/DoDont";
 import Demo from "../components/Demo";
 import Figure from "../components/Figure";
-import {GradeLevelTargetExample, GradeLevelTargetChartOnly, SchoolComparisonExample} from "./assets/progress-charts/ProgressExamples";
+import {GradeLevelTargetChartOnly, SchoolComparisonExample} from "./assets/progress-charts/ProgressExamples";
+import containerImg from "./assets/progress-charts/container.png";
 import gemChallengeImg from "./assets/progress-charts/gem-challenge.png";
 
 <Meta title="Design Guidelines / Components / Data visualization / Progress charts" />
@@ -42,6 +43,8 @@ Progress charts sit inside a [chart container](?path=/docs/design-guidelines-com
 
 These parts apply in any container.
 
+> **Note:** This is a placeholder built for these docs, not the production chart. It will be replaced with the Highcharts version once it exists.
+
 <Demo>
     <GradeLevelTargetChartOnly />
 </Demo>
@@ -72,17 +75,17 @@ For reports. The title states whether the group is ahead of or behind schedule.
 | Section heading | Grade level target |
 | Title | 3 skills ahead of schedule |
 | Description | 38 of 70 skills · Goal date May 29 |
-| Controls | Date filter, download |
+| Controls | Download |
 | Bar | With a labeled expected by today marker, and start and end labels |
 | Footer | Updated today, 9:15 AM |
 
 Label the bar's values directly. A legend isn't needed when the value and the marker are labeled.
 
-> **Note:** This is a placeholder built for these docs, not the production chart. It will be replaced with the Highcharts version once it exists.
-
-<Demo>
-    <GradeLevelTargetExample />
-</Demo>
+<Figure
+    src={containerImg}
+    alt="A report page with gray placeholder summary cards at the top. Below them, a Grade level target section heading above a chart container. The title reads 3 skills ahead of schedule, with the description 38 of 70 skills, Goal date May 29, and a download button at the top right. A progress bar is filled a little past halfway, with a marker labeled Expected by today: 35, Oct 20. Start and end labels read 0 skills, Sept 1, and 70 skills, May 29. The footer reads Updated Oct 20, 2026, 9:15 AM."
+    caption="A progress chart in a large container, below the summary cards on a report page."
+/>
 
 ### Small container
 
