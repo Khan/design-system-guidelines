@@ -56,7 +56,7 @@ Shows one metric. Stat cards sit in a row of 2 to 4, under a section heading tha
 | Info tooltip | Optional. Beside the label, for more context. | How the metric is calculated |
 | Value | Yes. A number, an "X of Y" count, a change, or a level word. | 11,033; 2 of 3; −7 pts; Familiar |
 | Context or change | Optional | 40% of total students assessed; ↓ 1 subject at risk |
-| Caret right icon | When the card is clickable | › |
+| View link | When there's a detail view. Bottom right, on the same line as the context. | View › |
 
 - Use at least 2 and at most 4 stat cards in a row.
 - Write the label in sentence case, in 1 to 3 words. Keep units with the value: "−7 pts," not a label like "Growth (pts)."
@@ -74,21 +74,20 @@ Shows one metric. Stat cards sit in a row of 2 to 4, under a section heading tha
     caption="Stat cards sit at the top of the page, under a section heading. Warning badges show a metric that's down or at risk."
 />
 
-#### Clickable stat cards
+#### Stat cards with a detail view
 
-- Make a stat card clickable only when there's a detail view for that metric.
-- Show a caret right icon on every clickable card, at the top right. A card without one isn't clickable.
-- Make every card in a row clickable, or none. If one metric has no detail view, the row isn't clickable.
+- Add a View link only when there's a detail view for that metric.
+- Place the View link at the bottom right, on the same line as the context or change.
+- Only the View link is clickable. The card itself isn't a link.
+- Cards in a row can mix: some with a View link, some without.
 
 <Figure
     src={statCardsClickableImg}
-    alt="A report page, with the page title and tabs shown as gray placeholders. Below them, a Classes overview section heading above three clickable stat cards, each with a caret right icon at the top right. Classes on target: 3 of 5, with a warning badge reading down 2 and the text classes at risk. Mastery average: Familiar, with a warning badge reading down 2 and the text classes below familiar. Growth over time: +2.1 pts, with a success up arrow badge and the text above school trend."
-    caption="Every card in the row is clickable and shows a caret right icon. A success badge shows a metric that's up."
+    alt="A report page, with the page title and tabs shown as gray placeholders. Below them, a Classes overview section heading above three stat cards, each with a blue View link and caret at the bottom right. Classes on target: 3 of 5, with a warning badge reading down 2 and the text classes at risk. Mastery average: Familiar, with a warning badge reading down 2 and the text classes below familiar. Growth over time: +2.1 pts, with a success up arrow badge and the text above school trend."
+    caption="Each card links to its detail view with a View link at the bottom right. A success badge shows a metric that's up."
 />
 
 > **TODO:** Find a solution for a single headline number, since a row needs at least 2 stat cards.
-
-> **TODO:** Decide how an info tooltip works on a clickable card, so the tooltip and the link aren't nested controls.
 
 ## States
 
@@ -100,6 +99,6 @@ For not enough data, loading, and error states, see [States](?path=/docs/design-
 
 ## Accessibility
 
-- A clickable card is one link target with an accessible name, like "Students assessed details." The caret right icon is decorative.
-- A stat card that isn't clickable isn't focusable.
+- Give each View link an accessible name that includes the metric: "View classes on target."
+- The info tooltip and the View link are separate controls, so keyboard users reach each one in turn.
 - Read the level and the change as text, not as color or an arrow icon.
