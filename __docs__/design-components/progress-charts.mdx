@@ -18,7 +18,7 @@ import gemChallengeImg from "./assets/progress-charts/gem-challenge.png";
 
 Progress charts answer "How close are we to the goal?" A progress bar shows a current value against a goal, and can mark where the group should be by today. Progress means how far along, never how well. A progress chart never shows a score or outcome.
 
-Progress charts sit inside a [chart container](?path=/docs/design-guidelines-components-data-visualization-chart-container--docs), large or small.
+Progress charts sit inside a <a href="./?path=/docs/design-guidelines-components-data-visualization-chart-container--docs">chart container</a>, large or small.
 
 > **TODO:** Confirm whether progress charts are built with Highcharts or Wonder Blocks.
 
@@ -34,10 +34,10 @@ Progress charts sit inside a [chart container](?path=/docs/design-guidelines-com
 
 | Don’t use when | Recommended alternative | Rationale |
 | --- | --- | --- |
-| Readers only need to know ahead or behind, not how far along the goal they are, like "The class is 3 skills ahead of schedule" | A [stat card](?path=/docs/design-guidelines-components-data-visualization-summary-cards--docs#stat-card) | Plain text is faster to read than a chart to decode. Use a bar when seeing how much of the goal is left matters. |
-| Showing a score or outcome, like Beginning, Approaching, or Demonstrating | [Distribution charts](?path=/docs/design-guidelines-components-data-visualization-distribution-charts--docs#grouped-by-level) grouped by level | A bar reads as how far along, not how well. A full bar would look like success even when scores are low. |
-| There's no goal | [Summary cards](?path=/docs/design-guidelines-components-data-visualization-summary-cards--docs) | Progress needs something to measure against. Without a goal, a bar's length means nothing. |
-| Readers need to see how progress changed over time | [Trend charts](?path=/docs/design-guidelines-components-data-visualization-trend-charts--docs) | A progress bar shows where things stand today, not how they got there. |
+| Readers only need to know ahead or behind, not how far along the goal they are, like "The class is 3 skills ahead of schedule" | A <a href="./?path=/docs/design-guidelines-components-data-visualization-summary-cards--docs#stat-card">stat card</a> | Plain text is faster to read than a chart to decode. Use a bar when seeing how much of the goal is left matters. |
+| Showing a score or outcome, like Beginning, Approaching, or Demonstrating | <a href="./?path=/docs/design-guidelines-components-data-visualization-distribution-charts--docs#grouped-by-level">Distribution charts</a> grouped by level | A bar reads as how far along, not how well. A full bar would look like success even when scores are low. |
+| There's no goal | <a href="./?path=/docs/design-guidelines-components-data-visualization-summary-cards--docs">Summary cards</a> | Progress needs something to measure against. Without a goal, a bar's length means nothing. |
+| Readers need to see how progress changed over time | <a href="./?path=/docs/design-guidelines-components-data-visualization-trend-charts--docs">Trend charts</a> | A progress bar shows where things stand today, not how they got there. |
 
 ## Chart anatomy
 
@@ -52,11 +52,11 @@ These parts apply in any container.
 | Part | Rule | Example |
 | --- | --- | --- |
 | Value and goal | Always as text, not only as bar length | 1,245 of 1,500 gems |
-| Bar | Fills to the current value. Choose colors by role. See [Color](?path=/docs/design-guidelines-foundations-data-visualization--docs#color). | |
+| Bar | Fills to the current value. Choose colors by role. See <a href="./?path=/docs/design-guidelines-foundations-data-visualization--docs#color">Color</a>. | |
 | Expected by today marker | When "on track" depends on the date. Labeled with its value. | Expected by today: 35 |
 | Start and end labels | In large containers, when the bar spans a time period | 0 skills, Sept 1; 70 skills, May 29 |
 
-Gem challenges and other motivation goals use the [Motivation](?path=/docs/design-guidelines-foundations-data-visualization--docs#motivation) color role.
+Gem challenges and other motivation goals use the <a href="./?path=/docs/design-guidelines-foundations-data-visualization--docs#motivation">Motivation</a> color role.
 
 ### Expected by today
 
@@ -139,7 +139,7 @@ For dashboards and side panels, like the student dashboard. Keep it to the bar a
     <li><Dont /> Show progress as a gauge or dial. Gauges are harder to read and compare, and take more space for the same value.</li>
 </ul>
 
-> **TODO:** Decide whether falling behind schedule uses the [Attention](?path=/docs/design-guidelines-foundations-data-visualization--docs#attention) role.
+> **TODO:** Decide whether falling behind schedule uses the <a href="./?path=/docs/design-guidelines-foundations-data-visualization--docs#attention">Attention</a> role.
 
 ## Variants
 
@@ -167,7 +167,7 @@ If this variant is needed, decide its sort order, whether falling behind uses a 
 
 ## States
 
-Empty and error states follow [Data reports](?path=/docs/design-guidelines-patterns-data-reports--docs#states).
+Empty and error states follow <a href="./?path=/docs/design-guidelines-patterns-data-reports--docs#states">Data reports</a>.
 
 > **TODO:** Define states for a goal that isn't set yet and a challenge that hasn't started.
 

@@ -15,7 +15,7 @@ import viewToggleImg from "./assets/chart-container/view-toggle.png";
 
 <NeutralBadge label="Frame for a chart" />
 
-A container holds one chart with its heading, title, controls, and footer. Every distribution chart, trend chart, and progress chart sits inside one. For how containers are laid out on a page, see [Data reports](?path=/docs/design-guidelines-patterns-data-reports--docs).
+A container holds one chart with its heading, title, controls, and footer. Every distribution chart, trend chart, and progress chart sits inside one. For how containers are laid out on a page, see <a href="./?path=/docs/design-guidelines-patterns-data-reports--docs">Data reports</a>.
 
 Charts are built with Highcharts, not Wonder Blocks.
 
@@ -32,9 +32,9 @@ Charts are built with Highcharts, not Wonder Blocks.
 
 | Don’t use when | Recommended alternative | Rationale |
 | --- | --- | --- |
-| Showing a complex table, like a full student list with search, sorting, or filters | A [data table](?path=/docs/design-guidelines-components-data-visualization-data-tables--docs) in its own page or section | A complex table needs room for its own controls. A container's controls must fit on one line beside the title. |
-| The takeaway is one number with no comparison, like "11,033 students assessed" | A [stat card](?path=/docs/design-guidelines-components-data-visualization-summary-cards--docs#stat-card) | A chart adds nothing when there's nothing to compare. A stat card shows the number at a glance. |
-| The data needs more than about three controls | Its own page or section. See [Data reports](?path=/docs/design-guidelines-patterns-data-reports--docs). | Controls that don't fit on one line crowd the title and wrap. |
+| Showing a complex table, like a full student list with search, sorting, or filters | A <a href="./?path=/docs/design-guidelines-components-data-visualization-data-tables--docs">data table</a> in its own page or section | A complex table needs room for its own controls. A container's controls must fit on one line beside the title. |
+| The takeaway is one number with no comparison, like "11,033 students assessed" | A <a href="./?path=/docs/design-guidelines-components-data-visualization-summary-cards--docs#stat-card">stat card</a> | A chart adds nothing when there's nothing to compare. A stat card shows the number at a glance. |
+| The data needs more than about three controls | Its own page or section. See <a href="./?path=/docs/design-guidelines-patterns-data-reports--docs">Data reports</a>. | Controls that don't fit on one line crowd the title and wrap. |
 | Fitting two charts in one container | Two containers, one chart each | Each container's title states one insight. Two charts compete for one title. |
 
 ## Sizes
@@ -61,7 +61,7 @@ Charts are built with Highcharts, not Wonder Blocks.
 
 > **TODO:** Confirm whether small containers need the footer.
 
-For the parts of the chart itself, like axes and data labels, see [Anatomy](?path=/docs/design-guidelines-foundations-data-visualization--docs#anatomy) in Data visualization.
+For the parts of the chart itself, like axes and data labels, see <a href="./?path=/docs/design-guidelines-foundations-data-visualization--docs#anatomy">Anatomy</a> in Data visualization.
 
 ### Headings
 
@@ -93,7 +93,7 @@ Controls are optional. Add one only when it helps the reader answer the chart's 
 | View toggle | The same data works as a chart and as a table |
 | Download | The reader needs the data outside the product |
 
-When the data needs more than about three controls, it outgrows a container. See [Own page or section](?path=/docs/design-guidelines-patterns-data-reports--docs#own-page-or-section) in Data reports.
+When the data needs more than about three controls, it outgrows a container. See <a href="./?path=/docs/design-guidelines-patterns-data-reports--docs#own-page-or-section">Own page or section</a> in Data reports.
 
 > **TODO:** Confirm the supported container controls and link to their components.
 
@@ -117,16 +117,16 @@ The view toggle is optional. It switches the chart to a table of the same data.
 
 ## States
 
-Empty and error states replace the title and chart, and keep the section heading and controls. All state guidance lives in [Data reports](?path=/docs/design-guidelines-patterns-data-reports--docs#states):
+Empty and error states replace the title and chart, and keep the section heading and controls. All state guidance lives in <a href="./?path=/docs/design-guidelines-patterns-data-reports--docs#states">Data reports</a>:
 
-- [Empty container](?path=/docs/design-guidelines-patterns-data-reports--docs#empty-container)
-- [Filtered to nothing](?path=/docs/design-guidelines-patterns-data-reports--docs#filtered-to-nothing)
-- [Container errors](?path=/docs/design-guidelines-patterns-data-reports--docs#container-errors)
-- [Empty state copy](?path=/docs/design-guidelines-patterns-data-reports--docs#empty-state-copy) and [error copy](?path=/docs/design-guidelines-patterns-data-reports--docs#error-copy)
+- <a href="./?path=/docs/design-guidelines-patterns-data-reports--docs#empty-container">Empty container</a>
+- <a href="./?path=/docs/design-guidelines-patterns-data-reports--docs#filtered-to-nothing">Filtered to nothing</a>
+- <a href="./?path=/docs/design-guidelines-patterns-data-reports--docs#container-errors">Container errors</a>
+- <a href="./?path=/docs/design-guidelines-patterns-data-reports--docs#empty-state-copy">Empty state copy</a> and <a href="./?path=/docs/design-guidelines-patterns-data-reports--docs#error-copy">error copy</a>
 
 ## Accessibility
 
 - Use real heading levels: the section heading is an H2 and the title is an H3. In a small container, the title is the container's heading.
 - Give each control an accessible name that includes the chart's topic: "Download growth data."
 - The view toggle announces which view is selected.
-- Every chart has a short text summary of its takeaway. See [Accessibility](?path=/docs/design-guidelines-foundations-data-visualization--docs#accessibility) in Data visualization.
+- Every chart has a short text summary of its takeaway. See <a href="./?path=/docs/design-guidelines-foundations-data-visualization--docs#accessibility">Accessibility</a> in Data visualization.

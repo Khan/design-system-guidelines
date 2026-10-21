@@ -17,7 +17,7 @@ import containerImg from "./assets/distribution-charts/container.png";
 
 Distribution charts answer "How is the group spread out?" A bar chart shows how many students, classes, or schools land in each range, like the number of assignments completed.
 
-Distribution charts sit inside a large [chart container](?path=/docs/design-guidelines-components-data-visualization-chart-container--docs). Charts are built with Highcharts, not Wonder Blocks.
+Distribution charts sit inside a large <a href="./?path=/docs/design-guidelines-components-data-visualization-chart-container--docs">chart container</a>. Charts are built with Highcharts, not Wonder Blocks.
 
 ## <Do /> When to use
 
@@ -32,10 +32,10 @@ Distribution charts sit inside a large [chart container](?path=/docs/design-guid
 
 | Don’t use when | Recommended alternative | Rationale |
 | --- | --- | --- |
-| The main metric can be said in words or one number, like "4 students haven't completed any assignments yet" | A [stat card](?path=/docs/design-guidelines-components-data-visualization-summary-cards--docs#stat-card) | Plain text is faster to read than a chart to decode. Use a chart only when the shape of the data matters. |
-| Showing change over time | [Trend charts](?path=/docs/design-guidelines-components-data-visualization-trend-charts--docs) | Bars in a distribution are ranges, not time periods. Readers would read a trend that isn't there. |
-| Readers need each individual's or item's value | [Data tables](?path=/docs/design-guidelines-components-data-visualization-data-tables--docs) | A distribution groups values into ranges, so individual values are lost. |
-| The group is small, like fewer than 10 students | [Data tables](?path=/docs/design-guidelines-components-data-visualization-data-tables--docs) or a sentence | With few students, bars are too short to compare. Each student's value is clearer. |
+| The main metric can be said in words or one number, like "4 students haven't completed any assignments yet" | A <a href="./?path=/docs/design-guidelines-components-data-visualization-summary-cards--docs#stat-card">stat card</a> | Plain text is faster to read than a chart to decode. Use a chart only when the shape of the data matters. |
+| Showing change over time | <a href="./?path=/docs/design-guidelines-components-data-visualization-trend-charts--docs">Trend charts</a> | Bars in a distribution are ranges, not time periods. Readers would read a trend that isn't there. |
+| Readers need each individual's or item's value | <a href="./?path=/docs/design-guidelines-components-data-visualization-data-tables--docs">Data tables</a> | A distribution groups values into ranges, so individual values are lost. |
+| The group is small, like fewer than 10 students | <a href="./?path=/docs/design-guidelines-components-data-visualization-data-tables--docs">Data tables</a> or a sentence | With few students, bars are too short to compare. Each student's value is clearer. |
 
 ## Chart anatomy
 
@@ -52,7 +52,7 @@ These parts apply in any container.
 | Title | States the insight | Most students completed five to eight assignments |
 | Category axis | Ranges in order, equal width, with no overlaps. Use an en dash in range labels. Labeled with what's counted. | Assignments completed: none, 1–2, 3–4 … 11+ |
 | Value axis | Counts or percentages, starting at zero, labeled with units. Optional when every bar has a data label. | Students: 0, 10, 20 … 50 |
-| Bars | Choose colors by role. See [Color](?path=/docs/design-guidelines-foundations-data-visualization--docs#color) in Data visualization. | |
+| Bars | Choose colors by role. See <a href="./?path=/docs/design-guidelines-foundations-data-visualization--docs#color">Color</a> in Data visualization. | |
 | Data labels | The value on or above each bar | 40 |
 
 > **TODO:** Define what tooltips show, since every bar already has a data label.
@@ -99,7 +99,7 @@ Distribution charts use a large container, for reports. The title states the ins
 ### Values
 
 <ul>
-    <li><Do /> Use counts when readers act on individuals, and percentages to compare groups of different sizes. See [Number formatting](?path=/docs/design-guidelines-foundations-data-visualization--docs#number-formatting).</li>
+    <li><Do /> Use counts when readers act on individuals, and percentages to compare groups of different sizes. See <a href="./?path=/docs/design-guidelines-foundations-data-visualization--docs#number-formatting">Number formatting</a>.</li>
     <li><Dont /> Start the value axis above zero. It exaggerates differences.</li>
 </ul>
 
@@ -108,8 +108,8 @@ Distribution charts use a large container, for reports. The title states the ins
 <ul>
     <li><Do /> Use vertical bars for ordered ranges. Use horizontal bars when range labels are long.</li>
     <li><Dont /> Rotate range labels. When they don't fit, like on a narrow screen, switch to horizontal bars.</li>
-    <li><Do /> When some ranges carry the title's point, highlight them with the [Emphasis](?path=/docs/design-guidelines-foundations-data-visualization--docs#emphasis) role and gray the rest.</li>
-    <li><Do /> When a range needs action, use the [Attention](?path=/docs/design-guidelines-foundations-data-visualization--docs#attention) role.</li>
+    <li><Do /> When some ranges carry the title's point, highlight them with the <a href="./?path=/docs/design-guidelines-foundations-data-visualization--docs#emphasis">Emphasis</a> role and gray the rest.</li>
+    <li><Do /> When a range needs action, use the <a href="./?path=/docs/design-guidelines-foundations-data-visualization--docs#attention">Attention</a> role.</li>
     <li><Dont /> Color bars differently for any other reason, except in a chart grouped by level.</li>
 </ul>
 
@@ -132,7 +132,7 @@ Score ranges are grouped under the levels they belong to, like Beginning, Approa
     <li><Do /> Label every band with its level name, so color is never the only signal.</li>
 </ul>
 
-> **TODO:** Define level colors with the [Assessment](?path=/docs/design-guidelines-foundations-data-visualization--docs#assessment) and [Mastery](?path=/docs/design-guidelines-foundations-data-visualization--docs#mastery) color roles.
+> **TODO:** Define level colors with the <a href="./?path=/docs/design-guidelines-foundations-data-visualization--docs#assessment">Assessment</a> and <a href="./?path=/docs/design-guidelines-foundations-data-visualization--docs#mastery">Mastery</a> color roles.
 
 ### Comparing groups
 
@@ -140,11 +140,11 @@ Score ranges are grouped under the levels they belong to, like Beginning, Approa
 
 ## States
 
-Empty and error states follow [Data reports](?path=/docs/design-guidelines-patterns-data-reports--docs#states). For groups too small to chart, see [Not enough data](?path=/docs/design-guidelines-patterns-data-reports--docs#not-enough-data).
+Empty and error states follow <a href="./?path=/docs/design-guidelines-patterns-data-reports--docs#states">Data reports</a>. For groups too small to chart, see <a href="./?path=/docs/design-guidelines-patterns-data-reports--docs#not-enough-data">Not enough data</a>.
 
 ## Accessibility
 
-- Every chart has a short text summary of its takeaway. See [Accessibility](?path=/docs/design-guidelines-foundations-data-visualization--docs#accessibility) in Data visualization.
+- Every chart has a short text summary of its takeaway. See <a href="./?path=/docs/design-guidelines-foundations-data-visualization--docs#accessibility">Accessibility</a> in Data visualization.
 - Label each bar with its count, so values don't depend on reading the axis.
 - Bars can be focused with the keyboard. Each announces its range and count: "5–6 assignments: 40 students."
 - A bar in the Attention color also has a text label, so color is never the only signal.
