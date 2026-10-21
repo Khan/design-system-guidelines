@@ -31,6 +31,7 @@ Summary cards are built with Wonder Blocks, using the Thunderblocks theme.
 | Readers need to see change over time | [Trend charts](?path=/docs/design-guidelines-components-data-visualization-trend-charts--docs) | A card shows one moment. A line shows the direction across periods. |
 | Readers need to see how a group is spread out | [Distribution charts](?path=/docs/design-guidelines-components-data-visualization-distribution-charts--docs) | A card can't show the spread across ranges. |
 | Readers need to find or act on individuals or items | [Data tables](?path=/docs/design-guidelines-components-data-visualization-data-tables--docs) | Cards summarize groups. Tables list each individual or item to act on. |
+| Readers need to see progress toward a goal | [Progress charts](?path=/docs/design-guidelines-components-data-visualization-progress-charts--docs) | A bar shows how much of the goal is done and how much is left. |
 
 ## Placement
 
@@ -53,11 +54,13 @@ Shows one metric. Stat cards sit in a row of 2 to 4, under a section heading tha
 | --- | --- | --- |
 | Label | Yes | Students assessed |
 | Info tooltip | Optional. Beside the label, for more context. | How the metric is calculated |
-| Value | Yes | 11,033; 2 of 3; −7 pts |
+| Value | Yes. A number, an "X of Y" count, a change, or a level word. | 11,033; 2 of 3; −7 pts; Familiar |
 | Context or change | Optional | 40% of total students assessed; ↓ 1 subject at risk |
 | Caret right icon | When the card is clickable | › |
 
 - Use at least 2 and at most 4 stat cards in a row.
+- Write the label in sentence case, in 1 to 3 words. Keep units with the value: "−7 pts," not a label like "Growth (pts)."
+- Cards in a row share one height. On narrow screens, they wrap to 2 per row, then 1.
 - Stat cards have no controls and no last-updated footer.
 - Format the value with the [Number formatting](?path=/docs/design-guidelines-foundations-data-visualization--docs#number-formatting) rules: "11,033," "1.2K," "−7 pts."
 - Show a change as a [value and trend badge](?path=/docs/design-guidelines-components-feedback-badges--docs#value-and-trend-badges). Only the value and its arrow go inside the badge ("↓ 1"). The description stays outside as text ("subject at risk").
@@ -83,7 +86,19 @@ Shows one metric. Stat cards sit in a row of 2 to 4, under a section heading tha
     caption="Every card in the row is clickable and shows a caret right icon. A success badge shows a metric that's up."
 />
 
+> **TODO:** Find a solution for a single headline number, since a row needs at least 2 stat cards.
+
+> **TODO:** Decide how an info tooltip works on a clickable card, so the tooltip and the link aren't nested controls.
+
 > **TODO:** Add the comparison card after review with product teams.
+
+## States
+
+<ul>
+    <li><Do /> When a metric has no data yet, show "—" as the value and say why in the context line: "No data yet." See [Missing and zero values](?path=/docs/design-guidelines-foundations-data-visualization--docs#missing-and-zero-values).</li>
+</ul>
+
+For not enough data, loading, and error states, see [States](?path=/docs/design-guidelines-patterns-data-reports--docs#states) in Data reports.
 
 ## Accessibility
 
