@@ -1,5 +1,5 @@
 ---
-# Generated from design-md/src/DESIGN.md: edit that file, then run pnpm design-md
+# Generated from exports/src/DESIGN.md: edit that file, then run pnpm exports
 version: alpha
 name: Khan Academy — Wonder Blocks (Shape Your Learning)
 description: >-
@@ -127,10 +127,10 @@ its text, resolve them against that address.
 
 | If you're making… | Also read |
 | --- | --- |
-| Product UI in a Wonder Blocks codebase | [outputs/product-ui.md](outputs/product-ui.md) |
-| Standalone web prototype, HTML page, or Claude artifact | [outputs/web-prototype.md](outputs/web-prototype.md) |
-| Slide deck | [outputs/slides.md](outputs/slides.md) |
-| Diagram or flowchart | [outputs/diagrams.md](outputs/diagrams.md) |
+| Product UI in a Wonder Blocks codebase | [guides/product-ui.md](guides/product-ui.md) |
+| Standalone web prototype, HTML page, or Claude artifact | [guides/web-prototype.md](guides/web-prototype.md) |
+| Slide deck | [guides/slides.md](guides/slides.md) |
+| Diagram or flowchart | [guides/diagrams.md](guides/diagrams.md) |
 | Chart or data visualization | No guide yet. Use this file's colors and contrast rules, and state your assumptions. |
 | Something else | This file plus the closest guide. State your assumptions. |
 
@@ -363,9 +363,9 @@ every medium:
 - **Focus is always visible.** Every interactive element shows a focus ring on `:focus-visible`: a 2px `#5753FA` outline with a 2px `#FFFFFF` gap between it and the element.
 
 Detailed CSS recipes are in the
-[web prototype guide](outputs/web-prototype.md).
+[web prototype guide](guides/web-prototype.md).
 In React, use the actual Wonder Blocks components
-([product UI guide](outputs/product-ui.md)).
+([product UI guide](guides/product-ui.md)).
 
 ## Iconography
 

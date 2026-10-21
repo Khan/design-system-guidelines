@@ -9,11 +9,11 @@
     },
     "scripts": {
         "start": "storybook dev -p 56789",
-        "build": "pnpm design-md && storybook build --stats-json",
-        "design-md": "node scripts/design-md/generate.ts",
-        "lint:design-md": "design.md lint design-md/published/DESIGN.md",
+        "build": "pnpm exports && storybook build --stats-json",
+        "exports": "node scripts/exports/generate.ts",
+        "lint:design-md": "design.md lint exports/design-md/DESIGN.md",
         "test": "node --test \"scripts/**/*.test.ts\"",
-        "typecheck": "tsc --noEmit && tsc -p scripts/design-md"
+        "typecheck": "tsc --noEmit && tsc -p scripts/exports"
     },
     "dependencies": {
         "@khanacademy/wonder-blocks-announcer": "^1.1.2",

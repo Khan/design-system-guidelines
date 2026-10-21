@@ -183,8 +183,8 @@ describe("generate", () => {
     let tmp: string;
 
     beforeEach(() => {
-        tmp = fs.mkdtempSync(path.join(os.tmpdir(), "design-md-"));
-        fs.mkdirSync(path.join(tmp, "src/outputs"), {recursive: true});
+        tmp = fs.mkdtempSync(path.join(os.tmpdir(), "exports-"));
+        fs.mkdirSync(path.join(tmp, "src/guides"), {recursive: true});
     });
 
     afterEach(() => {
@@ -202,7 +202,7 @@ describe("generate", () => {
     it("writes every template and deletes outputs without a template", () => {
         // Arrange
         fs.writeFileSync(path.join(tmp, "src/DESIGN.md"), "{{tb:color.primary}}");
-        fs.writeFileSync(path.join(tmp, "src/outputs/a.md"), "a");
+        fs.writeFileSync(path.join(tmp, "src/guides/a.md"), "a");
         fs.mkdirSync(path.join(tmp, "out"));
         fs.writeFileSync(path.join(tmp, "out/stale.md"), "old");
 
@@ -210,7 +210,7 @@ describe("generate", () => {
         const result = run();
 
         // Assert
-        assert.deepEqual(result.written, ["DESIGN.md", "outputs/a.md"]);
+        assert.deepEqual(result.written, ["DESIGN.md", "guides/a.md"]);
         assert.deepEqual(result.deleted, ["stale.md"]);
         assert.equal(fs.readFileSync(path.join(tmp, "out/DESIGN.md"), "utf8"), "#5753FA\n");
     });
@@ -231,12 +231,12 @@ describe("generate", () => {
     it("writes nothing when any template fails", () => {
         // Arrange
         fs.writeFileSync(path.join(tmp, "src/DESIGN.md"), "fine");
-        fs.writeFileSync(path.join(tmp, "src/outputs/bad.md"), "{{tb:nope}}");
+        fs.writeFileSync(path.join(tmp, "src/guides/bad.md"), "{{tb:nope}}");
         fs.mkdirSync(path.join(tmp, "out"));
         fs.writeFileSync(path.join(tmp, "out/DESIGN.md"), "previous");
 
         // Act, Assert
-        assert.throws(run, /src\/outputs\/bad\.md:1/);
+        assert.throws(run, /src\/guides\/bad\.md:1/);
         assert.deepEqual(fs.readdirSync(path.join(tmp, "out")), ["DESIGN.md"]);
         assert.equal(fs.readFileSync(path.join(tmp, "out/DESIGN.md"), "utf8"), "previous");
     });
@@ -246,10 +246,10 @@ describe("generate", () => {
         fs.writeFileSync(
             path.join(tmp, "src/DESIGN.md"),
             "<https://khan.github.io/design-system-guidelines/design-md/DESIGN.md>\n" +
-                "[a](outputs/a.md#top) [ext](https://example.com/x.md) [here](#top)",
+                "[a](guides/a.md#top) [ext](https://example.com/x.md) [here](#top)",
         );
-        fs.writeFileSync(path.join(tmp, "src/outputs/a.md"), "[core](../DESIGN.md) [b](b.md)");
-        fs.writeFileSync(path.join(tmp, "src/outputs/b.md"), "```\n[not checked](nope.md)\n```");
+        fs.writeFileSync(path.join(tmp, "src/guides/a.md"), "[core](../DESIGN.md) [b](b.md)");
+        fs.writeFileSync(path.join(tmp, "src/guides/b.md"), "```\n[not checked](nope.md)\n```");
 
         // Act
         const result = run();
@@ -293,15 +293,15 @@ describe("generate", () => {
 
     it("rejects a relative link to a file with no template", () => {
         // Arrange
-        fs.writeFileSync(path.join(tmp, "src/DESIGN.md"), "x\n[a](outputs/missing.md)");
+        fs.writeFileSync(path.join(tmp, "src/DESIGN.md"), "x\n[a](guides/missing.md)");
 
         // Act, Assert
-        assert.throws(run, /src\/DESIGN\.md:2: relative link "outputs\/missing\.md" doesn't match any file in src/);
+        assert.throws(run, /src\/DESIGN\.md:2: relative link "guides\/missing\.md" doesn't match any file in src/);
     });
 
     for (const [file, line] of [
-        ["DESIGN.md", "[a](https://khan.github.io/design-system-guidelines/design-md/outputs/a.md)"],
-        ["outputs/a.md", "<https://khan.github.io/design-system-guidelines/design-md/DESIGN.md>"],
+        ["DESIGN.md", "[a](https://khan.github.io/design-system-guidelines/design-md/guides/a.md)"],
+        ["guides/a.md", "<https://khan.github.io/design-system-guidelines/design-md/DESIGN.md>"],
     ]) {
         it(`rejects a published-URL self-link in ${file}`, () => {
             // Arrange

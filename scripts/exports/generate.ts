@@ -1,16 +1,16 @@
 /**
  * Generates the published DESIGN.md files.
  *
- *   design-md/src/**\/*.md        (templates, edited by hand)
- *     → design-md/published/**\/*.md  (committed output, served at /design-md/)
+ *   exports/src/**\/*.md          (templates, edited by hand)
+ *     → exports/design-md/**\/*.md  (committed output, served at /design-md/)
  *
  * Any other file under src/ (e.g. assets/*.svg) is copied as-is.
  *
  * Every template is rendered and validated in memory first; files on disk
  * change only if all of them succeed, so a failed run never leaves a
- * half-written design-md/published/ directory.
+ * half-written exports/design-md/ directory.
  *
- * Usage: pnpm design-md
+ * Usage: pnpm exports
  */
 import * as fs from "node:fs";
 import * as path from "node:path";
@@ -24,7 +24,7 @@ export type GenerateOptions = {
     outDir: string;
     css: string;
     tokensVersion: string;
-    /** Used in the provenance comment, e.g. "design-md/src". */
+    /** Used in the provenance comment, e.g. "exports/src". */
     srcLabel?: string;
 };
 
@@ -69,7 +69,7 @@ export function generate(options: GenerateOptions): GenerateResult {
                 source,
                 `${srcLabel}/${rel}`,
                 ctx,
-                `Generated from ${srcLabel}/${rel}: edit that file, then run pnpm design-md`,
+                `Generated from ${srcLabel}/${rel}: edit that file, then run pnpm exports`,
             );
             rendered.set(rel, output.endsWith("\n") ? output : `${output}\n`);
         } catch (e) {
@@ -174,24 +174,24 @@ function main(): void {
     const {css, tokensVersion} = loadTokens();
     try {
         const result = generate({
-            srcDir: path.join(root, "design-md", "src"),
-            outDir: path.join(root, "design-md", "published"),
-            srcLabel: "design-md/src",
+            srcDir: path.join(root, "exports", "src"),
+            outDir: path.join(root, "exports", "design-md"),
+            srcLabel: "exports/src",
             css,
             tokensVersion,
         });
         console.log(
-            `design-md: tokens ${tokensVersion}; ` +
+            `exports: tokens ${tokensVersion}; ` +
                 `${result.written.length} written, ` +
                 `${result.unchanged.length} unchanged, ` +
                 `${result.deleted.length} deleted`,
         );
         for (const rel of [...result.written, ...result.deleted]) {
-            console.log(`  ${result.deleted.includes(rel) ? "-" : "+"} design-md/published/${rel}`);
+            console.log(`  ${result.deleted.includes(rel) ? "-" : "+"} exports/design-md/${rel}`);
         }
     } catch (e) {
         if (e instanceof TemplateError) {
-            console.error(`design-md: generation failed; nothing was written.\n${e.message}`);
+            console.error(`exports: generation failed; nothing was written.\n${e.message}`);
             process.exit(1);
         }
         throw e;

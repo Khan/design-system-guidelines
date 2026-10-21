@@ -34,7 +34,7 @@ const REM_BASE_PX = 10;
 export function parseThemes(css: string): Themes {
     if (/\/\*/.test(css) || /(^|[{};\s])@[a-z-]+/i.test(css)) {
         throw new Error(
-            "tokens CSS contains comments or @-rules; the flat parser in scripts/design-md/tokens.ts needs updating",
+            "tokens CSS contains comments or @-rules; the flat parser in scripts/exports/tokens.ts needs updating",
         );
     }
 

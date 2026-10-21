@@ -42,10 +42,10 @@ claude mcp add --transport http design-guidelines http://localhost:56789/mcp
 
 ## DESIGN.md
 
-`design-md/` holds Khan Academy's [DESIGN.md](https://github.com/google-labs-code/design.md): a plain-Markdown description of the visual language that agents can use to theme anything (decks, diagrams, prototypes) as Khan Academy.
+`exports/` holds portable packages of these guidelines, generated from one source for tools outside this repo. The first is Khan Academy's [DESIGN.md](https://github.com/google-labs-code/design.md): a plain-Markdown description of the visual language that agents can use to theme anything (decks, diagrams, prototypes) as Khan Academy. A Claude design system will be generated alongside it from the same source.
 
-- `design-md/src/`: the templates. Edit these.
-- `design-md/published/`: the generated output. Don't edit it.
+- `exports/src/`: the templates. Edit these.
+- `exports/design-md/`: the generated DESIGN.md output. Don't edit it.
 
 The published files are served at `/design-md/` from the Storybook root, so the path is the same on every host:
 
@@ -55,15 +55,15 @@ The published files are served at `/design-md/` from the Storybook root, so the 
 | Chromatic | `<chromatic storybook URL>/design-md/DESIGN.md` |
 | Local (`pnpm start`) | `http://localhost:56789/design-md/DESIGN.md` |
 
-Links between the files are relative (`outputs/slides.md`, `../DESIGN.md`), so they stay on whichever host you're reading from. The generator fails if a template links to another file by its published URL or links to a file that doesn't exist. The only absolute link allowed is the canonical address stated once in `DESIGN.md`.
+Links between the files are relative (`guides/slides.md`, `../DESIGN.md`), so they stay on whichever host you're reading from. The generator fails if a template links to another file by its published URL or links to a file that doesn't exist. The only absolute link allowed is the canonical address stated once in `DESIGN.md`.
 
 After editing a template, run:
 
 ```sh
-pnpm design-md
+pnpm exports
 ```
 
-and commit both `src/` and `published/`. `pnpm build` also regenerates it, and CI fails if the committed output is stale or hand-edited.
+and commit both `exports/src/` and `exports/design-md/`. `pnpm build` also regenerates it, and CI fails if the committed output is stale or hand-edited.
 
 Templates are Markdown with token references that resolve against the installed `@khanacademy/wonder-blocks-tokens`:
 
@@ -80,4 +80,4 @@ Templates are Markdown with token references that resolve against the installed 
 - An unknown or mistyped reference fails the build with the file and line.
 - Values without a token (breakpoints, chonky shadow offsets, display sizes, slide grid, motion) are written as plain text and labeled as not tokens.
 
-After bumping `@khanacademy/wonder-blocks-tokens`, run `pnpm install && pnpm design-md` and review the diff in `design-md/published/`. `pnpm test` runs the generator's tests; `pnpm lint:design-md` runs the DESIGN.md spec linter.
+After bumping `@khanacademy/wonder-blocks-tokens`, run `pnpm install && pnpm exports` and review the diff in `exports/design-md/`. `pnpm test` runs the generator's tests; `pnpm lint:design-md` runs the DESIGN.md spec linter.
