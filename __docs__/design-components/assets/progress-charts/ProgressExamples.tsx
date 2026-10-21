@@ -13,10 +13,11 @@ import {
 import {StatusBadge} from "@khanacademy/wonder-blocks-badge";
 import downloadSimpleBold from "@phosphor-icons/core/bold/download-simple-bold.svg";
 
-// Bar colors are primitives (Blue 50/40 for Progress and amounts, Gray 10
-// for the target marker) until data visualization semantic tokens exist in
+// Bar colors are primitives (Blue 50/40 for Progress and amounts, Gray 60/30
+// for Neutral, Gray 10 for the target marker) until data visualization semantic tokens exist in
 // Wonder Blocks. See the Color TODO in the Data visualization foundation.
 const SINGLE = {fill: "#8DA2FF", outline: "#6C82FF"};
+const NEUTRAL = {fill: "#CBCBCD", outline: "#8A8B90"};
 const MARKER = "#4A4C53";
 
 const TEXT = semanticColor.core.foreground.neutral.default;
@@ -317,7 +318,9 @@ export function SchoolComparisonExample(): React.ReactElement {
                                         value={value}
                                         goal={goal}
                                         target={expected}
-                                        color={SINGLE}
+                                        // Emphasis: schools behind schedule
+                                        // stay blue, and the rest go gray.
+                                        color={gap < 0 ? SINGLE : NEUTRAL}
                                         valueText={`${name}: ${value.toLocaleString()} of ${goal.toLocaleString()} assignments. ${status}.`}
                                     />
                                 </View>
