@@ -245,6 +245,30 @@ export function AssignmentsCompletedChart(): React.ReactElement {
     );
 }
 
+/**
+ * Just the assignments completed chart, with its title and description but no
+ * section heading, controls, or footer. Used under Chart anatomy:
+ *
+ * ```mdx
+ * <AssignmentsCompletedChartOnly />
+ * ```
+ */
+export function AssignmentsCompletedChartOnly(): React.ReactElement {
+    return (
+        <View style={styles.chartOnly}>
+            <View>
+                <Heading size="small" tag="h6">
+                    Most students completed five to eight assignments
+                </Heading>
+                <BodyText size="small" style={styles.subtle}>
+                    74 of 92 students
+                </BodyText>
+            </View>
+            <Bars />
+        </View>
+    );
+}
+
 const styles = StyleSheet.create({
     root: {
         width: "100%",
@@ -277,6 +301,10 @@ const styles = StyleSheet.create({
     },
     body: {
         width: "100%",
+    },
+    chartOnly: {
+        width: "100%",
+        gap: sizing.size_160,
     },
     footer: {
         borderTop: `${border.width.thin} solid ${semanticColor.core.border.neutral.subtle}`,

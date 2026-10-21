@@ -232,6 +232,30 @@ export function GrowthOverTimeChart(): React.ReactElement {
     );
 }
 
+/**
+ * Just the growth over time chart, with its title and description but no
+ * section heading, controls, or footer. Used under Chart anatomy:
+ *
+ * ```mdx
+ * <GrowthOverTimeChartOnly />
+ * ```
+ */
+export function GrowthOverTimeChartOnly(): React.ReactElement {
+    return (
+        <View style={styles.chartOnly}>
+            <View>
+                <Heading size="small" tag="h6">
+                    Scores climbed 72 points since the last assessment
+                </Heading>
+                <BodyText size="small" style={styles.subtle}>
+                    Average score, all students
+                </BodyText>
+            </View>
+            <Line />
+        </View>
+    );
+}
+
 const styles = StyleSheet.create({
     root: {
         width: "100%",
@@ -261,6 +285,10 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         gap: sizing.size_080,
+    },
+    chartOnly: {
+        width: "100%",
+        gap: sizing.size_160,
     },
     footer: {
         borderTop: `${border.width.thin} solid ${GRID}`,

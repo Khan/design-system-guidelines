@@ -77,6 +77,85 @@ function ProgressBar({
     );
 }
 
+const GRADE_LEVEL = {value: 38, goal: 70, target: 35};
+
+// The bar, marker, and start and end labels for the Grade level target. Shared
+// by the full container example and the chart-only anatomy example.
+function GradeLevelTargetBar(): React.ReactElement {
+    const {value, goal, target} = GRADE_LEVEL;
+    return (
+        <View style={styles.chart}>
+            <ProgressBar
+                value={value}
+                goal={goal}
+                target={target}
+                color={SINGLE}
+                valueText={`${value} of ${goal} skills. Expected by today: ${target}. 3 skills ahead of schedule.`}
+            />
+            <View style={styles.labels} aria-hidden={true}>
+                <View>
+                    <BodyText size="xsmall" style={styles.subtle}>
+                        0 skills
+                    </BodyText>
+                    <BodyText size="xsmall" style={styles.subtle}>
+                        Sept 1
+                    </BodyText>
+                </View>
+                <View
+                    style={[
+                        styles.markerLabel,
+                        {left: `${(target / goal) * 100}%`},
+                    ]}
+                >
+                    <BodyText
+                        size="xsmall"
+                        weight="bold"
+                        style={styles.text}
+                    >
+                        Expected by today: {target}
+                    </BodyText>
+                    <BodyText size="xsmall" style={styles.subtle}>
+                        Oct 20
+                    </BodyText>
+                </View>
+                <View style={styles.endLabel}>
+                    <BodyText size="xsmall" style={styles.subtle}>
+                        {goal} skills
+                    </BodyText>
+                    <BodyText size="xsmall" style={styles.subtle}>
+                        May 29
+                    </BodyText>
+                </View>
+            </View>
+        </View>
+    );
+}
+
+/**
+ * Just the Grade level target chart, with its title and description but no
+ * section heading, controls, or footer. Used under Chart anatomy:
+ *
+ * ```mdx
+ * <GradeLevelTargetChartOnly />
+ * ```
+ */
+export function GradeLevelTargetChartOnly(): React.ReactElement {
+    const {value, goal} = GRADE_LEVEL;
+    return (
+        <View style={styles.chartOnly}>
+            <View>
+                <Heading size="small" tag="h6">
+                    3 skills ahead of schedule
+                </Heading>
+                <BodyText size="small" style={styles.subtle}>
+                    {value} of {goal} skills · Goal date May 29
+                </BodyText>
+            </View>
+            <GradeLevelTargetBar />
+        </View>
+    );
+}
+
 /**
  * A large-container progress chart: the Grade level target on a teacher
  * report, with a labeled expected by today marker. Used on the Progress charts
@@ -89,9 +168,7 @@ function ProgressBar({
  */
 export function GradeLevelTargetExample(): React.ReactElement {
     const [range, setRange] = React.useState("this-year");
-    const value = 38;
-    const goal = 70;
-    const target = 35;
+    const {value, goal} = GRADE_LEVEL;
     return (
         <View style={styles.root}>
             <Heading size="medium" tag="h5" style={styles.text}>
@@ -130,50 +207,7 @@ export function GradeLevelTargetExample(): React.ReactElement {
                         />
                     </View>
                 </View>
-                <View style={styles.chart}>
-                    <ProgressBar
-                        value={value}
-                        goal={goal}
-                        target={target}
-                        color={SINGLE}
-                        valueText={`${value} of ${goal} skills. Expected by today: ${target}. 3 skills ahead of schedule.`}
-                    />
-                    <View style={styles.labels} aria-hidden={true}>
-                        <View>
-                            <BodyText size="xsmall" style={styles.subtle}>
-                                0 skills
-                            </BodyText>
-                            <BodyText size="xsmall" style={styles.subtle}>
-                                Sept 1
-                            </BodyText>
-                        </View>
-                        <View
-                            style={[
-                                styles.markerLabel,
-                                {left: `${(target / goal) * 100}%`},
-                            ]}
-                        >
-                            <BodyText
-                                size="xsmall"
-                                weight="bold"
-                                style={styles.text}
-                            >
-                                Expected by today: {target}
-                            </BodyText>
-                            <BodyText size="xsmall" style={styles.subtle}>
-                                Oct 20
-                            </BodyText>
-                        </View>
-                        <View style={styles.endLabel}>
-                            <BodyText size="xsmall" style={styles.subtle}>
-                                {goal} skills
-                            </BodyText>
-                            <BodyText size="xsmall" style={styles.subtle}>
-                                May 29
-                            </BodyText>
-                        </View>
-                    </View>
-                </View>
+                <GradeLevelTargetBar />
                 <BodyText size="small" style={[styles.subtle, styles.footer]}>
                     Updated today, 9:15 AM
                 </BodyText>
@@ -435,6 +469,10 @@ const styles = StyleSheet.create({
     scale: {
         flexDirection: "row",
         justifyContent: "space-between",
+    },
+    chartOnly: {
+        width: "100%",
+        gap: sizing.size_160,
     },
     footer: {
         borderTop: `${border.width.thin} solid ${HAIRLINE}`,
