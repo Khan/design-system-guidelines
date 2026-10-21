@@ -3,7 +3,6 @@ import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
 import {Do, Dont} from "../components/DoDont";
 import Figure from "../components/Figure";
 import statCardsImg from "./assets/summary-cards/stat-cards.png";
-import statCardsClickableImg from "./assets/summary-cards/stat-cards-clickable.png";
 
 <Meta title="Design Guidelines / Components / Data visualization / Summary cards" />
 
@@ -67,8 +66,8 @@ Shows one metric. Stat cards sit in a row of 2 to 4, under a section heading tha
 
 <Figure
     src={statCardsImg}
-    alt="A District overview section heading above three stat cards. Students assessed: 11,033, 40% of total students assessed. Subjects on target: 2 of 3, with a down arrow badge reading 1 and the text subject at risk. District growth: −7 pts, with a down arrow badge and the text from last assessment. Each label has an info icon."
-    caption="Three stat cards under a section heading. Each label has an optional info tooltip."
+    alt="Two rows of stat cards. District overview: Students assessed, 11,033, 40% of total students assessed; Subjects on target, 2 of 3, with a warning badge reading down 1 and the text subject at risk; District growth, −7 pts, with a warning down arrow badge and the text from last assessment. Classes overview, clickable cards with a caret right icon: Classes on target, 3 of 5, with a warning badge reading down 2 and the text classes at risk; Mastery average, Familiar, with a warning badge reading down 2 and the text classes below familiar; Growth over time, +2.1 pts, with a success up arrow badge and the text above school trend. Each label has an info icon."
+    caption="Warning badges show a metric that's down or at risk. A success badge shows a metric that's up. The second row is clickable."
 />
 
 #### Clickable stat cards
@@ -76,12 +75,6 @@ Shows one metric. Stat cards sit in a row of 2 to 4, under a section heading tha
 - Make a stat card clickable only when there's a detail view for that metric.
 - Show a caret right icon on every clickable card, at the top right. A card without one isn't clickable.
 - Make every card in a row clickable, or none. If one metric has no detail view, the row isn't clickable.
-
-<Figure
-    src={statCardsClickableImg}
-    alt="A Classes overview section heading above three clickable stat cards, each with a caret right icon at the top right. Classes on pace: 3 of 5, 2 classes at risk. Mastery average: Familiar, 2 classes below familiar. Growth over time: +2.1 pts, with an up arrow badge and the text above school trend."
-    caption="Clickable stat cards show a caret right icon at the top right."
-/>
 
 ### Comparison card
 
