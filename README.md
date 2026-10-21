@@ -40,14 +40,21 @@ For Claude Code:
 claude mcp add --transport http design-guidelines http://localhost:56789/mcp
 ```
 
-## DESIGN.md
+## DESIGN.md & Claude Design Systems
 
-`exports/` holds portable packages of these guidelines, generated from one source for tools outside this repo. The first is Khan Academy's [DESIGN.md](https://github.com/google-labs-code/design.md): a plain-Markdown description of the visual language that agents can use to theme anything (decks, diagrams, prototypes) as Khan Academy. A Claude design system will be generated alongside it from the same source.
+`exports/` holds portable packages of these guidelines for tools outside this repo. The Storybook docs are the reference; exports are what gets sent elsewhere, so an agent can make things (decks, diagrams, prototypes) that look like Khan Academy. Both exports come from one source, `exports/src/`, plus the installed Wonder Blocks tokens.
 
-- `exports/src/`: the templates. Edit these.
-- `exports/design-md/`: the generated DESIGN.md output. Don't edit it.
+| Export | What it is | Who reads it | Where it lives |
+| --- | --- | --- | --- |
+| DESIGN.md | Khan Academy's [DESIGN.md](https://github.com/google-labs-code/design.md): plain Markdown with the visual language, plus a guide per output type | Any agent or tool, from a public URL | Generated into `exports/design-md/`, served at `/design-md/` |
+| Claude Design System | The "Wonder Blocks" design system in Claude: a README and guides, tokens, assets, and the Wonder Blocks components | Claude, when the design system is selected | Today it's maintained in Claude Design. Generating it from `exports/src/` into `exports/claude-design-system/` and publishing it with a skill is in progress |
 
-The published files are served at `/design-md/` from the Storybook root, so the path is the same on every host:
+- `exports/src/`: the source for both. Edit these files.
+- `exports/design-md/`: generated. Don't edit it.
+
+### DESIGN.md
+
+The generated files are served at `/design-md/` from the Storybook root, so the path is the same on every host:
 
 | Host | URL |
 | --- | --- |
@@ -57,13 +64,15 @@ The published files are served at `/design-md/` from the Storybook root, so the 
 
 Links between the files are relative (`guides/slides.md`, `../DESIGN.md`), so they stay on whichever host you're reading from. The generator fails if a template links to another file by its published URL or links to a file that doesn't exist. The only absolute link allowed is the canonical address stated once in `DESIGN.md`.
 
+### Editing the source
+
 After editing a template, run:
 
 ```sh
 pnpm exports
 ```
 
-and commit both `exports/src/` and `exports/design-md/`. `pnpm build` also regenerates it, and CI fails if the committed output is stale or hand-edited.
+and commit both `exports/src/` and `exports/design-md/`. `pnpm build` also regenerates `exports/design-md/`, and CI fails if the committed output is stale or hand-edited.
 
 Templates are Markdown with token references that resolve against the installed `@khanacademy/wonder-blocks-tokens`:
 
