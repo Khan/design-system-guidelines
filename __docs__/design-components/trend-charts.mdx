@@ -17,14 +17,15 @@ Trend charts answer "How has it changed?" A line chart shows a value across time
 
 | Use when | Example use |
 | --- | --- |
-| Readers need to see the direction of change across three or more periods | Growth over time, by unit |
+| Readers need to see the direction of change over time | Growth over time, by unit or assessment window |
 
 ## <Dont /> When NOT to use
 
 | Don’t use when | Recommended alternative | Rationale |
 | --- | --- | --- |
 | The main metric can be said in words or one number, like "Scores rose 10 points since the last assessment" | A [stat card](?path=/docs/design-guidelines-components-data-visualization-summary-cards--docs#stat-card) | Plain text is faster to read than a chart to decode. Use a chart only when the shape of the data matters. |
-| There are only one or two periods | A [stat card](?path=/docs/design-guidelines-components-data-visualization-summary-cards--docs#stat-card) with a change: "↑ 10 points from last assessment" | Two points make a line, not a trend. The change reads faster as a number. |
+| There's only one period | A [stat card](?path=/docs/design-guidelines-components-data-visualization-summary-cards--docs#stat-card) | One point has no direction to show. |
+| There are two periods, and the chart won't gain more | A [stat card](?path=/docs/design-guidelines-components-data-visualization-summary-cards--docs#stat-card) with the change: "↑ 72 pts from fall" | Two points make a straight line, and the change reads faster as a number. |
 | Comparing categories that aren't in time order | [Distribution charts](?path=/docs/design-guidelines-components-data-visualization-distribution-charts--docs) | A line connects points in order, so it implies a sequence that isn't there. |
 
 ## Anatomy
@@ -40,6 +41,7 @@ Trend charts answer "How has it changed?" A line chart shows a value across time
 ## Usage guidelines
 
 <ul>
+    <li><Do /> When more periods are coming, like assessment windows, show the full time axis, with future windows labeled but empty: Fall, Winter, Spring.</li>
     <li><Do /> Use the [Single series](?path=/docs/design-guidelines-foundations-data-visualization--docs#single-series) role for one line, and [Categorical](?path=/docs/design-guidelines-foundations-data-visualization--docs#categorical) for up to four.</li>
     <li><Do /> Label lines directly at their ends instead of using a legend.</li>
     <li><Do /> Leave a gap for a missing period. Don't draw it as zero. See [Missing and zero values](?path=/docs/design-guidelines-foundations-data-visualization--docs#missing-and-zero-values).</li>
