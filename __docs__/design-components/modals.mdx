@@ -16,6 +16,7 @@ import buttonsDirectionalImg from "./assets/modals/buttons-directional.png";
 import copyHeadlineImg from "./assets/modals/copy-headline.png";
 import copyBodyImg from "./assets/modals/copy-body.png";
 import copyActionsImg from "./assets/modals/copy-actions.png";
+import {Do, Dont} from "../components/DoDont";
 
 <Meta title="Design Guidelines / Components / Overlays / Modals" />
 
@@ -27,7 +28,7 @@ import copyActionsImg from "./assets/modals/copy-actions.png";
 
 A high-focus container used to isolate a user’s attention for a specific sub-task or critical decision. Modals require an explicit action or dismissal before the user can return to the primary background content.
 
-## When to use
+## <Do /> When to use
 
 The choice to use a modal is determined by the need for complete user focus and the "sandboxing" of a specific workflow.
 
@@ -39,7 +40,7 @@ The choice to use a modal is determined by the need for complete user focus and 
 | A short sequential flow is needed without leaving the page | Adding a class — choosing an import method, then confirming details. |
 | Supplementary content is needed without fully navigating away from the current page | Displaying a long description during an assessment so students can reference it without leaving. |
 
-## When NOT to use
+## <Dont /> When NOT to use
 
 Avoid modals when the task doesn’t require the user’s full attention, when the content is too complex to contain, or when a lighter in-context interaction would be less disruptive.
 
