@@ -3,7 +3,9 @@ import headerImg from "./assets/distribution-charts/header.png";
 import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
 import {Do, Dont} from "../components/DoDont";
 import Demo from "../components/Demo";
-import {AssignmentsCompletedChart, AssignmentsCompletedChartOnly} from "./assets/distribution-charts/AssignmentsCompletedChart";
+import Figure from "../components/Figure";
+import {AssignmentsCompletedChartOnly} from "./assets/distribution-charts/AssignmentsCompletedChart";
+import containerImg from "./assets/distribution-charts/container.png";
 
 <Meta title="Design Guidelines / Components / Data visualization / Distribution charts" />
 
@@ -39,6 +41,8 @@ Distribution charts sit inside a large [chart container](?path=/docs/design-guid
 
 These parts apply in any container.
 
+> **Note:** This is a placeholder built for these docs, not the production chart. It will be replaced with the Highcharts version once it exists.
+
 <Demo>
     <AssignmentsCompletedChartOnly />
 </Demo>
@@ -66,13 +70,11 @@ Distribution charts use a large container, for reports. The title states the ins
 | Bars | The ranges that carry the title's point use the Emphasis role |
 | Footer | Updated Oct 20, 2026, 9:15 AM |
 
-The example follows every rule on this page. Bars can be focused with the keyboard, and the view toggle switches to a table.
-
-> **Note:** This is a placeholder built for these docs, not the production chart. It will be replaced with the Highcharts version once it exists.
-
-<Demo>
-    <AssignmentsCompletedChart />
-</Demo>
+<Figure
+    src={containerImg}
+    alt="A report page with gray placeholder summary cards at the top. Below them, a Skills mastered section heading above a chart container. The container's title reads Most students mastered four to eight skills, with a Last 30 days date filter, a chart and table view toggle, and a download button at the top right. A bar chart shows students by range, from none to 11+, peaking at 5–6, with a Students value axis and an Assignments completed category axis. The footer reads Updated Oct 20, 2026, 9:15 AM."
+    caption="A distribution chart in a large container, below the summary cards on a report page."
+/>
 
 ## Usage guidelines
 
