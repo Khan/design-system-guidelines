@@ -50,7 +50,7 @@ function Line(): React.ReactElement {
     const area = `${path.join(" ")} L${x(taken[taken.length - 1].i)},${BOTTOM} L${x(taken[0].i)},${BOTTOM} Z`;
     return (
         <svg
-            viewBox={`0 0 ${WIDTH} 250`}
+            viewBox={`0 0 ${WIDTH} 274`}
             width="100%"
             role="group"
             aria-label="Line chart of average score by assessment window"
@@ -125,6 +125,25 @@ function Line(): React.ReactElement {
                     {d.label}
                 </text>
             ))}
+            <text
+                x={14}
+                y={(TOP + BOTTOM) / 2}
+                transform={`rotate(-90 14 ${(TOP + BOTTOM) / 2})`}
+                textAnchor="middle"
+                fontSize={12}
+                style={{fill: TEXT_SUBTLE}}
+            >
+                Average score
+            </text>
+            <text
+                x={(LEFT + RIGHT) / 2}
+                y={BOTTOM + 52}
+                textAnchor="middle"
+                fontSize={12}
+                style={{fill: TEXT_SUBTLE}}
+            >
+                Assessment window
+            </text>
         </svg>
     );
 }
