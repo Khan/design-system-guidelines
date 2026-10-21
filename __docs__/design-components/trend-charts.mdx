@@ -3,7 +3,9 @@ import headerImg from "./assets/trend-charts/header.png";
 import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
 import {Do, Dont} from "../components/DoDont";
 import Demo from "../components/Demo";
-import {GrowthOverTimeChart, GrowthOverTimeChartOnly} from "./assets/trend-charts/GrowthOverTimeChart";
+import Figure from "../components/Figure";
+import {GrowthOverTimeChartOnly} from "./assets/trend-charts/GrowthOverTimeChart";
+import containerImg from "./assets/trend-charts/container.png";
 
 <Meta title="Design Guidelines / Components / Data visualization / Trend charts" />
 
@@ -36,6 +38,8 @@ Trend charts sit inside a large [chart container](?path=/docs/design-guidelines-
 
 These parts apply in any container.
 
+> **Note:** This is a placeholder built for these docs, not the production chart. It will be replaced with the Highcharts version once it exists.
+
 <Demo>
     <GrowthOverTimeChartOnly />
 </Demo>
@@ -62,13 +66,11 @@ Trend charts use a large container, for reports. The title states how the value 
 | Line | One line with a light area fill and a labeled point per assessment window |
 | Footer | Updated today, 9:15 AM |
 
-The end-of-year window is labeled but empty, since that assessment hasn't happened yet. Points can be focused with the keyboard, and the view toggle switches to a table.
-
-> **Note:** This is a placeholder built for these docs, not the production chart. It will be replaced with the Highcharts version once it exists.
-
-<Demo>
-    <GrowthOverTimeChart />
-</Demo>
+<Figure
+    src={containerImg}
+    alt="A report page with gray placeholder summary cards at the top. Below them, a Growth over time section heading above a chart container. The container's title reads Scores climbed 133 points since the last assessment, with a This year date filter, a chart and table view toggle, and a download button at the top right. A line with a light area fill rises from 635 at beginning of year to 768 at middle of year, with end of year labeled but empty. The value axis is labeled Average score and the time axis is labeled Assessment window. The footer reads Updated Oct 20, 2026, 9:15 AM."
+    caption="A trend chart in a large container, below the summary cards on a report page. The end-of-year window is labeled but empty."
+/>
 
 ## Usage guidelines
 
