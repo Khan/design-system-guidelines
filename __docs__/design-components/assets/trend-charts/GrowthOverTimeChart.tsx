@@ -24,8 +24,8 @@ type Window = {label: string; score: number | null};
 
 // Two assessment windows so far. End of year is labeled but not taken yet.
 const data: Array<Window> = [
-    {label: "Beginning of year", score: 735},
-    {label: "Middle of year", score: 807},
+    {label: "Beginning of year", score: 635},
+    {label: "Middle of year", score: 768},
     {label: "End of year", score: null},
 ];
 
@@ -198,7 +198,7 @@ export function GrowthOverTimeChart(): React.ReactElement {
                 <View style={styles.header}>
                     <View>
                         <Heading size="small" tag="h6">
-                            Scores climbed 72 points since the last assessment
+                            Scores climbed 133 points since the last assessment
                         </Heading>
                         <BodyText size="small" style={styles.subtle}>
                             Average score, all students
@@ -264,7 +264,7 @@ export function GrowthOverTimeChartOnly(): React.ReactElement {
         <View style={styles.chartOnly}>
             <View>
                 <Heading size="small" tag="h6">
-                    Scores climbed 72 points since the last assessment
+                    Scores climbed 133 points since the last assessment
                 </Heading>
                 <BodyText size="small" style={styles.subtle}>
                     Average score, all students

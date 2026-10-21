@@ -29,7 +29,7 @@ Trend charts sit inside a large [chart container](?path=/docs/design-guidelines-
 | --- | --- | --- |
 | The main metric can be said in words or one number, like "Scores rose 10 points since the last assessment" | A [stat card](?path=/docs/design-guidelines-components-data-visualization-summary-cards--docs#stat-card) | Plain text is faster to read than a chart to decode. Use a chart only when the shape of the data matters. |
 | There's only one period | A [stat card](?path=/docs/design-guidelines-components-data-visualization-summary-cards--docs#stat-card) | One point has no direction to show. |
-| There are two periods, and the chart won't gain more | A [stat card](?path=/docs/design-guidelines-components-data-visualization-summary-cards--docs#stat-card) with the change: "↑ 72 pts from beginning of year" | Two points make a straight line, and the change reads faster as a number. |
+| There are two periods, and the chart won't gain more | A [stat card](?path=/docs/design-guidelines-components-data-visualization-summary-cards--docs#stat-card) with the change: "↑ 133 pts from beginning of year" | Two points make a straight line, and the change reads faster as a number. |
 | Comparing categories that aren't in time order | [Distribution charts](?path=/docs/design-guidelines-components-data-visualization-distribution-charts--docs) | A line connects points in order, so it implies a sequence that isn't there. |
 
 ## Chart anatomy
@@ -42,7 +42,7 @@ These parts apply in any container.
 
 | Part | Rule |
 | --- | --- |
-| Title | States the change: "Scores climbed 72 points since the last assessment" |
+| Title | States the change: "Scores climbed 133 points since the last assessment" |
 | Time axis | Periods in order. Space them by date, or evenly for named periods like assessment windows. Labeled with what the periods are: "Assessment window." |
 | Value axis | Scale, labeled with units: "Average score." It doesn't need to start at zero. |
 | Line | 2px. Choose colors by role. See [Color](?path=/docs/design-guidelines-foundations-data-visualization--docs#color). |
@@ -56,7 +56,7 @@ Trend charts use a large container, for reports. The title states how the value 
 | Part | Example |
 | --- | --- |
 | Section heading | Growth over time |
-| Title | Scores climbed 72 points since the last assessment |
+| Title | Scores climbed 133 points since the last assessment |
 | Description | Average score, all students |
 | Controls | Date filter, view toggle, download |
 | Line | One line with a light area fill and a labeled point per assessment window |
@@ -75,7 +75,7 @@ The end-of-year window is labeled but empty, since that assessment hasn't happen
 ### Title and description
 
 <ul>
-    <li><Do /> State how the value changed, and since when: "Scores climbed 72 points since the last assessment."</li>
+    <li><Do /> State how the value changed, and since when: "Scores climbed 133 points since the last assessment."</li>
     <li><Do /> Name the measure in the description when the title doesn't: "Average score, all students."</li>
 </ul>
 
@@ -116,7 +116,7 @@ Empty and error states follow [Data reports](?path=/docs/design-guidelines-patte
 
 ## Accessibility
 
-- Every chart has a short text summary of its takeaway: "Average score rose from 735 to 807 since the beginning of year." See [Accessibility](?path=/docs/design-guidelines-foundations-data-visualization--docs#accessibility) in Data visualization.
-- Points can be focused with the keyboard. Each announces its period and value: "Middle of year: 807."
+- Every chart has a short text summary of its takeaway: "Average score rose from 635 to 768 since the beginning of year." See [Accessibility](?path=/docs/design-guidelines-foundations-data-visualization--docs#accessibility) in Data visualization.
+- Points can be focused with the keyboard. Each announces its period and value: "Middle of year: 768."
 - Label lines directly, so color is never the only way to tell them apart.
 - The view toggle switches to a table of the same data.
