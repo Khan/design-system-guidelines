@@ -1,5 +1,6 @@
 import {Meta} from "@storybook/addon-docs/blocks";
 import Figure from "../components/Figure";
+import {Do, Dont} from "../components/DoDont";
 import ownSectionImg from "./assets/data-reports/own-section.png";
 import headerImg from "./assets/data-reports/header.png";
 import emptyContainerImg from "./assets/data-reports/empty-container.png";
@@ -29,10 +30,31 @@ This guide covers how to build a data report: what to show, how to lay it out, a
 | <a href="./?path=/docs/design-guidelines-components-data-visualization-distribution-charts--docs">Distribution charts</a> | How is the group spread out? | Shows how many students, classes, or schools land in each range, like assignments completed. |
 | <a href="./?path=/docs/design-guidelines-components-data-visualization-trend-charts--docs">Trend charts</a> | How has it changed? | Shows a value across three or more periods, like growth across units. |
 | <a href="./?path=/docs/design-guidelines-components-data-visualization-data-tables--docs">Data tables</a> | Who exactly, and what do I do? | Lists each individual or item with exact values, so readers can find and act on them. |
+| Heat map (coming soon) | Where are the patterns? | Shows a value across two dimensions, like mastery by student and skill. |
 
 ## Making a useful chart
 
-> **TODO:** Define the data visualization components, then fill in this section: choosing between a number, chart, or table, and what makes a chart useful or useless, with visual examples.
+A chart earns its place only when it answers the question faster than a number or a table would.
+
+### Number, chart, or table
+
+| Use | When | Example |
+| --- | --- | --- |
+| A number, in a <a href="./?path=/docs/design-guidelines-components-data-visualization-summary-cards--docs">summary card</a> | The takeaway is one value | 11,033 students assessed |
+| A chart | Readers need to see a pattern, a change, or a gap | Scores climbed 133 points since the last assessment |
+| A <a href="./?path=/docs/design-guidelines-components-data-visualization-data-tables--docs">data table</a> | Readers need exact values, or need to find and act on individuals | Each student's score, with flags |
+
+### What makes a chart useful
+
+<ul>
+    <li><Do /> Answer one question per chart, and state the answer in the title: "Scores climbed 133 points since the last assessment," not "Average score."</li>
+    <li><Do /> Show only the data the title needs. Move the rest to a table or another chart.</li>
+    <li><Dont /> Chart a single value. Use a summary card.</li>
+    <li><Dont /> Make readers match many colors to a legend. Past four series, fold the rest into "Other" or use a table.</li>
+    <li><Dont /> Show more dimensions than one chart can show clearly. Split it into two charts, or use a table.</li>
+</ul>
+
+> **TODO:** Add visual examples of a number and a chart for the same data, and of a useful and a useless chart.
 
 ## Layouts
 
