@@ -2,6 +2,8 @@ import {Meta} from "@storybook/addon-docs/blocks";
 import headerImg from "./assets/trend-charts/header.png";
 import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
 import {Do, Dont} from "../components/DoDont";
+import Demo from "../components/Demo";
+import {GrowthOverTimeChart} from "./assets/trend-charts/GrowthOverTimeChart";
 
 <Meta title="Design Guidelines / Components / Data visualization / Trend charts" />
 
@@ -14,8 +16,6 @@ import {Do, Dont} from "../components/DoDont";
 Trend charts answer "How has it changed?" A line chart shows a value across time, like growth across units or assessments.
 
 Trend charts sit inside a large [chart container](?path=/docs/design-guidelines-components-data-visualization-chart-container--docs). Charts are built with Highcharts, not Wonder Blocks.
-
-> **TODO:** Decide whether trend charts can appear in a small container.
 
 ## <Do /> When to use
 
@@ -36,21 +36,89 @@ Trend charts sit inside a large [chart container](?path=/docs/design-guidelines-
 
 | Part | Rule |
 | --- | --- |
-| Title | States the trend: "Scores rose every unit this term" |
-| Time axis | Periods in order, evenly spaced |
-| Value axis | Scale and units |
-| Line | 2px, in the role's outline color. See [Fills and outlines](?path=/docs/design-guidelines-foundations-data-visualization--docs#fills-and-outlines). |
+| Title | States the change: "Scores climbed 72 points since the last assessment" |
+| Time axis | Periods in order. Space them by date, or evenly for named periods like assessment windows. |
+| Value axis | Scale and units. It doesn't need to start at zero. |
+| Line | 2px. Choose colors by role. See [Color](?path=/docs/design-guidelines-foundations-data-visualization--docs#color). |
 | Points | One per period. Label values when there are few points. |
+| Area fill | A light fill below a single line |
+
+## Sizes
+
+See [Sizes](?path=/docs/design-guidelines-components-data-visualization-chart-container--docs#sizes) in Chart container.
+
+### Large container
+
+For reports. The title states how the value changed.
+
+| Part | Example |
+| --- | --- |
+| Section heading | Growth over time |
+| Title | Scores climbed 72 points since the last assessment |
+| Description | Average score, all students |
+| Controls | Date filter, view toggle, download |
+| Line | One line with a light area fill and a labeled point per assessment window |
+| Footer | Updated today, 9:15 AM |
+
+The end-of-year window is labeled but empty, since that assessment hasn't happened yet. Points can be focused with the keyboard, and the view toggle switches to a table.
+
+> **Note:** This is a placeholder built for these docs, not the production chart. It will be replaced with the Highcharts version once it exists.
+
+<Demo>
+    <GrowthOverTimeChart />
+</Demo>
+
+### Small container
+
+> **TODO:** Decide whether trend charts can appear in a small container.
 
 ## Usage guidelines
 
+### Title and description
+
+<ul>
+    <li><Do /> State how the value changed, and since when: "Scores climbed 72 points since the last assessment."</li>
+    <li><Do /> Name the measure in the description when the title doesn't: "Average score, all students."</li>
+</ul>
+
+### Time and values
+
 <ul>
     <li><Do /> When more periods are coming, like assessment windows, show the full time axis, with future windows labeled but empty: Beginning of year, Middle of year, End of year.</li>
-    <li><Do /> Use the [Single series](?path=/docs/design-guidelines-foundations-data-visualization--docs#single-series) role for one line, and [Categorical](?path=/docs/design-guidelines-foundations-data-visualization--docs#categorical) for up to four. For assessment data, use the [Assessment](?path=/docs/design-guidelines-foundations-data-visualization--docs#assessment) role instead. For mastery data, use the [Mastery](?path=/docs/design-guidelines-foundations-data-visualization--docs#mastery) role.</li>
-    <li><Do /> Label lines directly at their ends instead of using a legend.</li>
+    <li><Do /> Space points by date when dates are uneven, so gaps in time look like gaps.</li>
     <li><Do /> Leave a gap for a missing period. Don't draw it as zero. See [Missing and zero values](?path=/docs/design-guidelines-foundations-data-visualization--docs#missing-and-zero-values).</li>
+    <li><Do /> Start the value axis wherever the data needs, as long as it's labeled.</li>
+    <li><Dont /> Squeeze the value axis so a small change looks dramatic.</li>
+</ul>
+
+### Lines
+
+<ul>
+    <li><Do /> Use the [Single series](?path=/docs/design-guidelines-foundations-data-visualization--docs#single-series) role for one line, and [Categorical](?path=/docs/design-guidelines-foundations-data-visualization--docs#categorical) for up to four. For assessment data, use the [Assessment](?path=/docs/design-guidelines-foundations-data-visualization--docs#assessment) role instead. For mastery data, use the [Mastery](?path=/docs/design-guidelines-foundations-data-visualization--docs#mastery) role.</li>
+    <li><Do /> When one line is the point, like a class against the school, highlight it with the [Emphasis](?path=/docs/design-guidelines-foundations-data-visualization--docs#emphasis) role and gray the rest.</li>
     <li><Do /> Give a single line a light area fill below it, like the header image. Leave the fill off when there's more than one line, so the areas don't overlap.</li>
+    <li><Do /> Label lines directly at their ends instead of using a legend.</li>
+    <li><Do /> With many points, drop the point markers. Label the last value and any point the title mentions.</li>
     <li><Dont /> Show more than four lines. Fold the rest into "Other," or use a table.</li>
 </ul>
 
 > **TODO:** Define how to mark a target or comparison line, like a district average.
+
+> **TODO:** Define what tooltips show.
+
+## Variants
+
+### Comparing groups
+
+> **TODO:** Decide whether readers need to compare how classes or schools changed over time, with one line per group.
+
+## States
+
+Empty and error states follow [Data reports](?path=/docs/design-guidelines-patterns-data-reports--docs#states). A period with no data shows as a gap in the line, not a drop to zero.
+
+## Accessibility
+
+- Every chart has a short text summary of its takeaway: "Average score rose from 735 to 807 since the beginning of year." See [Accessibility](?path=/docs/design-guidelines-foundations-data-visualization--docs#accessibility) in Data visualization.
+- Points can be focused with the keyboard. Each announces its period and value: "Middle of year: 807."
+- Label lines directly, so color is never the only way to tell them apart.
+- The view toggle switches to a table of the same data.
