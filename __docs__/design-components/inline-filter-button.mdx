@@ -6,6 +6,7 @@ import interaction1Img from "./assets/inline-filter-button/interaction-1.png";
 import interaction2Img from "./assets/inline-filter-button/interaction-2.png";
 import interaction3Img from "./assets/inline-filter-button/interaction-3.png";
 import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
+import {Do, Dont} from "../components/DoDont";
 
 <Meta title="Design Guidelines / Components / Inputs / Inline filter button" />
 
@@ -17,7 +18,7 @@ import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
 
 An opt-in filter control that lives in a filter bar. Starts unfiltered — all data shows. User adds a filter by clicking the inactive inline filter button. Always clearable with ×.
 
-## When to use
+## <Do /> When to use
 
 The choice to use an inline filter button is based on the need to allow users to optionally narrow data by a dimension without imposing a default. The filter starts inactive and data shows unfiltered until the user opts in.
 
@@ -27,7 +28,7 @@ The choice to use an inline filter button is based on the need to allow users to
 | User owns the initial state | The product has no meaningful default to pre-apply | Filtering a roster by grade — all grades shown by default |
 | Multiple filters in a bar | Several opt-in filter comboboxes sit side by side in a filter bar, each independently addable and clearable | School ⊕, Grade ⊕ filter in a report filter bar |
 
-## When NOT to use
+## <Dont /> When NOT to use
 
 Avoid the filter combobox when a value is always required or when the control lives inside a form or modal.
 

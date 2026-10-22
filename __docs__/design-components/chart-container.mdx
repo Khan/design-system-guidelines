@@ -1,0 +1,132 @@
+import {Meta} from "@storybook/addon-docs/blocks";
+import headerImg from "./assets/chart-container/header.png";
+import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
+import {Do, Dont} from "../components/DoDont";
+import Figure from "../components/Figure";
+import headingHierarchyImg from "./assets/chart-container/heading-hierarchy.png";
+import controlsImg from "./assets/chart-container/controls.png";
+import viewToggleImg from "./assets/chart-container/view-toggle.png";
+
+<Meta title="Design Guidelines / Components / Data visualization / Chart container" />
+
+<img src={headerImg} alt="Chart container" />
+
+# Chart container
+
+<NeutralBadge label="Frame for a chart" />
+
+A container holds one chart with its heading, title, controls, and footer. Every distribution chart, trend chart, and progress chart sits inside one. For how containers are laid out on a page, see <a href="./?path=/docs/design-guidelines-patterns-data-reports--docs">Data reports</a>.
+
+Charts are built with Highcharts, not Wonder Blocks.
+
+> **TODO:** Link to the shared Highcharts theme once it exists.
+
+## <Do /> When to use
+
+| Use when | Example use |
+| --- | --- |
+| Showing a distribution chart, trend chart, or progress chart on a report | Assignments completed, Growth over time, Grade level target |
+| Showing more than one chart on a page | Two charts get two containers, each with its own section heading |
+
+## <Dont /> When NOT to use
+
+| Don’t use when | Recommended alternative | Rationale |
+| --- | --- | --- |
+| Showing a complex table, like a full student list with search, sorting, or filters | A <a href="./?path=/docs/design-guidelines-components-data-visualization-data-tables--docs">data table</a> in its own page or section | A complex table needs room for its own controls. A container's controls must fit on one line beside the title. |
+| The takeaway is one number with no comparison, like "11,033 students assessed" | A <a href="./?path=/docs/design-guidelines-components-data-visualization-summary-cards--docs#stat-card">stat card</a> | A chart adds nothing when there's nothing to compare. A stat card shows the number at a glance. |
+| The data needs more than about three controls | Its own page or section. See <a href="./?path=/docs/design-guidelines-patterns-data-reports--docs">Data reports</a>. | Controls that don't fit on one line crowd the title and wrap. |
+| Fitting two charts in one container | Two containers, one chart each | Each container's title states one insight. Two charts compete for one title. |
+
+## Sizes
+
+| Size | Use for | Example |
+| --- | --- | --- |
+| Large | Reports, where readers study the data | Growth over time on a teacher report |
+| Small | Dashboards and side panels, where readers glance | Gem challenge on the student dashboard |
+
+- A small container holds less: one chart and a few values, with no controls.
+- In a small container, the title names the topic, like "Gem challenge." The values carry the insight.
+
+## Anatomy
+
+| Part | Placement | Large | Small |
+| --- | --- | --- | --- |
+| Section heading (H2) | Above the container | Yes | No |
+| Title (H3) | Inside, top left | Yes. States the insight. Not shown in empty and error states. | Yes. Names the topic. |
+| Description | Below the title | When it adds context | Context only, like the class name |
+| Controls | Inside, top right, on the same line as the title | Optional | No |
+| Chart | Below the title | Yes | Yes |
+| Legend | Below the title and description, above the chart | Only when series can't be labeled directly | No |
+| Footer | Bottom. When the data was last updated. | Yes | Optional |
+
+> **TODO:** Confirm whether small containers need the footer.
+
+For the parts of the chart itself, like axes and data labels, see <a href="./?path=/docs/design-guidelines-foundations-data-visualization--docs#anatomy">Anatomy</a> in Data visualization.
+
+### Headings
+
+The section heading and title each have a different job.
+
+| Part | Purpose | Example |
+| --- | --- | --- |
+| Section heading (H2) | Names the topic | "Growth over time" |
+| Title (H3) | States the insight | "Scores jumped 170 points in Unit 5, then held steady" |
+
+- The section heading draws the eye down the page and tells readers what the containers below are about.
+- The title can have an optional description below it.
+
+<Figure
+    src={headingHierarchyImg}
+    alt="A line chart container. The section heading sits above the container, and the title and its description sit inside it at the top left. The section heading, title, and description are outlined together."
+    caption="The section heading sits outside the container. The title and its optional description sit inside."
+/>
+
+## Controls
+
+Controls live inside the container, at the top right, on the same line as the title. They must fit on one line without wrapping.
+
+Controls are optional. Add one only when it helps the reader answer the chart's question.
+
+| Control | Use when |
+| --- | --- |
+| Date filter | The reader may need a different time range |
+| View toggle | The same data works as a chart and as a table |
+| Download | The reader needs the data outside the product |
+
+When the data needs more than about three controls, it outgrows a container. See <a href="./?path=/docs/design-guidelines-patterns-data-reports--docs#own-page-or-section">Own page or section</a> in Data reports.
+
+> **TODO:** Confirm the supported container controls and link to their components.
+
+<Figure
+    src={controlsImg}
+    alt="A line chart container with a This year date filter, a chart and table view toggle, and a download button outlined together on one line at the top right, beside the title."
+    caption="Container controls fit on one line beside the title."
+/>
+
+### Chart and table toggle
+
+The view toggle is optional. It switches the chart to a table of the same data.
+
+<Figure
+    src={viewToggleImg}
+    alt="A line chart container with the chart and table view toggle outlined at the top right, between the This year date filter and the download button. The chart view is selected."
+    caption="The view toggle sits with the other controls, beside the title."
+/>
+
+> **TODO:** Define when a chart needs the view toggle and when it doesn't, plus its default view, icons, and labels.
+
+## States
+
+Empty and error states replace the title and chart, and keep the section heading and controls. All state guidance lives in <a href="./?path=/docs/design-guidelines-patterns-data-reports--docs#states">Data reports</a>:
+
+- <a href="./?path=/docs/design-guidelines-patterns-data-reports--docs#empty-container">Empty container</a>
+- <a href="./?path=/docs/design-guidelines-patterns-data-reports--docs#filtered-to-nothing">Filtered to nothing</a>
+- <a href="./?path=/docs/design-guidelines-patterns-data-reports--docs#container-errors">Container errors</a>
+- <a href="./?path=/docs/design-guidelines-patterns-data-reports--docs#empty-state-copy">Empty state copy</a> and <a href="./?path=/docs/design-guidelines-patterns-data-reports--docs#error-copy">error copy</a>
+
+## Accessibility
+
+- Use real heading levels: the section heading is an H2 and the title is an H3. In a small container, the title is the container's heading.
+- Give each control an accessible name that includes the chart's topic: "Download growth data."
+- The view toggle announces which view is selected.
+- Every chart has a short text summary of its takeaway. See <a href="./?path=/docs/design-guidelines-foundations-data-visualization--docs#accessibility">Accessibility</a> in Data visualization.

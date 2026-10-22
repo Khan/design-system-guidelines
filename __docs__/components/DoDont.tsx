@@ -45,6 +45,7 @@ export function Do({
         <PhosphorIcon
             icon={checkCircleFill}
             size={size}
+            style={styles.inlineIcon}
             color={semanticColor.core.background.success.default}
             aria-label={decorative ? undefined : "Do this"}
             aria-hidden={decorative || undefined}
@@ -74,6 +75,7 @@ export function Dont({
         <PhosphorIcon
             icon={xCircleFill}
             size={size}
+            style={styles.inlineIcon}
             color={semanticColor.core.background.critical.default}
             aria-label={decorative ? undefined : "Don't do this"}
             aria-hidden={decorative || undefined}
@@ -177,6 +179,14 @@ export function UsageExample({
 }
 
 const styles = StyleSheet.create({
+    inlineIcon: {
+        // Center the marker on the line of text it sits in, like a heading or
+        // list item, instead of Wonder Blocks' default text-bottom alignment.
+        // "middle" aligns to the x-height, so nudge up to the text's center.
+        verticalAlign: "middle",
+        position: "relative",
+        top: "-0.16em",
+    },
     container: {
         gap: sizing.size_160,
         width: "100%",

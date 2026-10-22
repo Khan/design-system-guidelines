@@ -4,6 +4,7 @@ import statesImg from "./assets/active-filters/states.png";
 import placementImg from "./assets/active-filters/placement.png";
 import copyImg from "./assets/active-filters/copy.png";
 import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
+import {Do, Dont} from "../components/DoDont";
 
 <Meta title="Design Guidelines / Components / Inputs / Active filters" />
 
@@ -15,7 +16,7 @@ import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
 
 Compact visual elements that provide transparent feedback on the current dataset. In our reporting interface, they are primarily used to display active filter selections directly below the filter bar.
 
-## When to use
+## <Do /> When to use
 
 The choice to use active filters is determined by the need to provide immediate visibility into how a data view has been narrowed and to allow for modular management of active parameters.
 
@@ -24,7 +25,7 @@ The choice to use active filters is determined by the need to provide immediate 
 | The user needs to see what filters are currently applied | Showing "Grade: 6th grade" after selecting from the Grades dropdown. |
 | Individual filters should be removable without resetting all others | Removing only "Subject: Math" while keeping school and date filters active. |
 
-## When NOT to use
+## <Dont /> When NOT to use
 
 | Don’t use when | Recommended alternative | Rationale |
 | --- | --- | --- |

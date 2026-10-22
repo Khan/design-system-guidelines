@@ -23,6 +23,7 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import checkSquareOffsetBold from "@phosphor-icons/core/bold/check-square-offset-bold.svg";
 import pencilBold from "@phosphor-icons/core/bold/pencil-bold.svg";
 import Demo from "../components/Demo";
+import {Do, Dont} from "../components/DoDont";
 
 export const barImageStyle = {width: "100%", display: "block", margin: 0};
 
@@ -38,7 +39,7 @@ export const barImageStyle = {width: "100%", display: "block", margin: 0};
 
 A button is a highly discoverable, interactive element used to communicate and trigger a specific action or command. Its primary purpose is to initiate state changes or execute a task—essentially, buttons do things.
 
-## When to use
+## <Do /> When to use
 
 The choice to use a button is determined by the need to prompt the user to perform an action that changes the state or context of the system.
 
@@ -47,7 +48,7 @@ The choice to use a button is determined by the need to prompt the user to perfo
 | The action is the primary goal of the current view | Save, Submit, Confirm — the main thing a user needs to do on this screen. |
 | The action has a clear, immediate outcome | Assign content, Add filter, Delete record. |
 
-## When NOT to use
+## <Dont /> When NOT to use
 
 | Don’t use when | Recommended alternative | Rationale |
 | --- | --- | --- |

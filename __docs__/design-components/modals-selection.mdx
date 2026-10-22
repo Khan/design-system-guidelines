@@ -13,6 +13,7 @@ import adaptiveControls2Img from "./assets/modals-selection/adaptive-controls-2.
 import parentChild1Img from "./assets/modals-selection/parent-child-1.png";
 import parentChild2Img from "./assets/modals-selection/parent-child-2.png";
 import resetFiltersImg from "./assets/modals-selection/reset-filters.png";
+import {Do, Dont} from "../components/DoDont";
 
 <Meta title="Design Guidelines / Components / Overlays / Modals - selection" />
 
@@ -24,7 +25,7 @@ import resetFiltersImg from "./assets/modals-selection/reset-filters.png";
 
 A secondary control center for complex or less frequent filtering needs, ensuring the primary interface remains uncluttered. Allows users to manage multiple data dimensions in a focused environment without losing the context of their current report.
 
-## When to use
+## <Do /> When to use
 
 The choice to use the selection modal is determined by the need to provide access to extended filtering criteria that would otherwise overwhelm the horizontal real estate of the primary filter bar.
 
@@ -33,7 +34,7 @@ The choice to use the selection modal is determined by the need to provide acces
 | Housing secondary filters used less frequently than primary anchors | Moving specific filter options into the modal to keep the main header clean. |
 | The filtering interaction combines multiple input types that are too complex for the filter bar | Selecting a Practice type reveals a Test type dropdown below it — the modal gives dependent filters the space to reveal themselves without cluttering the filter bar. |
 
-## When NOT to use
+## <Dont /> When NOT to use
 
 Avoid the selection modal when the filtering need is simple enough to be handled directly in the filter bar, or when a pre-selected default should always be visible to the user.
 

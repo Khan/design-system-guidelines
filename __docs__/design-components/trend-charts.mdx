@@ -1,0 +1,125 @@
+import {Meta} from "@storybook/addon-docs/blocks";
+import headerImg from "./assets/trend-charts/header.png";
+import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
+import {Do, Dont} from "../components/DoDont";
+import Demo from "../components/Demo";
+import Figure from "../components/Figure";
+import {GrowthOverTimeChartOnly} from "./assets/trend-charts/GrowthOverTimeChart";
+import containerImg from "./assets/trend-charts/container.png";
+
+<Meta title="Design Guidelines / Components / Data visualization / Trend charts" />
+
+<img src={headerImg} alt="Trend charts" />
+
+# Trend charts
+
+<NeutralBadge label="Change over time" />
+
+Trend charts answer "How has it changed?" A line chart shows a value across time, like growth across units or assessments.
+
+Trend charts sit inside a large <a href="./?path=/docs/design-guidelines-components-data-visualization-chart-container--docs">chart container</a>. Charts are built with Highcharts, not Wonder Blocks.
+
+## <Do /> When to use
+
+| Use when | Example use |
+| --- | --- |
+| Readers need to see the direction of change over time | Growth over time by assessment window |
+
+## <Dont /> When NOT to use
+
+| Don’t use when | Recommended alternative | Rationale |
+| --- | --- | --- |
+| The main metric can be said in words or one number, like "Scores rose 10 points since the last assessment" | A <a href="./?path=/docs/design-guidelines-components-data-visualization-summary-cards--docs#stat-card">stat card</a> | Plain text is faster to read than a chart to decode. Use a chart only when the shape of the data matters. |
+| There's only one period | A <a href="./?path=/docs/design-guidelines-components-data-visualization-summary-cards--docs#stat-card">stat card</a> | One point has no direction to show. |
+| There are two periods, and the chart won't gain more | A <a href="./?path=/docs/design-guidelines-components-data-visualization-summary-cards--docs#stat-card">stat card</a> with the change: "↑ 133 pts from beginning of year" | Two points make a straight line, and the change reads faster as a number. |
+| Comparing categories that aren't in time order | <a href="./?path=/docs/design-guidelines-components-data-visualization-distribution-charts--docs">Distribution charts</a> | A line connects points in order, so it implies a sequence that isn't there. |
+
+## Chart anatomy
+
+These parts apply in any container.
+
+> **Note:** This is a placeholder built for these docs, not the production chart. It will be replaced with the Highcharts version once it exists.
+
+<Demo>
+    <GrowthOverTimeChartOnly />
+</Demo>
+
+| Part | Rule |
+| --- | --- |
+| Title | States the change: "Scores climbed 133 points since the last assessment" |
+| Time axis | Periods in order. Space them by date, or evenly for named periods like assessment windows. Labeled with what the periods are: "Assessment window." |
+| Value axis | Scale, labeled with units: "Average score." It doesn't need to start at zero. |
+| Line | 2px. Choose colors by role. See <a href="./?path=/docs/design-guidelines-foundations-data-visualization--docs#color">Color</a>. |
+| Points | One per period. Label values when there are few points. |
+| Area fill | A light fill below a single line |
+
+## Container
+
+Trend charts use a large container, for reports. The title states how the value changed.
+
+| Part | Example |
+| --- | --- |
+| Section heading | Growth over time |
+| Title | Scores climbed 133 points since the last assessment |
+| Description | Average score, all students |
+| Controls | Date filter, view toggle, download |
+| Line | One line with a light area fill and a labeled point per assessment window |
+| Footer | Updated today, 9:15 AM |
+
+<Figure
+    src={containerImg}
+    alt="A report page with gray placeholder summary cards at the top. Below them, a Growth over time section heading above a chart container. The container's title reads Scores climbed 133 points since the last assessment, with the description Average score, all students and a This year date filter, a chart and table view toggle, and a download button at the top right. A line with a light area fill rises from 635 at beginning of year to 768 at middle of year, with end of year labeled but empty. The value axis is labeled Average score and the time axis is labeled Assessment window. The footer reads Updated Oct 20, 2026, 9:15 AM."
+    caption="A trend chart in a large container, below the summary cards on a report page. The end-of-year window is labeled but empty."
+/>
+
+## Usage guidelines
+
+### Title and description
+
+<ul>
+    <li><Do /> State how the value changed, and since when: "Scores climbed 133 points since the last assessment."</li>
+    <li><Do /> Name the measure in the description when the title doesn't: "Average score, all students."</li>
+</ul>
+
+### Time and values
+
+<ul>
+    <li><Do /> When more periods are coming, like assessment windows, show the full time axis, with future windows labeled but empty: Beginning of year, Middle of year, End of year.</li>
+    <li><Do /> When points are real dates that aren't evenly apart, space them by date, so a long break looks long. Keep named periods, like assessment windows, evenly spaced.</li>
+    <li><Do /> Leave a gap for a missing period. Don't draw it as zero. See <a href="./?path=/docs/design-guidelines-foundations-data-visualization--docs#missing-and-zero-values">Missing and zero values</a>.</li>
+    <li><Do /> Start the value axis wherever the data needs, as long as it's labeled.</li>
+    <li><Dont /> Squeeze the value axis so a small change looks dramatic.</li>
+</ul>
+
+### Lines
+
+<ul>
+    <li><Do /> Use the <a href="./?path=/docs/design-guidelines-foundations-data-visualization--docs#progress-and-amounts">Progress and amounts</a> role for one line, and <a href="./?path=/docs/design-guidelines-foundations-data-visualization--docs#categorical">Categorical</a> for up to four. For assessment data, use the <a href="./?path=/docs/design-guidelines-foundations-data-visualization--docs#assessment">Assessment</a> role instead. For mastery data, use the <a href="./?path=/docs/design-guidelines-foundations-data-visualization--docs#mastery">Mastery</a> role.</li>
+    <li><Do /> When one line is the point, like a class against the school, highlight it with the <a href="./?path=/docs/design-guidelines-foundations-data-visualization--docs#emphasis">Emphasis</a> role and gray the rest.</li>
+    <li><Do /> Give a single line a light area fill below it, like the header image. Leave the fill off when there's more than one line, so the areas don't overlap.</li>
+    <li><Do /> Label lines directly at their ends instead of using a legend.</li>
+    <li><Do /> Show a dot on each point when there are only a few. With many points, like weekly data across a year, show the line alone.</li>
+    <li><Do /> Label only the latest value and any point the title mentions. Readers can see other values in a tooltip or the table view.</li>
+    <li><Dont /> Show more than four lines. Fold the rest into "Other," or use a table.</li>
+</ul>
+
+> **TODO:** Define how to mark a target or comparison line, like a district average.
+
+> **TODO:** Define what tooltips show.
+
+## Variants
+
+### Comparing groups
+
+> **TODO:** Decide whether readers need to compare how classes or schools changed over time, with one line per group.
+
+## States
+
+Empty and error states follow <a href="./?path=/docs/design-guidelines-patterns-data-reports--docs#states">Data reports</a>. A period with no data shows as a gap in the line, not a drop to zero.
+
+## Accessibility
+
+- Every chart has a short text summary of its takeaway: "Average score rose from 635 to 768 since the beginning of year." See <a href="./?path=/docs/design-guidelines-foundations-data-visualization--docs#accessibility">Accessibility</a> in Data visualization.
+- Points can be focused with the keyboard. Each announces its period and value: "Middle of year: 768."
+- Label lines directly, so color is never the only way to tell them apart.
+- The view toggle switches to a table of the same data.

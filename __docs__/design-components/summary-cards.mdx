@@ -1,0 +1,104 @@
+import {Meta} from "@storybook/addon-docs/blocks";
+import headerImg from "./assets/summary-cards/header.png";
+import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
+import {Do, Dont} from "../components/DoDont";
+import Figure from "../components/Figure";
+import statCardsImg from "./assets/summary-cards/stat-cards.png";
+import statCardsClickableImg from "./assets/summary-cards/stat-cards-clickable.png";
+
+<Meta title="Design Guidelines / Components / Data visualization / Summary cards" />
+
+<img src={headerImg} alt="Summary cards" />
+
+# Summary cards
+
+<NeutralBadge label="The headline at a glance" />
+
+Summary cards answer "What's the headline?" They show key numbers in words and digits, with no chart to decode. Detail is one click away.
+
+Summary cards are built with Wonder Blocks, using the Thunderblocks theme.
+
+## <Do /> When to use
+
+| Use when | Example use |
+| --- | --- |
+| One value tells the story, and a few of them sit side by side | District overview: Students assessed, Subjects on target, District growth |
+
+## <Dont /> When NOT to use
+
+| Don’t use when | Recommended alternative | Rationale |
+| --- | --- | --- |
+| Readers need to see change over time | <a href="./?path=/docs/design-guidelines-components-data-visualization-trend-charts--docs">Trend charts</a> | A card shows one moment. A line shows the direction across periods. |
+| Readers need to see how a group is spread out | <a href="./?path=/docs/design-guidelines-components-data-visualization-distribution-charts--docs">Distribution charts</a> | A card can't show the spread across ranges. |
+| Readers need to find or act on individuals or items | <a href="./?path=/docs/design-guidelines-components-data-visualization-data-tables--docs">Data tables</a> | Cards summarize groups. Tables list each individual or item to act on. |
+| Readers need to see progress toward a goal | <a href="./?path=/docs/design-guidelines-components-data-visualization-progress-charts--docs">Progress charts</a> | A bar shows how much of the goal is done and how much is left. |
+
+## Placement
+
+Summary cards are the headline, so readers should see them almost immediately.
+
+<ul>
+    <li><Do /> Place summary cards at the top of the page, below the page title and other top-of-page elements.</li>
+    <li><Dont /> Place summary cards below detailed components, like chart containers or data tables.</li>
+</ul>
+
+See <a href="./?path=/docs/design-guidelines-patterns-data-reports--docs#page-order">Page order</a> in Data reports.
+
+## Variants
+
+### Stat card
+
+Shows one metric. Stat cards sit in a row of 2 to 4, under a section heading that names the group, like "District overview."
+
+| Part | Required | Example |
+| --- | --- | --- |
+| Label | Yes | Students assessed |
+| Info tooltip | Optional. Beside the label, for more context. | How the metric is calculated |
+| Value | Yes. A number, an "X of Y" count, a change, or a level word. | 11,033; 2 of 3; −7 pts; Familiar |
+| Context or change | Optional | 40% of total students assessed; ↓ 1 subject at risk |
+| View link | When there's a detail view. Bottom right, on the same line as the context. | View › |
+
+- Use at least 2 and at most 4 stat cards in a row.
+- Write the label in sentence case, in 1 to 3 words. Keep units with the value: "−7 pts," not a label like "Growth (pts)."
+- Cards in a row share one height. On narrow screens, they wrap to 2 per row, then 1.
+- Stat cards have no controls and no last-updated footer.
+- Format the value with the <a href="./?path=/docs/design-guidelines-foundations-data-visualization--docs#number-formatting">Number formatting</a> rules: "11,033," "1.2K," "−7 pts."
+- Show a change as a <a href="./?path=/docs/design-guidelines-components-feedback-badges--docs#value-and-trend-badges">value and trend badge</a>. Only the value and its arrow go inside the badge ("↓ 1"). The description stays outside as text ("subject at risk").
+- Give a rank its total: "8th of 24 classes," not "8th."
+- Pair a change arrow with text. The arrow and its color never carry the meaning alone.
+- Use a <a href="./?path=/docs/design-guidelines-components-feedback-badges--docs#warning-status">Warning</a> badge when a metric has gone down or is at risk, and a <a href="./?path=/docs/design-guidelines-components-feedback-badges--docs#success-status">Success</a> badge when it has gone up.
+
+<Figure
+    src={statCardsImg}
+    alt="A district report page, with the page title and tabs shown as gray placeholders. Below them, a District overview section heading above three stat cards. Students assessed: 11,033, 40% of total students assessed. Subjects on target: 2 of 3, with a warning badge reading down 1 and the text subject at risk. District growth: −7 pts, with a warning down arrow badge and the text from last assessment. Each label has an info icon."
+    caption="Stat cards sit at the top of the page, under a section heading. Warning badges show a metric that's down or at risk."
+/>
+
+#### Stat cards with a detail view
+
+- Add a View link only when there's a detail view for that metric.
+- Place the View link at the bottom right, on the same line as the context or change.
+- Only the View link is clickable. The card itself isn't a link.
+- Cards in a row can mix: some with a View link, some without.
+
+<Figure
+    src={statCardsClickableImg}
+    alt="A report page, with the page title and tabs shown as gray placeholders. Below them, a Classes overview section heading above three stat cards, each with a blue View link and caret at the bottom right. Classes on target: 3 of 5, with a warning badge reading down 2 and the text classes at risk. Mastery average: Familiar, with a warning badge reading down 2 and the text classes below familiar. Growth over time: +2.1 pts, with a success up arrow badge and the text above school trend."
+    caption="Each card links to its detail view with a View link at the bottom right. A success badge shows a metric that's up."
+/>
+
+> **TODO:** Find a solution for a single headline number, since a row needs at least 2 stat cards.
+
+## States
+
+<ul>
+    <li><Do /> When a metric has no data yet, show "—" as the value and say why in the context line: "No data yet." See <a href="./?path=/docs/design-guidelines-foundations-data-visualization--docs#missing-and-zero-values">Missing and zero values</a>.</li>
+</ul>
+
+For not enough data, loading, and error states, see <a href="./?path=/docs/design-guidelines-patterns-data-reports--docs#states">States</a> in Data reports.
+
+## Accessibility
+
+- Give each View link an accessible name that includes the metric: "View classes on target."
+- The info tooltip and the View link are separate controls, so keyboard users reach each one in turn.
+- Read the level and the change as text, not as color or an arrow icon.
