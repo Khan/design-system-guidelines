@@ -27,7 +27,7 @@ This guide covers how to build a data report: what to show, how to lay it out, a
 | --- | --- | --- |
 | <a href="./?path=/docs/design-guidelines-components-data-visualization-summary-cards--docs">Summary cards</a> | What's the headline? | Shows key numbers in words and digits, with no chart to decode. Stat cards show one metric. |
 | <a href="./?path=/docs/design-guidelines-components-data-visualization-progress-charts--docs">Progress charts</a> | How close are we to the goal? | Shows a current value against a goal, like a class challenge or grade level target. |
-| <a href="./?path=/docs/design-guidelines-components-data-visualization-distribution-charts--docs">Distribution charts</a> | How is the group spread out? | Shows how many students, classes, or schools land in each range, like assignments completed. |
+| <a href="./?path=/docs/design-guidelines-components-data-visualization-distribution-charts--docs">Distribution charts</a> | How is the group spread out? | Shows how many students, classes, or schools land in each range, like assignments completed, or how that spread changed between two periods. |
 | <a href="./?path=/docs/design-guidelines-components-data-visualization-trend-charts--docs">Trend charts</a> | How has it changed? | Shows a value across three or more periods, like growth across units. |
 | <a href="./?path=/docs/design-guidelines-components-data-visualization-data-tables--docs">Data tables</a> | Who exactly, and what do I do? | Lists each individual or item with exact values, so readers can find and act on them. |
 | Heat map (coming soon) | Where are the patterns? | Shows a value across two dimensions, like mastery by student and skill. |
@@ -55,6 +55,24 @@ A chart earns its place only when it answers the question faster than a number o
 </ul>
 
 > **TODO:** Add visual examples of a number and a chart for the same data, and of a useful and a useless chart.
+
+## Showing growth
+
+Growth compares the same students across two or more assessments, like middle of year and end of year.
+
+| To show | Use |
+| --- | --- |
+| How the split by level changed between two periods | <a href="./?path=/docs/design-guidelines-components-data-visualization-distribution-charts--docs#comparing-periods">Distribution chart, comparing periods</a> |
+| A value across three or more periods | <a href="./?path=/docs/design-guidelines-components-data-visualization-trend-charts--docs">Trend chart</a> |
+| Which students moved, and by how much | <a href="./?path=/docs/design-guidelines-components-data-visualization-data-tables--docs#table-with-summary-tabs">Data table with summary tabs</a>: Moved up, Same level, Moved down |
+
+<ul>
+    <li><Do /> Say who's included: "29 students took both." Leave out students without both results, and say how many: "4 didn't take the middle of year assessment."</li>
+    <li><Do /> Lead with level movement, then points: "8 of 29 students moved up a level." A point change needs context to mean something, and a level doesn't.</li>
+    <li><Do /> Show a change within a level, so a gain isn't hidden: "Approaching, no change" with "↑ 10 pts."</li>
+    <li><Do /> Sort students by change by default, so the biggest moves in both directions are easy to find.</li>
+    <li><Dont /> Show only an average. An average can go up while some students go down.</li>
+</ul>
 
 ## Layouts
 
