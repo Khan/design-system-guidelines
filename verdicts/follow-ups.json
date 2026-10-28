@@ -131,7 +131,7 @@
       "ruling_link": "https://khanacademy.slack.com/archives/C0BHXK7RFFE/p1793208713508319",
       "where": "libs/content/renderer/component/tools/src/renderer-tools/doodlepad/components/drawing-area-controls.tsx (closeLabel, close ActivityIconButton) and drawing-area-toggle.tsx",
       "jira": {
-        "project": "WB",
+        "project": null,
         "summary": "Accessibility: Drawing toolbar close button: accessible name changes with layout and mixes disclosure and action semantics",
         "issuetype": "Design Task",
         "labels": [
