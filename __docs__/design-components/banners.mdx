@@ -125,7 +125,7 @@ Do use when communicating temporary policies or essential guidelines that requir
 
 Do include the 'X' for a banner that is informational, feature-related, or confirms a successful transaction, allowing the user to clear visual clutter immediately.
 
-<Demo type="do">
+<Demo type="do" explanation="include an X on success and info banners so users can clear them.">
     <div style={{display: "flex", flexDirection: "column", gap: "16px", width: "100%"}}>
         <Banner
             kind="success"
@@ -165,7 +165,7 @@ Do include the 'X' for a banner that is informational, feature-related, or confi
 
 Don't include the 'X' if the message communicates a state that the user cannot resolve on their own, or if the user must be continuously aware of the message to prevent an error or data loss.
 
-<Demo type="dont">
+<Demo type="dont" explanation="include an X on warning or critical banners the user still needs to resolve.">
     <div style={{display: "flex", flexDirection: "column", gap: "16px", width: "100%"}}>
         <Banner
             kind="warning"
@@ -198,7 +198,7 @@ Do not use custom, context-specific icons (a "calendar" for maintenance) in the 
 
 There are two action types: Button and Link. Use a Link when the action is primarily to navigate to a detailed page or section. Use a Button when the action is functional or mandatory and completes a process. Also, maintain singular focus. Banners should contain only one primary action to maintain focus.
 
-<Demo type="do">
+<Demo type="do" explanation="give a banner one action: a button to complete a task, or a link to go somewhere.">
     <div style={{display: "flex", flexDirection: "column", gap: "16px", width: "100%"}}>
         <Banner
             kind="warning"
@@ -226,7 +226,7 @@ There are two action types: Button and Link. Use a Link when the action is prima
 
 If a banner is not dismissible, it should contain a single, highly visible call-to-action button that resolves the state or provides necessary details, guiding the user toward a specific next step. Use a button rather than a link here — resolving the issue is a functional action.
 
-<Demo type="do">
+<Demo type="do" explanation="give a banner that can’t be dismissed one button that resolves the issue.">
     <div style={{display: "flex", flexDirection: "column", gap: "16px", width: "100%"}}>
         <Banner
             kind="warning"
@@ -247,7 +247,7 @@ If a banner is not dismissible, it should contain a single, highly visible call-
 
 Do display the banner at the top of the affected content area.
 
-<Demo type="do" style={{paddingInline: 0, paddingBlock: 0}}>
+<Demo type="do" explanation="place the banner at the top of the content it affects." style={{paddingInline: 0, paddingBlock: 0}}>
     <img
         src={placement1Img}
         alt="Placement 1"
@@ -259,7 +259,7 @@ Do display the banner at the top of the affected content area.
 
 A single banner is ideal, but if more is needed the max should be no more than two banners in a single view. If a third banner needs to appear, the oldest Success or Informational banner is hidden or dismissed automatically to make room. Critical and Warning banners are never auto-removed — they persist until the user resolves the underlying issue, per their own dismissal rules.
 
-<Demo type="dont" explanation="too much cognitive load!" style={{paddingInline: 0, paddingBlock: 0}}>
+<Demo type="dont" explanation="show more than two banners at once. It adds too much cognitive load." style={{paddingInline: 0, paddingBlock: 0}}>
     <img
         src={placement2Img}
         alt="Placement 2"
@@ -274,7 +274,7 @@ Highest priority / Most critical banner (at the very top).
 Second highest priority / Second most critical banner (below the first one).
 If both banners have the same criticality, the newest or most recently triggered one often takes the top spot, or the decision is made based on which piece of information is most urgent for the user to see first.
 
-<Demo type="do" style={{paddingInline: 0, paddingBlock: 0}}>
+<Demo type="do" explanation="put the most critical banner on top when two banners are showing." style={{paddingInline: 0, paddingBlock: 0}}>
     <img
         src={placement3Img}
         alt="Placement 3"
@@ -360,7 +360,7 @@ When applicable, the copy for transactional banners (Success, Warning) must incl
 
 Copy should omit periods when the message consists of a single, short statement or command. This enhances scannability and maintains a headline style. If the copy requires more than one full sentence, periods must be used to correctly separate those thoughts.
 
-<Demo type="do">
+<Demo type="do" explanation="leave off the period for a single sentence, and use periods when there’s more than one.">
     <div style={{display: "flex", flexDirection: "column", gap: "16px", width: "100%"}}>
         <Banner kind="info" text="If copy is one sentence, no periods" onDismiss={() => {}} />
         <Banner kind="info" text="If copy is more than one sentence, use periods." onDismiss={() => {}} />
@@ -371,7 +371,7 @@ Copy should omit periods when the message consists of a single, short statement 
 
 To be consistent with UX copy guidelines, use sentence case.
 
-<Demo type="do">
+<Demo type="do" explanation="use sentence case in banner copy.">
     <div style={{width: "100%"}}>
         <Banner
             kind="warning"
