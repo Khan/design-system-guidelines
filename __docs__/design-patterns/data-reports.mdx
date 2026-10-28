@@ -1,7 +1,6 @@
 import {Meta} from "@storybook/addon-docs/blocks";
 import Figure from "../components/Figure";
-import headingHierarchyImg from "./assets/data-reports/heading-hierarchy.png";
-import containerControlsImg from "./assets/data-reports/container-controls.png";
+import {Do, Dont} from "../components/DoDont";
 import ownSectionImg from "./assets/data-reports/own-section.png";
 import headerImg from "./assets/data-reports/header.png";
 import emptyContainerImg from "./assets/data-reports/empty-container.png";
@@ -22,9 +21,68 @@ This guide covers how to build a data report: what to show, how to lay it out, a
 
 <a href="./?path=/docs/design-guidelines-foundations-data-visualization--docs">Data visualization</a> holds the rules every chart follows: chart types, anatomy, color, number formatting, and writing. This page applies them to whole reports.
 
+## Usage and purpose
+
+| Component | Answers | Use case and purpose |
+| --- | --- | --- |
+| <a href="./?path=/docs/design-guidelines-components-data-visualization-summary-cards--docs">Summary cards</a> | What's the headline? | Shows key numbers in words and digits, with no chart to decode. Stat cards show one metric. |
+| <a href="./?path=/docs/design-guidelines-components-data-visualization-progress-charts--docs">Progress charts</a> | How close are we to the goal? | Shows a current value against a goal, like a class challenge or grade level target. |
+| <a href="./?path=/docs/design-guidelines-components-data-visualization-distribution-charts--docs">Distribution charts</a> | How is the group spread out? | Shows how many students, classes, or schools land in each range, like assignments completed, or how that spread changed between two periods. |
+| <a href="./?path=/docs/design-guidelines-components-data-visualization-trend-charts--docs">Trend charts</a> | How has it changed? | Shows a value across three or more periods, like growth across units. |
+| <a href="./?path=/docs/design-guidelines-components-data-visualization-data-tables--docs">Data tables</a> | Who exactly, and what do I do? | Lists each individual or item with exact values, so readers can find and act on them. |
+| Heat map (coming soon) | Where are the patterns? | Shows a value across two dimensions, like mastery by student and skill. |
+
 ## Making a useful chart
 
-> **TODO:** Define the data visualization components, then fill in this section: choosing between a number, chart, or table, and what makes a chart useful or useless, with visual examples.
+A chart earns its place only when it answers the question faster than a number or a table would.
+
+### Number, chart, or table
+
+| Use | When | Example |
+| --- | --- | --- |
+| A number, in a <a href="./?path=/docs/design-guidelines-components-data-visualization-summary-cards--docs">summary card</a> | The takeaway is one value | 11,033 students assessed |
+| A chart | Readers need to see a pattern, a change, or a gap | Scores climbed 133 points since the last assessment |
+| A <a href="./?path=/docs/design-guidelines-components-data-visualization-data-tables--docs">data table</a> | Readers need exact values, or need to find and act on individuals | Each student's score, with flags |
+
+### What makes a chart useful
+
+<ul>
+    <li><Do /> Answer one question per chart, and state the answer in the title: "Scores climbed 133 points since the last assessment," not "Average score."</li>
+    <li><Do /> Show only the data the title needs. Move the rest to a table or another chart.</li>
+    <li><Dont /> Don't chart a single value. Use a summary card.</li>
+    <li><Dont /> Don't make readers match many colors to a legend. Past four series, fold the rest into "Other" or use a table.</li>
+    <li><Dont /> Don't show more dimensions than one chart can show clearly. Split it into two charts, or use a table.</li>
+</ul>
+
+> **TODO:** Add visual examples of a number and a chart for the same data, and of a useful and a useless chart.
+
+## Showing growth
+
+Growth compares the same students across two or more assessments, like middle of year and end of year.
+
+| To show | Use |
+| --- | --- |
+| How the split by level changed between two periods | <a href="./?path=/docs/design-guidelines-components-data-visualization-distribution-charts--docs#comparing-periods">Distribution chart, comparing periods</a> |
+| A value across three or more periods | <a href="./?path=/docs/design-guidelines-components-data-visualization-trend-charts--docs">Trend chart</a> |
+| Which students moved, and by how much | <a href="./?path=/docs/design-guidelines-components-data-visualization-data-tables--docs#table-with-summary-tabs">Data table with summary tabs</a>: Moved up, Same level, Moved down |
+
+<ul>
+    <li><Do /> Say who's included: "29 students took both." Leave out students without both results, and say how many: "4 didn't take the middle of year assessment."</li>
+    <li><Do /> Lead with level movement, then points: "8 of 29 students moved up a level." A point change needs context to mean something, and a level doesn't.</li>
+    <li><Do /> Show a change within a level, so a gain isn't hidden: "Approaching, no change" with "↑ 10 pts."</li>
+    <li><Do /> Sort students by change by default, so the biggest moves in both directions are easy to find.</li>
+    <li><Dont /> Don't show only an average. An average can go up while some students go down.</li>
+</ul>
+
+### Choosing the earlier period
+
+When more than two assessments exist, let readers choose what to compare against with a "Compared to" control, like "Compared to: Middle of year."
+
+<ul>
+    <li><Do /> Default to the previous assessment. It shows the most recent change, which is the easiest to act on.</li>
+    <li><Do /> Let the control change all the growth content together: stat cards, charts, tables, and the line that says who's included. Place it above everything it changes. See <a href="#control-scope">Control scope</a>.</li>
+    <li><Dont /> Don't change anything that isn't about growth, like the current score overview.</li>
+</ul>
 
 ## Layouts
 
@@ -32,7 +90,7 @@ Data appears in one of two layouts, and each has its own rules.
 
 | Layout | Use when | Controls |
 | --- | --- | --- |
-| Container | One chart or table that needs a few controls, or none | Inside the container, top right |
+| Container | One chart that needs a few controls, or none | Inside the container, top right |
 | Own page or section | The data needs more controls than fit beside the H3 | Above the data |
 
 ## Page order
@@ -59,44 +117,7 @@ Controls only change the data they sit with, never data above them.
 
 ## Containers
 
-### Heading hierarchy
-
-Containers use the section heading and title from <a href="./?path=/docs/design-guidelines-foundations-data-visualization--docs#anatomy">chart anatomy</a>. Each has a different job.
-
-| Part | Level | Placement | Purpose | Example |
-| --- | --- | --- | --- | --- |
-| Section heading | H2 | Outside the container | Names the topic | "Growth over time" |
-| Title | H3 | Inside the container | States the insight | "Students are moving up, but five have never left Beginning." |
-
-- Every container has a section heading. The title is required, except in empty and error states.
-- The section heading draws the eye down the page and tells readers what the containers below are about.
-- Either heading can have a description below it. Add one only if it's truly needed.
-
-<Figure
-    src={headingHierarchyImg}
-    alt="An H2 sits above a chart container, and an H3 with a description sits inside it at the top left. Both headings are highlighted."
-    caption="The H2 sits outside the container. The H3 and its optional description sit inside."
-/>
-
-### Container controls
-
-Controls live inside the container, at the top right, on the same line as the H3. They must fit on one line without wrapping.
-
-Controls are optional. Add one only when it helps the reader answer the chart's question.
-
-| Control | Use when |
-| --- | --- |
-| Date filter | The reader may need a different time range |
-| View toggle | The same data works as a chart and as a table |
-| Download | The reader needs the data outside the product |
-
-> **TODO:** Confirm the supported container controls and link to their components.
-
-<Figure
-    src={containerControlsImg}
-    alt="A chart container with a This year date filter, view toggle, and download button highlighted on one line at the top right, beside the H3."
-    caption="Container controls fit on one line beside the H3."
-/>
+A container holds one chart with its section heading, title, and controls. For its anatomy, headings, and controls, see <a href="./?path=/docs/design-guidelines-components-data-visualization-chart-container--docs">Chart container</a>.
 
 ## Own page or section
 

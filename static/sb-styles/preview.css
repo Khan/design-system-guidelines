@@ -29,6 +29,13 @@ html {
     font-size: 1.6rem;
 }
 
+.sbdocs [class*="badge"] span {
+    /* Storybook sets every docs span to 16px, which overflows and clips
+    Wonder Blocks badge labels. Let them keep the badge's own type size. */
+    font-size: inherit;
+    line-height: inherit;
+}
+
 .sbdocs h1 {
     font-size: 4rem;
     padding-top: 5rem !important;

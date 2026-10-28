@@ -4,6 +4,7 @@ import variants1Img from "./assets/progress-stepper/variants-1.png";
 import variants2Img from "./assets/progress-stepper/variants-2.png";
 import copyImg from "./assets/progress-stepper/copy.png";
 import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
+import {Do, Dont} from "../components/DoDont";
 
 <Meta title="Design Guidelines / Components / Feedback / Progress stepper" />
 
@@ -15,7 +16,7 @@ import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
 
 Communicates a user's position within a multi-step, sequential flow, signaling how much of the process remains. Two variants exist based on flow complexity and page context.
 
-## When to use
+## <Do /> When to use
 
 The choice to use a progress stepper is determined by the need to guide a user through a defined sequence of steps where order matters and progress visibility reduces abandonment or errors.
 
@@ -25,7 +26,7 @@ The choice to use a progress stepper is determined by the need to guide a user t
 | Steps are sequential — each one leads to the next, whether it requires input or is informational | The assign content flow, where each stage depends on decisions made in the previous one |
 | The flow has a clear, known endpoint | A multi-step flow ending in a Review + Confirm step |
 
-## When NOT to use
+## <Dont /> When NOT to use
 
 | Don’t use when | Recommended alternative | Rationale |
 | --- | --- | --- |

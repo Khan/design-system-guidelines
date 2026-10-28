@@ -22,6 +22,7 @@ This repo (`@khanacademy/design-guidelines`) is a **Storybook 10 site that docum
 - **Reuse authoring components.** Sometimes custom authoring components are best when they semantically convey meaning concisely to an LLM. Before creating a new component, look at the through the current set: (`Do`, `Dont`, `UsageExample`, `Demo`, `Figure`, `Color`, `Principle`/`PrincipleSet`) in the [catalog](references/component-catalog.md). When deciding to make a component, ask the user first if this is something that will be reused. If you do create one, add it to the **catalog**.
 - **Usage examples** `Do`, `Dont`, `UsageExample` components all convey system usage semantically and concisely. If the user wants to build a be a one-off `Demo`, it should stay page-local and be alongside other page assets instead of adding to the authoring components dir.
 - **Do/dont examples must be semantic** for a11y and screenreaders. See "Choosing a do/dont mechanism" below. Color or proximity cannot be the only signal. Details in [`references/accessibility.md`](references/accessibility.md).
+- **Start every `<Dont />` item with "Don't."** Write `<Dont /> Don't fill the bar past 100%.`, not `<Dont /> Fill the bar past 100%.` Without the icon (screen readers, plain text, an LLM reading the source), the second reads as an instruction to do it.
 - **Keep it tight.** Use markdown tables for "use when / don't use when" grids (see banners.mdx). Short declarative sentences. Cut filler.
 
 ### Technical rules
