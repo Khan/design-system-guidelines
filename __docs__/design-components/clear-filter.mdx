@@ -4,6 +4,7 @@ import statesHiddenImg from "./assets/clear-filter/states-hidden.png";
 import statesDefaultImg from "./assets/clear-filter/states-default.png";
 import placementImg from "./assets/clear-filter/placement.png";
 import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
+import {Do, Dont} from "../components/DoDont";
 
 <Meta title="Design Guidelines / Components / Inputs / Clear filter" />
 
@@ -15,7 +16,7 @@ import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
 
 A tertiary button that removes every filter the user applied in a single action, regardless of how many are in use.
 
-## When to use
+## <Do /> When to use
 
 The choice to use a clear filters button is determined by the need to provide a fast escape hatch for complex queries or empty result states.
 
@@ -24,7 +25,7 @@ The choice to use a clear filters button is determined by the need to provide a 
 | A filter combination returns an empty state | Clearing all criteria after "0 results" are found for specific teacher/grade combinations. |
 | Dismissing active filters individually would be time-intensive | Returning to a full class report after narrowing by three specific grades, or after a single multi-select produces one active filter per value. |
 
-## When NOT to use
+## <Dont /> When NOT to use
 
 | Don’t use when | Recommended alternative | Rationale |
 | --- | --- | --- |
@@ -57,7 +58,7 @@ The button should not be visible if no filters are applied, preventing UI clutte
 
 ### Default (active)
 
-Appears as a [tertiary button](https://khan.github.io/design-system-guidelines/?path=/docs/design-guidelines-components-buttons-buttons--docs) at the small size — `kind="tertiary"`, `size="small"` — once a filter is triggered.
+Appears as a <a href="./?path=/docs/design-guidelines-components-buttons-buttons--docs">tertiary button</a> at the small size — `kind="tertiary"`, `size="small"` — once a filter is triggered.
 Avoid using red or other high-caution colors. Clearing filters is an inconsequential action that does not delete data; use neutral styling to keep focus on primary actions.
 
 <img src={statesDefaultImg} alt="The same filter bar with School and Grades filters applied, shown as active School and Grades controls. Below the bar, an active filters row lists School: Addison Middle School, Grade: 7th grade, and Subject: Math, with the Clear filters button at the end of the row. The view shows 4 results." />
@@ -80,8 +81,8 @@ The button sits within the active filters row, which already appears and disappe
 
 ## Placement
 
-Position the "Clear filters" button directly following the list of [active filters](https://khan.github.io/design-system-guidelines/?path=/docs/design-guidelines-components-inputs-active-filters--docs).
-It should sit between the filter bar (controls) and the data (results), providing a clear bridge between the two. For the full filtering pattern, see [Filter and sort](https://khan.github.io/design-system-guidelines/?path=/docs/design-guidelines-patterns-filter-and-sort--docs).
+Position the "Clear filters" button directly following the list of <a href="./?path=/docs/design-guidelines-components-inputs-active-filters--docs">active filters</a>.
+It should sit between the filter bar (controls) and the data (results), providing a clear bridge between the two. For the full filtering pattern, see <a href="./?path=/docs/design-guidelines-patterns-filter-and-sort--docs">Filter and sort</a>.
 
 <img src={placementImg} alt="An active filters row — School: Addison Middle School, Grade: 7th grade, and Subject: Math, each removable — followed by the Clear filters button at the end of the row, sitting between the filter bar above and the results list below." />
 

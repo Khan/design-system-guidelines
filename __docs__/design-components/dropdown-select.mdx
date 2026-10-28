@@ -18,6 +18,7 @@ import inMenuSearchImg from "./assets/dropdown-select/in-menu-search.png";
 import multiSelectApplyImg from "./assets/dropdown-select/multi-select-apply.png";
 import copyTruncationImg from "./assets/dropdown-select/copy-truncation.png";
 import copyOrderingImg from "./assets/dropdown-select/copy-ordering.png";
+import {Do, Dont} from "../components/DoDont";
 
 <Meta title="Design Guidelines / Components / Inputs / Dropdown select" />
 
@@ -29,7 +30,7 @@ import copyOrderingImg from "./assets/dropdown-select/copy-ordering.png";
 
 A selection control used in forms, modals, settings panels, and filter bars. Can start empty or with a product default. Single-select and multi-select variants.
 
-## When to use
+## <Do /> When to use
 
 The choice to use a dropdown is based on the need to select from a predefined list of options — either one value or multiple.
 
@@ -39,7 +40,7 @@ The choice to use a dropdown is based on the need to select from a predefined li
 | Selecting multiple values | More than one option can be chosen simultaneously. | Selecting multiple grades to filter a report. |
 | List is too long for radio buttons or checkboxes | More than 8 options. | Selecting a school from a district-wide list. |
 
-## When NOT to use
+## <Dont /> When NOT to use
 
 | Don’t use when | Recommended alternative | Rationale |
 | --- | --- | --- |
@@ -65,7 +66,7 @@ An inline filter button is a filter the user opts into. It is not in the bar unt
 
 The test: if the view cannot be described without the dimension, it is a dropdown select. If the user introduced it, it is an inline filter button.
 
-Whether either control produces an active filter is a separate question, decided by whether it carries a product default. See [Active filters](?path=/docs/design-guidelines-components-inputs-active-filters--docs).
+Whether either control produces an active filter is a separate question, decided by whether it carries a product default. See <a href="./?path=/docs/design-guidelines-components-inputs-active-filters--docs">Active filters</a>.
 
 The inline filter button is not yet documented in this system. Treat this as known design debt.
 

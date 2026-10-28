@@ -1,6 +1,6 @@
 import {Meta} from "@storybook/addon-docs/blocks";
 import Principle, {PrincipleSet} from "../components/principle";
-import Color from "../components/ColorSwatch";
+import Swatch from "../components/Swatch";
 import {Do, Dont} from "../components/DoDont";
 import headerImg from "./assets/data-visualization/header.png";
 
@@ -10,9 +10,7 @@ import headerImg from "./assets/data-visualization/header.png";
 
 # Data visualization
 
-Data visualization turns learning data into decisions. Teachers and administrators use our charts to see who needs help, what's working, and what to do next. These foundations apply to every chart, wherever it appears. For how headings and controls are laid out on a page, see [Data reports](?path=/docs/design-guidelines-patterns-data-reports--docs). For assembled pieces like stat cards and assessment cards, see the component pages.
-
-> **TODO:** Link to the data visualization component pages once they exist.
+Data visualization turns learning data into decisions. Teachers and administrators use our charts to see who needs help, what's working, and what to do next. These foundations apply to every chart, wherever it appears. For how headings and controls are laid out on a page, see <a href="./?path=/docs/design-guidelines-patterns-data-reports--docs">Data reports</a>. For the components built on these foundations, see <a href="./?path=/docs/design-guidelines-patterns-data-reports--docs#usage-and-purpose">Usage and purpose</a> in Data reports.
 
 ## Principles
 
@@ -40,7 +38,7 @@ Data visualization turns learning data into decisions. Teachers and administrato
     <Principle
         label="Supportive"
         title="Speak like an assistant, not a spreadsheet"
-        description="Use human language. &quot;5 students are stuck&quot; is an insight; &quot;Growth: -0.2&quot; is a math problem."
+        description={'Use human language. "5 students are stuck" is an insight; "Growth: -0.2" is a math problem.'}
     />
     <Principle
         label="Inclusive"
@@ -56,41 +54,26 @@ Data visualization turns learning data into decisions. Teachers and administrato
 
 ## Choosing a chart
 
-Start from the question, then pick the simplest form that answers it.
+Start from the question the reader needs answered, like "How close are we to the goal?" or "How has it changed?" Then pick the simplest form that answers it. To choose a component, see <a href="./?path=/docs/design-guidelines-patterns-data-reports--docs#usage-and-purpose">Usage and purpose</a>. For when a number or a table works better than a chart, see <a href="./?path=/docs/design-guidelines-patterns-data-reports--docs#making-a-useful-chart">Making a useful chart</a>. Both are in Data reports.
 
-| To show… | Use | Avoid |
-| --- | --- | --- |
-| A single value or metric | Number (stat) | A chart with one data point |
-| Comparison across categories | Bar chart (horizontal for long labels) | Pie chart, 3D bars |
-| Change over time | Line chart (bar chart for few, discrete periods) | Area chart with overlapping series |
-| Parts of a whole | Stacked bar (100%) | Pie or donut with more than 3 slices |
-| Progress toward a goal | Progress bar | Gauge or dial |
-| Distribution across levels | Stacked bar or histogram | Line chart |
-| Exact values or many dimensions | Table | A chart that needs a legend to decode |
+People compare position and length more accurately than angle, area, or shade. That's why most of our charts use bars and lines, and why the forms below are avoided.
 
-### When not to chart
+Bars always start at zero, because readers compare their lengths. Lines can start wherever the data needs, as long as the axis is labeled.
 
-Use a number or a table instead when:
+### Forms to avoid
 
-- There's only one value to show.
-- Users need to look up or compare exact values.
-- The data has more dimensions than one chart can show clearly.
-
-Detailed guidance on what makes a chart useful will live in [Making a useful chart](?path=/docs/design-guidelines-patterns-data-reports--docs#making-a-useful-chart) in Data reports.
-
-> **TODO:** Add a visual example comparing a number and a chart for the same data.
-
-> **TODO:** Confirm the supported chart types and link to their Wonder Blocks components, if any.
+- Pie or donut charts with more than 3 slices. Readers have to compare angles. Use a <a href="./?path=/docs/design-guidelines-components-data-visualization-distribution-charts--docs">distribution chart</a>.
+- 3D charts. The depth distorts length, so equal values look different.
+- Gauges or dials. Readers have to compare angles on an arc. Use a <a href="./?path=/docs/design-guidelines-components-data-visualization-progress-charts--docs">progress chart</a>.
+- Area charts with overlapping series. The shapes hide each other. Use a <a href="./?path=/docs/design-guidelines-components-data-visualization-trend-charts--docs">trend chart</a> with lines.
 
 ## Anatomy
 
 Use these names for chart parts across all data visualization guidance.
 
-> **TODO:** Add an anatomy diagram.
-
 | Part | Purpose | Required |
 | --- | --- | --- |
-| Section heading (H2) | Names the topic above the chart container, e.g. "Mastery levels" | Yes |
+| Section heading (H2) | Names the topic above the chart container, e.g. "Mastery levels" | Yes, in large containers. See <a href="./?path=/docs/design-guidelines-components-data-visualization-chart-container--docs#sizes">Sizes</a>. |
 | Title (H3) | States the insight, directly above the chart | Yes, except in empty and error states |
 | Description | Supporting context, time range, or filters applied | When it adds context |
 | Axes and axis labels | Scale and units | Yes, unless values are labeled directly |
@@ -100,161 +83,45 @@ Use these names for chart parts across all data visualization guidance.
 | Legend | Maps colors or patterns to series | Only when series can't be labeled directly |
 | Tooltip | Details on hover or focus | Optional |
 | Annotation | Calls out a notable point, goal, or threshold | Optional |
-| Footer | Data source and last-updated time | Yes |
+| Footer | When the data was last updated | Yes |
 
 ## Color
 
 Chart colors come from the color palette and are chosen by **role**: what the color does in the chart. Color supports meaning but never carries it alone.
 
-Hex values on this page are a visual reference for designers. Don't use them in code.
-
-> **TODO:** Replace the primitive color names on this page (for example, Blue 50 and Cyan 20) with data visualization semantic color tokens once they exist in Wonder Blocks. Update each swatch's `semanticToken` at the same time.
+Primitives on this page are a visual reference for designers. Don't use them in code.
 
 ### Color roles
 
-Assessment, mastery, and motivation data each have a dedicated role. Every other chart uses the generic roles.
+Choose the role by what the color shows, not where the data comes from. Assessment, Mastery, and Scores are for results, like levels and scores. How much or how far along, like how much of an assessment a class has finished, uses Progress and amounts. Motivation data always uses Motivation.
 
-| Role | Use when | Colors |
-| --- | --- | --- |
-| Single series | One quantity on the chart. This is the default. | Blue 50, Blue 40 |
-| Categorical | Two or more series the reader tracks separately | Cyan 40, Orange 40, Magenta 40, Green 40 |
-| Neutral | A mark is context, not the subject | Gray 60 |
-| Emphasis | One series is the point; the rest are comparison | Blue 50, Blue 40, Gray 30, Gray 60 |
-| Attention | Items fall short of a threshold and need action | Yellow 30, Gray 60 |
-| Annotation | Words or reference marks that aren't data | Gray 10, Gray 30 |
-| Motivation | Motivation data | Magenta 30 |
-| Assessment | Assessment results | TODO |
-| Mastery | Mastery levels | TODO |
+| Role | Use when | Fill | Outline and line |
+| --- | --- | --- | --- |
+| <span id="progress-and-amounts">Progress and amounts</span> | How much or how far along: completion, usage, counts, or progress on an assignment or assessment. This is the default. | <Swatch name="Blue 50" hex="#8DA2FF" /> | <Swatch name="Blue 40" hex="#6C82FF" /> |
+| <span id="categorical">Categorical</span> | Two to four series the reader tracks separately. Apply colors in order. | <Swatch name="Cyan 40" hex="#57BAFD" /> <Swatch name="Orange 40" hex="#F97B4F" /> <Swatch name="Magenta 40" hex="#F670C1" /> <Swatch name="Green 40" hex="#72BB82" /> | <Swatch name="Cyan 20" hex="#2485C7" /> <Swatch name="Orange 30" hex="#F8551A" /> <Swatch name="Magenta 30" hex="#E83FA4" /> <Swatch name="Green 30" hex="#579F6C" /> |
+| <span id="neutral">Neutral</span> | A mark is context, not the subject, like "Other" or the middle of a diverging scale | <Swatch name="Gray 60" hex="#CBCBCD" /> | <Swatch name="Gray 30" hex="#8A8B90" /> |
+| <span id="emphasis">Emphasis</span> | Some items are the point of the chart, and the rest are there to compare against. Emphasis says where to look, not whether it's good or bad. For lines, draw the rest in Gray 30. | <Swatch name="Blue 50 (emphasized)" hex="#8DA2FF" /> <Swatch name="Blue 70 (rest)" hex="#DFEAFF" /> | <Swatch name="Blue 40 (emphasized)" hex="#6C82FF" /> <Swatch name="Blue 40 (rest)" hex="#6C82FF" /> |
+| <span id="annotation">Annotation</span> | Words and reference marks that aren't data, like a target line or a district average | <Swatch name="Gray 10 (text and callouts)" hex="#4A4C53" /> | <Swatch name="Gray 30 (reference lines)" hex="#8A8B90" /> |
+| <span id="scores">Scores</span> | Coloring each score by how high it is, like a standards heat map or assignment scores. A line of average scores over time uses Progress and amounts. | <Swatch name="Red 50" hex="#F97F7F" /> <Swatch name="Orange 60" hex="#FEBFB1" /> <Swatch name="Yellow 40" hex="#FCC539" /> <Swatch name="Green 60" hex="#BCEBBB" /> <Swatch name="Green 40" hex="#72BB82" /> | <Swatch name="Red 40" hex="#ED5656" /> <Swatch name="Orange 40" hex="#F97B4F" /> <Swatch name="Yellow 10" hex="#966B00" /> <Swatch name="Green 40" hex="#72BB82" /> <Swatch name="Green 30" hex="#579F6C" /> |
+| <span id="motivation">Motivation</span> | Motivation data, like a gem challenge | <Swatch name="Magenta 30" hex="#E83FA4" /> | |
+| <span id="errors">Errors</span> | Error states, like a chart that failed to load. Never for data. | <Swatch name="Red 30" hex="#E22D2D" /> | |
+| <span id="assessment">Assessment</span> | Assessment results, like performance levels. Not progress on an assessment. | TODO | TODO |
+| <span id="mastery">Mastery</span> | Mastery levels. Not progress toward mastery. | TODO | TODO |
 
-### Fills and outlines
+> **TODO:** Define how charts show items that need action, like schools behind schedule. Emphasis blue can read as positive next to a Warning badge. Yellow can still mean Warning when the context makes it clear, like bars next to a Warning badge, even though Scores also uses yellow.
 
-Most chart fills are light and don't reach 3:1 contrast on their own. Every filled mark (bars, segments, areas, points) gets a **1px outline** in a darker step of the same color, and the outline carries the contrast. In line charts, draw the line in the role's outline color at 2px.
+> **TODO:** Replace the primitive color names on this page (for example, Blue 50 and Cyan 20) with data visualization semantic color tokens once they exist in Wonder Blocks.
 
-### Single series
+### Using color roles
 
-Draw one quantity clearly. Color carries no information and isn't asked to. This covers most charts in the product: a distribution, a total over time, or progress toward a target.
-
-Single series is for any data **outside** assessments, mastery, and motivation. Those have their own roles; don't use blue for them.
-
-<div style={{display: "flex", flexWrap: "wrap", gap: "16px", marginBlockEnd: "24px"}}>
-    <Color title="Blue 50" hex="#8DA2FF" />
-    <Color title="Blue 40" hex="#6C82FF" />
-</div>
-
-| Fill | Outline and line |
-| --- | --- |
-| Blue 50 | Blue 40 |
-
-### Categorical
-
-Give each series a stable color the reader can follow across the whole view. Use when two or more series share one plot area.
-
-<div style={{display: "flex", flexWrap: "wrap", gap: "16px", marginBlockEnd: "24px"}}>
-    <Color title="Cyan 40" hex="#57BAFD" />
-    <Color title="Cyan 20" hex="#2485C7" />
-    <Color title="Orange 40" hex="#F97B4F" />
-    <Color title="Orange 30" hex="#F8551A" />
-    <Color title="Magenta 40" hex="#F670C1" />
-    <Color title="Magenta 30" hex="#E83FA4" />
-    <Color title="Green 40" hex="#72BB82" />
-    <Color title="Green 30" hex="#579F6C" />
-</div>
-
-| Order | Fill | Outline and line |
-| --- | --- | --- |
-| 1 | Cyan 40 | Cyan 20 |
-| 2 | Orange 40 | Orange 30 |
-| 3 | Magenta 40 | Magenta 30 |
-| 4 | Green 40 | Green 30 |
-
-- Apply colors in order.
-- Keep a series' color the same across every chart in the view.
-- Past four series, fold the rest into "Other" (using Neutral) or use a table.
-
-### Neutral
-
-Let a mark be present and readable without competing for attention. Use Neutral when a series is context rather than subject, when a long tail is folded into "Other," or for the midpoint of a diverging scale.
-
-<div style={{display: "flex", flexWrap: "wrap", gap: "16px", marginBlockEnd: "24px"}}>
-    <Color title="Gray 60" hex="#CBCBCD" />
-    <Color title="Gray 30" hex="#8A8B90" />
-</div>
-
-| Fill | Outline and line |
-| --- | --- |
-| Gray 60 | Gray 30 |
-
-### Emphasis
-
-Answer one question about one series while keeping the rest visible as a yardstick. Use when the chart makes a single point, like "this one moved" or "this one lags."
-
-<div style={{display: "flex", flexWrap: "wrap", gap: "16px", marginBlockEnd: "24px"}}>
-    <Color title="Blue 50" hex="#8DA2FF" />
-    <Color title="Blue 40" hex="#6C82FF" />
-    <Color title="Gray 60" hex="#CBCBCD" />
-    <Color title="Gray 30" hex="#8A8B90" />
-</div>
-
-| Series | Fill | Outline and line |
-| --- | --- | --- |
-| Emphasized | Blue 50 | Blue 40 |
-| Comparison | Gray 60 | Gray 30 |
-
-### Attention
-
-Mark the items that need someone to do something, and only those. Use when there's a threshold, target, or floor that some items fall short of, and the reader's task is to act on the shortfall.
-
-Attention applies to data marks: the fill and outline of the bars, segments, or points below the threshold. Don't use it for text color.
-
-<div style={{display: "flex", flexWrap: "wrap", gap: "16px", marginBlockEnd: "24px"}}>
-    <Color title="Yellow 30" hex="#FCB706" />
-    <Color title="Yellow 10" hex="#966B00" />
-    <Color title="Gray 60" hex="#CBCBCD" />
-    <Color title="Gray 30" hex="#8A8B90" />
-</div>
-
-| Items | Fill | Outline and line |
-| --- | --- | --- |
-| Below the threshold | Yellow 30 | Yellow 10 |
-| At or above the threshold | Gray 60 | Gray 30 |
-
-Use Attention only when one direction is really bad. If it's simply a comparison, use Emphasis.
-
-> **TODO:** Define how Attention shows outside charts, like in tables and stat cards, and add examples.
-
-### Annotation
-
-Let the chart say something in words or reference marks without that ink reading as data. Examples: a target line, a grade-level or district average, a callout explaining a drop, or a "term started here" marker.
-
-<div style={{display: "flex", flexWrap: "wrap", gap: "16px", marginBlockEnd: "24px"}}>
-    <Color title="Gray 10" hex="#4A4C53" />
-    <Color title="Gray 30" hex="#8A8B90" />
-</div>
-
-| Color | Use for |
-| --- | --- |
-| Gray 10 | Annotation text and callouts |
-| Gray 30 | Reference lines and markers |
-
-> **TODO:** Confirm the text vs. line split above.
-
-### Motivation
-
-Use Magenta 30 as the fill for motivation data. Don't use it as a fill in any other role; it only appears elsewhere as the Magenta 40 outline.
-
-<div style={{display: "flex", flexWrap: "wrap", gap: "16px", marginBlockEnd: "24px"}}>
-    <Color title="Magenta 30" hex="#E83FA4" />
-</div>
-
-> **TODO:** Define what counts as motivation data and add examples.
-
-### Assessment
-
-> **TODO:** Define the assessment color role.
-
-### Mastery
-
-> **TODO:** Define the mastery color role.
+<ul>
+    <li><Do /> Give every filled mark a 1px outline in the role's outline color. Light fills don't reach 3:1 contrast on their own, so the outline carries it. Draw lines in the outline color at 2px.</li>
+    <li><Do /> Keep a series' color the same across every chart in the view. Past four series, fold the rest into "Other" in Neutral gray, or use a table.</li>
+    <li><Do /> Use Progress and amounts for progress on anything, including assessments and mastery: "18 of 25 students finished the assessment."</li>
+    <li><Dont /> Don't use Progress and amounts blue for results, like performance levels, mastery levels, or scores, or for motivation data. They have their own roles.</li>
+    <li><Dont /> Don't use Magenta 30 as a fill outside motivation data.</li>
+    <li><Dont /> Don't use Errors red for data, including low scores. Scores use lighter reds, so a low score doesn't read as a broken chart.</li>
+</ul>
 
 ## Typography and numbers
 
@@ -270,6 +137,8 @@ Use Magenta 30 as the fill for motivation data. Don't use it as a fill in any ot
 | Use counts when the reader acts on individuals | "23 of 28 students completed it" |
 | Use percentages to compare groups of different sizes | "82% of Period 1 vs. 64% of Period 3" |
 | Pair them when comparing groups and the reader will follow up with individuals | "82% (23 of 28)" |
+| Use thousands separators | 1,500, not 1500 |
+| Write ordinals on the baseline, not as superscript | 8th, not 8ᵗʰ |
 | Abbreviate large numbers | 1.2K, 3.4M |
 | Always include units | 45 min, 12 skills |
 | Use relative dates within 7 days | "2 days ago," "Due Friday" |
@@ -277,8 +146,8 @@ Use Magenta 30 as the fill for motivation data. Don't use it as a fill in any ot
 
 <ul>
     <li><Do /> Pair them when a teacher compares classes and will follow up with students: "Period 1: 82% (23 of 28)."</li>
-    <li><Dont /> Pair them when the count is too large to act on: "82% (14,302 of 17,441)." Use the percentage alone.</li>
-    <li><Dont /> Use counts alone to compare groups of different sizes: "23 of 28" vs. "12 of 14." Use percentages.</li>
+    <li><Dont /> Don't pair them when the count is too large to act on: "82% (14,302 of 17,441)." Use the percentage alone.</li>
+    <li><Dont /> Don't use counts alone to compare groups of different sizes: "23 of 28" vs. "12 of 14." Use percentages.</li>
 </ul>
 
 ### Missing and zero values
@@ -287,6 +156,7 @@ Zero and missing are different and must look different.
 
 - **Zero** is a real value. Show it as `0`.
 - **Missing** means no data exists. Show it as `—` and explain why in a tooltip or footnote.
+- Give `—` an accessible label, so screen readers don't read it as a dash or skip it. Use the reason when it's known, like "Not started" or "Didn't take the assessment." Otherwise use "No data."
 
 ## Interaction
 
@@ -305,6 +175,7 @@ Always show when data was last updated, in the chart footer or container.
 ## Writing for data
 
 - **Write chart titles as insights.** The title directly above a chart states the takeaway: "Students are moving up, but five have never left Beginning," not "Mastery levels." The section heading above the chart container names the topic, like "Mastery levels."
+- **Leave the period off titles.** Titles are headings, so write them in sentence case with no ending punctuation, even when they're full sentences: "3 skills ahead of schedule."
 - **Use plain language.** Avoid jargon like "cohort" or "variance" unless the audience expects it.
 - **Name people consistently.** Use "students" for learners in a class context.
 - **Label directly.** Put labels on the marks instead of relying on a legend.

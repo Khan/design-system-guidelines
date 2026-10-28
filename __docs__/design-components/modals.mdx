@@ -16,6 +16,7 @@ import buttonsDirectionalImg from "./assets/modals/buttons-directional.png";
 import copyHeadlineImg from "./assets/modals/copy-headline.png";
 import copyBodyImg from "./assets/modals/copy-body.png";
 import copyActionsImg from "./assets/modals/copy-actions.png";
+import {Do, Dont} from "../components/DoDont";
 
 <Meta title="Design Guidelines / Components / Overlays / Modals" />
 
@@ -27,7 +28,7 @@ import copyActionsImg from "./assets/modals/copy-actions.png";
 
 A high-focus container used to isolate a user’s attention for a specific sub-task or critical decision. Modals require an explicit action or dismissal before the user can return to the primary background content.
 
-## When to use
+## <Do /> When to use
 
 The choice to use a modal is determined by the need for complete user focus and the "sandboxing" of a specific workflow.
 
@@ -39,7 +40,7 @@ The choice to use a modal is determined by the need for complete user focus and 
 | A short sequential flow is needed without leaving the page | Adding a class — choosing an import method, then confirming details. |
 | Supplementary content is needed without fully navigating away from the current page | Displaying a long description during an assessment so students can reference it without leaving. |
 
-## When NOT to use
+## <Dont /> When NOT to use
 
 Avoid modals when the task doesn’t require the user’s full attention, when the content is too complex to contain, or when a lighter in-context interaction would be less disruptive.
 
@@ -72,7 +73,7 @@ Multi-step flows have additional requirements — see Multi-step flows under Int
 
 Use for complex, multi-faceted filtering or export settings.
 
-See [Modals - selection](?path=/docs/design-guidelines-components-overlays-modals-selection--docs).
+See <a href="./?path=/docs/design-guidelines-components-overlays-modals-selection--docs">Modals - selection</a>.
 
 <img src={selectionFlowImg} alt="A “More filters” modal over a dimmed report, with display options, course, subject checkboxes, and practice fields, plus Reset filters and Apply filters" />
 
@@ -120,7 +121,7 @@ Modals use a set of fixed widths with dynamic height. Choose a size based on the
 
 ## Surface and elevation
 
-The modal container uses Surface 2 – Default and sits at High elevation, so it reads as a distinct object floating above the page. It is always paired with a Surface scrim covering all background content — a modal is never opened without a scrim. The Media variant is the exception: it fills the viewport rather than sitting centered over the scrim. See [Surfaces and elevations](?path=/docs/design-guidelines-foundations-surfaces-and-elevations--docs).
+The modal container uses Surface 2 – Default and sits at High elevation, so it reads as a distinct object floating above the page. It is always paired with a Surface scrim covering all background content — a modal is never opened without a scrim. The Media variant is the exception: it fills the viewport rather than sitting centered over the scrim. See <a href="./?path=/docs/design-guidelines-foundations-surfaces-and-elevations--docs">Surfaces and elevations</a>.
 
 | Element | Value | Token |
 | --- | --- | --- |
@@ -168,7 +169,7 @@ This confirmation is the only permitted second layer. It resolves the dismissal 
 
 ### Multi-step flows
 
-A modal can support a short sequential flow of 2–3 steps when each step is simple and self-contained. If the flow grows beyond 3 steps or requires significant input at each stage, move it to a full page with the [Progress stepper](?path=/docs/design-guidelines-components-feedback-progress-stepper--docs) instead.
+A modal can support a short sequential flow of 2–3 steps when each step is simple and self-contained. If the flow grows beyond 3 steps or requires significant input at each stage, move it to a full page with the <a href="./?path=/docs/design-guidelines-components-feedback-progress-stepper--docs">Progress stepper</a> instead.
 
 <img src={interactionMultistepImg} alt="Step one of an “Add your students” multi-step modal, selecting an import method before continuing to the next step" />
 
@@ -176,7 +177,7 @@ A modal can support a short sequential flow of 2–3 steps when each step is sim
 
 ### Pairings
 
-Modal actions use the [Buttons](?path=/docs/design-guidelines-components-buttons-buttons--docs) component. Never use the chonky buttons for learners in a modal. Three pairings apply:
+Modal actions use the <a href="./?path=/docs/design-guidelines-components-buttons-buttons--docs">Buttons</a> component. Never use the chonky buttons for learners in a modal. Three pairings apply:
 
 -   **Standard (Primary + Secondary):** used for neutral functional tasks (e.g., "Add students"). The secondary button (outlined) provides a clear, accessible exit that feels equal in importance to the task.
 -   **Nudge (Primary + Tertiary):** used for confirmations. The primary solid button represents the "path of least resistance." Whether this is the safe choice or the requested action depends on the risk involved (see Directional logic).

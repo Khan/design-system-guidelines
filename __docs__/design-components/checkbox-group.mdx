@@ -7,6 +7,7 @@ import interaction2Img from "./assets/checkbox-group/interaction-2.png";
 import copyImg from "./assets/checkbox-group/copy.png";
 import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
 import Figure from "../components/Figure"
+import {Do, Dont} from "../components/DoDont";
 
 export const barImageStyle = {width: "100%", display: "block", margin: 0};
 
@@ -20,7 +21,7 @@ export const barImageStyle = {width: "100%", display: "block", margin: 0};
 
 A multi-selection mechanism that allows users to select multiple options from a single dimension simultaneously. Each selection adds to the filter — results matching any of the selected options are included.
 
-## When to use
+## <Do /> When to use
 
 The choice to use a checkbox group is based on the requirement for additive filtering — where multiple options from the same dimension can be true at the same time.
 
@@ -29,7 +30,7 @@ The choice to use a checkbox group is based on the requirement for additive filt
 | Multiple options from the same dimension can apply simultaneously | Filtering by 6th grade OR 7th grade OR 8th grade at the same time. |
 | The selection is part of a form or larger filter context | Inside a filter modal where selections are confirmed with Apply — exposed directly or wrapped in a combobox depending on option count. |
 
-## When NOT to use
+## <Dont /> When NOT to use
 
 | Don’t use when | Recommended alternative | Rationale |
 | --- | --- | --- |

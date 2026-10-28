@@ -10,9 +10,12 @@ import visualizationAndCustomization2Img from "./assets/khanmigo/visualization-a
 import visualizationAndCustomization3Img from "./assets/khanmigo/visualization-and-customization-3.png";
 import visualizationAndCustomization4Img from "./assets/khanmigo/visualization-and-customization-4.png";
 import visualizationAndCustomization5Img from "./assets/khanmigo/visualization-and-customization-5.png";
+import visualizationAndCustomization6Img from "./assets/khanmigo/visualization-and-customization-6.png";
 import interaction1Img from "./assets/khanmigo/interaction-1.png";
 import interaction2Img from "./assets/khanmigo/interaction-2.png";
 import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
+import {Do, Dont} from "../components/DoDont";
+import Figure from "../components/Figure";
 
 <Meta title="Design Guidelines / Components / Characters / Khanmigo" />
 
@@ -24,7 +27,7 @@ import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
 
 Khanmigo is Khan Academy's AI-powered educational mascot that serves as a multi-faceted companion. Its primary function is to act as a guide for students and an assistant for teachers and administrators. "AI-powered" describes the Full (licensed) tier — the Freemium tier uses the same character as a motivational guide without generative AI capabilities; see Roles and versioning below.
 
-## When to use
+## <Do /> When to use
 
 The choice to use Khanmigo is determined by the need to provide interactive pedagogical guidance, administrative assistance, or motivational engagement during non-evaluative learning activities.
 
@@ -34,7 +37,7 @@ The choice to use Khanmigo is determined by the need to provide interactive peda
 | Guiding students through their learning journey and encouraging rewards (motivational wayfinding) | Motivating students to earn gems and unlock new mascot accessories. |
 | Giving educators (teacher/admins) student insights or classroom management shortcuts | Teachers clicking the persistent "Ask Khanmigo Assistant" button in the global header to open a chat interface or any ask Khanmigo input field. |
 
-## When NOT to use
+## <Dont /> When NOT to use
 
 | Don’t use when | Recommended alternative | Rationale |
 | --- | --- | --- |
@@ -112,13 +115,30 @@ Khanmigo is always retained in the name, so the example here is Cat Khanmigo.
 
 Khanmigo remains in a fixed, professional "Assistant" state for the teachers and admins experience.
 
-<img src={visualizationAndCustomization4Img} alt="Visualization and customization 4" />
+<Figure
+    src={visualizationAndCustomization4Img}
+    alt="A teacher’s lesson plan tool showing Khanmigo wearing a hat"
+    caption="customize Khanmigo for teachers or admins, like adding a hat."
+    type="dont"
+/>
 
 ### No alternative characters
 
 To ensure a consistent user experience, Khanmigo serves as the exclusive AI persona for all users. It is the sole guide and tutor for students across the experience—including the dashboard, learning queue, and all practice modes—with the exception of assessments. Khanmigo is also the permanent assistant for teachers and administrators. Using any character other than Khanmigo or Khanductor (assessments only) is strictly prohibited.
 
-<img src={visualizationAndCustomization5Img} alt="Visualization and customization 5" />
+<Figure
+    src={visualizationAndCustomization5Img}
+    alt="A practice question where a different character offers to help the student"
+    caption="use another character as the tutor in practice."
+    type="dont"
+/>
+
+<Figure
+    src={visualizationAndCustomization6Img}
+    alt="A student dashboard where a different character encourages the student to catch up on overdue assignments"
+    caption="use another character on the student dashboard."
+    type="dont"
+/>
 
 ## Interaction
 

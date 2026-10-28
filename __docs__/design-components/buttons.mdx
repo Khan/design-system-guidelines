@@ -23,6 +23,7 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import checkSquareOffsetBold from "@phosphor-icons/core/bold/check-square-offset-bold.svg";
 import pencilBold from "@phosphor-icons/core/bold/pencil-bold.svg";
 import Demo from "../components/Demo";
+import {Do, Dont} from "../components/DoDont";
 
 export const barImageStyle = {width: "100%", display: "block", margin: 0};
 
@@ -38,7 +39,7 @@ export const barImageStyle = {width: "100%", display: "block", margin: 0};
 
 A button is a highly discoverable, interactive element used to communicate and trigger a specific action or command. Its primary purpose is to initiate state changes or execute a task—essentially, buttons do things.
 
-## When to use
+## <Do /> When to use
 
 The choice to use a button is determined by the need to prompt the user to perform an action that changes the state or context of the system.
 
@@ -47,7 +48,7 @@ The choice to use a button is determined by the need to prompt the user to perfo
 | The action is the primary goal of the current view | Save, Submit, Confirm — the main thing a user needs to do on this screen. |
 | The action has a clear, immediate outcome | Assign content, Add filter, Delete record. |
 
-## When NOT to use
+## <Dont /> When NOT to use
 
 | Don’t use when | Recommended alternative | Rationale |
 | --- | --- | --- |
@@ -59,14 +60,15 @@ The choice to use a button is determined by the need to prompt the user to perfo
 
 ### Primary button
 
-Used for one, single critical action that completes the workflow (Submit, Start). Drives the user toward the main goal.
-Don’t use more than one per visible screen area.
+Used for the single most important action on the page—the one that completes the workflow (Submit, Start) and drives the user toward the main goal. Use only one primary button per page.
+
+A modal, drawer, or other overlay is its own context, so it can have its own primary action. The primary button on the page behind the scrim doesn’t count as a second one.
 
 <Demo>
     <Button kind="primary" onClick={() => {}} style={{transform: "scale(1.2)"}}>Primary button</Button>
 </Demo>
 
-<Demo type="dont" style={{paddingInline: 0, paddingBlock: 0}}>
+<Demo type="dont" explanation="put a primary button on every card when the page already has a primary action." style={{paddingInline: 0, paddingBlock: 0}}>
     <img src={variants1Img} alt="Variants 1" style={barImageStyle} />
 </Demo>
 
@@ -80,7 +82,7 @@ Don’t use it for navigation or low-value trivial actions (View details, Previe
     <Button kind="secondary" onClick={() => {}} style={{transform: "scale(1.2)"}}>Secondary button</Button>
 </Demo>
 
-<Demo type="dont" style={{paddingInline: 0, paddingBlock: 0}}>
+<Demo type="dont" explanation="use secondary buttons for low-value actions like “View course” repeated down a list." style={{paddingInline: 0, paddingBlock: 0}}>
     <img src={variants2Img} alt="Variants 2" style={barImageStyle} />
 </Demo>
 
@@ -93,7 +95,7 @@ Avoid styling links as buttons (e.g., a "Read more" button). To maintain accessi
     <Button kind="tertiary" onClick={() => {}} style={{transform: "scale(1.2)"}}>Tertiary button</Button>
 </Demo>
 
-<Demo type="dont" style={{paddingInline: 0, paddingBlock: 0}}>
+<Demo type="dont" explanation="use a tertiary button for “Read more.” It takes the user somewhere, so it should be a link." style={{paddingInline: 0, paddingBlock: 0}}>
     <img src={variants3Img} alt="Variants 3" style={barImageStyle} />
 </Demo>
 
@@ -105,7 +107,7 @@ Neutral tokens help preserve hierarchy balance when multiple kinds of elements w
 
 Neutral text buttons are not currently in use. If a use case arises, please reach out to the #design-infra group with your rationale.
 
-<Demo type="dont" style={{gap: "16px", flexDirection: "row", flexWrap: "wrap", justifyContent: "center"}}>
+<Demo type="dont" explanation="use neutral text buttons. Neutral is only for icon-only tertiary buttons." style={{gap: "16px", flexDirection: "row", flexWrap: "wrap", justifyContent: "center"}}>
     <Button actionType="neutral" kind="primary" onClick={() => {}}>Primary button</Button>
     <Button actionType="neutral" kind="secondary" onClick={() => {}}>Secondary button</Button>
     <Button actionType="neutral" kind="tertiary" onClick={() => {}}>Tertiary button</Button>
@@ -135,7 +137,7 @@ Utility-based actions: Perfect for "micro-actions" within a larger workflow, suc
     <Button kind="tertiary" size="small" onClick={() => {}}>Small button</Button>
 </Demo>
 
-<Demo type="do" style={{paddingInline: 0, paddingBlock: 0}}>
+<Demo type="do" explanation="use a small button for a micro-action inside a compact card, like “Set reward.”" style={{paddingInline: 0, paddingBlock: 0}}>
     <img
         src={states1Img}
         alt="A small 'Set reward' button used inside a compact Gem challenge card"
@@ -166,7 +168,7 @@ Don’t use a disabled button to communicate when conditions for progressing or 
     <Button kind="primary" disabled onClick={() => {}} style={{transform: "scale(1.2)"}}>Primary button</Button>
 </Demo>
 
-<Demo type="dont" style={{paddingInline: 0, paddingBlock: 0}}>
+<Demo type="dont" explanation="disable a button because the user hasn’t finished a step yet, like selecting questions to review." style={{paddingInline: 0, paddingBlock: 0}}>
     <img src={states4Img} alt="States 4" style={barImageStyle} />
 </Demo>
 

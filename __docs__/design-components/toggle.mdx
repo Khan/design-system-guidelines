@@ -12,6 +12,7 @@ import preferencesInteractionImg from "./assets/toggle/preferences-interaction.p
 import preferencesCopyImg from "./assets/toggle/preferences-copy.png";
 import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
 import Figure from "../components/Figure";
+import {Do, Dont} from "../components/DoDont";
 
 <Meta title="Design Guidelines / Components / Inputs / Toggle" />
 
@@ -21,7 +22,7 @@ import Figure from "../components/Figure";
 
 <NeutralBadge label="Binary/Boolean control" /> A simple on/off mechanism used for a quick, either-or choice — filtering results by a single boolean attribute, or switching a setting or preference on and off.
 
-## When to use
+## <Do /> When to use
 
 The choice to use a toggle is determined by the need for an immediate, singular action on a single boolean attribute.
 
@@ -31,7 +32,7 @@ The choice to use a toggle is determined by the need for an immediate, singular 
 | The action takes effect immediately without confirmation | Toggling "Show only completed tasks" instantly filters the list; toggling "Receive email from Khan Academy" instantly saves the preference. Exception: inside the More filters modal the effect is deferred until Apply — see [Filter modal](#filter-modal) under Filtering. |
 | The state is always visible and needs to be persistent | A global constraint that remains active across the session until the user turns it off or clears filters; a notification preference that stays set until changed in account settings |
 
-## When NOT to use
+## <Dont /> When NOT to use
 
 | Don't use when | Recommended alternative | Rationale |
 | --- | --- | --- |

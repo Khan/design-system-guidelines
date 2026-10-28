@@ -13,6 +13,7 @@ import adaptiveControls2Img from "./assets/modals-selection/adaptive-controls-2.
 import parentChild1Img from "./assets/modals-selection/parent-child-1.png";
 import parentChild2Img from "./assets/modals-selection/parent-child-2.png";
 import resetFiltersImg from "./assets/modals-selection/reset-filters.png";
+import {Do, Dont} from "../components/DoDont";
 
 <Meta title="Design Guidelines / Components / Overlays / Modals - selection" />
 
@@ -24,7 +25,7 @@ import resetFiltersImg from "./assets/modals-selection/reset-filters.png";
 
 A secondary control center for complex or less frequent filtering needs, ensuring the primary interface remains uncluttered. Allows users to manage multiple data dimensions in a focused environment without losing the context of their current report.
 
-## When to use
+## <Do /> When to use
 
 The choice to use the selection modal is determined by the need to provide access to extended filtering criteria that would otherwise overwhelm the horizontal real estate of the primary filter bar.
 
@@ -33,7 +34,7 @@ The choice to use the selection modal is determined by the need to provide acces
 | Housing secondary filters used less frequently than primary anchors | Moving specific filter options into the modal to keep the main header clean. |
 | The filtering interaction combines multiple input types that are too complex for the filter bar | Selecting a Practice type reveals a Test type dropdown below it — the modal gives dependent filters the space to reveal themselves without cluttering the filter bar. |
 
-## When NOT to use
+## <Dont /> When NOT to use
 
 Avoid the selection modal when the filtering need is simple enough to be handled directly in the filter bar, or when a pre-selected default should always be visible to the user.
 
@@ -77,7 +78,7 @@ The "Reset filters" button is always in the bottom left, anchored to the footer.
 
 ## Interaction
 
-When designing the content of the modal, refer to the specific documentation for components like [dropdowns](?path=/docs/design-guidelines-components-inputs-dropdown-select--docs), [radio buttons](?path=/docs/design-guidelines-components-inputs-radio-button--docs), [checkboxes](?path=/docs/design-guidelines-components-inputs-checkbox-group--docs), and [toggles](?path=/docs/design-guidelines-components-inputs-toggle--docs) to ensure input consistency. For backdrop behavior, sizing, and animations, refer to the [Modals documentation](?path=/docs/design-guidelines-components-overlays-modals--docs).
+When designing the content of the modal, refer to the specific documentation for components like <a href="./?path=/docs/design-guidelines-components-inputs-dropdown-select--docs">dropdowns</a>, <a href="./?path=/docs/design-guidelines-components-inputs-radio-button--docs">radio buttons</a>, <a href="./?path=/docs/design-guidelines-components-inputs-checkbox-group--docs">checkboxes</a>, and <a href="./?path=/docs/design-guidelines-components-inputs-toggle--docs">toggles</a> to ensure input consistency. For backdrop behavior, sizing, and animations, refer to the <a href="./?path=/docs/design-guidelines-components-overlays-modals--docs">Modals documentation</a>.
 
 ### Applying changes
 
@@ -109,7 +110,7 @@ Within the modal, toggles should be placed full-width and left-aligned, with the
 
 ### Dynamic content — adaptive controls
 
-Filter options are drawn from the data, so list length isn’t fixed — a teacher with four courses and a district admin with twenty meet the same filter at different lengths. When a list resolves to eight or fewer options, the dropdown is replaced by exposed checkboxes, following the [option-count rule](./?path=/docs/design-guidelines-components-inputs-dropdown-select--docs#exposed-or-dropdown) used across the system.
+Filter options are drawn from the data, so list length isn’t fixed — a teacher with four courses and a district admin with twenty meet the same filter at different lengths. When a list resolves to eight or fewer options, the dropdown is replaced by exposed checkboxes, following the <a href="./?path=/docs/design-guidelines-components-inputs-dropdown-select--docs#exposed-or-dropdown">option-count rule</a> used across the system.
 
 The form is decided when the modal opens and holds until it closes. A control never changes shape while the user is in the modal, even if another selection narrows its options — a control that changes form mid-interaction moves a target the user is aiming at and casts doubt on selections already made.
 
@@ -135,6 +136,6 @@ Selecting "Reset filters" returns every control in the modal to its default valu
 
 The modal stays open and nothing reaches the report until the user selects "Apply filters". Reset is a change like any other made here, so it follows the same commit path — the user can see what the reset did, adjust from there, and dismiss without committing if they change their mind.
 
-This is not the same action as Clear filters in the filter bar, which removes active filters from the report rather than returning controls to their defaults. Clear and reset are distinct verbs in this system: clear removes to empty, reset returns to a default. See [Clear filter](?path=/docs/design-guidelines-components-inputs-clear-filter--docs).
+This is not the same action as Clear filters in the filter bar, which removes active filters from the report rather than returning controls to their defaults. Clear and reset are distinct verbs in this system: clear removes to empty, reset returns to a default. See <a href="./?path=/docs/design-guidelines-components-inputs-clear-filter--docs">Clear filter</a>.
 
 <img src={resetFiltersImg} alt="The selection modal footer with the “Reset filters” button highlighted" />

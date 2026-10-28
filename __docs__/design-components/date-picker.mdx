@@ -4,6 +4,7 @@ import datePickerImg from "./assets/date-picker/date-picker.png";
 import standaloneImg from "./assets/date-picker/standalone.png";
 import customRangeModalImg from "./assets/date-picker/custom-range-modal.png";
 import interactionImg from "./assets/date-picker/interaction.png";
+import {Do, Dont} from "../components/DoDont";
 
 <Meta title="Design Guidelines / Components / Inputs / Date picker" />
 
@@ -15,7 +16,7 @@ import interactionImg from "./assets/date-picker/interaction.png";
 
 A text input paired with a calendar popover for selecting a specific date. Supports direct keyboard entry and point-and-click calendar selection.
 
-## When to use
+## <Do /> When to use
 
 The choice to use a date picker is determined by the need to select a specific date — either to filter data or to set a value, such as a due date or event date.
 
@@ -24,7 +25,7 @@ The choice to use a date picker is determined by the need to select a specific d
 | The user needs to select one exact date | Setting a due date for an assignment. |
 | The user needs to schedule an event or reminder on a precise date | Setting a test date in a course calendar. |
 
-## When NOT to use
+## <Dont /> When NOT to use
 
 | Don’t use when | Recommended alternative | Rationale |
 | --- | --- | --- |
@@ -44,7 +45,7 @@ A text input with a calendar icon. The user can type directly in MM/DD/YYYY form
 
 ### Date picker in custom range modal
 
-Used inside the date filter’s "Set custom range" modal. Two date picker inputs — From and To — each with a calendar icon. This variant only appears inside the date filter modal, never stand-alone. See the [Date filter documentation](?path=/docs/design-guidelines-components-inputs-date-filter--docs) for full context.
+Used inside the date filter’s "Set custom range" modal. Two date picker inputs — From and To — each with a calendar icon. This variant only appears inside the date filter modal, never stand-alone. See the <a href="./?path=/docs/design-guidelines-components-inputs-date-filter--docs">Date filter documentation</a> for full context.
 
 <img src={customRangeModalImg} alt="A “Set custom range” modal with From (December 1, 2025) and To (December 23, 2025) date picker fields and an Apply button" />
 

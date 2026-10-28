@@ -6,6 +6,7 @@ import interaction1Img from "./assets/inline-filter-button/interaction-1.png";
 import interaction2Img from "./assets/inline-filter-button/interaction-2.png";
 import interaction3Img from "./assets/inline-filter-button/interaction-3.png";
 import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
+import {Do, Dont} from "../components/DoDont";
 
 <Meta title="Design Guidelines / Components / Inputs / Inline filter button" />
 
@@ -17,7 +18,7 @@ import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
 
 An opt-in filter control that lives in a filter bar. Starts unfiltered — all data shows. User adds a filter by clicking the inactive inline filter button. Always clearable with ×.
 
-## When to use
+## <Do /> When to use
 
 The choice to use an inline filter button is based on the need to allow users to optionally narrow data by a dimension without imposing a default. The filter starts inactive and data shows unfiltered until the user opts in.
 
@@ -27,7 +28,7 @@ The choice to use an inline filter button is based on the need to allow users to
 | User owns the initial state | The product has no meaningful default to pre-apply | Filtering a roster by grade — all grades shown by default |
 | Multiple filters in a bar | Several opt-in filter comboboxes sit side by side in a filter bar, each independently addable and clearable | School ⊕, Grade ⊕ filter in a report filter bar |
 
-## When NOT to use
+## <Dont /> When NOT to use
 
 Avoid the filter combobox when a value is always required or when the control lives inside a form or modal.
 
@@ -60,13 +61,13 @@ Trigger label after selection:
 
 ### In-menu search
 
-Follows the same rules as the Dropdown component. See [Dropdown documentation](./?path=/docs/design-guidelines-components-inputs-dropdown-select--docs).
+Follows the same rules as the Dropdown component. See <a href="./?path=/docs/design-guidelines-components-inputs-dropdown-select--docs">Dropdown documentation</a>.
 
 <img src={interaction1Img} alt="An open `School` inline filter button with a `Search schools` field at the top of the menu, above a scrollable checkbox list of school names." />
 
 ### Multi-select requires apply
 
-Follows the same rules as the Dropdown component. See [Dropdown documentation](./?path=/docs/design-guidelines-components-inputs-dropdown-select--docs).
+Follows the same rules as the Dropdown component. See <a href="./?path=/docs/design-guidelines-components-inputs-dropdown-select--docs">Dropdown documentation</a>.
 
 <img src={interaction2Img} alt="An open `Grade` inline filter button with `6th grade` checked, `7th grade` and `8th grade` unchecked, and an `Apply` button below a separator — the selection is not committed until Apply is pressed." />
 
@@ -74,6 +75,6 @@ Follows the same rules as the Dropdown component. See [Dropdown documentation](.
 
 Multiple filter comboboxes sit side by side in a filter bar. Each is independent — clearing one does not affect others. The recommended maximum is 3 per bar. If more are needed, evaluate whether a More filters modal is more appropriate.
 
-For active filters display behavior and "Clear all filters" logic, see the [Filter and sort pattern doc](./?path=/docs/design-guidelines-patterns-filter-and-sort--docs).
+For active filters display behavior and "Clear all filters" logic, see the <a href="./?path=/docs/design-guidelines-patterns-filter-and-sort--docs">Filter and sort pattern doc</a>.
 
 <img src={interaction3Img} alt="A report page with a filter bar containing a `Last 30 days` date filter followed by three inline filter buttons — `School`, `Grade`, and `Subject` — highlighted together, above a `120 results` count." />

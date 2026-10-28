@@ -1,0 +1,140 @@
+import {Meta} from "@storybook/addon-docs/blocks";
+import headerImg from "./assets/data-tables/header.png";
+import basicTableImg from "./assets/data-tables/basic-table.png";
+import summaryTabsImg from "./assets/data-tables/summary-tabs.png";
+import Figure from "../components/Figure";
+import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
+import {Do, Dont} from "../components/DoDont";
+import {CompletedBadge, InProgressBadge, WarningFlag, CriticalFlag} from "./assets/data-tables/CellExamples";
+
+<Meta title="Design Guidelines / Components / Data visualization / Data tables" />
+
+<img src={headerImg} alt="Data tables" />
+
+# Data tables
+
+<NeutralBadge label="Details for each individual or item" />
+
+Data tables answer "Who exactly, and what do I do?" They list each individual or item, like a school, class, teacher, student, or assignment, with exact values, and can include small visuals like progress bars and flags.
+
+Data tables are built with Wonder Blocks, using the Thunderblocks theme. Charts are built with Highcharts.
+
+> **TODO:** Link to the Wonder Blocks table component once it exists.
+
+## <Do /> When to use
+
+| Use when | Example use |
+| --- | --- |
+| Readers need to find or act on individuals or items | A district admin looks up each teacher's classes and students; a teacher checks each student's score |
+| Readers compare exact values across many columns | Assignments with type, due date, completion, and flags |
+
+## <Dont /> When NOT to use
+
+| Don’t use when | Recommended alternative | Rationale |
+| --- | --- | --- |
+| The takeaway is one number with no comparison, like "11,033 students assessed" | A <a href="./?path=/docs/design-guidelines-components-data-visualization-summary-cards--docs#stat-card">stat card</a> | A table makes readers find the number. A stat card shows it at a glance. |
+| Readers need to see a pattern or trend | <a href="./?path=/docs/design-guidelines-components-data-visualization-distribution-charts--docs">Distribution charts</a> or <a href="./?path=/docs/design-guidelines-components-data-visualization-trend-charts--docs">Trend charts</a> | Patterns are hard to spot in rows of numbers. A chart shows them at a glance. |
+
+## Variants
+
+### Basic table
+
+Rows of items with a header row of column labels. Start here, and add summary tabs only when readers need them.
+
+- Put the column readers scan by first, usually the name of the school, class, teacher, or student.
+- Write column labels in sentence case, and keep them short: "Total students," not "Total number of students."
+
+<Figure
+    src={basicTableImg}
+    alt="A basic table with a header row of Teacher, Total classes, and Total students, and five rows of teachers, like Amelia Abalos, 1 class, 30 students."
+    caption="The name column comes first. Column labels are short and in sentence case."
+/>
+
+### Table with summary tabs
+
+Tabs above the table show a count for each group and filter the table to it. Example: "Where students placed," with tabs for This class, Beginning, Approaching, and Demonstrating.
+
+| Tab part | Example |
+| --- | --- |
+| Label | Approaching |
+| Count | 8 students |
+| Context | 40% of this class |
+
+- The first tab shows the whole group.
+- Tab counts add up to the first tab's total, minus any with no result. Say how many: "2 did not complete."
+- Percentages use the first tab's total, including any with no result.
+
+<Figure
+    src={summaryTabsImg}
+    alt="A Where students placed table. Four tabs sit above it: This class, 20 students, 2 did not complete (selected); Beginning, 5 students; Approaching, 8 students; Demonstrating, 5 students. Each tab shows its share of the class. The table lists students with status, performance level, score, rushing flags, and recommendations."
+    caption="The first tab shows the whole class. Each level tab filters the table to its students."
+/>
+
+## Content
+
+### Names
+
+Show names as first then last: "Amelia Abalos." Sort by first name, A to Z, by default. A sortable name column can also sort by last name.
+
+### Column alignment
+
+Left-align every column, including numbers, so values line up under their labels.
+
+### Missing values
+
+Show `—` when there's no data. See <a href="./?path=/docs/design-guidelines-foundations-data-visualization--docs#missing-and-zero-values">Missing and zero values</a>.
+
+## In-cell visuals
+
+| Visual | Use for | Rule | Example |
+| --- | --- | --- | --- |
+| Progress bar | Completion | Always show the value next to it: 16/20 | TODO |
+| Status badge | A row's state | Text plus color | <CompletedBadge /> <InProgressBadge /> |
+| Flag | Something that needs action | Icon plus text that says what happened | <WarningFlag label="Rushed 3 times" /> |
+
+> **TODO:** Wonder Blocks has no progress bar component yet. Add a real example once it exists.
+
+### Flags
+
+Flags are <a href="./?path=/docs/design-guidelines-components-feedback-badges--docs">badges</a>. Their severity decides the badge.
+
+| Severity | Use when | Badge | Example |
+| --- | --- | --- | --- |
+| Critical | Something already went wrong, or a deadline passed | <a href="./?path=/docs/design-guidelines-components-feedback-badges--docs#critical-error-status">Critical error</a> | <CriticalFlag label="Overdue" /> <CriticalFlag label="4 didn't finish" /> |
+| Warning | Someone may need help, but nothing has failed yet | <a href="./?path=/docs/design-guidelines-components-feedback-badges--docs#warning-status">Warning</a> | <WarningFlag label="3 need help" /> <WarningFlag label="Rushed 3 times" /> |
+
+<ul>
+    <li><Do /> Stack up to two flags in a cell, most severe first.</li>
+    <li><Do /> Place a flag about a single value, like Overdue, next to that value.</li>
+    <li><Dont /> Don't show a flag as a number alone, like "3×." Say what it counts.</li>
+    <li><Dont /> Don't use a flag's color without its icon and text.</li>
+</ul>
+
+## Interaction
+
+### Sorting
+
+- Make a column sortable when readers need to find the highest, lowest, or a specific item.
+- Show a default sort, and mark the sorted column with an arrow.
+
+### Row actions
+
+- Put actions for one row in a "…" menu at the end of the row.
+- Add a checkbox column only when there are bulk actions. When rows are selected, show the selected count and the bulk actions above the table.
+
+### Long tables
+
+Show up to 50 rows, then paginate.
+
+> **TODO:** Define pagination controls as their own component guideline, since other components need them too, and link to it here.
+
+## States
+
+Empty and error states follow <a href="./?path=/docs/design-guidelines-patterns-data-reports--docs#states">Data reports</a>. A table that's filtered to nothing keeps its tabs, filters, and header row visible.
+
+## Accessibility
+
+- Mark header cells as column headers, so screen readers read the column name with each value.
+- Summary tabs are tabs: arrow keys move between them, and the selected tab is announced.
+- Label each checkbox and "…" menu with its row: "Select Unit 3," "Actions for Unit 3."
+- Read flags and badges as text, not color.
