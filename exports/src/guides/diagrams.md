@@ -3,7 +3,8 @@
 Read this together with the core
 [DESIGN.md](../DESIGN.md).
 It covers diagrams, flowcharts, and architecture drawings in any medium (SVG,
-Figma, slides, HTML). It doesn't cover charts or data visualization.
+Figma, slides, HTML). It doesn't cover charts or data visualization. For
+those, see [Charts and data visualization](../DESIGN.md#charts-and-data-visualization).
 
 | Element | thunderblocks | syl-dark |
 | --- | --- | --- |

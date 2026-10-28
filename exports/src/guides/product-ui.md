@@ -11,6 +11,7 @@ like; Wonder Blocks already implements it.
 - **Components:** `Button`, `TextField`, `Banner`, `Badge`, `Card`, `Link`, and the rest, from `@khanacademy/wonder-blocks-*`. Use the component that fits before styling your own.
 - **Tokens:** `semanticColor`, `font`, `sizing`, `border`, and `boxShadow` from `@khanacademy/wonder-blocks-tokens`. Pick semantic color tokens by role; don't use primitive colors.
 - **Theme:** wrap the app in `<ThemeSwitcher theme="thunderblocks">` (or `syl-dark`) from `@khanacademy/wonder-blocks-theming`.
+- **Charts and data reports:** Wonder Blocks has no chart components yet. Don't invent one. Build charts, stat cards, and data tables to the pages linked from [Charts and data visualization](../DESIGN.md#charts-and-data-visualization), and style any chart library to match them.
 - **Text:** `Heading` and `BodyText` from `@khanacademy/wonder-blocks-typography`.
 - **Icons:** `PhosphorIcon` from `@khanacademy/wonder-blocks-icon` with icons from `@phosphor-icons/core`. For Khan Academy concepts (content types, learning states, gems, streaks), first look for an existing icon component in the codebase. If there isn't one, use the official SVGs from the [asset catalog](../assets/index.md).
 

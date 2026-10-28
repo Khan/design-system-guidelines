@@ -49,7 +49,7 @@ CSS.
 | Card padding | 48px | same | Use 32px in dense cards |
 | Text | `#151521` / secondary `#4A4C53` / subtle `#717279` | `#EDEDEE` / `#CBCBCD` / `#A0A1A4` | |
 | Accent fill | `#5753FA` with `#FFFFFF` text | `#5753FA` with `#FFFFFF` text | Filled shapes, badges, the focal stat card, the divider. One filled indigo element per slide |
-| Accent text, icons, lines | `#5753FA` | `#6C82FF` | An indigo word, icon, quotation mark, or chart series. The fill color fails 3:1 on dark cards, so use this one |
+| Accent text, icons, lines | `#5753FA` | `#6C82FF` | An indigo word, icon, or quotation mark (not chart series; see layout 7). The fill color fails 3:1 on dark cards, so use this one |
 
 Rules:
 
@@ -162,6 +162,7 @@ Each layout names the one element that carries the indigo accent.
 ```
 
 - 2–4 stat cards in equal columns, each with a hero-size number (tabular figures), a label, and an optional delta badge.
+- Format the numbers using the Data visualization foundation's number formatting rules, linked from [Charts and data visualization](../DESIGN.md#charts-and-data-visualization).
 - One card may be the **focal stat**: an indigo-filled card (`#5753FA`, border the same color) with all text, including labels, in `#FFFFFF`. That's the slide's one accent. It isn't lifted, and neither is any other card.
 - Deltas are small badges with an arrow icon, never color alone: success is `#E3F7E3` with `#24432D` text (dark `#1A2924` / `#D5F3D5`), and critical is `#FFEBEB` with `#8E1C1C` (dark `#3B141A` / `#FBB1B1`).
 
@@ -179,7 +180,7 @@ Each layout names the one element that carries the indigo accent.
 ```
 
 - A chart card (8 columns) and a takeaway card (4 columns). Lift the takeaway card.
-- There's no data visualization guide yet. Take chart colors from the core DESIGN.md, never let color be the only encoding, and state your assumptions.
+- Build the chart from the pages linked in [Charts and data visualization](../DESIGN.md#charts-and-data-visualization). Its colors come from their color roles, not the graphics palette or the indigo accent. The chart card itself follows this guide's card rules.
 - **Accent:** the lifted takeaway card.
 
 ### 8. Quote / testimonial

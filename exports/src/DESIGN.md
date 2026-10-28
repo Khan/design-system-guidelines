@@ -130,10 +130,27 @@ its text, resolve them against that address.
 | Standalone web prototype, HTML page, or Claude artifact | [guides/web-prototype.md](guides/web-prototype.md) |
 | Slide deck | [guides/slides.md](guides/slides.md) |
 | Diagram or flowchart | [guides/diagrams.md](guides/diagrams.md) |
-| Chart or data visualization | No guide yet. Use this file's colors and contrast rules, and state your assumptions. |
+| Chart, stat card, data table, or data report | The pages linked from [Charts and data visualization](#charts-and-data-visualization) below |
 | Something else | This file plus the closest guide. State your assumptions. |
 
 Guides may extend this file but never override it. Each value has one home: when a guide points to another guide for something (slides point to the diagrams guide for diagram colors), that guide wins.
+
+### Charts and data visualization
+
+Chart guidance isn't in this file. It lives in the design guidelines, and those pages win over anything here, including the graphics palette. Read them before you make a chart, a stat card, a data table, or a data report, in any medium. Each "Source" link is the page's Markdown (with some JSX; color swatches carry their hex values), and each "Page" link is the rendered page for people. If you can't fetch them, say so instead of guessing chart colors.
+
+| Read | For | Source | Page |
+| --- | --- | --- | --- |
+| Data visualization (foundation) | Principles, choosing a chart, forms to avoid, anatomy, color roles, number formatting, chart titles, accessibility | [data-visualization.mdx](https://raw.githubusercontent.com/Khan/design-system-guidelines/main/__docs__/design-foundations/data-visualization.mdx) | [Data visualization](https://khan.github.io/design-system-guidelines/?path=/docs/design-guidelines-foundations-data-visualization--docs) |
+| Data reports (pattern) | Which component answers which question; number, chart, or table; showing growth; page order; empty and error states | [data-reports.mdx](https://raw.githubusercontent.com/Khan/design-system-guidelines/main/__docs__/design-patterns/data-reports.mdx) | [Data reports](https://khan.github.io/design-system-guidelines/?path=/docs/design-guidelines-patterns-data-reports--docs) |
+| Chart container | Headings, sizes, and controls around a chart | [chart-container.mdx](https://raw.githubusercontent.com/Khan/design-system-guidelines/main/__docs__/design-components/chart-container.mdx) | [Chart container](https://khan.github.io/design-system-guidelines/?path=/docs/design-guidelines-components-data-visualization-chart-container--docs) |
+| Summary cards | Headline numbers, like a stat card | [summary-cards.mdx](https://raw.githubusercontent.com/Khan/design-system-guidelines/main/__docs__/design-components/summary-cards.mdx) | [Summary cards](https://khan.github.io/design-system-guidelines/?path=/docs/design-guidelines-components-data-visualization-summary-cards--docs) |
+| Progress charts | A current value against a goal | [progress-charts.mdx](https://raw.githubusercontent.com/Khan/design-system-guidelines/main/__docs__/design-components/progress-charts.mdx) | [Progress charts](https://khan.github.io/design-system-guidelines/?path=/docs/design-guidelines-components-data-visualization-progress-charts--docs) |
+| Distribution charts | How a group is spread across ranges or levels | [distribution-charts.mdx](https://raw.githubusercontent.com/Khan/design-system-guidelines/main/__docs__/design-components/distribution-charts.mdx) | [Distribution charts](https://khan.github.io/design-system-guidelines/?path=/docs/design-guidelines-components-data-visualization-distribution-charts--docs) |
+| Trend charts | A value across three or more periods | [trend-charts.mdx](https://raw.githubusercontent.com/Khan/design-system-guidelines/main/__docs__/design-components/trend-charts.mdx) | [Trend charts](https://khan.github.io/design-system-guidelines/?path=/docs/design-guidelines-components-data-visualization-trend-charts--docs) |
+| Data tables | Exact values for each person or item | [data-tables.mdx](https://raw.githubusercontent.com/Khan/design-system-guidelines/main/__docs__/design-components/data-tables.mdx) | [Data tables](https://khan.github.io/design-system-guidelines/?path=/docs/design-guidelines-components-data-visualization-data-tables--docs) |
+
+Links inside those pages look like `./?path=/docs/<id>`. They point to other pages on the same site, and the Storybook MCP (`docs-show`) takes the same ids.
 
 ## Which theme
 
@@ -231,15 +248,17 @@ fall below 4.5:1 on their subtle backgrounds.
 | Mastery | `mastery-primary` | `{{tb:semanticColor.mastery.primary}}` |
 | Focus ring (outer) | `focus-outer` | `{{tb:semanticColor.focus.outer}}` |
 
-### Graphics palette (illustration, data viz, diagrams, decks)
+### Graphics palette (illustration, diagrams, decks)
 
 Illustration and expressive graphics use these categorical hues, never
-arbitrary hex values (`graphics-characters-flesh-<hue>-background-<step>`):
+arbitrary hex values (`graphics-characters-flesh-<hue>-background-<step>`).
+Charts don't: their colors come from the data visualization color roles (see
+[Charts and data visualization](#charts-and-data-visualization)).
 
 | Hue | Subtle | Default | Strong | Typical use |
 | --- | --- | --- | --- | --- |
-| Blue (indigo) | `{{tb:semanticColor.graphics.characters.flesh.blue.background.subtle}}` | `{{tb:semanticColor.graphics.characters.flesh.blue.background.default}}` | `{{tb:semanticColor.graphics.characters.flesh.blue.background.strong}}` | Brand, primary series |
-| Cyan | `{{tb:semanticColor.graphics.characters.flesh.cyan.background.subtle}}` | `{{tb:semanticColor.graphics.characters.flesh.cyan.background.default}}` | `{{tb:semanticColor.graphics.characters.flesh.cyan.background.strong}}` | Secondary series, admin role |
+| Blue (indigo) | `{{tb:semanticColor.graphics.characters.flesh.blue.background.subtle}}` | `{{tb:semanticColor.graphics.characters.flesh.blue.background.default}}` | `{{tb:semanticColor.graphics.characters.flesh.blue.background.strong}}` | Brand |
+| Cyan | `{{tb:semanticColor.graphics.characters.flesh.cyan.background.subtle}}` | `{{tb:semanticColor.graphics.characters.flesh.cyan.background.default}}` | `{{tb:semanticColor.graphics.characters.flesh.cyan.background.strong}}` | Admin role |
 | Green | `{{tb:semanticColor.graphics.characters.flesh.green.background.subtle}}` | `{{tb:semanticColor.graphics.characters.flesh.green.background.default}}` | `{{tb:semanticColor.graphics.characters.flesh.green.background.strong}}` | Growth, completion, parent role |
 | Magenta | `{{tb:semanticColor.graphics.characters.flesh.magenta.background.subtle}}` | `{{tb:semanticColor.graphics.characters.flesh.magenta.background.default}}` | `{{tb:semanticColor.graphics.characters.flesh.magenta.background.strong}}` | Gems, motivation, celebration |
 | Orange | `{{tb:semanticColor.graphics.characters.flesh.orange.background.subtle}}` | `{{tb:semanticColor.graphics.characters.flesh.orange.background.default}}` | `{{tb:semanticColor.graphics.characters.flesh.orange.background.strong}}` | Streaks, energy, learner role |
@@ -252,8 +271,8 @@ blue `#DFEAFF`, cyan `#CCE9FE`, green `#D5F3D5`, magenta `#FAD4EC`, orange
 `#FEDFD8`, yellow `#FEEAB8`.
 
 **Learning states** (`learning-<background|foreground>-progress-<state>-…`).
-These colors are for fills and graphics such as progress nodes and bars, not
-for text:
+These colors are for learner-facing progress, such as progress nodes and
+bars. They aren't for text, or for charts in data reports:
 
 | State | Fill | Icon / mark |
 | --- | --- | --- |
