@@ -13,11 +13,12 @@ import {
 import {StatusBadge} from "@khanacademy/wonder-blocks-badge";
 import downloadSimpleBold from "@phosphor-icons/core/bold/download-simple-bold.svg";
 
-// Bar colors are primitives (Blue 50/40 for Progress and amounts, Gray 60/30
-// for Neutral, Gray 10 for the target marker) until data visualization semantic tokens exist in
-// Wonder Blocks. See the Color TODO in the Data visualization foundation.
+// Bar colors are primitives (Blue 50/40 for Progress and amounts, Gray 40/20
+// for behind schedule, Gray 10 for the target marker) until data
+// visualization semantic tokens exist in Wonder Blocks. See the Color TODO in
+// the Data visualization foundation.
 const SINGLE = {fill: "#8DA2FF", outline: "#6C82FF"};
-const NEUTRAL = {fill: "#CBCBCD", outline: "#8A8B90"};
+const BEHIND = {fill: "#A0A1A4", outline: "#717279"};
 const MARKER = "#4A4C53";
 
 const TEXT = semanticColor.core.foreground.neutral.default;
@@ -318,9 +319,12 @@ export function SchoolComparisonExample(): React.ReactElement {
                                         value={value}
                                         goal={goal}
                                         target={expected}
-                                        // Emphasis: schools behind schedule
-                                        // stay blue, and the rest go gray.
-                                        color={gap < 0 ? SINGLE : NEUTRAL}
+                                        // Placeholder until the docs define how
+                                        // items that need action are colored:
+                                        // behind-schedule bars go a darker gray
+                                        // so they don't read as positive next
+                                        // to their Warning badges.
+                                        color={gap < 0 ? BEHIND : SINGLE}
                                         valueText={`${name}: ${value.toLocaleString()} of ${goal.toLocaleString()} assignments. ${status}.`}
                                     />
                                 </View>

@@ -5,6 +5,7 @@ import summaryTabsImg from "./assets/data-tables/summary-tabs.png";
 import Figure from "../components/Figure";
 import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
 import {Do, Dont} from "../components/DoDont";
+import {CompletedBadge, InProgressBadge, WarningFlag, CriticalFlag} from "./assets/data-tables/CellExamples";
 
 <Meta title="Design Guidelines / Components / Data visualization / Data tables" />
 
@@ -73,9 +74,7 @@ Tabs above the table show a count for each group and filter the table to it. Exa
 
 ### Names
 
-Show names as first then last: "Amelia Abalos."
-
-> **TODO:** Decide the default sort order for names.
+Show names as first then last: "Amelia Abalos." Sort by first name, A to Z, by default. A sortable name column can also sort by last name.
 
 ### Column alignment
 
@@ -87,11 +86,13 @@ Show `—` when there's no data. See <a href="./?path=/docs/design-guidelines-fo
 
 ## In-cell visuals
 
-| Visual | Use for | Rule |
-| --- | --- | --- |
-| Progress bar | Completion | Always show the value next to it: 16/20 |
-| Status badge | A row's state | Text plus color: Completed, In progress |
-| Flag | Something that needs action | Icon plus text that says what happened: "3 need help," "Rushed 3 times" |
+| Visual | Use for | Rule | Example |
+| --- | --- | --- | --- |
+| Progress bar | Completion | Always show the value next to it: 16/20 | TODO |
+| Status badge | A row's state | Text plus color | <CompletedBadge /> <InProgressBadge /> |
+| Flag | Something that needs action | Icon plus text that says what happened | <WarningFlag label="Rushed 3 times" /> |
+
+> **TODO:** Wonder Blocks has no progress bar component yet. Add a real example once it exists.
 
 ### Flags
 
@@ -99,14 +100,14 @@ Flags are <a href="./?path=/docs/design-guidelines-components-feedback-badges--d
 
 | Severity | Use when | Badge | Example |
 | --- | --- | --- | --- |
-| Critical | Something already went wrong, or a deadline passed | <a href="./?path=/docs/design-guidelines-components-feedback-badges--docs#critical-error-status">Critical error</a> | Overdue, 4 didn't finish |
-| Warning | Someone may need help, but nothing has failed yet | <a href="./?path=/docs/design-guidelines-components-feedback-badges--docs#warning-status">Warning</a> | 3 need help, Rushed 3 times |
+| Critical | Something already went wrong, or a deadline passed | <a href="./?path=/docs/design-guidelines-components-feedback-badges--docs#critical-error-status">Critical error</a> | <CriticalFlag label="Overdue" /> <CriticalFlag label="4 didn't finish" /> |
+| Warning | Someone may need help, but nothing has failed yet | <a href="./?path=/docs/design-guidelines-components-feedback-badges--docs#warning-status">Warning</a> | <WarningFlag label="3 need help" /> <WarningFlag label="Rushed 3 times" /> |
 
 <ul>
     <li><Do /> Stack up to two flags in a cell, most severe first.</li>
     <li><Do /> Place a flag about a single value, like Overdue, next to that value.</li>
-    <li><Dont /> Show a flag as a number alone, like "3×." Say what it counts.</li>
-    <li><Dont /> Use a flag's color without its icon and text.</li>
+    <li><Dont /> Don't show a flag as a number alone, like "3×." Say what it counts.</li>
+    <li><Dont /> Don't use a flag's color without its icon and text.</li>
 </ul>
 
 ## Interaction
@@ -124,6 +125,8 @@ Flags are <a href="./?path=/docs/design-guidelines-components-feedback-badges--d
 ### Long tables
 
 Show up to 50 rows, then paginate.
+
+> **TODO:** Define pagination controls as their own component guideline, since other components need them too, and link to it here.
 
 ## States
 

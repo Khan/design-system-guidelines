@@ -9,11 +9,11 @@ import chartBarBold from "@phosphor-icons/core/bold/chart-bar-bold.svg";
 import tableBold from "@phosphor-icons/core/bold/table-bold.svg";
 import downloadSimpleBold from "@phosphor-icons/core/bold/download-simple-bold.svg";
 
-// Chart mark colors are primitives (Blue 50/40 for Emphasis, Gray 60/30 for
+// Chart mark colors are primitives (Blue 50/40 for Emphasis, Blue 70/40 for
 // comparison) until data visualization semantic tokens exist in Wonder Blocks.
 // See the Color TODO in the Data visualization foundation.
 const EMPHASIS = {fill: "#8DA2FF", outline: "#6C82FF"};
-const COMPARISON = {fill: "#CBCBCD", outline: "#8A8B90"};
+const COMPARISON = {fill: "#DFEAFF", outline: "#6C82FF"};
 
 const TEXT = semanticColor.core.foreground.neutral.default;
 const TEXT_SUBTLE = semanticColor.core.foreground.neutral.subtle;
@@ -108,7 +108,7 @@ function Bars(): React.ReactElement {
                             textAnchor="middle"
                             fontSize={13}
                             fontWeight={range.emphasized ? 600 : 400}
-                            style={{fill: range.emphasized ? TEXT : TEXT_SUBTLE}}
+                            style={{fill: TEXT}}
                         >
                             {range.students}
                         </text>
