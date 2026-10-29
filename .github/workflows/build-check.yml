@@ -24,4 +24,7 @@ jobs:
 
             - run: pnpm typecheck
 
+            # Fails if __docs__/verdicts.mdx is out of date with verdicts/*.json.
+            - run: pnpm verdicts:check
+
             - run: pnpm build
