@@ -1,5 +1,5 @@
 {
-  "about": "Design Infra's rulings on how Wonder Blocks is meant to be used (Judge Trudy). Each verdict is tied to a component in code, links to the guideline that covers it when one exists, and otherwise carries its own reason and is listed as missing guidance. Read by the ka-prototype-builder audit; only entries with status 'confirmed' and approved_by from a ruler are applied. Changes need review from the code owners of this folder.",
+  "about": "Design Infra's rulings on how Wonder Blocks is meant to be used (Judge Trudy). Each verdict is tied to a component in code, links to the guideline that covers it when one exists, and otherwise carries its own reason and is listed as missing guidance. Read by the ka-design-prototype-builder audit; only entries with status 'confirmed' and approved_by from a ruler are applied. Changes need review from the code owners of this folder.",
   "owner": "Design Infra",
   "channel": "#design-infra",
   "rulers": [

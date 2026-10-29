@@ -14,9 +14,8 @@ Design Infra's rulings on how Wonder Blocks is meant to be used, and the work th
 - **Requests come through #design-infra.** The prototype builder drafts them when a designer thinks a flagged item isn't an issue, asks for an exemption, or corrects Claude. Nothing in this folder changes until a ruler decides.
 - **A verdict counts only when merged here** with `status: "confirmed"` and `approved_by` set to a ruler.
 - **When a guideline and a verdict disagree,** the audit flags the conflict instead of choosing one. Fix one of them.
-- **Regenerate the page.** After changing `verdicts.json` or `follow-ups.json`, run `pnpm verdicts:page` and commit the page. CI fails if it's out of date.
 - **Keep matches narrow:** a pattern, not a whole component, so one ruling doesn't hide a different problem in the same file.
 
 ## Who reads it
 
-The `ka-prototype-builder` skill's audit reads `verdicts.json` on every run, so every designer's prototype gets the same rulings.
+The `ka-design-prototype-builder` skill's audit reads `verdicts.json` on every run, so every designer's prototype gets the same rulings.
