@@ -111,7 +111,8 @@ export async function build() {
         [VERDICTS, FOLLOW_UPS].map((p) => readFile(path.join(root, p), "utf-8")),
     );
     const data = JSON.parse(verdictsRaw);
-    const followUps = JSON.parse(followUpsRaw).follow_ups ?? [];
+    const followUpsData = JSON.parse(followUpsRaw);
+    const followUps = followUpsData.follow_ups ?? [];
     const rulers = data.rulers ?? [];
     const entries = data.entries ?? [];
     const applied = entries.filter((e) => isApplied(e, rulers));
@@ -148,6 +149,8 @@ export async function build() {
         "",
         `## Follow-ups (${followUps.length})`,
         "",
+        // follow-ups.json's "about" carries the rule for moving one off "proposed".
+        ...(followUpsData.about ? [prose(followUpsData.about), ""] : []),
         followUps.length
             ? followUps
                   .map(
