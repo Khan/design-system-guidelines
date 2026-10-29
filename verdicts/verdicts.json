@@ -60,6 +60,12 @@
       "gap": "Scaffolding components for page surfaces like the practice content panel",
       "guidance_needed": "Which component builds a page surface like the practice content panel (Surface 2)",
       "ruling_text": "Finding is correct, the card is not appropriate but this is flagged as a need to add to WB as some form of scaffolding component.",
+      "evaluation": {
+        "path": "verdicts/evaluations/2026-10-28-scaffolding-surfaces.md",
+        "outcome": "Incubate",
+        "score": "17/27",
+        "date": "2026-10-28"
+      },
       "guideline_doc": "__docs__/design-foundations/surfaces-and-elevations.mdx"
     },
     {

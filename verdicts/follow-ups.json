@@ -64,12 +64,18 @@
           "design-system",
           "wb-gap"
         ],
-        "description": "Not in Wonder Blocks yet. Wonder Blocks likely needs a set of scaffolding components that give componentized versions of surfaces like the practice container. Until they exist, this is known debt: don't swap Card for a hand-built View-and-tokens surface.\n\nNext step: Candidate for a WB scaffolding component set: run wonder-blocks-candidacy-eval.\nWhere: libs/content/renderer/core/src/components/content-panel/content-panel-card.tsx\nRuling 2, ruled by Caitlyn Mayers on 2026-10-28\nThread: https://khanacademy.slack.com/archives/C0BHXK7RFFE/p1793224123101069\nRaised through Judge Trudy (ka-prototype-builder). Follow-up 2.",
+        "description": "Not in Wonder Blocks yet. Wonder Blocks likely needs a set of scaffolding components that give componentized versions of surfaces like the practice container. Until they exist, this is known debt: don't swap Card for a hand-built View-and-tokens surface.\n\nNext step: Candidate for a WB scaffolding component set: run wonder-blocks-candidacy-eval.\nCandidacy evaluation: Incubate, 17/27 (verdicts/evaluations/2026-10-28-scaffolding-surfaces.md)\nWhere: libs/content/renderer/core/src/components/content-panel/content-panel-card.tsx\nRuling 2, ruled by Caitlyn Mayers on 2026-10-28\nThread: https://khanacademy.slack.com/archives/C0BHXK7RFFE/p1793224123101069\nRaised through Judge Trudy (ka-prototype-builder). Follow-up 2.",
         "external_id": "judge-trudy-ruling-2-wb-gap"
       },
       "approvals": [],
       "green_light_by": null,
-      "green_light_at": null
+      "green_light_at": null,
+      "evaluation": {
+        "path": "verdicts/evaluations/2026-10-28-scaffolding-surfaces.md",
+        "outcome": "Incubate",
+        "score": "17/27",
+        "date": "2026-10-28"
+      }
     },
     {
       "id": "Follow-up 3",

@@ -5,6 +5,8 @@ Design Infra's rulings on how Wonder Blocks is meant to be used, and the work th
 - **`verdicts.json`**: one entry per ruling. Each is tied to a component in code (package and export, or a file path for shared frontend code). It links to the guideline that covers it when one exists. Otherwise it carries Design Infra's own reason and is marked `missing_guidance`.
 - **`follow-ups.json`**: work the rulings create: a Wonder Blocks gap, missing guidance, or a separate quality issue (such as accessibility) for the team that owns the code. Follow-ups start as `proposed` and are filed in the Wonder Blocks Jira project only after someone gives the green light for them.
 
+- **`evaluations/`**: Wonder Blocks candidacy evaluations for gaps the rulings found, one dated file each (`<YYYY-MM-DD>-<slug>.md`). A rescore is a new file. Each is linked from its ruling and follow-up.
+
 ## Rules
 
 - **Only Design Infra rules.** The rulers are listed in `verdicts.json`. A ruler may rule on a request they raised themselves.
