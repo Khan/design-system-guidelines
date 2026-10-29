@@ -15,7 +15,7 @@
   "self_ruling": "A Design Infra member may rule on a request they raised; no second ruler is required.",
   "entries": [
     {
-      "id": "K1",
+      "id": "Ruling 1",
       "verdict": "not-an-issue",
       "match": {
         "kind": "wb-override",
@@ -31,11 +31,11 @@
       "guideline": null,
       "missing_guidance": true,
       "ruling_link": "https://khanacademy.slack.com/archives/C0BHXK7RFFE/p1793224106492179",
-      "guidance_needed": "Customizing ActivityIconButton: layout through the documented styles prop isn't drift",
+      "guidance_needed": "Customizing components: layout through a component's documented styles prop (position, margins, size, alignment) isn't drift; visual overrides (colour, border, radius, shadow, type) are",
       "ruling_text": "This is not an issue, evidence is correct."
     },
     {
-      "id": "K2",
+      "id": "Ruling 2",
       "verdict": "delta",
       "kind": "wb-gap",
       "match": {
@@ -63,7 +63,7 @@
       "guideline_doc": "__docs__/design-foundations/surfaces-and-elevations.mdx"
     },
     {
-      "id": "K3",
+      "id": "Ruling 3",
       "verdict": "not-an-issue",
       "match": {
         "kind": "wb-override",
@@ -97,6 +97,27 @@
         }
       ],
       "ruling_text": "Designer reason is correct, accept."
+    },
+    {
+      "id": "Ruling 4",
+      "verdict": "not-an-issue",
+      "match": {
+        "kind": "html-with-wb",
+        "component": "DrawingAreaControls",
+        "file": "libs/content/renderer/component/tools/src/renderer-tools/doodlepad/components/drawing-area-controls.tsx",
+        "element": "<input>"
+      },
+      "reason": "This drawing toolbar's colour picker is a native <input type=\"color\">. Using the browser default is expected for this control: the browser handles it with system defaults. The ruling covers this one instance only; it isn't a general rule about native controls.",
+      "source": "Caitlyn Mayers, practice display settings prototype, 2026-10-28",
+      "status": "confirmed",
+      "requested_by": "Caitlyn Mayers",
+      "approved_by": "Caitlyn Mayers",
+      "approved_at": "2026-10-28",
+      "guideline": null,
+      "missing_guidance": false,
+      "ruling_link": "https://khanacademy.slack.com/archives/C0BHXK7RFFE/p1793233320558329",
+      "ruling_text": "*Ruling:* Not an issue. Using the browser default is expected here: it's handled by the browser, uses system defaults, and allows us to benefit from a reusable component without the cost of building and maintaining one ourselves. I'll allow it.",
+      "scope": "instance"
     }
   ]
 }

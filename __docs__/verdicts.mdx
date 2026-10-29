@@ -10,19 +10,19 @@ Design Infra's rulings on how Wonder Blocks is meant to be used (Judge Trudy). E
 
 **Rulers:** Caitlyn Mayers, Camila Hernandez, Jonah Goldsaito. **Requests:** #design-infra. A ruling is a thread reply that starts with `Ruling:`, and it counts once it's merged into `verdicts/verdicts.json`.
 
-## Rulings (3)
+## Rulings (4)
 
-### K1 · Not an issue
+### Ruling 1 · Not an issue
 
 - **Applies to:** `ActivityIconButton` (style override) · shared style `sharedStyles.adjustedTooltipIconButton`
 - **Ruling:** [This is not an issue, evidence is correct.](https://khanacademy.slack.com/archives/C0BHXK7RFFE/p1793224106492179)
 - **Reason:** ActivityIconButton's `label` prop with its documented `styles` prop (root / label), setting position and margins only, so the tooltip centres on the button. Layout through style props is what Wonder Blocks expects.
 - **Ruled by:** Caitlyn Mayers on 2026-10-28 (requested by Caitlyn Mayers)
 - **Guideline:** None yet
-- **Guidance needed:** Customizing ActivityIconButton: layout through the documented styles prop isn't drift
-- **Follow-ups:** F1
+- **Guidance needed:** Customizing components: layout through a component's documented styles prop (position, margins, size, alignment) isn't drift; visual overrides (colour, border, radius, shadow, type) are
+- **Follow-ups:** Follow-up 1
 
-### K2 · Wonder Blocks gap — Practice content panel: no Wonder Blocks scaffolding component for this surface
+### Ruling 2 · Wonder Blocks gap — Practice content panel: no Wonder Blocks scaffolding component for this surface
 
 - **Applies to:** uses WB `Card` · in `libs/content/renderer/core/src/components/content-panel/content-panel-card.tsx`
 - **Ruling:** [Finding is correct, the card is not appropriate but this is flagged as a need to add to WB as some form of scaffolding component.](https://khanacademy.slack.com/archives/C0BHXK7RFFE/p1793224123101069)
@@ -32,9 +32,9 @@ Design Infra's rulings on how Wonder Blocks is meant to be used (Judge Trudy). E
 - **Ruled by:** Caitlyn Mayers on 2026-10-28 (requested by Caitlyn Mayers)
 - **Guideline:** [Surfaces and elevations describes this surface (content panel / question card: Surface 2, Low elevation on a busy practice page) but not which component builds it.](https://khan.github.io/design-system-guidelines/?path=/docs/design-guidelines-foundations-surfaces-and-elevations--docs)
 - **Guidance needed:** Which component builds a page surface like the practice content panel (Surface 2)
-- **Follow-ups:** F2, F3
+- **Follow-ups:** Follow-up 2, Follow-up 3
 
-### K3 · Not an issue
+### Ruling 3 · Not an issue
 
 - **Applies to:** `ActivityIconButton` (style override) · in `libs/content/renderer/component/tools/src/renderer-tools/doodlepad/components/drawing-area-controls.tsx` · local styles `styles.closeButton`, `styles.horizontalCloseButton`, `styles.compactCloseButton`
 - **Ruling:** [Designer reason is correct, accept.](https://khanacademy.slack.com/archives/C0BHXK7RFFE/p1793224315331299)
@@ -42,21 +42,31 @@ Design Infra's rulings on how Wonder Blocks is meant to be used (Judge Trudy). E
 - **Ruled by:** Caitlyn Mayers on 2026-10-28 (requested by Caitlyn Mayers)
 - **Guideline:** None needed
 - **Separate accessibility issue:** Drawing toolbar close button: accessible name changes with layout and mixes disclosure and action semantics (owner: Practice surface team). Not decided. Logged only; Design Infra decides later what to do, and nothing is filed until then.
-- **Follow-ups:** F4
+- **Follow-ups:** Follow-up 4
+
+### Ruling 4 · Not an issue
+
+- **Applies to:** `DrawingAreaControls` · in `libs/content/renderer/component/tools/src/renderer-tools/doodlepad/components/drawing-area-controls.tsx`
+- **Ruling:** [*Ruling:* Not an issue. Using the browser default is expected here: it's handled by the browser, uses system defaults, and allows us to benefit from a reusable component without the cost of building and maintaining one ourselves. I'll allow it.](https://khanacademy.slack.com/archives/C0BHXK7RFFE/p1793233320558329)
+- **Reason:** This drawing toolbar's colour picker is a native \<input type="color"\>. Using the browser default is expected for this control: the browser handles it with system defaults. The ruling covers this one instance only; it isn't a general rule about native controls.
+- **Ruled by:** Caitlyn Mayers on 2026-10-28 (requested by Caitlyn Mayers)
+- **Guideline:** None needed
+- **Follow-ups:** Follow-up 5
 
 ## Missing guidance (2)
 
 Rulings that stand in for a guideline that doesn't exist yet.
 
-- **K1:** Customizing ActivityIconButton: layout through the documented styles prop isn't drift
-- **K2:** Which component builds a page surface like the practice content panel (Surface 2)
+- **Ruling 1:** Customizing components: layout through a component's documented styles prop (position, margins, size, alignment) isn't drift; visual overrides (colour, border, radius, shadow, type) are
+- **Ruling 2:** Which component builds a page surface like the practice content panel (Surface 2)
 
-## Follow-ups (4)
+## Follow-ups (5)
 
-- **F1** (missing-guidance, proposed, from K1): Guidance needed: Customizing ActivityIconButton: layout through the documented styles prop isn't drift
-- **F2** (wb-gap, proposed, from K2): WB gap: Scaffolding components for page surfaces like the practice content panel
-- **F3** (missing-guidance, proposed, from K2): Guidance needed: Which component builds a page surface like the practice content panel (Surface 2)
-- **F4** (quality:a11y-toggle-name, proposed, Practice surface team, from K3): Accessibility: Drawing toolbar close button: accessible name changes with layout and mixes disclosure and action semantics
+- **Follow-up 1** (missing-guidance, proposed, from Ruling 1): Guidance needed: Customizing components: layout through a component's documented styles prop (position, margins, size, alignment) isn't drift; visual overrides (colour, border, radius, shadow, type) are
+- **Follow-up 2** (wb-gap, proposed, from Ruling 2): WB gap: Scaffolding components for page surfaces like the practice content panel
+- **Follow-up 3** (missing-guidance, proposed, from Ruling 2): Guidance needed: Which component builds a page surface like the practice content panel (Surface 2)
+- **Follow-up 4** (quality:a11y-toggle-name, proposed, Practice surface team, from Ruling 3): Accessibility: Drawing toolbar close button: accessible name changes with layout and mixes disclosure and action semantics
+- **Follow-up 5** (missing-guidance, source-withdrawn, from Ruling 4): Guidance needed: Native browser controls (like \<input type="color"\>) are acceptable where Wonder Blocks has no equivalent
 
 ## Raw data
 
@@ -80,7 +90,7 @@ The files exactly as committed. Tools reading this page over the design-guidelin
   "self_ruling": "A Design Infra member may rule on a request they raised; no second ruler is required.",
   "entries": [
     {
-      "id": "K1",
+      "id": "Ruling 1",
       "verdict": "not-an-issue",
       "match": {
         "kind": "wb-override",
@@ -96,11 +106,11 @@ The files exactly as committed. Tools reading this page over the design-guidelin
       "guideline": null,
       "missing_guidance": true,
       "ruling_link": "https://khanacademy.slack.com/archives/C0BHXK7RFFE/p1793224106492179",
-      "guidance_needed": "Customizing ActivityIconButton: layout through the documented styles prop isn't drift",
+      "guidance_needed": "Customizing components: layout through a component's documented styles prop (position, margins, size, alignment) isn't drift; visual overrides (colour, border, radius, shadow, type) are",
       "ruling_text": "This is not an issue, evidence is correct."
     },
     {
-      "id": "K2",
+      "id": "Ruling 2",
       "verdict": "delta",
       "kind": "wb-gap",
       "match": {
@@ -128,7 +138,7 @@ The files exactly as committed. Tools reading this page over the design-guidelin
       "guideline_doc": "__docs__/design-foundations/surfaces-and-elevations.mdx"
     },
     {
-      "id": "K3",
+      "id": "Ruling 3",
       "verdict": "not-an-issue",
       "match": {
         "kind": "wb-override",
@@ -162,6 +172,27 @@ The files exactly as committed. Tools reading this page over the design-guidelin
         }
       ],
       "ruling_text": "Designer reason is correct, accept."
+    },
+    {
+      "id": "Ruling 4",
+      "verdict": "not-an-issue",
+      "match": {
+        "kind": "html-with-wb",
+        "component": "DrawingAreaControls",
+        "file": "libs/content/renderer/component/tools/src/renderer-tools/doodlepad/components/drawing-area-controls.tsx",
+        "element": "<input>"
+      },
+      "reason": "This drawing toolbar's colour picker is a native <input type=\"color\">. Using the browser default is expected for this control: the browser handles it with system defaults. The ruling covers this one instance only; it isn't a general rule about native controls.",
+      "source": "Caitlyn Mayers, practice display settings prototype, 2026-10-28",
+      "status": "confirmed",
+      "requested_by": "Caitlyn Mayers",
+      "approved_by": "Caitlyn Mayers",
+      "approved_at": "2026-10-28",
+      "guideline": null,
+      "missing_guidance": false,
+      "ruling_link": "https://khanacademy.slack.com/archives/C0BHXK7RFFE/p1793233320558329",
+      "ruling_text": "*Ruling:* Not an issue. Using the browser default is expected here: it's handled by the browser, uses system defaults, and allows us to benefit from a reusable component without the cost of building and maintaining one ourselves. I'll allow it.",
+      "scope": "instance"
     }
   ]
 }
@@ -172,42 +203,42 @@ The files exactly as committed. Tools reading this page over the design-guidelin
   "about": "Work created by Design Infra's Judge Trudy verdicts (verdicts.json), for the whole design system team. Generated by scripts/follow_ups.py sync; edit status, owner and jira_key by hand or with mark-ported. Port to Jira with follow_ups.py jira-csv.",
   "follow_ups": [
     {
-      "id": "F1",
+      "id": "Follow-up 1",
       "status": "proposed",
       "owner": null,
       "jira_key": null,
       "type": "missing-guidance",
-      "summary": "Guidance needed: Customizing ActivityIconButton: layout through the documented styles prop isn't drift",
+      "summary": "Guidance needed: Customizing components: layout through a component's documented styles prop (position, margins, size, alignment) isn't drift; visual overrides (colour, border, radius, shadow, type) are",
       "detail": "ActivityIconButton's `label` prop with its documented `styles` prop (root / label), setting position and margins only, so the tooltip centres on the button. Layout through style props is what Wonder Blocks expects.",
-      "next_step": "Write the guideline in the design system guidelines repo and link it from verdict K1.",
+      "next_step": "Write the guideline in the design system guidelines repo and link it from Ruling 1.",
       "labels": [
         "judge-trudy",
         "design-system",
         "missing-guidance"
       ],
-      "verdict": "K1",
+      "verdict": "Ruling 1",
       "ruled_by": "Caitlyn Mayers",
       "ruled_at": "2026-10-28",
       "ruling_link": "https://khanacademy.slack.com/archives/C0BHXK7RFFE/p1793224106492179",
       "where": "ActivityIconButton",
       "jira": {
         "project": "WB",
-        "summary": "Guidance needed: Customizing ActivityIconButton: layout through the documented styles prop isn't drift",
+        "summary": "Guidance needed: Customizing components: layout through a component's documented styles prop (position, margins, size, alignment) isn't drift; visual overrides (colour, border, radius, shadow, type) are",
         "issuetype": "Design Task",
         "labels": [
           "judge-trudy",
           "design-system",
           "missing-guidance"
         ],
-        "description": "ActivityIconButton's `label` prop with its documented `styles` prop (root / label), setting position and margins only, so the tooltip centres on the button. Layout through style props is what Wonder Blocks expects.\n\nNext step: Write the guideline in the design system guidelines repo and link it from verdict K1.\nWhere: ActivityIconButton\nVerdict: K1, ruled by Caitlyn Mayers on 2026-10-28\nRuling: https://khanacademy.slack.com/archives/C0BHXK7RFFE/p1793224106492179\nRaised through Judge Trudy (ka-prototype-builder). Follow-up F1.",
-        "external_id": "judge-trudy-K1-missing-guidance"
+        "description": "ActivityIconButton's `label` prop with its documented `styles` prop (root / label), setting position and margins only, so the tooltip centres on the button. Layout through style props is what Wonder Blocks expects.\n\nNext step: Write the guideline in the design system guidelines repo and link it from Ruling 1.\nWhere: ActivityIconButton\nRuling 1, ruled by Caitlyn Mayers on 2026-10-28\nThread: https://khanacademy.slack.com/archives/C0BHXK7RFFE/p1793224106492179\nRaised through Judge Trudy (ka-prototype-builder). Follow-up 1.",
+        "external_id": "judge-trudy-ruling-1-missing-guidance"
       },
       "approvals": [],
       "green_light_by": null,
       "green_light_at": null
     },
     {
-      "id": "F2",
+      "id": "Follow-up 2",
       "status": "proposed",
       "owner": null,
       "jira_key": null,
@@ -220,7 +251,7 @@ The files exactly as committed. Tools reading this page over the design-guidelin
         "design-system",
         "wb-gap"
       ],
-      "verdict": "K2",
+      "verdict": "Ruling 2",
       "ruled_by": "Caitlyn Mayers",
       "ruled_at": "2026-10-28",
       "ruling_link": "https://khanacademy.slack.com/archives/C0BHXK7RFFE/p1793224123101069",
@@ -234,28 +265,28 @@ The files exactly as committed. Tools reading this page over the design-guidelin
           "design-system",
           "wb-gap"
         ],
-        "description": "Not in Wonder Blocks yet. Wonder Blocks likely needs a set of scaffolding components that give componentized versions of surfaces like the practice container. Until they exist, this is known debt: don't swap Card for a hand-built View-and-tokens surface.\n\nNext step: Candidate for a WB scaffolding component set: run wonder-blocks-candidacy-eval.\nWhere: libs/content/renderer/core/src/components/content-panel/content-panel-card.tsx\nVerdict: K2, ruled by Caitlyn Mayers on 2026-10-28\nRuling: https://khanacademy.slack.com/archives/C0BHXK7RFFE/p1793224123101069\nRaised through Judge Trudy (ka-prototype-builder). Follow-up F2.",
-        "external_id": "judge-trudy-K2-wb-gap"
+        "description": "Not in Wonder Blocks yet. Wonder Blocks likely needs a set of scaffolding components that give componentized versions of surfaces like the practice container. Until they exist, this is known debt: don't swap Card for a hand-built View-and-tokens surface.\n\nNext step: Candidate for a WB scaffolding component set: run wonder-blocks-candidacy-eval.\nWhere: libs/content/renderer/core/src/components/content-panel/content-panel-card.tsx\nRuling 2, ruled by Caitlyn Mayers on 2026-10-28\nThread: https://khanacademy.slack.com/archives/C0BHXK7RFFE/p1793224123101069\nRaised through Judge Trudy (ka-prototype-builder). Follow-up 2.",
+        "external_id": "judge-trudy-ruling-2-wb-gap"
       },
       "approvals": [],
       "green_light_by": null,
       "green_light_at": null
     },
     {
-      "id": "F3",
+      "id": "Follow-up 3",
       "status": "proposed",
       "owner": null,
       "jira_key": null,
       "type": "missing-guidance",
       "summary": "Guidance needed: Which component builds a page surface like the practice content panel (Surface 2)",
       "detail": "Wonder Blocks gap: likely needs scaffolding components (e.g. the practice container surface). Not a component swap.",
-      "next_step": "Write the guideline in the design system guidelines repo and link it from verdict K2.",
+      "next_step": "Write the guideline in the design system guidelines repo and link it from Ruling 2.",
       "labels": [
         "judge-trudy",
         "design-system",
         "missing-guidance"
       ],
-      "verdict": "K2",
+      "verdict": "Ruling 2",
       "ruled_by": "Caitlyn Mayers",
       "ruled_at": "2026-10-28",
       "ruling_link": "https://khanacademy.slack.com/archives/C0BHXK7RFFE/p1793224123101069",
@@ -269,15 +300,15 @@ The files exactly as committed. Tools reading this page over the design-guidelin
           "design-system",
           "missing-guidance"
         ],
-        "description": "Wonder Blocks gap: likely needs scaffolding components (e.g. the practice container surface). Not a component swap.\n\nNext step: Write the guideline in the design system guidelines repo and link it from verdict K2.\nWhere: libs/content/renderer/core/src/components/content-panel/content-panel-card.tsx\nVerdict: K2, ruled by Caitlyn Mayers on 2026-10-28\nRuling: https://khanacademy.slack.com/archives/C0BHXK7RFFE/p1793224123101069\nRaised through Judge Trudy (ka-prototype-builder). Follow-up F3.",
-        "external_id": "judge-trudy-K2-missing-guidance"
+        "description": "Wonder Blocks gap: likely needs scaffolding components (e.g. the practice container surface). Not a component swap.\n\nNext step: Write the guideline in the design system guidelines repo and link it from Ruling 2.\nWhere: libs/content/renderer/core/src/components/content-panel/content-panel-card.tsx\nRuling 2, ruled by Caitlyn Mayers on 2026-10-28\nThread: https://khanacademy.slack.com/archives/C0BHXK7RFFE/p1793224123101069\nRaised through Judge Trudy (ka-prototype-builder). Follow-up 3.",
+        "external_id": "judge-trudy-ruling-2-missing-guidance"
       },
       "approvals": [],
       "green_light_by": null,
       "green_light_at": null
     },
     {
-      "id": "F4",
+      "id": "Follow-up 4",
       "status": "proposed",
       "approvals": [],
       "green_light_by": null,
@@ -287,7 +318,7 @@ The files exactly as committed. Tools reading this page over the design-guidelin
       "type": "quality:a11y-toggle-name",
       "summary": "Accessibility: Drawing toolbar close button: accessible name changes with layout and mixes disclosure and action semantics",
       "detail": "The close button carries aria-expanded=\"true\" as a disclosure toggle, but its accessible name changes by layout: \"Draw\" in the vertical toolbar (visible label next to an X icon; tooltip \"Close drawing tools\") and \"Close drawing tools\" in the horizontal toolbar, announced as \"Close drawing tools, expanded\". Pick one pattern: a disclosure named \"Draw\" with aria-expanded in every layout, or a \"Close drawing tools\" action with no aria-expanded, and make the visible label, icon and tooltip agree with it.",
-      "next_step": "Logged for Practice surface team. What to do, and where to track it, is decided later; nothing is filed until then. Raised while Design Infra ruled on verdict K3.",
+      "next_step": "Logged for Practice surface team. What to do, and where to track it, is decided later; nothing is filed until then. Raised while Design Infra ruled on Ruling 3.",
       "labels": [
         "judge-trudy",
         "design-system",
@@ -295,7 +326,7 @@ The files exactly as committed. Tools reading this page over the design-guidelin
         "accessibility"
       ],
       "jira_project": null,
-      "verdict": "K3",
+      "verdict": "Ruling 3",
       "ruled_by": "Caitlyn Mayers",
       "ruled_at": "2026-10-28",
       "ruling_link": "https://khanacademy.slack.com/archives/C0BHXK7RFFE/p1793224315331299",
@@ -310,10 +341,45 @@ The files exactly as committed. Tools reading this page over the design-guidelin
           "quality",
           "accessibility"
         ],
-        "description": "The close button carries aria-expanded=\"true\" as a disclosure toggle, but its accessible name changes by layout: \"Draw\" in the vertical toolbar (visible label next to an X icon; tooltip \"Close drawing tools\") and \"Close drawing tools\" in the horizontal toolbar, announced as \"Close drawing tools, expanded\". Pick one pattern: a disclosure named \"Draw\" with aria-expanded in every layout, or a \"Close drawing tools\" action with no aria-expanded, and make the visible label, icon and tooltip agree with it.\n\nNext step: Logged for Practice surface team. What to do, and where to track it, is decided later; nothing is filed until then. Raised while Design Infra ruled on verdict K3.\nWhere: libs/content/renderer/component/tools/src/renderer-tools/doodlepad/components/drawing-area-controls.tsx (closeLabel, close ActivityIconButton) and drawing-area-toggle.tsx\nVerdict: K3, ruled by Caitlyn Mayers on 2026-10-28\nRuling: https://khanacademy.slack.com/archives/C0BHXK7RFFE/p1793224315331299\nRaised through Judge Trudy (ka-prototype-builder). Follow-up F4.",
-        "external_id": "judge-trudy-K3-quality:a11y-toggle-name"
+        "description": "The close button carries aria-expanded=\"true\" as a disclosure toggle, but its accessible name changes by layout: \"Draw\" in the vertical toolbar (visible label next to an X icon; tooltip \"Close drawing tools\") and \"Close drawing tools\" in the horizontal toolbar, announced as \"Close drawing tools, expanded\". Pick one pattern: a disclosure named \"Draw\" with aria-expanded in every layout, or a \"Close drawing tools\" action with no aria-expanded, and make the visible label, icon and tooltip agree with it.\n\nNext step: Logged for Practice surface team. What to do, and where to track it, is decided later; nothing is filed until then. Raised while Design Infra ruled on Ruling 3.\nWhere: libs/content/renderer/component/tools/src/renderer-tools/doodlepad/components/drawing-area-controls.tsx (closeLabel, close ActivityIconButton) and drawing-area-toggle.tsx\nRuling 3, ruled by Caitlyn Mayers on 2026-10-28\nThread: https://khanacademy.slack.com/archives/C0BHXK7RFFE/p1793224315331299\nRaised through Judge Trudy (ka-prototype-builder). Follow-up 4.",
+        "external_id": "judge-trudy-ruling-3-quality:a11y-toggle-name"
       },
       "decision": "Not decided. Logged only; Design Infra decides later what to do, and nothing is filed until then."
+    },
+    {
+      "id": "Follow-up 5",
+      "status": "source-withdrawn",
+      "approvals": [],
+      "green_light_by": null,
+      "green_light_at": null,
+      "owner": null,
+      "jira_key": null,
+      "type": "missing-guidance",
+      "summary": "Guidance needed: Native browser controls (like <input type=\"color\">) are acceptable where Wonder Blocks has no equivalent",
+      "detail": "The drawing toolbar's colour picker is a native <input type=\"color\">. Using the browser default is expected: the browser handles it with system defaults, so we get a reusable control without building and maintaining one.",
+      "next_step": "Write the guideline in the design system guidelines repo and link it from Ruling 4.",
+      "labels": [
+        "judge-trudy",
+        "design-system",
+        "missing-guidance"
+      ],
+      "verdict": "Ruling 4",
+      "ruled_by": "Caitlyn Mayers",
+      "ruled_at": "2026-10-28",
+      "ruling_link": "https://khanacademy.slack.com/archives/C0BHXK7RFFE/p1793233320558329",
+      "where": "libs/content/renderer/component/tools/src/renderer-tools/doodlepad/components/drawing-area-controls.tsx",
+      "jira": {
+        "project": "WB",
+        "summary": "Guidance needed: Native browser controls (like <input type=\"color\">) are acceptable where Wonder Blocks has no equivalent",
+        "issuetype": "Design Task",
+        "labels": [
+          "judge-trudy",
+          "design-system",
+          "missing-guidance"
+        ],
+        "description": "The drawing toolbar's colour picker is a native <input type=\"color\">. Using the browser default is expected: the browser handles it with system defaults, so we get a reusable control without building and maintaining one.\n\nNext step: Write the guideline in the design system guidelines repo and link it from Ruling 4.\nWhere: libs/content/renderer/component/tools/src/renderer-tools/doodlepad/components/drawing-area-controls.tsx\nRuling 4, ruled by Caitlyn Mayers on 2026-10-28\nThread: https://khanacademy.slack.com/archives/C0BHXK7RFFE/p1793233320558329\nRaised through Judge Trudy (ka-prototype-builder). Follow-up 5.",
+        "external_id": "judge-trudy-ruling-4-missing-guidance"
+      }
     }
   ]
 }
