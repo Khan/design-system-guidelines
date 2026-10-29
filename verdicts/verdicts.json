@@ -7,6 +7,11 @@
     "Camila Hernandez",
     "Jonah Goldsaito"
   ],
+  "ruler_slack_ids": {
+    "Caitlyn Mayers": "U077G0D9X18",
+    "Camila Hernandez": "U03769T29D4",
+    "Jonah Goldsaito": "U04HE4A55B9"
+  },
   "self_ruling": "A Design Infra member may rule on a request they raised; no second ruler is required.",
   "entries": [
     {
@@ -25,8 +30,9 @@
       "approved_at": "2026-10-28",
       "guideline": null,
       "missing_guidance": true,
-      "ruling_link": "https://khanacademy.slack.com/archives/C0BHXK7RFFE/p1793208865186209?thread_ts=1793208713.508319",
-      "guidance_needed": "Customizing ActivityIconButton: layout through the documented styles prop isn't drift"
+      "ruling_link": "https://khanacademy.slack.com/archives/C0BHXK7RFFE/p1793224106492179",
+      "guidance_needed": "Customizing ActivityIconButton: layout through the documented styles prop isn't drift",
+      "ruling_text": "This is not an issue, evidence is correct."
     },
     {
       "id": "K2",
@@ -50,9 +56,10 @@
       "missing_guidance": true,
       "follow_up": "Candidate for a WB scaffolding component set: run wonder-blocks-candidacy-eval.",
       "ruling": "Wonder Blocks gap: likely needs scaffolding components (e.g. the practice container surface). Not a component swap.",
-      "ruling_link": "https://khanacademy.slack.com/archives/C0BHXK7RFFE/p1793208865186209?thread_ts=1793208713.508319",
+      "ruling_link": "https://khanacademy.slack.com/archives/C0BHXK7RFFE/p1793224123101069",
       "gap": "Scaffolding components for page surfaces like the practice content panel",
       "guidance_needed": "Which component builds a page surface like the practice content panel (Surface 2)",
+      "ruling_text": "Finding is correct, the card is not appropriate but this is flagged as a need to add to WB as some form of scaffolding component.",
       "guideline_doc": "__docs__/design-foundations/surfaces-and-elevations.mdx"
     },
     {
@@ -76,7 +83,7 @@
       "approved_at": "2026-10-28",
       "guideline": null,
       "missing_guidance": false,
-      "ruling_link": "https://khanacademy.slack.com/archives/C0BHXK7RFFE/p1793208713508319",
+      "ruling_link": "https://khanacademy.slack.com/archives/C0BHXK7RFFE/p1793224315331299",
       "quality_issues": [
         {
           "key": "a11y-toggle-name",
@@ -88,7 +95,8 @@
           "owner": "Practice surface team",
           "decision": "Not decided. Logged only; Design Infra decides later what to do, and nothing is filed until then."
         }
-      ]
+      ],
+      "ruling_text": "Designer reason is correct, accept."
     }
   ]
 }

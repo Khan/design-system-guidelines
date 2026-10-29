@@ -8,6 +8,7 @@ Design Infra's rulings on how Wonder Blocks is meant to be used, and the work th
 ## Rules
 
 - **Only Design Infra rules.** The rulers are listed in `verdicts.json`. A ruler may rule on a request they raised themselves.
+- **A ruling is a reply that starts with `Ruling:`.** Discuss in the request's thread as long as you need. When a ruler has decided, they reply `Ruling: <not an issue | wb gap | drift | exemption approved | exemption denied> — <reason>`. Only that counts, and a ruler's newer `Ruling:` replaces an older one.
 - **Requests come through #design-infra.** The prototype builder drafts them when a designer thinks a flagged item isn't an issue, asks for an exemption, or corrects Claude. Nothing in this folder changes until a ruler decides.
 - **A verdict counts only when merged here** with `status: "confirmed"` and `approved_by` set to a ruler.
 - **When a guideline and a verdict disagree,** the audit flags the conflict instead of choosing one. Fix one of them.
