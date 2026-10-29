@@ -63,6 +63,12 @@ function describeMatch(m = {}) {
     return parts.join(" · ") || "—";
 }
 
+function describeEvaluation(ev) {
+    if (!ev) return "";
+    const head = [ev.outcome, ev.score].filter(Boolean).map(prose).join(", ");
+    return `${head}${ev.path ? ` \u2014 ${code(ev.path)}` : ""}`;
+}
+
 function isApplied(e, rulers) {
     return e.status === "confirmed" && rulers.includes(e.approved_by);
 }
@@ -87,6 +93,7 @@ function verdictSection(e, followUps) {
     else if (e.guideline) item("Guideline", prose(e.guideline));
     else item("Guideline", e.missing_guidance ? "None yet" : "None needed");
     if (e.missing_guidance) item("Guidance needed", prose(e.guidance_needed));
+    item("Candidacy evaluation", describeEvaluation(e.evaluation));
 
     for (const q of e.quality_issues ?? []) {
         item(
@@ -145,7 +152,7 @@ export async function build() {
             ? followUps
                   .map(
                       (f) =>
-                          `- **${f.id}** (${prose(f.type)}, ${prose(f.status)}${f.owner ? `, ${prose(f.owner)}` : ""}${f.jira_key ? `, ${f.jira_key}` : ""}, from ${f.verdict}): ${prose(f.summary)}`,
+                          `- **${f.id}** (${prose(f.type)}, ${prose(f.status)}${f.owner ? `, ${prose(f.owner)}` : ""}${f.jira_key ? `, ${f.jira_key}` : ""}, from ${f.verdict}): ${prose(f.summary)}${f.evaluation ? `. Candidacy evaluation: ${describeEvaluation(f.evaluation)}` : ""}`,
                   )
                   .join("\n")
             : "None.",
