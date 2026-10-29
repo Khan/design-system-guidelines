@@ -10,7 +10,9 @@
     "scripts": {
         "start": "storybook dev -p 56789",
         "build": "storybook build --stats-json",
-        "typecheck": "tsc --noEmit"
+        "typecheck": "tsc --noEmit",
+        "verdicts:page": "node scripts/build-verdicts-page.mjs",
+        "verdicts:check": "node scripts/build-verdicts-page.mjs --check"
     },
     "dependencies": {
         "@khanacademy/wonder-blocks-announcer": "^1.1.1",

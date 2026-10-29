@@ -2,3 +2,5 @@
 
 # Judge Trudy verdicts: only Design Infra rules.
 /verdicts/ @Khan/design-infra
+/__docs__/verdicts.mdx @Khan/design-infra
+/scripts/build-verdicts-page.mjs @Khan/design-infra
