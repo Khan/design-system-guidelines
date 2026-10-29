@@ -77,7 +77,7 @@ The files exactly as committed. Tools reading this page over the design-guidelin
 
 ```json verdicts.json
 {
-  "about": "Design Infra's rulings on how Wonder Blocks is meant to be used (Judge Trudy). Each verdict is tied to a component in code, links to the guideline that covers it when one exists, and otherwise carries its own reason and is listed as missing guidance. Read by the ka-prototype-builder audit; only entries with status 'confirmed' and approved_by from a ruler are applied. Changes need review from the code owners of this folder.",
+  "about": "Design Infra's rulings on how Wonder Blocks is meant to be used (Judge Trudy). Each verdict is tied to a component in code, links to the guideline that covers it when one exists, and otherwise carries its own reason and is listed as missing guidance. Read by the ka-design-prototype-builder audit; only entries with status 'confirmed' and approved_by from a ruler are applied. Changes need review from the code owners of this folder.",
   "owner": "Design Infra",
   "channel": "#design-infra",
   "rulers": [
@@ -239,7 +239,7 @@ The files exactly as committed. Tools reading this page over the design-guidelin
           "design-system",
           "missing-guidance"
         ],
-        "description": "ActivityIconButton's `label` prop with its documented `styles` prop (root / label), setting position and margins only, so the tooltip centres on the button. Layout through style props is what Wonder Blocks expects.\n\nNext step: Write the guideline in the design system guidelines repo and link it from Ruling 1.\nWhere: ActivityIconButton\nRuling 1, ruled by Caitlyn Mayers on 2026-10-28\nThread: https://khanacademy.slack.com/archives/C0BHXK7RFFE/p1793224106492179\nRaised through Judge Trudy (ka-prototype-builder). Follow-up 1.",
+        "description": "ActivityIconButton's `label` prop with its documented `styles` prop (root / label), setting position and margins only, so the tooltip centres on the button. Layout through style props is what Wonder Blocks expects.\n\nNext step: Write the guideline in the design system guidelines repo and link it from Ruling 1.\nWhere: ActivityIconButton\nRuling 1, ruled by Caitlyn Mayers on 2026-10-28\nThread: https://khanacademy.slack.com/archives/C0BHXK7RFFE/p1793224106492179\nRaised through Judge Trudy (ka-design-prototype-builder). Follow-up 1.",
         "external_id": "judge-trudy-ruling-1-missing-guidance"
       },
       "approvals": [],
@@ -274,7 +274,7 @@ The files exactly as committed. Tools reading this page over the design-guidelin
           "design-system",
           "wb-gap"
         ],
-        "description": "Not in Wonder Blocks yet. Wonder Blocks likely needs a set of scaffolding components that give componentized versions of surfaces like the practice container. Until they exist, this is known debt: don't swap Card for a hand-built View-and-tokens surface.\n\nNext step: Candidate for a WB scaffolding component set: run wonder-blocks-candidacy-eval.\nCandidacy evaluation: Incubate, 17/27 (verdicts/evaluations/2026-10-28-scaffolding-surfaces.md)\nWhere: libs/content/renderer/core/src/components/content-panel/content-panel-card.tsx\nRuling 2, ruled by Caitlyn Mayers on 2026-10-28\nThread: https://khanacademy.slack.com/archives/C0BHXK7RFFE/p1793224123101069\nRaised through Judge Trudy (ka-prototype-builder). Follow-up 2.",
+        "description": "Not in Wonder Blocks yet. Wonder Blocks likely needs a set of scaffolding components that give componentized versions of surfaces like the practice container. Until they exist, this is known debt: don't swap Card for a hand-built View-and-tokens surface.\n\nNext step: Candidate for a WB scaffolding component set: run wonder-blocks-candidacy-eval.\nCandidacy evaluation: Incubate, 17/27 (verdicts/evaluations/2026-10-28-scaffolding-surfaces.md)\nWhere: libs/content/renderer/core/src/components/content-panel/content-panel-card.tsx\nRuling 2, ruled by Caitlyn Mayers on 2026-10-28\nThread: https://khanacademy.slack.com/archives/C0BHXK7RFFE/p1793224123101069\nRaised through Judge Trudy (ka-design-prototype-builder). Follow-up 2.",
         "external_id": "judge-trudy-ruling-2-wb-gap"
       },
       "approvals": [],
@@ -315,7 +315,7 @@ The files exactly as committed. Tools reading this page over the design-guidelin
           "design-system",
           "missing-guidance"
         ],
-        "description": "Wonder Blocks gap: likely needs scaffolding components (e.g. the practice container surface). Not a component swap.\n\nNext step: Write the guideline in the design system guidelines repo and link it from Ruling 2.\nWhere: libs/content/renderer/core/src/components/content-panel/content-panel-card.tsx\nRuling 2, ruled by Caitlyn Mayers on 2026-10-28\nThread: https://khanacademy.slack.com/archives/C0BHXK7RFFE/p1793224123101069\nRaised through Judge Trudy (ka-prototype-builder). Follow-up 3.",
+        "description": "Wonder Blocks gap: likely needs scaffolding components (e.g. the practice container surface). Not a component swap.\n\nNext step: Write the guideline in the design system guidelines repo and link it from Ruling 2.\nWhere: libs/content/renderer/core/src/components/content-panel/content-panel-card.tsx\nRuling 2, ruled by Caitlyn Mayers on 2026-10-28\nThread: https://khanacademy.slack.com/archives/C0BHXK7RFFE/p1793224123101069\nRaised through Judge Trudy (ka-design-prototype-builder). Follow-up 3.",
         "external_id": "judge-trudy-ruling-2-missing-guidance"
       },
       "approvals": [],
@@ -356,7 +356,7 @@ The files exactly as committed. Tools reading this page over the design-guidelin
           "quality",
           "accessibility"
         ],
-        "description": "The close button carries aria-expanded=\"true\" as a disclosure toggle, but its accessible name changes by layout: \"Draw\" in the vertical toolbar (visible label next to an X icon; tooltip \"Close drawing tools\") and \"Close drawing tools\" in the horizontal toolbar, announced as \"Close drawing tools, expanded\". Pick one pattern: a disclosure named \"Draw\" with aria-expanded in every layout, or a \"Close drawing tools\" action with no aria-expanded, and make the visible label, icon and tooltip agree with it.\n\nNext step: Logged for Practice surface team. What to do, and where to track it, is decided later; nothing is filed until then. Raised while Design Infra ruled on Ruling 3.\nWhere: libs/content/renderer/component/tools/src/renderer-tools/doodlepad/components/drawing-area-controls.tsx (closeLabel, close ActivityIconButton) and drawing-area-toggle.tsx\nRuling 3, ruled by Caitlyn Mayers on 2026-10-28\nThread: https://khanacademy.slack.com/archives/C0BHXK7RFFE/p1793224315331299\nRaised through Judge Trudy (ka-prototype-builder). Follow-up 4.",
+        "description": "The close button carries aria-expanded=\"true\" as a disclosure toggle, but its accessible name changes by layout: \"Draw\" in the vertical toolbar (visible label next to an X icon; tooltip \"Close drawing tools\") and \"Close drawing tools\" in the horizontal toolbar, announced as \"Close drawing tools, expanded\". Pick one pattern: a disclosure named \"Draw\" with aria-expanded in every layout, or a \"Close drawing tools\" action with no aria-expanded, and make the visible label, icon and tooltip agree with it.\n\nNext step: Logged for Practice surface team. What to do, and where to track it, is decided later; nothing is filed until then. Raised while Design Infra ruled on Ruling 3.\nWhere: libs/content/renderer/component/tools/src/renderer-tools/doodlepad/components/drawing-area-controls.tsx (closeLabel, close ActivityIconButton) and drawing-area-toggle.tsx\nRuling 3, ruled by Caitlyn Mayers on 2026-10-28\nThread: https://khanacademy.slack.com/archives/C0BHXK7RFFE/p1793224315331299\nRaised through Judge Trudy (ka-design-prototype-builder). Follow-up 4.",
         "external_id": "judge-trudy-ruling-3-quality:a11y-toggle-name"
       },
       "decision": "Not decided. Logged only; Design Infra decides later what to do, and nothing is filed until then."
@@ -392,7 +392,7 @@ The files exactly as committed. Tools reading this page over the design-guidelin
           "design-system",
           "missing-guidance"
         ],
-        "description": "The drawing toolbar's colour picker is a native <input type=\"color\">. Using the browser default is expected: the browser handles it with system defaults, so we get a reusable control without building and maintaining one.\n\nNext step: Write the guideline in the design system guidelines repo and link it from Ruling 4.\nWhere: libs/content/renderer/component/tools/src/renderer-tools/doodlepad/components/drawing-area-controls.tsx\nRuling 4, ruled by Caitlyn Mayers on 2026-10-28\nThread: https://khanacademy.slack.com/archives/C0BHXK7RFFE/p1793233320558329\nRaised through Judge Trudy (ka-prototype-builder). Follow-up 5.",
+        "description": "The drawing toolbar's colour picker is a native <input type=\"color\">. Using the browser default is expected: the browser handles it with system defaults, so we get a reusable control without building and maintaining one.\n\nNext step: Write the guideline in the design system guidelines repo and link it from Ruling 4.\nWhere: libs/content/renderer/component/tools/src/renderer-tools/doodlepad/components/drawing-area-controls.tsx\nRuling 4, ruled by Caitlyn Mayers on 2026-10-28\nThread: https://khanacademy.slack.com/archives/C0BHXK7RFFE/p1793233320558329\nRaised through Judge Trudy (ka-design-prototype-builder). Follow-up 5.",
         "external_id": "judge-trudy-ruling-4-missing-guidance"
       }
     }
