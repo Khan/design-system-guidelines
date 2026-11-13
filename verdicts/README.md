@@ -19,4 +19,4 @@ Design Infra's rulings on how Wonder Blocks is meant to be used, and the work th
 
 ## Who reads it
 
-The `ka-prototype-builder` skill's audit reads `verdicts.json` on every run, so every designer's prototype gets the same rulings.
+The `ka-design-prototype-builder` skill's audit reads `verdicts.json` on every run, so every designer's prototype gets the same rulings.
