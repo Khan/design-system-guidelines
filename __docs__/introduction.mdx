@@ -30,13 +30,30 @@ We believe that early and frequent usage of the DSG from early ideation to solut
 - Our Design, PM and Engineering teams have a shared language for talking about UI, and are aligned on how to build features
 - We can focus on solving new problems instead of rehashing old ones.
 
-### Agentic usage
+### 💪🤖 Agentic usage
 
-The Design System Guidelines are created to be useful for agents as well as humans.
+Your agent can easily make informed decisions and recommendations based on the guidelines via the **KA Design** Claude plugin, enabling it to review a design, screenshot, Figma frame, or live URL. The output will point you to direct references in the guidelines.
 
-Simply add the MCP server to your agent of choice, and it should return information relevant to your query and guide your workflows in the right direction.
+#### Enable the plugin and run the skill
 
-#### Connect your agent to the MCP
+1. Launch Claude Desktop
+2. Open **Customize**  and navigate to **Plugins**
+3. Find and enable the **KA Design** plugin
+4. Now you can run the `/ka-ux-feedback` 
+
+The plugin connects the Design Guidelines MCP for you when it's enabled, so there's nothing else to set up.
+
+### 💪👥 Collaborative usage
+
+This allows us to now use the design-system-guidelines powered skill in any Claude surface, including **Claude Tag** allowing the skills to be run collaboratively in Slack! Ask a Slack admin to add the Design Bundle to your channel.
+
+---
+
+## Technical details
+
+You only need this section if you're using an agent without the KA Design plugin, or you're testing changes to the guidelines themselves.
+
+### Connect your agent to the MCP manually
 
 If you have the **`Claude CLI`** tool, open up Terminal and run:
 
