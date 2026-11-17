@@ -147,7 +147,12 @@ const parameters: Preview["parameters"] = {
             method: "alphabetical",
             order: [
                 "Design Guidelines",
-                ["Introduction", "Foundations", "Components"],
+                [
+                    "Introduction",
+                    "Universal design principles",
+                    "Foundations",
+                    "Components",
+                ],
                 "Foundations",
                 "Packages",
                 "Tools",
