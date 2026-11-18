@@ -35,10 +35,10 @@ This guide defines how interactive components work together to manage large data
 | More filters modal | Organizing | A centralized secondary view containing advanced or low-frequency filters that are not in the primary action bar. |
 | Active filters | Organizing | Dynamic, removable elements that represent active filters. Clicking the "X" removes the specific parameter from the view. |
 | Clear all filters | Organizing | A tertiary button that removes every filter the user applied. Does not revert controls to their system defaults, and does not reset sorting. |
-| Segment control | Viewing | Best for switching between 2–5 related views of the same data, such as "Day / Week / Month". |
+| Segmented control | Viewing | Switches between 2–5 views of the same data, such as "Chart / Table", "Schools / Grades / Teachers", or "Day / Week / Month". Changes how results are shown, not which ones. Generates no active filter, and Clear all filters doesn't change it. |
 | Sort control | Organizing | Typically an icon-based button (e.g., arrows) used to quickly toggle between ascending and descending order. |
-| Tabs | … | … |
-| Pills | … | … |
+| Tabs | Navigating | Moves between peer sections of different content. Not a filter: each section keeps its own filters. |
+| Exclusive category filter | Organizing | Narrows a simple list to one category at a time, with an "All" option, for 2–6 options. Use on its own or with a search field, not in a filter bar with dropdowns. Generates no active filter and doesn't need Clear all filters: "All" is the reset. |
 
 ## Logic framework: how they play together
 

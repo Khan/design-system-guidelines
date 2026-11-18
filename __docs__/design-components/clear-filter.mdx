@@ -42,7 +42,8 @@ Clear all filters removes every filter the user applied. See the table below for
 | Date inline filter button | Yes | No date is pre-applied; the user introduces it, and it generates an active filter. Cleared along with the rest. |
 | Toggle | Yes | Off is its empty state, so an on toggle is a narrowing the user applied. It generates no active filter, but the reset follows what the user constrained, not what appears as a chip. |
 | Embedded filter dropdown (e.g. Date, defaulting to Last 30 days) | No | The product supplies the starting value and the control can't be cleared to empty. This is scope, not a filter — and reverting it would change a value the user may have deliberately set. |
-| Segmented control | No | One segment is always selected, so there is no empty state to clear to. Switching views is scope, not narrowing. |
+| Segmented control | No | One segment is always selected, so there is no empty state to clear to. Switching views changes how results are shown, not which ones. |
+| Exclusive category filter | Not used together | Use it on its own or with a search field, not in a filter bar. Its "All" option is the reset, so it needs no Clear all filters. |
 | Sort control | No | Sorting changes the order of results, not which results are shown. It narrows nothing, so there is nothing for the button to clear. |
 | Search field | No | The query is authored text, not a selection. Clearing it would destroy input the user can't restore by re-picking, and the field clears in place on its own. |
 

@@ -1,0 +1,90 @@
+import {Meta} from "@storybook/addon-docs/blocks";
+import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
+import Demo from "../components/Demo";
+import {Do, Dont} from "../components/DoDont";
+import {TabsDemo} from "./assets/tabs/TabsDemo";
+import headerImg from "./assets/tabs/header.png";
+
+<Meta title="Design Guidelines / Components / Navigation / Tabs" />
+
+<img src={headerImg} alt="Tabs: Account, Personalization, and Notifications, with Account selected" />
+
+# Tabs
+
+<NeutralBadge label="Section navigation" />
+
+A row of labels that moves the user between peer sections of the same page. Each tab shows different content, and only one section is visible at a time.
+
+<Demo>
+    <TabsDemo />
+</Demo>
+
+The demo shows navigation tabs for the main sections of a settings page. In a product, each tab links to its own URL. See [Tabs or navigation tabs](#tabs-or-navigation-tabs).
+
+## <Do /> When to use
+
+The choice to use tabs is determined by content that splits into separate, equal-level sections the user reads one at a time.
+
+| Use when | Example use |
+| --- | --- |
+| Content divides into peer sections at the same level | Settings: Account, Personalization, Notifications. |
+| Users focus on one section at a time and rarely compare them side by side | A course page: Overview, Assignments, Scores. |
+| A side panel or drawer holds several kinds of content | A student detail drawer: Profile, Activity, Notes. |
+
+## <Dont /> When NOT to use
+
+| Don’t use when | Recommended alternative | Rationale |
+| --- | --- | --- |
+| Each option shows the same data in a different format, grouping, or time scale | <a href="./?path=/docs/design-guidelines-components-inputs-segmented-control--docs">Segmented control</a> | Tabs swap in different content. Switching one dataset between Chart and Table, or between Schools and Teachers, is a view change, not navigation. |
+| The options narrow a list or grid by category | <a href="./?path=/docs/design-guidelines-components-inputs-exclusive-category-filter--docs">Exclusive category filter</a> | Filtering keeps the same view and shows fewer items. Tabs imply each section is its own content. |
+| The sections are steps the user completes in order | <a href="./?path=/docs/design-guidelines-components-feedback-progress-stepper--docs">Progress stepper</a> | Tabs can be visited in any order. Ordered steps need a sequence and progress. |
+| The user needs to compare content across sections | A single page with headings | Tabs hide every section but one, so users have to remember what they saw. |
+| The choice is part of a form that gets submitted | <a href="./?path=/docs/design-guidelines-components-inputs-radio-button--docs">Radio button</a> | Tabs navigate. They don't capture a value that gets submitted. |
+
+## Tabs or navigation tabs
+
+They look the same. Pick by where the tabs sit.
+
+| Tabs control… | Use | Why | Wonder Blocks |
+| --- | --- | --- | --- |
+| The main sections of a page | Navigation tabs (default) | Each section gets its own link, so people can share it, bookmark it, and use Back. | `ResponsiveNavigationTabs` |
+| Different content inside a side panel or drawer | Tabs | Only the panel changes. The page’s URL and everything behind it stay put. | `ResponsiveTabs` |
+
+To switch the view of the same data, such as a chart’s time scale, use a <a href="./?path=/docs/design-guidelines-components-inputs-segmented-control--docs">segmented control</a>, not tabs.
+
+## Number of tabs
+
+Use 2 to 6 tabs. With only one section, tabs aren't needed. With more than six, users can't scan the labels at a glance; group the content into fewer sections or rethink the page structure.
+
+## Overflow
+
+When the tabs don't fit their container, `ResponsiveTabs` switches to a dropdown. This can happen at narrow widths, high zoom, with long labels, or with translated labels. Design for both layouts.
+
+Swipeable, horizontally scrolling tabs are a common alternative on small screens, but Wonder Blocks doesn't support them today. If a design needs them, raise it with the Wonder Blocks team instead of building a custom version.
+
+## Placement
+
+- Place tabs directly above the content they control, below the page title.
+- With navigation tabs, the selected tab is part of the URL, so Back, refresh, and shared links return to it.
+- <Dont /> Don't nest one set of tabs inside another. Two levels of tabs make it unclear which content belongs to which level.
+- Use tabs in a side panel or drawer only when it holds a whole record with several kinds of content, such as a student's Profile, Activity, and Notes.
+- <Dont /> Don't put tabs inside a modal or popover. These hold one focused task or a short message, so splitting them into sections adds navigation the task doesn't need.
+
+## Behavior
+
+- Selecting a tab shows its content immediately. There is no Apply or Save step.
+- Exactly one tab is always selected. Select the first tab by default.
+- Tabs don't affect filters. Each section keeps its own filter state.
+
+## Accessibility
+
+- Give the tabs an accessible name with `aria-label`, or `aria-labelledby` when a visible heading names them. Use a unique name when a page has more than one set of tabs.
+- The arrow keys move focus between tabs, and `Tab` moves into the selected panel. With `activationMode="automatic"`, moving focus also selects the tab.
+- Animation is off by default. If you turn it on with `animated`, turn it off for users who prefer reduced motion.
+- The selected tab differs by text color and an underline, not by color alone.
+
+## Copy
+
+- Use one or two words per tab, in sentence case: "Notifications," not "Your notification settings."
+- Use nouns that describe the section's content, not actions: "Assignments," not "View assignments."
+- Keep labels parallel in form and similar in length.

@@ -1,0 +1,122 @@
+import {Meta} from "@storybook/addon-docs/blocks";
+import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
+import Figure from "../components/Figure";
+import {Do, Dont} from "../components/DoDont";
+import activationReportImg from "./assets/segmented-control/activation-report.png";
+import iconOnlyChartContainerImg from "./assets/segmented-control/icon-only-chart-container.png";
+import chunkyImg from "./assets/segmented-control/chunky.png";
+import headerImg from "./assets/segmented-control/header.png";
+
+<Meta title="Design Guidelines / Components / Inputs / Segmented control" />
+
+<img src={headerImg} alt="Segmented control: Day, Week, and Month, with Month selected" />
+
+# Segmented control
+
+<NeutralBadge label="View switching" />
+
+A row of 2 to 5 connected options that switches between views of the same data. Exactly one segment is always selected, and the change applies immediately.
+
+<Figure src={activationReportImg} alt="An Activation report page with a filter bar: Search report, Last 30 days, School, Grade, and More filters. Below the filter bar, a segmented control with Schools, Grades, and Teachers sits directly above the results. Teachers is selected." caption="Schools, Grades, and Teachers group the same activation data three ways. The control sits below the filter bar, directly above the results it changes." />
+
+**Status:** Segmented control isn't in Wonder Blocks yet. Design is building the component in Figma to share with the Wonder Blocks team. Until it ships, there is no coded component to use.
+
+## <Do /> When to use
+
+The choice to use a segmented control is determined by the need to change how the same data is shown, without changing which data is shown.
+
+| Use when | Example use |
+| --- | --- |
+| Switching the format of the same data | A class report: Chart, Table. An assignment list: List, Calendar. |
+| Grouping the same data a different way | An activation report: Schools, Grades, Teachers. |
+| Switching the time scale of the same data | An activity chart: Day, Week, Month. |
+
+## <Dont /> When NOT to use
+
+| Don’t use when | Recommended alternative | Rationale |
+| --- | --- | --- |
+| Each option shows different content | <a href="./?path=/docs/design-guidelines-components-navigation-tabs--docs">Tabs</a> | A segmented control changes the view of one dataset. Separate sections of content are navigation. |
+| The options narrow a list by category | <a href="./?path=/docs/design-guidelines-components-inputs-exclusive-category-filter--docs">Exclusive category filter</a> | Filtering changes which items are shown. A segmented control changes how they're shown. |
+| The options set a date range, such as Last 30 days or This year | <a href="./?path=/docs/design-guidelines-components-inputs-date-filter--docs">Date filter</a> | A date range changes which data is shown, so it's a filter. Day, Week, and Month change how the same data is grouped. |
+| There are more than 5 options | <a href="./?path=/docs/design-guidelines-components-inputs-dropdown-select--docs">Dropdown select</a> | Past five, the segments get too narrow to read and tap. |
+| The choice is part of a form that gets submitted | <a href="./?path=/docs/design-guidelines-components-inputs-radio-button--docs">Radio button</a> | A segmented control applies immediately. Form choices wait for Submit. |
+| The choice is on or off | <a href="./?path=/docs/design-guidelines-components-inputs-toggle--docs">Toggle</a> | One binary setting is a toggle, not two segments. |
+| The user needs more than one option at a time | <a href="./?path=/docs/design-guidelines-components-inputs-checkbox-group--docs">Checkbox group</a> | Only one segment can be selected. |
+
+## Variants
+
+A segmented control has two choices: what goes in each segment, and which style it uses.
+
+### Content
+
+| Option | Use when |
+| --- | --- |
+| Text (default) | Most cases. Words are clearer than icons. |
+| Icon only | Space is tight, such as a chart container, and every icon is widely recognized, such as chart, table, or list. |
+
+- <Dont /> Don't mix icon-only and text segments in one control.
+
+<Figure src={iconOnlyChartContainerImg} alt="A chart container with a line chart. Its header has a This year dropdown, an icon-only segmented control with Chart selected and Table, and a download button. A dotted outline highlights the segmented control." caption="An icon-only segmented control in a chart container switches between the chart and a table of the same data." />
+
+### Style
+
+| Option | Use when |
+| --- | --- |
+| Default | Teacher, admin, and other non-learner surfaces. |
+| Chunky | The learner product. It matches the larger, chunkier style of other learner components. |
+
+- <Dont /> Don't use the chunky style outside the learner product.
+
+<Figure src={chunkyImg} alt="A Weekly mission screen in the learner product, showing 3 of 15 assignments as a path on an illustrated map. In the header, a chunky icon-only segmented control has two segments, Path and List, with Path selected. A dotted outline highlights the segmented control." caption="A chunky icon-only segmented control in the learner product switches the same assignments between a path view and a list view." />
+
+## Number of segments
+
+Use 2 to 5 segments. Above five, the segments get too narrow to read and tap, so use a dropdown select. Every segment should fit on one line at the control's smallest width.
+
+## Overflow
+
+When the segments don't fit on one line, switch to a <a href="./?path=/docs/design-guidelines-components-inputs-dropdown-select--docs">dropdown select</a> with the same options. This can happen at narrow widths, high zoom, or with long translated labels.
+
+- <Dont /> Don't wrap segments onto a second line. A wrapped control no longer reads as one connected row.
+- <Dont /> Don't scroll segments horizontally. Segments past the edge are easy to miss.
+- Switching to icon-only works only when every icon is widely recognized. See [Content](#content).
+
+## Behavior
+
+- Exactly one segment is always selected. There is no empty state.
+- Selecting a segment applies the view immediately. There is no Apply step. For example, switching a chart from Week to Month redraws it right away.
+- Select the most common view by default, usually the first segment.
+- Keep the user's selected view when they return to the page, when possible.
+
+## In a filtered view
+
+A segmented control sets the view, so it isn't a filter.
+
+- It doesn't create an <a href="./?path=/docs/design-guidelines-components-inputs-active-filters--docs">active filter</a>. The selected segment is always visible on the control.
+- <a href="./?path=/docs/design-guidelines-components-inputs-clear-filter--docs">Clear all filters</a> doesn't change it. There is no empty state to clear to.
+- Switching views keeps the user's filters, search, and sort.
+
+## Placement
+
+- Place it directly above the content it changes, below the filter bar and active filters. It belongs with the results, not with the filters.
+- When space is tight, such as in a chart container, place it at the end of the container header.
+- Use one segmented control per view. Two of them next to each other read as one control.
+- A list can have both an <a href="./?path=/docs/design-guidelines-components-inputs-exclusive-category-filter--docs">exclusive category filter</a> and a segmented control. Place the filter first and the segmented control directly above the results. Switching views keeps the selected category.
+- <Dont /> Don't use it as page navigation in place of tabs.
+
+## Accessibility
+
+When the Wonder Blocks component is built, it should:
+
+- Work like a radio group: one tab stop, and the arrow keys move focus and select in one step. Every arrow press changes the view.
+- Have a label that names what it switches, such as "Group by" or "View". Show it unless the context already makes it clear, such as a heading directly above. Then hide it visually, so screen readers still read it.
+- Give each icon-only segment an accessible name, such as "Chart" or "Table", and show it in a tooltip on hover and focus.
+- Announce the new results after a switch when a count or summary changes, such as "Showing 12 schools." Focus stays on the control, so the change isn't otherwise announced.
+- Show the selected segment with more than color, such as a border and background change.
+- Meet the minimum target size, with each segment at least 24px tall.
+
+## Copy
+
+- Use one word per segment when possible, in sentence case: "Schools," "Grades," "Teachers."
+- Keep labels parallel: all formats ("Chart, Table"), all groupings ("Schools, Grades, Teachers"), or all time scales ("Day, Week, Month"). Don't mix them in one control.
+- Icons can go with the label. For icon-only segments, see [Variants](#variants).
