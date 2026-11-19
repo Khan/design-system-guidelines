@@ -1,0 +1,129 @@
+{
+  "about": "Design Infra's rulings on how Wonder Blocks is meant to be used (Judge Trudy). Each verdict is tied to a component in code, links to the guideline that covers it when one exists, and otherwise carries its own reason and is listed as missing guidance. Read by the ka-prototype-builder audit; only entries with status 'confirmed' and approved_by from a ruler are applied. Changes need review from the code owners of this folder.",
+  "owner": "Design Infra",
+  "channel": "#design-infra",
+  "rulers": [
+    "Caitlyn Mayers",
+    "Camila Hernandez",
+    "Jonah Goldsaito"
+  ],
+  "ruler_slack_ids": {
+    "Caitlyn Mayers": "U077G0D9X18",
+    "Camila Hernandez": "U03769T29D4",
+    "Jonah Goldsaito": "U04HE4A55B9"
+  },
+  "self_ruling": "A Design Infra member may rule on a request they raised; no second ruler is required.",
+  "entries": [
+    {
+      "id": "Ruling 1",
+      "verdict": "not-an-issue",
+      "match": {
+        "kind": "wb-override",
+        "component": "ActivityIconButton",
+        "shared_style": "sharedStyles.adjustedTooltipIconButton"
+      },
+      "reason": "ActivityIconButton's `label` prop with its documented `styles` prop (root / label), setting position and margins only, so the tooltip centres on the button. Layout through style props is what Wonder Blocks expects.",
+      "source": "Caitlyn Mayers, practice display settings prototype, 2026-10-27",
+      "status": "confirmed",
+      "requested_by": "Caitlyn Mayers",
+      "approved_by": "Caitlyn Mayers",
+      "approved_at": "2026-10-28",
+      "guideline": null,
+      "missing_guidance": true,
+      "ruling_link": "https://khanacademy.slack.com/archives/C0BHXK7RFFE/p1793224106492179",
+      "guidance_needed": "Customizing components: layout through a component's documented styles prop (position, margins, size, alignment) isn't drift; visual overrides (colour, border, radius, shadow, type) are",
+      "ruling_text": "This is not an issue, evidence is correct."
+    },
+    {
+      "id": "Ruling 2",
+      "verdict": "delta",
+      "kind": "wb-gap",
+      "match": {
+        "file": "libs/content/renderer/core/src/components/content-panel/content-panel-card.tsx",
+        "uses_wb": "Card"
+      },
+      "title": "Practice content panel: no Wonder Blocks scaffolding component for this surface",
+      "prod": "ContentPanelCard, the practice page's main surface, is built on WB Card.",
+      "suggested_wb": "Not in Wonder Blocks yet. Wonder Blocks likely needs a set of scaffolding components that give componentized versions of surfaces like the practice container. Until they exist, this is known debt: don't swap Card for a hand-built View-and-tokens surface.",
+      "size": "no-wb-fit",
+      "guideline": "Surfaces and elevations describes this surface (content panel / question card: Surface 2, Low elevation on a busy practice page) but not which component builds it.",
+      "source": "Caitlyn Mayers, practice display settings prototype, 2026-10-27",
+      "status": "confirmed",
+      "requested_by": "Caitlyn Mayers",
+      "approved_by": "Caitlyn Mayers",
+      "approved_at": "2026-10-28",
+      "guideline_link": "https://khan.github.io/design-system-guidelines/?path=/docs/design-guidelines-foundations-surfaces-and-elevations--docs",
+      "missing_guidance": true,
+      "follow_up": "Candidate for a WB scaffolding component set: run wonder-blocks-candidacy-eval.",
+      "ruling": "Wonder Blocks gap: likely needs scaffolding components (e.g. the practice container surface). Not a component swap.",
+      "ruling_link": "https://khanacademy.slack.com/archives/C0BHXK7RFFE/p1793224123101069",
+      "gap": "Scaffolding components for page surfaces like the practice content panel",
+      "guidance_needed": "Which component builds a page surface like the practice content panel (Surface 2)",
+      "ruling_text": "Finding is correct, the card is not appropriate but this is flagged as a need to add to WB as some form of scaffolding component.",
+      "evaluation": {
+        "path": "verdicts/evaluations/2026-10-28-scaffolding-surfaces.md",
+        "outcome": "Incubate",
+        "score": "17/27",
+        "date": "2026-10-28"
+      },
+      "guideline_doc": "__docs__/design-foundations/surfaces-and-elevations.mdx"
+    },
+    {
+      "id": "Ruling 3",
+      "verdict": "not-an-issue",
+      "match": {
+        "kind": "wb-override",
+        "component": "ActivityIconButton",
+        "file": "libs/content/renderer/component/tools/src/renderer-tools/doodlepad/components/drawing-area-controls.tsx",
+        "local_styles": [
+          "styles.closeButton",
+          "styles.horizontalCloseButton",
+          "styles.compactCloseButton"
+        ]
+      },
+      "reason": "The drawing toolbar's close button removes two corner radii so it attaches to the tool group it opens and closes. This attached-toggle pattern is used only here, so Wonder Blocks doesn't need to accommodate it; the control's design isn't the problem.",
+      "source": "Caitlyn Mayers, practice display settings prototype, 2026-10-28",
+      "status": "confirmed",
+      "requested_by": "Caitlyn Mayers",
+      "approved_by": "Caitlyn Mayers",
+      "approved_at": "2026-10-28",
+      "guideline": null,
+      "missing_guidance": false,
+      "ruling_link": "https://khanacademy.slack.com/archives/C0BHXK7RFFE/p1793224315331299",
+      "quality_issues": [
+        {
+          "key": "a11y-toggle-name",
+          "kind": "accessibility",
+          "summary": "Drawing toolbar close button: accessible name changes with layout and mixes disclosure and action semantics",
+          "detail": "The close button carries aria-expanded=\"true\" as a disclosure toggle, but its accessible name changes by layout: \"Draw\" in the vertical toolbar (visible label next to an X icon; tooltip \"Close drawing tools\") and \"Close drawing tools\" in the horizontal toolbar, announced as \"Close drawing tools, expanded\". Pick one pattern: a disclosure named \"Draw\" with aria-expanded in every layout, or a \"Close drawing tools\" action with no aria-expanded, and make the visible label, icon and tooltip agree with it.",
+          "where": "libs/content/renderer/component/tools/src/renderer-tools/doodlepad/components/drawing-area-controls.tsx (closeLabel, close ActivityIconButton) and drawing-area-toggle.tsx",
+          "jira_project": null,
+          "owner": "Practice surface team",
+          "decision": "Not decided. Logged only; Design Infra decides later what to do, and nothing is filed until then."
+        }
+      ],
+      "ruling_text": "Designer reason is correct, accept."
+    },
+    {
+      "id": "Ruling 4",
+      "verdict": "not-an-issue",
+      "match": {
+        "kind": "html-with-wb",
+        "component": "DrawingAreaControls",
+        "file": "libs/content/renderer/component/tools/src/renderer-tools/doodlepad/components/drawing-area-controls.tsx",
+        "element": "<input>"
+      },
+      "reason": "This drawing toolbar's colour picker is a native <input type=\"color\">. Using the browser default is expected for this control: the browser handles it with system defaults. The ruling covers this one instance only; it isn't a general rule about native controls.",
+      "source": "Caitlyn Mayers, practice display settings prototype, 2026-10-28",
+      "status": "confirmed",
+      "requested_by": "Caitlyn Mayers",
+      "approved_by": "Caitlyn Mayers",
+      "approved_at": "2026-10-28",
+      "guideline": null,
+      "missing_guidance": false,
+      "ruling_link": "https://khanacademy.slack.com/archives/C0BHXK7RFFE/p1793233320558329",
+      "ruling_text": "*Ruling:* Not an issue. Using the browser default is expected here: it's handled by the browser, uses system defaults, and allows us to benefit from a reusable component without the cost of building and maintaining one ourselves. I'll allow it.",
+      "scope": "instance"
+    }
+  ]
+}

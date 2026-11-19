@@ -29,6 +29,9 @@ jobs:
 
             - run: pnpm test
 
+            # Fails if __docs__/verdicts.mdx is out of date with verdicts/*.json.
+            - run: pnpm verdicts:check
+
             # Also regenerates exports/design-md/ from exports/src/ and the
             # installed wonder-blocks-tokens.
             - run: pnpm build
