@@ -51,7 +51,6 @@ When the options don't fit on one line, wrap them onto the next line. Don't scro
 - Wrapping keeps every option visible. Horizontal scroll hides options past the edge, and users often miss them.
 - Wrapping reflows at high zoom, which horizontal scroll doesn't.
 - With six or fewer short labels, wrapping should only happen on narrow screens or with long translated labels.
-
 ## Behavior
 
 - Exactly one option is always selected. Selecting the current option again does nothing.
@@ -70,16 +69,44 @@ When the options don't fit on one line, wrap them onto the next line. Don't scro
 - <Dont /> Don't stack two exclusive category filters on the same list, such as one for Subject and one for Grade. "All" in one row no longer shows everything, and there's no single way to reset. Use the <a href="./?path=/docs/design-guidelines-patterns-filter-and-sort--docs">filter bar</a> instead.
 - <Do /> Do pair it with a search field when users also need to find items by name.
 - <Do /> Do pair it with a <a href="./?path=/docs/design-guidelines-components-inputs-segmented-control--docs">segmented control</a> when users also switch how the results are shown. A segmented control sets the view, so it isn't a second filter.
-
 ## Placement
 
 - Place it directly above the results it filters, after any search field.
 - Keep the visual order the same as the reading order, so `Tab` moves from the filter to the results.
 
+## Label
+
+Every exclusive category filter has a label, and screen readers always announce it as the group's name. Decide whether the label shows on screen, and where.
+
+### When to show it
+
+| Show a visible label when | Example |
+| --- | --- |
+| The options alone don't say what is filtered | All, Plan, Create, Assess: "Tool type" says what the categories are. |
+| Nothing nearby, such as a heading, names it | A filter row above a list with no heading: "Filter by subject." |
+| Several controls sit near each other | An exclusive category filter and a segmented control on the same list. |
+
+| Hide it visually when | Example |
+| --- | --- |
+| A heading directly above names the list and its categories | A "Subjects" heading above All, Math, Science, Reading. |
+| The options explain themselves | All, Math, Science, Reading on a page about subjects. |
+
+A hidden label stays in the code, so screen readers still read it.
+
+### Position
+
+| Position | Use when |
+| --- | --- |
+| Block start (above), the default | The filter sits on its own row above the content. It works at any width and with long or translated labels. |
+| Inline start (left) | The filter shares a row with other elements, such as a search field, and the label is short, such as "Subject". |
+
+At narrow widths, an inline start label moves above the filter, to block start.
+
+**Wonder Blocks today:** the `label` prop is required and always shows at block start. Inline start and a visually hidden label need Wonder Blocks support. Raise it with the Wonder Blocks team.
+
 ## Accessibility
 
-- Set a `label` that says what is filtered, such as "Filter by subject," not just "Filters." It's also the group's accessible name.
-- Show the label unless the context already makes it clear, such as a heading directly above. Then hide it visually, so screen readers still read it.
+- Always set a `label` that says what is filtered, such as "Filter by subject," not just "Filters," even when it's hidden. It's the group's accessible name. See [Label](#label).
 - It works like a radio group: one tab stop, and the arrow keys move focus and select in one step. Every arrow press changes the results.
 - Because focus stays on the filter, announce the new results after each change, such as "Showing 8 activities." Use `announceMessage` from `@khanacademy/wonder-blocks-announcer`, debounced so arrowing across options only reads the last result.
 - Icons are decorative unless they have an `aria-label`. Add one only when the icon means something the label doesn't.

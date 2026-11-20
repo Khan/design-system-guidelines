@@ -17,19 +17,6 @@ const options = [
     {value: "reading", label: "Reading"},
 ];
 
-// Hides the label visually but keeps it as the group's accessible name.
-const visuallyHidden = {
-    position: "absolute",
-    width: 1,
-    height: 1,
-    padding: 0,
-    margin: -1,
-    overflow: "hidden",
-    clip: "rect(0, 0, 0, 0)",
-    whiteSpace: "nowrap",
-    border: 0,
-} as const;
-
 /**
  * Live, stateful exclusive category filter for its guideline page. The
  * results render directly after the filter so `Tab` leads to them.
@@ -43,11 +30,10 @@ export function ExclusiveCategoryFilterDemo() {
     return (
         <div style={{display: "flex", flexDirection: "column", gap: "16px", width: "100%"}}>
             <ExclusiveCategoryFilter
-                label="Filter by subject"
+                label="Subject"
                 options={options}
                 selectedValue={subject}
                 onChange={setSubject}
-                styles={{label: visuallyHidden}}
             />
             <ul style={{margin: 0, paddingInlineStart: "20px"}}>
                 {visible.map((a) => (

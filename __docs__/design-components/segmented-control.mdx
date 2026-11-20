@@ -17,7 +17,7 @@ import headerImg from "./assets/segmented-control/header.png";
 
 A row of 2 to 5 connected options that switches between views of the same data. Exactly one segment is always selected, and the change applies immediately.
 
-<Figure src={activationReportImg} alt="An Activation report page with a filter bar: Search report, Last 30 days, School, Grade, and More filters. Below the filter bar, a segmented control with Schools, Grades, and Teachers sits directly above the results. Teachers is selected." caption="Schools, Grades, and Teachers group the same activation data three ways. The control sits below the filter bar, directly above the results it changes." />
+<Figure src={activationReportImg} alt="An Activation report page with a filter bar: Search report, Last 30 days, School, Grade, and More filters. Below the filter bar, a segmented control labeled Group by, with Schools, Grades, and Teachers, sits directly above the results. Teachers is selected." caption="Schools, Grades, and Teachers group the same activation data three ways. The Group by label sits above the control, at block start." />
 
 **Status:** Segmented control isn't in Wonder Blocks yet. Design is building the component in Figma to share with the Wonder Blocks team. Until it ships, there is no coded component to use.
 
@@ -55,8 +55,7 @@ A segmented control has two choices: what goes in each segment, and which style 
 | Icon only | Space is tight, such as a chart container, and every icon is widely recognized, such as chart, table, or list. |
 
 - <Dont /> Don't mix icon-only and text segments in one control.
-
-<Figure src={iconOnlyChartContainerImg} alt="A chart container with a line chart. Its header has a This year dropdown, an icon-only segmented control with Chart selected and Table, and a download button. A dotted outline highlights the segmented control." caption="An icon-only segmented control in a chart container switches between the chart and a table of the same data." />
+<Figure src={iconOnlyChartContainerImg} alt="Close-up of the top right corner of a chart container with a line chart. The header has a This year dropdown, an icon-only segmented control with Chart selected and Table, and a download button. A dotted outline highlights the segmented control." caption="An icon-only segmented control in a chart container switches between the chart and a table of the same data." />
 
 ### Style
 
@@ -80,7 +79,6 @@ When the segments don't fit on one line, switch to a <a href="./?path=/docs/desi
 - <Dont /> Don't wrap segments onto a second line. A wrapped control no longer reads as one connected row.
 - <Dont /> Don't scroll segments horizontally. Segments past the edge are easy to miss.
 - Switching to icon-only works only when every icon is widely recognized. See [Content](#content).
-
 ## Behavior
 
 - Exactly one segment is always selected. There is no empty state.
@@ -103,13 +101,39 @@ A segmented control sets the view, so it isn't a filter.
 - Use one segmented control per view. Two of them next to each other read as one control.
 - A list can have both an <a href="./?path=/docs/design-guidelines-components-inputs-exclusive-category-filter--docs">exclusive category filter</a> and a segmented control. Place the filter first and the segmented control directly above the results. Switching views keeps the selected category.
 - <Dont /> Don't use it as page navigation in place of tabs.
+## Label
 
+Every segmented control has a label, and screen readers always announce it as the group's name. Decide whether the label shows on screen, and where.
+
+### When to show it
+
+| Show a visible label when | Example |
+| --- | --- |
+| The segments alone don't say what the control does | Schools, Grades, Teachers: "Group by" says it groups the data, not filters it. |
+| Nothing nearby, such as a heading or container title, names it | A segmented control on its own row above a table. |
+| Several controls sit near each other | A segmented control and an exclusive category filter on the same list. |
+
+| Hide it visually when | Example |
+| --- | --- |
+| A heading or container title directly above names it | A chart container titled "Growth over time." |
+| The segments explain themselves | Day, Week, Month. Chart and Table icons. |
+
+A hidden label stays in the code, so screen readers still read it.
+
+### Position
+
+| Position | Use when |
+| --- | --- |
+| Block start (above), the default | The control sits on its own row above the content. It works at any width and with long or translated labels. |
+| Inline start (left) | The control shares a row with other elements, such as a toolbar or a container header, and the label is short, such as "View" or "Group by". |
+
+At narrow widths, an inline start label moves above the control, to block start.
 ## Accessibility
 
 When the Wonder Blocks component is built, it should:
 
 - Work like a radio group: one tab stop, and the arrow keys move focus and select in one step. Every arrow press changes the view.
-- Have a label that names what it switches, such as "Group by" or "View". Show it unless the context already makes it clear, such as a heading directly above. Then hide it visually, so screen readers still read it.
+- Always have a label that names what it switches, even when it's hidden. It's the group's accessible name. See [Label](#label).
 - Give each icon-only segment an accessible name, such as "Chart" or "Table", and show it in a tooltip on hover and focus.
 - Announce the new results after a switch when a count or summary changes, such as "Showing 12 schools." Focus stays on the control, so the change isn't otherwise announced.
 - Show the selected segment with more than color, such as a border and background change.
