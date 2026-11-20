@@ -1,0 +1,118 @@
+import {Meta} from "@storybook/addon-docs/blocks";
+import {NeutralBadge} from "@khanacademy/wonder-blocks-badge";
+import Demo from "../components/Demo";
+import {Do, Dont} from "../components/DoDont";
+import {ExclusiveCategoryFilterDemo} from "./assets/exclusive-category-filter/ExclusiveCategoryFilterDemo";
+import headerImg from "./assets/exclusive-category-filter/header.png";
+
+<Meta title="Design Guidelines / Components / Inputs / Exclusive category filter" />
+
+<img src={headerImg} alt="Exclusive category filter: All, Hats, and Eyewear, with All selected" />
+
+# Exclusive category filter
+
+<NeutralBadge label="Single-category filtering" />
+
+A row of options that narrows a list or grid to one category at a time. The view stays the same and shows fewer items. Exactly one option is always selected, and the first option is usually "All."
+
+<Demo>
+    <ExclusiveCategoryFilterDemo />
+</Demo>
+
+## <Do /> When to use
+
+The choice to use an exclusive category filter is determined by a simple list that users narrow by one category at a time, where seeing the categories up front helps them choose.
+
+| Use when | Example use |
+| --- | --- |
+| Users narrow a list or grid by one category at a time | A library of activities: All, Math, Science, Reading. |
+| Each item belongs to exactly one category | Khanmigo tools: All, Plan, Create, Assess. A store page: All, Hats, Eyewear. |
+| Category is the main way users narrow the list | A resource page with a search field above the category options. |
+
+## <Dont /> When NOT to use
+
+| Don’t use when | Recommended alternative | Rationale |
+| --- | --- | --- |
+| There are more than 6 options, "All" included | <a href="./?path=/docs/design-guidelines-components-inputs-dropdown-select--docs">Dropdown select</a> | Past six, users can't scan the options at a glance and the row wraps on smaller screens. |
+| Users need to see more than one category at once | <a href="./?path=/docs/design-guidelines-components-inputs-inline-filter-button--docs">Inline filter button</a> with a <a href="./?path=/docs/design-guidelines-components-inputs-checkbox-group--docs">checkbox group</a> | This component allows exactly one category. Multi-select filtering needs checkboxes. |
+| The list needs more than one filter dimension | The <a href="./?path=/docs/design-guidelines-patterns-filter-and-sort--docs">filter bar</a> | Filtering by School and Grade, for example, needs the filter bar. See [Don't combine with a filter bar](#dont-combine-with-a-filter-bar). |
+| Each option shows the same data in a different format, grouping, or time scale | <a href="./?path=/docs/design-guidelines-components-inputs-segmented-control--docs">Segmented control</a> | Changing how data is shown is a view change, not a filter. Grouping by school or by teacher still shows every item. Filtering hides items. |
+| Each option is a separate section of content | <a href="./?path=/docs/design-guidelines-components-navigation-tabs--docs">Tabs</a> | Filtering narrows one list. Different content is navigation. |
+| The choice is part of a form that gets submitted | <a href="./?path=/docs/design-guidelines-components-inputs-radio-button--docs">Radio button</a> | This filter applies immediately. Form choices wait for Submit. |
+
+## Number of options
+
+Use 2 to 6 options, including "All," each with a short label. Above six, use a dropdown select. A short, scannable set is what makes showing every option worth the space.
+
+## Overflow
+
+When the options don't fit on one line, wrap them onto the next line. Don't scroll them horizontally.
+
+- Wrapping keeps every option visible. Horizontal scroll hides options past the edge, and users often miss them.
+- Wrapping reflows at high zoom, which horizontal scroll doesn't.
+- With six or fewer short labels, wrapping should only happen on narrow screens or with long translated labels.
+## Behavior
+
+- Exactly one option is always selected. Selecting the current option again does nothing.
+- Include an "All" option first, and select it by default, unless every item must belong to a chosen category.
+- Selecting an option updates the results immediately. There is no Apply step.
+- The selection works with search: results match the search term and the selected category.
+
+## In a filtered view
+
+- It doesn't create an <a href="./?path=/docs/design-guidelines-components-inputs-active-filters--docs">active filter</a>. The selected option stays visible on the control.
+- It doesn't need <a href="./?path=/docs/design-guidelines-components-inputs-clear-filter--docs">Clear all filters</a>. The "All" option is the reset, and it's always one click away.
+
+### Don't combine with a filter bar
+
+- <Dont /> Don't place an exclusive category filter next to dropdowns or inline filter buttons. Users get two filtering models side by side, and it becomes unclear what Clear all filters resets.
+- <Dont /> Don't stack two exclusive category filters on the same list, such as one for Subject and one for Grade. "All" in one row no longer shows everything, and there's no single way to reset. Use the <a href="./?path=/docs/design-guidelines-patterns-filter-and-sort--docs">filter bar</a> instead.
+- <Do /> Do pair it with a search field when users also need to find items by name.
+- <Do /> Do pair it with a <a href="./?path=/docs/design-guidelines-components-inputs-segmented-control--docs">segmented control</a> when users also switch how the results are shown. A segmented control sets the view, so it isn't a second filter.
+## Placement
+
+- Place it directly above the results it filters, after any search field.
+- Keep the visual order the same as the reading order, so `Tab` moves from the filter to the results.
+
+## Label
+
+Every exclusive category filter has a label, and screen readers always announce it as the group's name. Decide whether the label shows on screen, and where.
+
+### When to show it
+
+| Show a visible label when | Example |
+| --- | --- |
+| The options alone don't say what is filtered | All, Plan, Create, Assess: "Tool type" says what the categories are. |
+| Nothing nearby, such as a heading, names it | A filter row above a list with no heading: "Filter by subject." |
+| Several controls sit near each other | An exclusive category filter and a segmented control on the same list. |
+
+| Hide it visually when | Example |
+| --- | --- |
+| A heading directly above names the list and its categories | A "Subjects" heading above All, Math, Science, Reading. |
+| The options explain themselves | All, Math, Science, Reading on a page about subjects. |
+
+A hidden label stays in the code, so screen readers still read it.
+
+### Position
+
+| Position | Use when |
+| --- | --- |
+| Block start (above), the default | The filter sits on its own row above the content. It works at any width and with long or translated labels. |
+| Inline start (left) | The filter shares a row with other elements, such as a search field, and the label is short, such as "Subject". |
+
+At narrow widths, an inline start label moves above the filter, to block start.
+
+**Wonder Blocks today:** the `label` prop is required and always shows at block start. Inline start and a visually hidden label need Wonder Blocks support. Raise it with the Wonder Blocks team.
+
+## Accessibility
+
+- Always set a `label` that says what is filtered, such as "Filter by subject," not just "Filters," even when it's hidden. It's the group's accessible name. See [Label](#label).
+- It works like a radio group: one tab stop, and the arrow keys move focus and select in one step. Every arrow press changes the results.
+- Because focus stays on the filter, announce the new results after each change, such as "Showing 8 activities." Use `announceMessage` from `@khanacademy/wonder-blocks-announcer`, debounced so arrowing across options only reads the last result.
+- Icons are decorative unless they have an `aria-label`. Add one only when the icon means something the label doesn't.
+
+## Copy
+
+- Use one or two words per option, in sentence case.
+- Name the option for showing everything "All."
+- Order categories by how often they're used, or in a familiar order such as subject order. Keep "All" first.
