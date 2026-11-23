@@ -33,6 +33,8 @@ This repo (`@khanacademy/design-guidelines`) is a **Storybook 10 site that docum
 - **Color comes from tokens, not raw hex.** Hardcoded hex will not adapt to theming. Tokens live inside the `.tsx` helper components used in `.mdx`.  `style={{}}` is only for demo *layout* scaffolding (widths, gaps, flexbox) — never for colors.
 - **Links follow the Wonder Blocks patterns.** Whether to use markdown or a raw `<a>` depends on the link type; see [Links](#links).
 
+- **DESIGN.md is generated.** To change Khan Academy's DESIGN.md, edit the templates in `exports/src/`, never `exports/design-md/`, then run `pnpm exports` and commit both. Link between DESIGN.md files with relative paths, never their published URLs. See the README's "DESIGN.md & Claude Design Systems" section for the template syntax.
+
 ---
 
 ## Choosing a do/dont mechanism
