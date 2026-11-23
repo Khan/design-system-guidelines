@@ -142,6 +142,12 @@ component card in this system is built that way. Never re-create a component
 from tokens and CSS. This system has no component bundle and no
 `window.WonderBlocks` global; the guide's page skeleton is how you load them.
 
+**Patterns Wonder Blocks doesn't have yet.** Progress bars, charts, chart
+containers, summary cards and data tables have no WB component. Their cards
+under Data visualization are patterns: build them from WB parts the way the
+card does, with the values it gives, which come from the design guidelines'
+own examples. Never invent their colors or sizes.
+
 **Change it in the repo, not here.** This system is generated from
 [Khan/design-system-guidelines](https://github.com/Khan/design-system-guidelines)
 (`exports/src/`, the same source as Khan Academy's public DESIGN.md) and
@@ -155,7 +161,7 @@ open a pull request.
 | If you're making… | Also read |
 | --- | --- |
 {{#target claude}}
-| Prototype, page, or Claude artifact | The [Claude artifact guide](guides/claude-artifact.md). Build with the real Wonder Blocks components it loads; never rebuild them from tokens |
+| Prototype, page, or Claude artifact | The [Claude artifact guide](guides/claude-artifact.md). Build with the real Wonder Blocks components it loads; never rebuild them from tokens. For progress bars, charts and tables, follow the pattern cards under Data visualization |
 | One specific component | Its card under Components: when to use it, its import line, the rules that are easy to get wrong, and where its props live |
 {{/target}}
 | Product UI in a Wonder Blocks codebase | [guides/product-ui.md](guides/product-ui.md) |

@@ -86,7 +86,7 @@ try {
   const html = htm.bind(React.createElement);
 // ---------- end WB boot ----------
   // This card's app; everything above is the boot from the Claude artifact guide, verbatim.
-  const [{ ModalLauncher, OnePaneDialog }, { default: Button }, { Heading, BodyText, BodyMonospace }] = await Promise.all([wb("modal"), wb("button"), wb("typography")]);
+  const [{ ModalLauncher, OnePaneDialog }, { default: Button, ActivityButton }, { Heading, BodyText, BodyMonospace }] = await Promise.all([wb("modal"), wb("button"), wb("typography")]);
   const dupes = performance.getEntriesByType("resource").map((e) => e.name).filter((n) => /\/npm\/react(-dom)?@(?!18\.2\.0\/)/.test(n));
   if (dupes.length) throw new Error("A second React copy loaded. Add a prefix mapping to react@18.2.0 in the import map for:\n" + dupes.join("\n"));
   // The design system page sets data-theme="light" | "dark" on <html>; follow it with the matching WB theme.

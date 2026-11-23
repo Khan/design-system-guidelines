@@ -50,8 +50,9 @@ The exports link to the DSG docs; they don't copy them. Most docs edits need not
 - **A renamed or moved page** that the exports link: the data-viz pages in `src/DESIGN.md` ("Charts and data visualization") and the `docs:` entries in `src/claude-design-system/components.yaml`. `pnpm exports` fails if a `components.yaml` link points at a missing page; the DESIGN.md links aren't checked yet, so search `src/` for the old path.
 - **A changed foundation** (colors, type, spacing, elevation, iconography, illustration, motion): `src/DESIGN.md` restates these, so update the matching section by hand.
 - **A changed component rule** (for example in `buttons.mdx`): if the card's "Get these right" in `components.yaml` repeats it, update it there.
+- **A changed data-viz example** (`__docs__/design-components/assets/{progress,distribution,trend}-charts/*.tsx`): the pattern cards (ProgressBar, DistributionChart, TrendChart, DataTable) read their colors from these files' `values:` constants at build time. Run `pnpm exports` and publish after the merge. If a constant was renamed, removed or turned into something other than a one-line literal, `pnpm exports` fails and names it: update `values:` in `components.yaml`.
 
-If you changed anything in `src/`, run `pnpm exports`, and after the merge, publish. If not, there's nothing to publish: the system's links already point at `main`.
+If you changed anything in `src/`, or a data-viz example changed, run `pnpm exports`, and after the merge, publish. If not, there's nothing to publish: the system's links already point at `main`.
 
 ### After an `exports/src/` edit
 

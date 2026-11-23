@@ -16,6 +16,12 @@ component card in this system is built that way. Never re-create a component
 from tokens and CSS. This system has no component bundle and no
 `window.WonderBlocks` global; the guide's page skeleton is how you load them.
 
+**Patterns Wonder Blocks doesn't have yet.** Progress bars, charts, chart
+containers, summary cards and data tables have no WB component. Their cards
+under Data visualization are patterns: build them from WB parts the way the
+card does, with the values it gives, which come from the design guidelines'
+own examples. Never invent their colors or sizes.
+
 **Change it in the repo, not here.** This system is generated from
 [Khan/design-system-guidelines](https://github.com/Khan/design-system-guidelines)
 (`exports/src/`, the same source as Khan Academy's public DESIGN.md) and
@@ -27,7 +33,7 @@ open a pull request.
 
 | If you're making… | Also read |
 | --- | --- |
-| Prototype, page, or Claude artifact | The [Claude artifact guide](claude-artifact.md). Build with the real Wonder Blocks components it loads; never rebuild them from tokens |
+| Prototype, page, or Claude artifact | The [Claude artifact guide](claude-artifact.md). Build with the real Wonder Blocks components it loads; never rebuild them from tokens. For progress bars, charts and tables, follow the pattern cards under Data visualization |
 | One specific component | Its card under Components: when to use it, its import line, the rules that are easy to get wrong, and where its props live |
 | Product UI in a Wonder Blocks codebase | [product-ui.md](product-ui.md) |
 | Plain HTML page or prototype without React | [web-prototype.md](web-prototype.md) |
@@ -396,6 +402,7 @@ Each card's README has its import line, the rules that are easy to get wrong, an
 | --- | --- | --- | --- |
 | Button | Actions | `components/Button/README.md` | The Wonder Blocks button for every action on a page; `kind` sets its weight. |
 | IconButton | Actions | `components/IconButton/README.md` | An icon-only button for compact, well-known actions such as close, settings or more. |
+| ActivityButton | Actions | `components/ActivityButton/README.md` | The chonky buttons for learner activities; `ActivityIconButton` is the icon-only one for practice tools. |
 | Link | Actions | `components/Link/README.md` | Inline and standalone text links that navigate. |
 | Typography | Content | `components/Typography/README.md` | `Heading` and `BodyText` set every piece of text in the Wonder Blocks type scale. |
 | Card | Layout | `components/Card/README.md` | A raised or outlined container that groups one piece of content. |
@@ -417,3 +424,8 @@ Each card's README has its import line, the rules that are easy to get wrong, an
 | DetailCell | Content | `components/DetailCell/README.md` | A list row with a title, up to two subtitles and accessories on either side. |
 | SearchField | Inputs | `components/SearchField/README.md` | A text field with a search icon and a clear button. |
 | CircularSpinner | Feedback | `components/CircularSpinner/README.md` | An indeterminate loading indicator. |
+| ProgressBar | Data visualization | `components/ProgressBar/README.md` | A bar that shows a current value against a goal, optionally with an expected-by-today marker, in a chart container. |
+| DistributionChart | Data visualization | `components/DistributionChart/README.md` | A bar chart of how many students, classes or schools land in each range, in a large chart container. |
+| TrendChart | Data visualization | `components/TrendChart/README.md` | A line chart of a value across time, like average score by assessment window, in a large chart container. |
+| SummaryCards | Data visualization | `components/SummaryCards/README.md` | A row of 2 to 4 stat cards with the page's headline numbers, at the top of a report. |
+| DataTable | Data visualization | `components/DataTable/README.md` | A table of each student, class or assignment with exact values, status badges, flags and a row menu. |

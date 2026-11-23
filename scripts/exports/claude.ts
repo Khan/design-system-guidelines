@@ -50,7 +50,15 @@ type ComponentConfig = {
     use: Array<string>;
     rules: Array<string>;
     docs: Array<string>;
-    types: string;
+    /** "<package in V> <path in dist/>"; omitted for a pattern card. */
+    types?: string;
+    /**
+     * A DSG pattern built from WB parts, such as a progress bar or a chart:
+     * Wonder Blocks has no component for it yet.
+     */
+    pattern?: boolean;
+    /** Constants read from a DSG example file at build time, so the card can't drift from the docs. */
+    values?: {from: string; names: Array<string>};
     imports: Array<string>;
     icons?: Record<string, string>;
     state?: string;
@@ -198,9 +206,21 @@ export function buildClaude(options: ClaudeOptions): Map<string, string | Buffer
                 errors.push(`${where}: import "${line}" isn't in section 2 of guides/claude-artifact.md`);
             }
         }
-        const [typesPkg, typesPath] = c.types.split(" ");
-        if (!versions[typesPkg] || !typesPath) {
-            errors.push(`${where}: types must be "<package in V> <path>"`);
+        if (c.types) {
+            const [typesPkg, typesPath] = c.types.split(" ");
+            if (!versions[typesPkg] || !typesPath) {
+                errors.push(`${where}: types must be "<package in V> <path>"`);
+            }
+        } else if (!c.pattern) {
+            errors.push(`${where}: types is required unless the card is a pattern`);
+        }
+        let values: Array<DocValue> = [];
+        if (c.values) {
+            try {
+                values = readDocValues(docsDir, c.values.from, c.values.names);
+            } catch (e) {
+                errors.push(`${where}: ${(e as Error).message}`);
+            }
         }
         const docs = c.docs.map((rel) => {
             const title = docTitle(docsDir, rel);
@@ -209,9 +229,9 @@ export function buildClaude(options: ClaudeOptions): Map<string, string | Buffer
             }
             return {rel, title: title ?? rel};
         });
-        out.set(`project/components/${c.name}/README.md`, componentReadme(c, docs, versions));
+        out.set(`project/components/${c.name}/README.md`, componentReadme(c, docs, versions, values));
         if (guideOut) {
-            out.set(`project/components/${c.name}/preview.html`, componentPreview(c, skeleton(guideOut)));
+            out.set(`project/components/${c.name}/preview.html`, componentPreview(c, skeleton(guideOut), values));
         }
     }
 
@@ -349,6 +369,56 @@ function mediaType(rel: string): string {
     return type;
 }
 
+export type DocValue = {name: string; value: string | number | Record<string, string | number>; comment: string};
+
+const DOC_CONST = (name: string) => new RegExp(`^const ${name} = (.+);$`, "m");
+
+/**
+ * Reads top-level `const NAME = <literal>;` lines from a DSG example file under
+ * __docs__/: a string, a number, or a flat object of them. Anything else, or a
+ * missing name, throws, so a docs edit that moves a value fails `pnpm exports`
+ * instead of leaving the card stale. Each value carries the `//` comment block
+ * above its group of constants.
+ */
+export function readDocValues(docsDir: string, rel: string, names: Array<string>): Array<DocValue> {
+    const file = path.join(docsDir, rel);
+    if (!fs.existsSync(file)) {
+        throw new Error(`values.from: __docs__/${rel} doesn't exist`);
+    }
+    const src = fs.readFileSync(file, "utf8");
+    const lines = src.split("\n");
+    return names.map((name) => {
+        const m = src.match(DOC_CONST(name));
+        if (!m) {
+            throw new Error(`__docs__/${rel} has no top-level one-line \`const ${name} = …;\``);
+        }
+        const literal = m[1].trim();
+        let value: DocValue["value"];
+        try {
+            value = JSON.parse(
+                literal.startsWith("{") ? literal.replace(/([{,]\s*)([A-Za-z_$][\w$]*)\s*:/g, '$1"$2":') : literal,
+            );
+        } catch {
+            throw new Error(`__docs__/${rel}: const ${name} must be a string, a number, or a flat object of them; it's \`${literal}\``);
+        }
+        const flat = (v: unknown) => typeof v === "string" || typeof v === "number";
+        if (!flat(value) && !(typeof value === "object" && value !== null && !Array.isArray(value) && Object.values(value).every(flat))) {
+            throw new Error(`__docs__/${rel}: const ${name} must be a string, a number, or a flat object of them`);
+        }
+        // Walk up past neighbouring constants to the comment block above the group.
+        let i = lines.findIndex((l) => l.startsWith(`const ${name} = `)) - 1;
+        while (i >= 0 && /^const [A-Z_]+ = .+;$/.test(lines[i])) {
+            i--;
+        }
+        const comment: Array<string> = [];
+        while (i >= 0 && lines[i].startsWith("//")) {
+            comment.unshift(lines[i].replace(/^\/\/\s?/, ""));
+            i--;
+        }
+        return {name, value, comment: comment.join(" ")};
+    });
+}
+
 /** A DSG page's Storybook title, from its <Meta title="…" />. */
 function docTitle(docsDir: string, rel: string): string | undefined {
     const file = path.join(docsDir, rel);
@@ -370,17 +440,25 @@ function componentReadme(
     c: ComponentConfig,
     docs: Array<{rel: string; title: string}>,
     versions: Record<string, string>,
+    values: Array<DocValue> = [],
 ): string {
-    const [pkg, typesPath] = c.types.split(" ");
     const lines = [
         `# ${c.name}`,
         "",
         c.summary,
         "",
+        ...(c.pattern
+            ? [
+                  "**A pattern, not a Wonder Blocks component.** Wonder Blocks has no component for this yet,",
+                  "so build it from the WB parts below, the way this card's preview does. The design",
+                  "guidelines linked at the end define it; the preview follows the DSG's own example.",
+                  "",
+              ]
+            : []),
         "## Load it",
         "",
         "In a Claude artifact or prototype, start from the page skeleton in the",
-        "[Claude artifact guide](../../claude-artifact.md), then load the package:",
+        `[Claude artifact guide](../../claude-artifact.md), then load ${c.pattern ? "the parts" : "the package"}:`,
         "",
         "```js",
         ...c.imports,
@@ -393,13 +471,41 @@ function componentReadme(
         "## Get these right",
         "",
         ...c.rules.map((r) => `- ${r}`),
-        "",
-        "## Props",
-        "",
-        "Read the props from the package's types at the pinned version, never from",
-        `memory: <https://cdn.jsdelivr.net/npm/@khanacademy/wonder-blocks-${pkg}@${versions[pkg]}/${typesPath}>.`,
-        "Section 3 of the Claude artifact guide lists where other components' props live.",
     ];
+    if (values.length > 0 && c.values) {
+        lines.push(
+            "",
+            "## Values",
+            "",
+            "Read from the DSG's example source at build time",
+            `([\`${c.values.from.split("/").at(-1)}\`](${RAW_DOCS}${c.values.from})), so they match the docs.`,
+            "Use these exact values; the preview declares them the same way.",
+            "",
+            "| Constant | Value | Note |",
+            "| --- | --- | --- |",
+            ...values.map(
+                (v) => `| \`${v.name}\` | \`${JSON.stringify(v.value).replace(/"(\w+)":/g, "$1: ")}\` | ${v.comment.replace(/\|/g, "\\|")} |`,
+            ),
+        );
+    }
+    if (c.types) {
+        const [pkg, typesPath] = c.types.split(" ");
+        lines.push(
+            "",
+            "## Props",
+            "",
+            "Read the props from the package's types at the pinned version, never from",
+            `memory: <https://cdn.jsdelivr.net/npm/@khanacademy/wonder-blocks-${pkg}@${versions[pkg]}/${typesPath}>.`,
+            "Section 3 of the Claude artifact guide lists where other components' props live.",
+        );
+    } else {
+        lines.push(
+            "",
+            "## Props",
+            "",
+            "Each part's props are in its package's types; section 3 of the Claude artifact guide says where.",
+        );
+    }
     if (docs.length > 0) {
         lines.push(
             "",
@@ -430,7 +536,7 @@ const PREVIEW_CSS =
     "</style>\n";
 
 /** The guide's page skeleton with this component's app spliced in after the boot. */
-export function componentPreview(c: ComponentConfig, skel: string): string {
+export function componentPreview(c: ComponentConfig, skel: string, values: Array<DocValue> = []): string {
     const parsed = c.imports.map((line) => line.match(IMPORT_LINE)!);
     const unique = [...new Map(parsed.map((m) => [m[0], m])).values()];
     const icons = Object.entries(c.icons ?? {});
@@ -442,6 +548,9 @@ export function componentPreview(c: ComponentConfig, skel: string): string {
             : []),
         "  const dupes = performance.getEntriesByType(\"resource\").map((e) => e.name).filter((n) => /\\/npm\\/react(-dom)?@(?!18\\.2\\.0\\/)/.test(n));",
         "  if (dupes.length) throw new Error(\"A second React copy loaded. Add a prefix mapping to react@18.2.0 in the import map for:\\n\" + dupes.join(\"\\n\"));",
+        ...(values.length > 0
+            ? [`  // From __docs__/${c.values!.from}, read at build time.`, ...values.map((v) => `  const ${v.name} = ${JSON.stringify(v.value)};`)]
+            : []),
         "  // The design system page sets data-theme=\"light\" | \"dark\" on <html>; follow it with the matching WB theme.",
         "  new MutationObserver(() => setTheme(document.documentElement.getAttribute(\"data-theme\") === \"dark\" ? \"syl-dark\" : \"thunderblocks\"))",
         "    .observe(document.documentElement, { attributes: true, attributeFilter: [\"data-theme\"] });",

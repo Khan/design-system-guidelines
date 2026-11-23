@@ -9,7 +9,7 @@ In a Claude artifact or prototype, start from the page skeleton in the
 
 ```js
 const { default: Tooltip } = await wb("tooltip");
-const { default: IconButton } = await wb("icon-button");
+const { default: IconButton, ActivityIconButton } = await wb("icon-button");
 ```
 
 ## When to use it

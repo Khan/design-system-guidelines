@@ -8,7 +8,7 @@ In a Claude artifact or prototype, start from the page skeleton in the
 [Claude artifact guide](../../claude-artifact.md), then load the package:
 
 ```js
-const { default: Button } = await wb("button");
+const { default: Button, ActivityButton } = await wb("button");
 ```
 
 ## When to use it

@@ -6,12 +6,13 @@
  */
 import * as assert from "node:assert/strict";
 import * as fs from "node:fs";
+import * as os from "node:os";
 import * as path from "node:path";
 import {describe, it} from "node:test";
 import {fileURLToPath} from "node:url";
 
 import {skeleton} from "./artifact.ts";
-import {assetKey, buildClaude, storyId} from "./claude.ts";
+import {assetKey, buildClaude, readDocValues, storyId} from "./claude.ts";
 import type {PublishManifest} from "./claude.ts";
 import {buildDesignMd} from "./generate.ts";
 import {loadTokens, parseThemes} from "./tokens.ts";
@@ -90,6 +91,37 @@ describe("claude export: brand book and sections", () => {
             if (rel.endsWith(".md")) assert.doesNotMatch(v.toString(), /^import .* from ["']@storybook/m, rel);
         }
         assert.match(readme, /raw\.githubusercontent\.com\/Khan\/design-system-guidelines\/main\/__docs__\/design-foundations\/data-visualization\.mdx/);
+    });
+});
+
+describe("claude export: data visualization patterns", () => {
+    const docsFile = (rel: string) => fs.readFileSync(path.join(ROOT, "__docs__", rel), "utf8");
+    const cases: Array<[string, string, Array<string>]> = [
+        ["ProgressBar", "design-components/assets/progress-charts/ProgressExamples.tsx", ["SINGLE", "BEHIND", "MARKER"]],
+        ["DistributionChart", "design-components/assets/distribution-charts/AssignmentsCompletedChart.tsx", ["EMPHASIS", "COMPARISON"]],
+        ["TrendChart", "design-components/assets/trend-charts/GrowthOverTimeChart.tsx", ["LINE", "FILL"]],
+        ["DataTable", "design-components/assets/progress-charts/ProgressExamples.tsx", ["SINGLE"]],
+    ];
+    for (const [card, from, names] of cases) {
+        it(`${card} declares the DSG example's values and lists them`, () => {
+            const preview = text(`project/components/${card}/preview.html`);
+            const readme = text(`project/components/${card}/README.md`);
+            assert.match(readme, /\*\*A pattern, not a Wonder Blocks component\.\*\*/);
+            for (const v of readDocValues(path.join(ROOT, "__docs__"), from, names)) {
+                assert.ok(preview.includes(`const ${v.name} = ${JSON.stringify(v.value)};`), `${card} preview declares ${v.name}`);
+                assert.ok(readme.includes(`| \`${v.name}\` |`), `${card} README lists ${v.name}`);
+                for (const hex of JSON.stringify(v.value).match(/#[0-9A-Fa-f]{6}/g) ?? []) {
+                    assert.ok(docsFile(from).includes(hex), `${hex} is in ${from}`);
+                }
+            }
+        });
+    }
+
+    it("tells agents to follow the pattern cards instead of rebuilding or inventing", () => {
+        const readme = text("project/README.md");
+        assert.match(readme, /Patterns Wonder Blocks doesn't have yet/);
+        assert.match(readme, /Never invent their colors or sizes/);
+        assert.doesNotMatch(designMd.get("DESIGN.md")!.toString(), /Patterns Wonder Blocks doesn't have yet/, "Claude-only text stays out of DESIGN.md");
     });
 });
 
@@ -176,5 +208,20 @@ describe("claude export: helpers", () => {
 
     it("derives Storybook ids from docs titles", () => {
         assert.equal(storyId("Design Guidelines / Components / Overlays / Modals - selection"), "design-guidelines-components-overlays-modals-selection");
+    });
+    it("reads DSG example constants, with the comment above their group", () => {
+        const dir = fs.mkdtempSync(path.join(os.tmpdir(), "docvals-"));
+        fs.writeFileSync(
+            path.join(dir, "Ex.tsx"),
+            'import x from "y";\n\n// Role colors until tokens exist.\nconst A = {fill: "#8DA2FF", outline: "#6C82FF"};\nconst B = "#4A4C53";\nconst N = 3;\nconst T = semanticColor.core;\n',
+        );
+        const [a, b, n] = readDocValues(dir, "Ex.tsx", ["A", "B", "N"]);
+        assert.deepEqual(a, {name: "A", value: {fill: "#8DA2FF", outline: "#6C82FF"}, comment: "Role colors until tokens exist."});
+        assert.equal(b.value, "#4A4C53");
+        assert.equal(b.comment, "Role colors until tokens exist.");
+        assert.equal(n.value, 3);
+        assert.throws(() => readDocValues(dir, "Ex.tsx", ["T"]), /must be a string, a number, or a flat object/);
+        assert.throws(() => readDocValues(dir, "Ex.tsx", ["GONE"]), /has no top-level one-line `const GONE/);
+        assert.throws(() => readDocValues(dir, "Missing.tsx", ["A"]), /doesn't exist/);
     });
 });

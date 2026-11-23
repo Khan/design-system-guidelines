@@ -128,8 +128,8 @@ try {
 Copy these destructuring lines exactly. Watch which components are `default` exports and which are named.
 
 ```js
-const { default: Button } = await wb("button");
-const { default: IconButton } = await wb("icon-button");
+const { default: Button, ActivityButton } = await wb("button");          // ActivityButton: learner activities only
+const { default: IconButton, ActivityIconButton } = await wb("icon-button");
 const { PhosphorIcon } = await wb("icon");
 const { Heading, BodyText, BodyMonospace } = await wb("typography");   // old Title/LabelLarge/etc. no longer exist
 const { View } = await wb("core");
@@ -167,6 +167,7 @@ Never guess a prop from its name or from another library. The source of truth is
 1. List the files: `https://data.jsdelivr.com/v1/packages/npm/@khanacademy/wonder-blocks-<pkg>@<version from V>?structure=flat`
 2. Read the props: `https://cdn.jsdelivr.net/npm/@khanacademy/wonder-blocks-<pkg>@<version>/dist/components/<component>.d.ts`. Some live in shared files instead:
    - Button: `dist/util/button.types.d.ts`; IconButton: `dist/util/icon-button.types.d.ts`
+   - ActivityButton: button `dist/components/activity-button.d.ts`; ActivityIconButton: icon-button `dist/components/activity-icon-button.d.ts` (it takes `label` or `aria-label`, not both)
    - CompactCell/DetailCell shared props: cell `dist/util/types.d.ts`
    - badges: badge `dist/types.d.ts`; Popover `placement`: popover `dist/util/types.d.ts`; PhosphorIcon `size`: icon `dist/types.d.ts`; ActionItem/OptionItem: dropdown `dist/util/types.d.ts`
    - Heading/BodyText `tag`, `id`, `className` and `style`: `wonder-blocks-core/dist/components/text.d.ts`

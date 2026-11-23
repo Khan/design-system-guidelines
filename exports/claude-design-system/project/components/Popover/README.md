@@ -9,7 +9,7 @@ In a Claude artifact or prototype, start from the page skeleton in the
 
 ```js
 const { Popover, PopoverContent } = await wb("popover");
-const { default: Button } = await wb("button");
+const { default: Button, ActivityButton } = await wb("button");
 ```
 
 ## When to use it
