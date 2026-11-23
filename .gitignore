@@ -146,3 +146,6 @@ storybook-static/
 
 # Staged copies for the publish-design-system skill (extracted from git)
 .design-system-publish/
+
+# Browser screenshots from Playwright MCP runs
+.playwright-mcp/

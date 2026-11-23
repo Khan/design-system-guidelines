@@ -184,8 +184,8 @@
     - "`StatusBadge` for success, warning, critical and info states; `DueBadge` for due dates; `NeutralBadge` for counts and categories."
     - "`GemBadge` and `StreakBadge` for Motivation features."
   rules:
-    - "`icon` on Badge, StatusBadge, NeutralBadge and DueBadge takes an element: wrap the string in `PhosphorIcon`."
-    - "GemBadge and StreakBadge have no `icon`; use `showIcon`, plus `iconAriaLabel` when there's no `label`."
+    - "`icon` on Badge, StatusBadge and NeutralBadge takes an element: wrap the string in `PhosphorIcon`."
+    - "DueBadge, GemBadge and StreakBadge have no `icon`; use `showIcon`, plus `iconAriaLabel` when there's no `label`."
   docs: [design-components/badges.mdx]
   types: badge dist/types.d.ts
   imports: ['const { Badge, StatusBadge, NeutralBadge, DueBadge, GemBadge, StreakBadge } = await wb("badge");']

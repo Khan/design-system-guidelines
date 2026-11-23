@@ -18,8 +18,8 @@ const { Badge, StatusBadge, NeutralBadge, DueBadge, GemBadge, StreakBadge } = aw
 
 ## Get these right
 
-- `icon` on Badge, StatusBadge, NeutralBadge and DueBadge takes an element: wrap the string in `PhosphorIcon`.
-- GemBadge and StreakBadge have no `icon`; use `showIcon`, plus `iconAriaLabel` when there's no `label`.
+- `icon` on Badge, StatusBadge and NeutralBadge takes an element: wrap the string in `PhosphorIcon`.
+- DueBadge, GemBadge and StreakBadge have no `icon`; use `showIcon`, plus `iconAriaLabel` when there's no `label`.
 
 ## Props
 

@@ -196,7 +196,7 @@ Each layout names the one element that carries the indigo accent.
 ```
 
 - One card (columns 2–11) with a large quote and attribution in `{{tb:semanticColor.core.foreground.neutral.subtle}}`.
-- The quotation mark is about 160px tall. Optional 80px avatar circle (`radius_full`). Use a real photo or a labeled placeholder; don't draw a face.
+- The quotation mark is about 160px tall. Optional 80px avatar circle (40px radius). Use a real photo or a labeled placeholder; don't draw a face.
 - No card is lifted.
 - **Accent:** a large opening quotation mark in the accent text color.
 

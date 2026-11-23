@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta charset="utf-8">
 <title>Button — Wonder Blocks</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inconsolata:wght@400;700&display=swap">
@@ -69,11 +70,14 @@ const icon = async (name) => svgUri((await import(`${NPM}@iconify-icons/ph@2.0.0
 const setTheme = (t) => { document.documentElement.setAttribute("data-wb-theme", t); document.documentElement.style.colorScheme = t === "syl-dark" ? "dark" : "light"; };
 // A crash after load (in a click handler or a render) would otherwise blank the page silently; show it instead
 addEventListener("error", (ev) => { const e = ev.error || ev.message; document.getElementById("root").innerHTML = '<pre id="wb-error"></pre>'; document.getElementById("wb-error").textContent = "Wonder Blocks page error:\n" + (e && e.stack || e); });
-// Start in the viewer's light/dark preference: syl-dark is WB's dark theme, thunderblocks its light theme
-const hostTheme = document.documentElement.getAttribute("data-theme");
-const initialTheme = hostTheme === "dark" || (hostTheme !== "light" && matchMedia("(prefers-color-scheme: dark)").matches) ? "syl-dark" : "thunderblocks";
+// Follow the viewer's light/dark theme (the host's data-theme attribute, else the OS preference): syl-dark is WB's dark theme, thunderblocks its light theme
+const hostTheme = () => { const t = document.documentElement.getAttribute("data-theme"); return t === "dark" || (t !== "light" && matchMedia("(prefers-color-scheme: dark)").matches) ? "syl-dark" : "thunderblocks"; };
+const initialTheme = hostTheme();
 try {
   setTheme(initialTheme);
+  const followHost = () => setTheme(hostTheme());
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", followHost);
+  new MutationObserver(followHost).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
   await import(`${NPM}@khanacademy/wonder-blocks-tokens@${V.tokens}/dist/css/index.css/+esm`); // injects the WB token CSS
   const { PhosphorIcon: BootPhosphorIcon } = await wb("icon"); // boot-only name: import PhosphorIcon yourself from section 2
   const imap = JSON.parse(document.querySelector('script[type="importmap"]').textContent).imports;
@@ -90,9 +94,6 @@ try {
   const [plusIcon] = await Promise.all([icon("plus-bold")]);
   const dupes = performance.getEntriesByType("resource").map((e) => e.name).filter((n) => /\/npm\/react(-dom)?@(?!18\.2\.0\/)/.test(n));
   if (dupes.length) throw new Error("A second React copy loaded. Add a prefix mapping to react@18.2.0 in the import map for:\n" + dupes.join("\n"));
-  // The design system page sets data-theme="light" | "dark" on <html>; follow it with the matching WB theme.
-  new MutationObserver(() => setTheme(document.documentElement.getAttribute("data-theme") === "dark" ? "syl-dark" : "thunderblocks"))
-    .observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
 
   function App() {
     return html`

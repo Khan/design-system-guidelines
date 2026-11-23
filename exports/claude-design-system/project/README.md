@@ -274,7 +274,7 @@ into it. The offsets (6 / 8 / 0px) aren't tokens; they come from
 | `--wb-border-radius-radius_080` | 8px | Buttons, inputs, banners, badges, cards |
 | `--wb-border-radius-radius_120` | 12px | Large cards, tiles, modals, pressed buttons |
 | `--wb-border-radius-radius_240` | 24px | Large panels, hero cards, slide frames |
-| `--wb-border-radius-radius_full` | 50% | Avatars, icon buttons, pills |
+| `--wb-border-radius-radius_full` | 50% | Avoid: a percentage turns anything wider than it is tall into an oval. Round pills, bars and circles with half their height in px |
 
 Border widths are `--wb-border-width-thin` 1px
 (default), `--wb-border-width-medium` 2px

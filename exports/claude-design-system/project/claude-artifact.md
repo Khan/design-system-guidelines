@@ -25,6 +25,7 @@ be newer than the tokens version DESIGN.md is generated from.
 An artifact page is an HTML fragment: no `<!doctype>`, `<html>`, `<head>` or `<body>` tags. Keep this order — the import map must come before the module script.
 
 ```html
+<meta charset="utf-8">
 <title>Your page name</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inconsolata:wght@400;700&display=swap">
@@ -80,11 +81,14 @@ const icon = async (name) => svgUri((await import(`${NPM}@iconify-icons/ph@2.0.0
 const setTheme = (t) => { document.documentElement.setAttribute("data-wb-theme", t); document.documentElement.style.colorScheme = t === "syl-dark" ? "dark" : "light"; };
 // A crash after load (in a click handler or a render) would otherwise blank the page silently; show it instead
 addEventListener("error", (ev) => { const e = ev.error || ev.message; document.getElementById("root").innerHTML = '<pre id="wb-error"></pre>'; document.getElementById("wb-error").textContent = "Wonder Blocks page error:\n" + (e && e.stack || e); });
-// Start in the viewer's light/dark preference: syl-dark is WB's dark theme, thunderblocks its light theme
-const hostTheme = document.documentElement.getAttribute("data-theme");
-const initialTheme = hostTheme === "dark" || (hostTheme !== "light" && matchMedia("(prefers-color-scheme: dark)").matches) ? "syl-dark" : "thunderblocks";
+// Follow the viewer's light/dark theme (the host's data-theme attribute, else the OS preference): syl-dark is WB's dark theme, thunderblocks its light theme
+const hostTheme = () => { const t = document.documentElement.getAttribute("data-theme"); return t === "dark" || (t !== "light" && matchMedia("(prefers-color-scheme: dark)").matches) ? "syl-dark" : "thunderblocks"; };
+const initialTheme = hostTheme();
 try {
   setTheme(initialTheme);
+  const followHost = () => setTheme(hostTheme());
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", followHost);
+  new MutationObserver(followHost).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
   await import(`${NPM}@khanacademy/wonder-blocks-tokens@${V.tokens}/dist/css/index.css/+esm`); // injects the WB token CSS
   const { PhosphorIcon: BootPhosphorIcon } = await wb("icon"); // boot-only name: import PhosphorIcon yourself from section 2
   const imap = JSON.parse(document.querySelector('script[type="importmap"]').textContent).imports;
@@ -106,13 +110,11 @@ try {
   if (dupes.length) throw new Error("A second React copy loaded. Add a prefix mapping to react@18.2.0 in the import map for:\n" + dupes.join("\n"));
 
   function App() {
-    const [theme, setThemeState] = React.useState(initialTheme);
-    React.useEffect(() => setTheme(theme), [theme]);
     return html`
       <${View} style=${{ padding: 24, gap: 16 }}>
         <${Heading} size="xlarge" tag="h1">Hello Wonder Blocks</${Heading}>
-        <${BodyText}>Theme: ${theme}</${BodyText}>
-        <${Button} startIcon=${plusIcon} onClick=${() => setThemeState(theme === "thunderblocks" ? "syl-dark" : "thunderblocks")}>Toggle theme</${Button}>
+        <${BodyText}>This page follows your light or dark theme.</${BodyText}>
+        <${Button} startIcon=${plusIcon} onClick=${() => {}}>New item</${Button}>
       </${View}>`;
   }
   createRoot(document.getElementById("root")).render(html`<${App} />`);
@@ -168,7 +170,7 @@ Never guess a prop from its name or from another library. The source of truth is
 2. Read the props: `https://cdn.jsdelivr.net/npm/@khanacademy/wonder-blocks-<pkg>@<version>/dist/components/<component>.d.ts`. Some live in shared files instead:
    - Button: `dist/util/button.types.d.ts`; IconButton: `dist/util/icon-button.types.d.ts`
    - ActivityButton: button `dist/components/activity-button.d.ts`; ActivityIconButton: icon-button `dist/components/activity-icon-button.d.ts` (it takes `label` or `aria-label`, not both)
-   - CompactCell/DetailCell shared props: cell `dist/util/types.d.ts`
+   - CompactCell/DetailCell: cell `dist/components/compact-cell.d.ts` or `dist/components/detail-cell.d.ts` for their own props (DetailCell's `subtitle1`/`subtitle2`), and `dist/util/types.d.ts` for the shared `CellProps`
    - badges: badge `dist/types.d.ts`; Popover `placement`: popover `dist/util/types.d.ts`; PhosphorIcon `size`: icon `dist/types.d.ts`; ActionItem/OptionItem: dropdown `dist/util/types.d.ts`
    - Heading/BodyText `tag`, `id`, `className` and `style`: `wonder-blocks-core/dist/components/text.d.ts`
    - `dist/index.d.ts` shows whether an export is named or default (section 2 already has this right).
@@ -179,12 +181,12 @@ If you have a WB Storybook docs tool (`docs-show`) that covers components, it wo
 
 **Markup (htm, no build step).** Write ``html`<${Button} kind="secondary" onClick=${fn}>Save</${Button}>` ``. Pass every non-string value with `${…}`: `disabled=${true}`, `style=${ {gap: 8} }`. Close a component with `</${Name}>`. Use `className`, not `class`, on WB components. A mapped array (`${items.map(...)}`) counts as array children. Don't load Babel.
 
-**Themes.** The theme is the `data-wb-theme` attribute on `<html>`, set by `setTheme("thunderblocks" | "syl-dark")`. The boot starts in the viewer's light/dark preference (`initialTheme`); offer a toggle for the other. Do not theme with `ThemeSwitcher` or a wrapper `<div data-wb-theme>`. Modals, dropdown menus, popovers, tooltips and calendars render in a portal on `<body>` and would lose the theme. For the same reason, show both themes with a toggle, not two side-by-side copies. WB tokens are the page's only color source, so you don't need separate `:root` dark-mode color tokens.
+**Themes.** The theme is the `data-wb-theme` attribute on `<html>`. The boot sets it from the viewer's light/dark theme and keeps it in sync when that changes, so the page needs no theme code: don't add a theme toggle, and don't show the page twice for the two themes. Do not theme with `ThemeSwitcher` or a wrapper `<div data-wb-theme>`. Modals, dropdown menus, popovers, tooltips and calendars render in a portal on `<body>` and would lose the theme. WB tokens are the page's only color source, so you don't need separate `:root` dark-mode color tokens.
 
 **Icons.**
 - Get an icon with `await icon("name")`. Names are Phosphor names plus a weight suffix: `gear-bold`, `star-fill`, `magnifying-glass` (regular has no suffix). Check one with a request to `https://cdn.jsdelivr.net/npm/@iconify-icons/ph@2.0.0/<name>/+esm`, which must return 200.
 - These props take the string directly: Button `startIcon`/`endIcon`, IconButton `icon`, PhosphorIcon `icon`, Banner `icon`.
-- These props need an element instead, so wrap the string: ``html`<${PhosphorIcon} icon=${myIcon} />` ``. That applies to Link `startIcon`/`endIcon`, Badge/StatusBadge/NeutralBadge/DueBadge `icon`, Switch `icon`, Tabs item `icon`, and cell `leftAccessory`/`rightAccessory`.
+- These props need an element instead, so wrap the string: ``html`<${PhosphorIcon} icon=${myIcon} />` ``. That applies to Link `startIcon`/`endIcon`, Badge/StatusBadge/NeutralBadge `icon` (DueBadge, GemBadge and StreakBadge take `showIcon` instead), Switch `icon`, Tabs item `icon`, and cell `leftAccessory`/`rightAccessory`.
 - GemBadge and StreakBadge have no `icon` prop; they use `showIcon`.
 - Never import `@phosphor-icons/core/....svg` or use `https://` image URLs. The sandbox allows only `data:` images.
 

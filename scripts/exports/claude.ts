@@ -551,9 +551,6 @@ export function componentPreview(c: ComponentConfig, skel: string, values: Array
         ...(values.length > 0
             ? [`  // From __docs__/${c.values!.from}, read at build time.`, ...values.map((v) => `  const ${v.name} = ${JSON.stringify(v.value)};`)]
             : []),
-        "  // The design system page sets data-theme=\"light\" | \"dark\" on <html>; follow it with the matching WB theme.",
-        "  new MutationObserver(() => setTheme(document.documentElement.getAttribute(\"data-theme\") === \"dark\" ? \"syl-dark\" : \"thunderblocks\"))",
-        "    .observe(document.documentElement, { attributes: true, attributeFilter: [\"data-theme\"] });",
         "",
         "  function App() {",
         ...(c.state ? c.state.trim().split("\n").map((l) => `    ${l}`) : []),
