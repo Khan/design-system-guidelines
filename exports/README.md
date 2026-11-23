@@ -26,7 +26,15 @@ See [DESIGN.md & Claude Design Systems](../README.md#designmd--claude-design-sys
 
 ### After a Wonder Blocks release
 
-The weekly [Wonder Blocks release check](../.github/workflows/wb-release-check.yml) opens an issue when anything is behind npm. Then, on a branch:
+The weekly [Wonder Blocks release check](../.github/workflows/wb-release-check.yml) does the mechanical part when anything is behind npm. On the branch `wb-release/bump` it runs `artifact:update`, the matching tokens `pnpm add`, `exports`, `test`, `lint:design-md` and `artifact:check`, then opens one PR, "Wonder Blocks release: bump the exports". It lists each step's result, and it's a draft if a step failed. What's left for you:
+
+1. Check out `wb-release/bump`. If a step failed, fix it there (see the list below). The workflow never overwrites a branch that has anyone else's commits; it comments on the PR instead.
+2. Run both previews (the last two commands below) and check both themes.
+3. Update the "tested together on" date, review the value diff, mark the PR ready, merge, and publish.
+
+Setup, once: turn on "Allow GitHub Actions to create and approve pull requests" in the repo's Actions settings. Without it, the workflow pushes the branch and opens an issue instead. For CI to run on the bump PR, add a GitHub App or fine-grained token with contents and pull-requests write as the `WB_BUMP_TOKEN` secret: PRs opened with the built-in token don't trigger other workflows.
+
+To do it by hand instead, on a branch:
 
 ```sh
 pnpm artifact:check      # what's newer on npm, and whether the import map still matches
