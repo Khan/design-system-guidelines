@@ -1,0 +1,436 @@
+{
+  "generatedFrom": "exports/src by scripts/exports/claude.ts; edit the sources, then run pnpm exports",
+  "title": "Wonder Blocks",
+  "editing": "code",
+  "libraries": [],
+  "groups": [
+    "Brand",
+    "Icons",
+    "Shapes"
+  ],
+  "assetGroups": {
+    "Brand": {
+      "name": "Brand",
+      "tile": "l",
+      "order": [
+        "khan-academy-logo-mark-on-dark.svg",
+        "khan-academy-logo-mark.svg",
+        "khanmigo.svg"
+      ]
+    },
+    "Icons": {
+      "name": "Icons",
+      "tile": "s",
+      "order": [
+        "activities/icon-article.svg",
+        "activities/icon-challenge.svg",
+        "activities/icon-course.svg",
+        "activities/icon-interactive.svg",
+        "activities/icon-khanmigo-activity.svg",
+        "activities/icon-lesson.svg",
+        "activities/icon-mastery-challenge.svg",
+        "activities/icon-mission-complete.svg",
+        "activities/icon-practice.svg",
+        "activities/icon-project.svg",
+        "activities/icon-quiz.svg",
+        "activities/icon-talkthrough.svg",
+        "activities/icon-unit-test.svg",
+        "activities/icon-unit.svg",
+        "activities/icon-video.svg",
+        "motivation/icon-gem.svg",
+        "motivation/icon-streak.svg",
+        "progress/icon-attempted.svg",
+        "progress/icon-complete.svg",
+        "progress/icon-familiar.svg",
+        "progress/icon-mastery.svg",
+        "progress/icon-proficient.svg",
+        "progress/icon-retry.svg"
+      ]
+    },
+    "Shapes": {
+      "name": "Shapes",
+      "tile": "m",
+      "order": [
+        "shape-blast.svg",
+        "shape-circle-grid.svg",
+        "shape-circle.svg",
+        "shape-cloud.svg",
+        "shape-clover.svg",
+        "shape-double-semi-circle.svg",
+        "shape-hourglass.svg",
+        "shape-oval.svg",
+        "shape-parallelogram.svg",
+        "shape-pentagon.svg",
+        "shape-rounded-door.svg",
+        "shape-spiral.svg",
+        "shape-square.svg",
+        "shape-star.svg",
+        "shape-triangle.svg"
+      ]
+    }
+  },
+  "uploads": [
+    {
+      "group": "Brand",
+      "name": "khan-academy-logo-mark-on-dark.svg",
+      "key": "khan-academy-logo-mark-on-dark.svg",
+      "path": "project/assets/Brand/khan-academy-logo-mark-on-dark.svg",
+      "type": "image/svg+xml",
+      "size": 1074
+    },
+    {
+      "group": "Brand",
+      "name": "khan-academy-logo-mark.svg",
+      "key": "khan-academy-logo-mark.svg",
+      "path": "project/assets/Brand/khan-academy-logo-mark.svg",
+      "type": "image/svg+xml",
+      "size": 1074
+    },
+    {
+      "group": "Brand",
+      "name": "khanmigo.svg",
+      "key": "khanmigo.svg",
+      "path": "project/assets/Brand/khanmigo.svg",
+      "type": "image/svg+xml",
+      "size": 1323
+    },
+    {
+      "group": "Icons",
+      "name": "activities/icon-article.svg",
+      "key": "activities/icon-article.svg",
+      "path": "project/assets/Icons/activities/icon-article.svg",
+      "type": "image/svg+xml",
+      "size": 1263
+    },
+    {
+      "group": "Icons",
+      "name": "activities/icon-challenge.svg",
+      "key": "activities/icon-challenge.svg",
+      "path": "project/assets/Icons/activities/icon-challenge.svg",
+      "type": "image/svg+xml",
+      "size": 2616
+    },
+    {
+      "group": "Icons",
+      "name": "activities/icon-course.svg",
+      "key": "activities/icon-course.svg",
+      "path": "project/assets/Icons/activities/icon-course.svg",
+      "type": "image/svg+xml",
+      "size": 914
+    },
+    {
+      "group": "Icons",
+      "name": "activities/icon-interactive.svg",
+      "key": "activities/icon-interactive.svg",
+      "path": "project/assets/Icons/activities/icon-interactive.svg",
+      "type": "image/svg+xml",
+      "size": 874
+    },
+    {
+      "group": "Icons",
+      "name": "activities/icon-khanmigo-activity.svg",
+      "key": "activities/icon-khanmigo-activity.svg",
+      "path": "project/assets/Icons/activities/icon-khanmigo-activity.svg",
+      "type": "image/svg+xml",
+      "size": 3069
+    },
+    {
+      "group": "Icons",
+      "name": "activities/icon-lesson.svg",
+      "key": "activities/icon-lesson.svg",
+      "path": "project/assets/Icons/activities/icon-lesson.svg",
+      "type": "image/svg+xml",
+      "size": 1867
+    },
+    {
+      "group": "Icons",
+      "name": "activities/icon-mastery-challenge.svg",
+      "key": "activities/icon-mastery-challenge.svg",
+      "path": "project/assets/Icons/activities/icon-mastery-challenge.svg",
+      "type": "image/svg+xml",
+      "size": 794
+    },
+    {
+      "group": "Icons",
+      "name": "activities/icon-mission-complete.svg",
+      "key": "activities/icon-mission-complete.svg",
+      "path": "project/assets/Icons/activities/icon-mission-complete.svg",
+      "type": "image/svg+xml",
+      "size": 1330
+    },
+    {
+      "group": "Icons",
+      "name": "activities/icon-practice.svg",
+      "key": "activities/icon-practice.svg",
+      "path": "project/assets/Icons/activities/icon-practice.svg",
+      "type": "image/svg+xml",
+      "size": 799
+    },
+    {
+      "group": "Icons",
+      "name": "activities/icon-project.svg",
+      "key": "activities/icon-project.svg",
+      "path": "project/assets/Icons/activities/icon-project.svg",
+      "type": "image/svg+xml",
+      "size": 1213
+    },
+    {
+      "group": "Icons",
+      "name": "activities/icon-quiz.svg",
+      "key": "activities/icon-quiz.svg",
+      "path": "project/assets/Icons/activities/icon-quiz.svg",
+      "type": "image/svg+xml",
+      "size": 1353
+    },
+    {
+      "group": "Icons",
+      "name": "activities/icon-talkthrough.svg",
+      "key": "activities/icon-talkthrough.svg",
+      "path": "project/assets/Icons/activities/icon-talkthrough.svg",
+      "type": "image/svg+xml",
+      "size": 672
+    },
+    {
+      "group": "Icons",
+      "name": "activities/icon-unit-test.svg",
+      "key": "activities/icon-unit-test.svg",
+      "path": "project/assets/Icons/activities/icon-unit-test.svg",
+      "type": "image/svg+xml",
+      "size": 1614
+    },
+    {
+      "group": "Icons",
+      "name": "activities/icon-unit.svg",
+      "key": "activities/icon-unit.svg",
+      "path": "project/assets/Icons/activities/icon-unit.svg",
+      "type": "image/svg+xml",
+      "size": 1868
+    },
+    {
+      "group": "Icons",
+      "name": "activities/icon-video.svg",
+      "key": "activities/icon-video.svg",
+      "path": "project/assets/Icons/activities/icon-video.svg",
+      "type": "image/svg+xml",
+      "size": 674
+    },
+    {
+      "group": "Icons",
+      "name": "motivation/icon-gem.svg",
+      "key": "motivation/icon-gem.svg",
+      "path": "project/assets/Icons/motivation/icon-gem.svg",
+      "type": "image/svg+xml",
+      "size": 1483
+    },
+    {
+      "group": "Icons",
+      "name": "motivation/icon-streak.svg",
+      "key": "motivation/icon-streak.svg",
+      "path": "project/assets/Icons/motivation/icon-streak.svg",
+      "type": "image/svg+xml",
+      "size": 1441
+    },
+    {
+      "group": "Icons",
+      "name": "progress/icon-attempted.svg",
+      "key": "progress/icon-attempted.svg",
+      "path": "project/assets/Icons/progress/icon-attempted.svg",
+      "type": "image/svg+xml",
+      "size": 717
+    },
+    {
+      "group": "Icons",
+      "name": "progress/icon-complete.svg",
+      "key": "progress/icon-complete.svg",
+      "path": "project/assets/Icons/progress/icon-complete.svg",
+      "type": "image/svg+xml",
+      "size": 822
+    },
+    {
+      "group": "Icons",
+      "name": "progress/icon-familiar.svg",
+      "key": "progress/icon-familiar.svg",
+      "path": "project/assets/Icons/progress/icon-familiar.svg",
+      "type": "image/svg+xml",
+      "size": 717
+    },
+    {
+      "group": "Icons",
+      "name": "progress/icon-mastery.svg",
+      "key": "progress/icon-mastery.svg",
+      "path": "project/assets/Icons/progress/icon-mastery.svg",
+      "type": "image/svg+xml",
+      "size": 903
+    },
+    {
+      "group": "Icons",
+      "name": "progress/icon-proficient.svg",
+      "key": "progress/icon-proficient.svg",
+      "path": "project/assets/Icons/progress/icon-proficient.svg",
+      "type": "image/svg+xml",
+      "size": 717
+    },
+    {
+      "group": "Icons",
+      "name": "progress/icon-retry.svg",
+      "key": "progress/icon-retry.svg",
+      "path": "project/assets/Icons/progress/icon-retry.svg",
+      "type": "image/svg+xml",
+      "size": 2067
+    },
+    {
+      "group": "Shapes",
+      "name": "shape-blast.svg",
+      "key": "shape-blast.svg",
+      "path": "project/assets/Shapes/shape-blast.svg",
+      "type": "image/svg+xml",
+      "size": 423
+    },
+    {
+      "group": "Shapes",
+      "name": "shape-circle-grid.svg",
+      "key": "shape-circle-grid.svg",
+      "path": "project/assets/Shapes/shape-circle-grid.svg",
+      "type": "image/svg+xml",
+      "size": 937
+    },
+    {
+      "group": "Shapes",
+      "name": "shape-circle.svg",
+      "key": "shape-circle.svg",
+      "path": "project/assets/Shapes/shape-circle.svg",
+      "type": "image/svg+xml",
+      "size": 151
+    },
+    {
+      "group": "Shapes",
+      "name": "shape-cloud.svg",
+      "key": "shape-cloud.svg",
+      "path": "project/assets/Shapes/shape-cloud.svg",
+      "type": "image/svg+xml",
+      "size": 764
+    },
+    {
+      "group": "Shapes",
+      "name": "shape-clover.svg",
+      "key": "shape-clover.svg",
+      "path": "project/assets/Shapes/shape-clover.svg",
+      "type": "image/svg+xml",
+      "size": 1068
+    },
+    {
+      "group": "Shapes",
+      "name": "shape-double-semi-circle.svg",
+      "key": "shape-double-semi-circle.svg",
+      "path": "project/assets/Shapes/shape-double-semi-circle.svg",
+      "type": "image/svg+xml",
+      "size": 303
+    },
+    {
+      "group": "Shapes",
+      "name": "shape-hourglass.svg",
+      "key": "shape-hourglass.svg",
+      "path": "project/assets/Shapes/shape-hourglass.svg",
+      "type": "image/svg+xml",
+      "size": 280
+    },
+    {
+      "group": "Shapes",
+      "name": "shape-oval.svg",
+      "key": "shape-oval.svg",
+      "path": "project/assets/Shapes/shape-oval.svg",
+      "type": "image/svg+xml",
+      "size": 165
+    },
+    {
+      "group": "Shapes",
+      "name": "shape-parallelogram.svg",
+      "key": "shape-parallelogram.svg",
+      "path": "project/assets/Shapes/shape-parallelogram.svg",
+      "type": "image/svg+xml",
+      "size": 301
+    },
+    {
+      "group": "Shapes",
+      "name": "shape-pentagon.svg",
+      "key": "shape-pentagon.svg",
+      "path": "project/assets/Shapes/shape-pentagon.svg",
+      "type": "image/svg+xml",
+      "size": 184
+    },
+    {
+      "group": "Shapes",
+      "name": "shape-rounded-door.svg",
+      "key": "shape-rounded-door.svg",
+      "path": "project/assets/Shapes/shape-rounded-door.svg",
+      "type": "image/svg+xml",
+      "size": 295
+    },
+    {
+      "group": "Shapes",
+      "name": "shape-spiral.svg",
+      "key": "shape-spiral.svg",
+      "path": "project/assets/Shapes/shape-spiral.svg",
+      "type": "image/svg+xml",
+      "size": 12848
+    },
+    {
+      "group": "Shapes",
+      "name": "shape-square.svg",
+      "key": "shape-square.svg",
+      "path": "project/assets/Shapes/shape-square.svg",
+      "type": "image/svg+xml",
+      "size": 155
+    },
+    {
+      "group": "Shapes",
+      "name": "shape-star.svg",
+      "key": "shape-star.svg",
+      "path": "project/assets/Shapes/shape-star.svg",
+      "type": "image/svg+xml",
+      "size": 424
+    },
+    {
+      "group": "Shapes",
+      "name": "shape-triangle.svg",
+      "key": "shape-triangle.svg",
+      "path": "project/assets/Shapes/shape-triangle.svg",
+      "type": "image/svg+xml",
+      "size": 322
+    }
+  ],
+  "versions": {
+    "tokens": "18.0.0",
+    "cdn": {
+      "tokens": "18.2.1",
+      "core": "12.5.0",
+      "button": "11.7.15",
+      "icon-button": "12.0.4",
+      "icon": "6.0.5",
+      "typography": "5.0.8",
+      "layout": "4.0.0",
+      "card": "1.5.5",
+      "pill": "3.1.83",
+      "badge": "1.1.29",
+      "banner": "5.2.4",
+      "form": "7.7.9",
+      "switch": "3.4.17",
+      "dropdown": "11.0.4",
+      "modal": "8.10.7",
+      "popover": "7.1.6",
+      "tooltip": "4.2.18",
+      "toolbar": "5.1.67",
+      "tabs": "1.0.14",
+      "accordion": "3.2.4",
+      "breadcrumbs": "3.3.8",
+      "link": "10.5.5",
+      "progress-spinner": "3.2.2",
+      "cell": "6.4.2",
+      "search-field": "5.2.9",
+      "date-picker": "1.2.7",
+      "birthday-picker": "4.2.10",
+      "labeled-field": "4.3.9",
+      "theming": "4.1.0"
+    }
+  }
+}

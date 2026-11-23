@@ -143,3 +143,6 @@ storybook-static/
 
 # macOS
 .DS_Store
+
+# Staged copies for the publish-design-system skill (extracted from git)
+.design-system-publish/

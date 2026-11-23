@@ -3,6 +3,15 @@
 Official SVGs for Khan Academy concepts. Use these files instead of drawing
 your own or swapping in a lookalike. Paths are relative to this file. When to
 use each kind is in the core [DESIGN.md](../DESIGN.md#khan-academy-icons).
+{{#target claude}}
+
+**Getting a file from this design system.** The files are uploads, so a
+`read` by the paths below fails. Read `project/design-system.json`, take the
+file's `blob` from `assetGroups.<Group>.files["<path below the group>"]`
+(for example `assetGroups.Icons.files["progress/icon-complete.svg"].blob`),
+and `read` that id as the `path`. In an artifact, inline the SVG markup or
+use it as a `data:` URI; `https:` images are blocked.
+{{/target}}
 
 ## Activities and progress icons
 

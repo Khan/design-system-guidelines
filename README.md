@@ -47,10 +47,24 @@ claude mcp add --transport http design-guidelines http://localhost:56789/mcp
 | Export | What it is | Who reads it | Where it lives |
 | --- | --- | --- | --- |
 | DESIGN.md | Khan Academy's [DESIGN.md](https://github.com/google-labs-code/design.md): plain Markdown with the visual language, plus a guide per output type | Any agent or tool, from a public URL | Generated into `exports/design-md/`, served at `/design-md/` |
-| Claude Design System | The "Wonder Blocks" design system in Claude: a README and guides, tokens, assets, and the Wonder Blocks components | Claude, when the design system is selected | Today it's maintained in Claude Design. Generating it from `exports/src/` into `exports/claude-design-system/` and publishing it with a skill is in progress |
+| Claude Design System | The "Wonder Blocks" design system in Claude: the same rules and guides as a brand book, tokens in both themes, assets, a cover, and a card per main component. Its previews load the real Wonder Blocks components from jsDelivr (no compiled bundle) | Claude, when the design system is selected | Generated into `exports/claude-design-system/project/`, published from `origin/main` by the `publish-design-system` skill to the artifact in `exports/claude-design-system/config.json` |
 
-- `exports/src/`: the source for both. Edit these files.
-- `exports/design-md/`: generated. Don't edit it.
+- `exports/src/`: the source for both. Edit these files. `exports/src/claude-design-system/` holds what only the Claude system needs (token usage notes, component cards, cover, asset groups).
+- `exports/design-md/` and `exports/claude-design-system/`: generated. Don't edit them (`config.json` is the one hand-edited file).
+- What to run after each kind of change (a Wonder Blocks release, a `__docs__/` edit, an `exports/src/` edit): [exports/README.md](exports/README.md).
+
+A template can hold lines for one export only, each marker on its own line:
+
+```md
+{{#target claude}}
+Only in the Claude Design System.
+{{/target}}
+{{#target design-md}}
+Only in DESIGN.md.
+{{/target}}
+```
+
+An unknown target name, a nested block or an unclosed block fails `pnpm exports`.
 
 ### DESIGN.md
 
@@ -123,6 +137,7 @@ pnpm artifact:preview kitchen-sink   # every component, under the artifact CSP, 
 
 - In the preview, check that there's no red error box and that `window.__errs` is empty. Click through the modal, menus, popover, tooltip and calendar in both themes, then update the tested date in the guide.
 - `pnpm artifact:preview` with no argument serves the guide's own skeleton.
+- `pnpm artifact:preview design-system` serves every card of the Claude Design System (cover and component previews) in both themes, framed the way its page frames them.
 - `pnpm artifact:preview path/to/page.html` checks any artifact page.
 - `artifact:check` exits non-zero on a module it can't map. Usually that's a new dependency with its own React, or a CommonJS-only package; add a rule in `scripts/exports/artifact.ts`.
 - Also retest icons whenever `wonder-blocks-icon`, `button` or `icon-button` changes, because the icon workaround depends on their internals.

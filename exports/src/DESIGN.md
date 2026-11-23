@@ -102,6 +102,7 @@ components:
     padding: "{{tb:sizing.size_160}}"
 ---
 
+{{#target design-md}}
 # Khan Academy Design (Wonder Blocks)
 
 This file tells an agent how to make anything look like Khan Academy: a slide
@@ -121,13 +122,52 @@ The canonical copy of this file is
 <https://khan.github.io/design-system-guidelines/design-md/DESIGN.md>. Links to
 the guides below are relative to wherever you read this file; if you only have
 its text, resolve them against that address.
+{{/target}}
+{{#target claude}}
+This design system tells an agent how to make anything look like Khan
+Academy: a Claude artifact or prototype, a slide deck, a diagram, a one-pager,
+or production UI. This README holds the rules that apply to every output. Read
+it, then the one section for what you're making (see
+[What are you making?](#what-are-you-making)). Together they're complete.
+
+Token values come from the Wonder Blocks
+[tokens source](https://github.com/Khan/wonder-blocks/tree/main/packages/wonder-blocks-tokens/src/theme)
+(currently `@khanacademy/wonder-blocks-tokens@{{meta:tokensVersion}}`), which
+wins if anything here disagrees.
+
+**Build with the real components.** For a prototype, a page, or a Claude
+artifact, use the real Wonder Blocks React components, loaded from jsDelivr
+the way the [Claude artifact guide](guides/claude-artifact.md) shows. Every
+component card in this system is built that way. Never re-create a component
+from tokens and CSS. This system has no component bundle and no
+`window.WonderBlocks` global; the guide's page skeleton is how you load them.
+
+**Patterns Wonder Blocks doesn't have yet.** Progress bars, charts, chart
+containers, summary cards and data tables have no WB component. Their cards
+under Data visualization are patterns: build them from WB parts the way the
+card does, with the values it gives, which come from the design guidelines'
+own examples. Never invent their colors or sizes.
+
+**Change it in the repo, not here.** This system is generated from
+[Khan/design-system-guidelines](https://github.com/Khan/design-system-guidelines)
+(`exports/src/`, the same source as Khan Academy's public DESIGN.md) and
+published from there. Anything changed on this page is overwritten by the next
+publish. To change a rule, a token note or a component card, edit the repo and
+open a pull request.
+{{/target}}
 
 ## What are you making?
 
 | If you're making… | Also read |
 | --- | --- |
+{{#target claude}}
+| Prototype, page, or Claude artifact | The [Claude artifact guide](guides/claude-artifact.md). Build with the real Wonder Blocks components it loads; never rebuild them from tokens. For progress bars, charts and tables, follow the pattern cards under Data visualization |
+| One specific component | Its card under Components: when to use it, its import line, the rules that are easy to get wrong, and where its props live |
+{{/target}}
 | Product UI in a Wonder Blocks codebase | [guides/product-ui.md](guides/product-ui.md) |
+{{#target design-md}}
 | Claude artifact, or any UI prototype that can load the real components | [guides/claude-artifact.md](guides/claude-artifact.md) |
+{{/target}}
 | Plain HTML page or prototype without React | [guides/web-prototype.md](guides/web-prototype.md) |
 | Slide deck | [guides/slides.md](guides/slides.md) |
 | Diagram or flowchart | [guides/diagrams.md](guides/diagrams.md) |
@@ -176,6 +216,9 @@ which theme a value came from before you use it.
 - **CSS variables.** Every token is a CSS custom property in one stylesheet that holds all three themes: `https://cdn.jsdelivr.net/npm/@khanacademy/wonder-blocks-tokens@{{meta:tokensMajor}}/dist/css/index.css`. The `data-wb-theme` attribute (`thunderblocks` or `syl-dark`) on any element picks the theme for that subtree.
 - **Naming.** A variable is `--wb-` plus the token path joined with dashes. The color tables below show paths after `--wb-semanticColor-`, so `core-background-base-default` means `{{name:semanticColor.core.background.base.default}}`.
 - **React.** With Wonder Blocks installed, the `semanticColor`, `font`, `sizing`, `border`, and `boxShadow` JS exports resolve to the same variables.
+{{#target claude}}
+- **This system's token pages.** Colors, Typography, Spacing, Radius, Shadows and Border width list the tokens in both themes, named without the `--wb-` and `--wb-semanticColor-` prefixes (`core-background-base-default`). Each note names the real CSS variable: use that variable in code, never the hex.
+{{/target}}
 - **No CSS available** (PowerPoint, Keynote, Figma, an SVG file): use the hex and px values in this file.
 
 ## Overview

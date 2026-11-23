@@ -1,0 +1,184 @@
+# Weekly check for new Wonder Blocks releases. Renovate isn't used in this
+# org, so this is the trigger for the "WB release" flow in exports/README.md.
+#
+# When anything is behind npm, it does the mechanical part of that flow on the
+# branch `wb-release/bump` and opens (or updates) one pull request:
+#   pnpm artifact:update → pnpm add the matching tokens → pnpm exports → pnpm test
+# Each step's result goes in the PR description. If a step fails, the PR is a
+# draft with the log, for a person (or Claude) to fix on that branch.
+#
+# What stays with a person: checking the previews in both themes, reviewing
+# the DESIGN.md and tokens.json value changes, updating the "tested together
+# on" date, merging, and running the publish-design-system skill.
+#
+# Setup:
+# - Settings → Actions → General → "Allow GitHub Actions to create and approve
+#   pull requests" must be on, or the PR can't be opened (the run then falls
+#   back to an issue).
+# - A PR opened with the built-in GITHUB_TOKEN doesn't trigger other
+#   workflows, so build-check won't run on it. To get CI on the PR, use a
+#   GitHub App (preferred): set the repo variable WB_BUMP_APP_ID and the
+#   secret WB_BUMP_APP_KEY (the app's private key). A fine-grained token in
+#   the secret WB_BUMP_TOKEN also works. See exports/README.md for the steps.
+
+name: Wonder Blocks release check
+
+on:
+    schedule:
+        - cron: "0 15 * * 1" # Mondays 15:00 UTC
+    workflow_dispatch:
+
+permissions:
+    contents: write
+    pull-requests: write
+    issues: write
+
+concurrency:
+    group: wb-release-check
+    cancel-in-progress: false
+
+env:
+    BRANCH: wb-release/bump
+    TITLE: "Wonder Blocks release: bump the exports"
+
+jobs:
+    bump:
+        runs-on: ubuntu-latest
+        steps:
+            # A token from the bump GitHub App, when it's set up, so the PR it
+            # opens triggers CI. Without it, the built-in token is used.
+            - name: Get a token from the bump GitHub App
+              id: app
+              if: vars.WB_BUMP_APP_ID != ''
+              uses: actions/create-github-app-token@v2
+              with:
+                  app-id: ${{ vars.WB_BUMP_APP_ID }}
+                  private-key: ${{ secrets.WB_BUMP_APP_KEY }}
+
+            - uses: actions/checkout@v5
+              with:
+                  fetch-depth: 0
+                  token: ${{ steps.app.outputs.token || secrets.WB_BUMP_TOKEN || github.token }}
+
+            - uses: pnpm/action-setup@v5
+
+            - uses: actions/setup-node@v6
+              with:
+                  node-version: 24.x
+                  cache: pnpm
+                  cache-dependency-path: pnpm-lock.yaml
+
+            - run: pnpm install --frozen-lockfile
+
+            - name: List Wonder Blocks packages behind npm
+              id: outdated
+              run: |
+                  node scripts/exports/artifact.ts outdated > outdated.md
+                  if [ -s outdated.md ]; then echo "found=true" >> "$GITHUB_OUTPUT"; fi
+                  cat outdated.md
+
+            - name: Leave a person's work on the branch alone
+              id: branch
+              if: steps.outdated.outputs.found == 'true'
+              run: |
+                  # Someone may be fixing the last bump PR on its branch. Only
+                  # rebuild the branch when every commit on it is this workflow's.
+                  if git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null; then
+                    git fetch -q origin "$BRANCH"
+                    others=$(git log --format='%ae' "origin/main..origin/$BRANCH" | grep -vc '41898282+github-actions\[bot\]@users.noreply.github.com' || true)
+                    if [ "$others" != "0" ]; then echo "human=true" >> "$GITHUB_OUTPUT"; fi
+                  fi
+
+            - name: Bump, rebuild and test
+              id: bump
+              if: steps.outdated.outputs.found == 'true' && steps.branch.outputs.human != 'true'
+              run: |
+                  git switch -C "$BRANCH"
+                  failed=""
+                  run() { # run <label> <command…>: log the output, record pass/fail, keep going
+                    label="$1"; shift
+                    if "$@" > step.log 2>&1; then
+                      echo "- ✅ \`$label\`" >> results.md
+                    else
+                      failed="$failed $label"
+                      { echo "- ❌ \`$label\`"; echo; echo '  ```'; tail -n 40 step.log | sed 's/^/  /'; echo '  ```'; } >> results.md
+                    fi
+                  }
+                  run "pnpm artifact:update" pnpm -s artifact:update
+                  tokens=$(node -e 'const s=require("fs").readFileSync("exports/src/guides/claude-artifact.md","utf8");console.log(s.match(/tokens: "([^"]+)"/)[1])')
+                  run "pnpm add @khanacademy/wonder-blocks-tokens@$tokens" pnpm add "@khanacademy/wonder-blocks-tokens@$tokens"
+                  run "pnpm exports" pnpm -s exports
+                  run "pnpm test" pnpm -s test
+                  run "pnpm lint:design-md" pnpm -s lint:design-md
+                  run "pnpm artifact:check" pnpm -s artifact:check
+                  echo "failed=$failed" >> "$GITHUB_OUTPUT"
+                  git config user.name "github-actions[bot]"
+                  git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+                  git add -A -- . ':!outdated.md' ':!results.md' ':!step.log'
+                  if git diff --cached --quiet; then
+                    # Nothing changed (usually artifact:update refused to write): no PR to open.
+                    echo "nochange=true" >> "$GITHUB_OUTPUT"
+                  else
+                    git commit -q -m "Bump Wonder Blocks and regenerate the exports" -m "$(cat outdated.md)"
+                    git push -q --force origin "$BRANCH"
+                  fi
+
+            - name: Open or update the pull request
+              if: steps.bump.outcome == 'success'
+              env:
+                  GH_TOKEN: ${{ steps.app.outputs.token || secrets.WB_BUMP_TOKEN || github.token }}
+                  FAILED: ${{ steps.bump.outputs.failed }}
+                  NOCHANGE: ${{ steps.bump.outputs.nochange }}
+              run: |
+                  {
+                    echo "New Wonder Blocks versions are on npm. This PR does the mechanical part of \"After a Wonder Blocks release\" in [exports/README.md](../blob/main/exports/README.md)."
+                    echo
+                    echo "## Behind npm"
+                    echo
+                    cat outdated.md
+                    echo
+                    echo "## Steps run"
+                    echo
+                    cat results.md
+                    echo
+                    if [ -n "$FAILED" ]; then
+                      echo "**Something failed, so this is a draft.** Fix it on this branch (\`$BRANCH\`): the workflow won't overwrite a branch with commits from anyone else. The README's WB-release section says what each failure usually means."
+                      echo
+                    fi
+                    echo "## Before merging"
+                    echo
+                    echo "- [ ] \`pnpm artifact:preview kitchen-sink\` and \`pnpm artifact:preview design-system\`: every component and card, both themes"
+                    echo "- [ ] Review the value changes in \`exports/design-md/\` and \`exports/claude-design-system/project/tokens.json\`"
+                    echo "- [ ] Update the \"tested together on\" date in \`exports/src/guides/claude-artifact.md\`"
+                    echo "- [ ] After merging, run the \`publish-design-system\` skill"
+                    echo
+                    echo "_Opened $(date -u +%Y-%m-%d) by .github/workflows/wb-release-check.yml. CI runs on it only when the bump GitHub App (or WB_BUMP_TOKEN) is set up._"
+                  } > body.md
+                  if [ "$NOCHANGE" = "true" ]; then
+                    # Nothing to commit, so no PR: say why in the one issue.
+                    { echo "Wonder Blocks is behind npm, but the bump changed nothing, so there's no PR. Do it by hand, following \"After a Wonder Blocks release\" in exports/README.md."; echo; cat outdated.md; echo; cat results.md; } > issue.md
+                    number=$(gh issue list --state open --search "in:title \"$TITLE\"" --json number --jq '.[0].number')
+                    if [ -n "$number" ]; then gh issue edit "$number" --body-file issue.md; else gh issue create --title "$TITLE" --body-file issue.md; fi
+                    exit 0
+                  fi
+                  number=$(gh pr list --head "$BRANCH" --state open --json number --jq '.[0].number')
+                  if [ -n "$number" ]; then
+                    gh pr edit "$number" --body-file body.md
+                    if [ -n "$FAILED" ]; then gh pr ready "$number" --undo || true; else gh pr ready "$number" || true; fi
+                  elif gh pr create --base main --head "$BRANCH" --title "$TITLE" --body-file body.md $([ -n "$FAILED" ] && echo --draft) 2> pr.err; then
+                    :
+                  else
+                    # Most often: Actions isn't allowed to create PRs in this repo. Fall back to an issue.
+                    { echo "The release check couldn't open a pull request:"; echo '```'; cat pr.err; echo '```'; echo "The branch \`$BRANCH\` has the bump. Open a PR from it, or turn on \"Allow GitHub Actions to create and approve pull requests\" in the repo's Actions settings."; echo; cat body.md; } > issue.md
+                    number=$(gh issue list --state open --search "in:title \"$TITLE\"" --json number --jq '.[0].number')
+                    if [ -n "$number" ]; then gh issue edit "$number" --body-file issue.md; else gh issue create --title "$TITLE" --body-file issue.md; fi
+                  fi
+
+            - name: Tell the open PR about newer versions
+              if: steps.branch.outputs.human == 'true'
+              env:
+                  GH_TOKEN: ${{ steps.app.outputs.token || secrets.WB_BUMP_TOKEN || github.token }}
+              run: |
+                  number=$(gh pr list --head "$BRANCH" --state open --json number --jq '.[0].number')
+                  { echo "Still behind npm as of $(date -u +%Y-%m-%d). Someone has committed to \`$BRANCH\`, so the release check left it alone; run \`pnpm artifact:update\` on it again when you're ready:"; echo; cat outdated.md; } > comment.md
+                  if [ -n "$number" ]; then gh pr comment "$number" --body-file comment.md; else cat comment.md; fi

@@ -1,14 +1,19 @@
 /**
- * Generates the published DESIGN.md files.
+ * Generates both exports from one source.
  *
  *   exports/src/**\/*.md          (templates, edited by hand)
- *     → exports/design-md/**\/*.md  (committed output, served at /design-md/)
+ *     → exports/design-md/**\/*.md  (DESIGN.md: committed, served at /design-md/)
+ *     → exports/claude-design-system/{project/**, publish.json}
+ *                                  (the Claude "Wonder Blocks" Design System:
+ *                                   committed, published by a skill; see claude.ts)
  *
- * Any other file under src/ (e.g. assets/*.svg) is copied as-is.
+ * For DESIGN.md, any other file under src/ (e.g. assets/*.svg) is copied
+ * as-is. `src/claude-design-system/` holds the Claude export's own sources and
+ * isn't part of DESIGN.md.
  *
- * Every template is rendered and validated in memory first; files on disk
- * change only if all of them succeed, so a failed run never leaves a
- * half-written exports/design-md/ directory.
+ * Every template is rendered and validated in memory first, for both
+ * exports; files on disk change only if all of them succeed, so a failed run
+ * never leaves a half-written output directory.
  *
  * Usage: pnpm exports
  */
@@ -16,8 +21,13 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 import {fileURLToPath} from "node:url";
 
+import {CLAUDE_SRC, buildClaude} from "./claude.ts";
 import {TemplateError, render} from "./render.ts";
 import {loadTokens, parseThemes} from "./tokens.ts";
+import {listFiles, writeTree} from "./tree.ts";
+import type {GenerateResult} from "./tree.ts";
+
+export type {GenerateResult};
 
 export type GenerateOptions = {
     srcDir: string;
@@ -28,24 +38,28 @@ export type GenerateOptions = {
     srcLabel?: string;
 };
 
-export type GenerateResult = {
-    written: Array<string>;
-    deleted: Array<string>;
-    unchanged: Array<string>;
-};
-
+/** Renders and writes DESIGN.md (exports/design-md/). */
 export function generate(options: GenerateOptions): GenerateResult {
-    const {srcDir, outDir, css, tokensVersion} = options;
-    const srcLabel = options.srcLabel ?? path.basename(srcDir);
-    const ctx = {
+    return writeTree(options.outDir, buildDesignMd(options));
+}
+
+function context(css: string, tokensVersion: string) {
+    return {
         themes: parseThemes(css),
         meta: {
             tokensVersion,
             tokensMajor: tokensVersion.split(".")[0],
         },
     };
+}
 
-    const sources = listFiles(srcDir);
+/** Every DESIGN.md output file, in memory. Throws a TemplateError listing every problem. */
+export function buildDesignMd(options: GenerateOptions): Map<string, string | Buffer> {
+    const {srcDir, css, tokensVersion} = options;
+    const srcLabel = options.srcLabel ?? path.basename(srcDir);
+    const ctx = context(css, tokensVersion);
+
+    const sources = listFiles(srcDir).filter((rel) => !rel.startsWith(`${CLAUDE_SRC}/`));
     const templates = sources.filter((rel) => rel.endsWith(".md"));
     if (templates.length === 0) {
         throw new Error(`No templates found in ${srcDir}`);
@@ -83,25 +97,7 @@ export function generate(options: GenerateOptions): GenerateResult {
     if (errors.length > 0) {
         throw new TemplateError(errors.join("\n"));
     }
-
-    const result: GenerateResult = {written: [], deleted: [], unchanged: []};
-    for (const [rel, content] of rendered) {
-        const target = path.join(outDir, rel);
-        if (fs.existsSync(target) && fs.readFileSync(target).equals(Buffer.from(content))) {
-            result.unchanged.push(rel);
-            continue;
-        }
-        fs.mkdirSync(path.dirname(target), {recursive: true});
-        fs.writeFileSync(target, content);
-        result.written.push(rel);
-    }
-    for (const rel of listFiles(outDir)) {
-        if (!rendered.has(rel)) {
-            fs.rmSync(path.join(outDir, rel));
-            result.deleted.push(rel);
-        }
-    }
-    return result;
+    return rendered;
 }
 
 /**
@@ -156,38 +152,35 @@ function checkLinks(
     return errors;
 }
 
-/** Sorted, posix-style relative paths of every non-hidden file under `dir`. */
-function listFiles(dir: string): Array<string> {
-    if (!fs.existsSync(dir)) {
-        return [];
-    }
-    return fs
-        .readdirSync(dir, {recursive: true, encoding: "utf8"})
-        .filter((rel) => !rel.split(path.sep).some((part) => part.startsWith(".")))
-        .filter((rel) => fs.statSync(path.join(dir, rel)).isFile())
-        .map((rel) => rel.split(path.sep).join("/"))
-        .sort();
-}
-
 function main(): void {
     const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
     const {css, tokensVersion} = loadTokens();
+    const srcDir = path.join(root, "exports", "src");
     try {
-        const result = generate({
-            srcDir: path.join(root, "exports", "src"),
-            outDir: path.join(root, "exports", "design-md"),
+        // Build both in memory first, so a failure in either writes nothing.
+        const designMd = buildDesignMd({srcDir, outDir: "", srcLabel: "exports/src", css, tokensVersion});
+        const claude = buildClaude({
+            srcDir,
+            docsDir: path.join(root, "__docs__"),
             srcLabel: "exports/src",
-            css,
-            tokensVersion,
+            ctx: context(css, tokensVersion),
         });
-        console.log(
-            `exports: tokens ${tokensVersion}; ` +
-                `${result.written.length} written, ` +
-                `${result.unchanged.length} unchanged, ` +
-                `${result.deleted.length} deleted`,
-        );
-        for (const rel of [...result.written, ...result.deleted]) {
-            console.log(`  ${result.deleted.includes(rel) ? "-" : "+"} exports/design-md/${rel}`);
+        const outputs: Array<[string, Map<string, string | Buffer>, (rel: string) => boolean]> = [
+            ["exports/design-md", designMd, () => false],
+            // config.json beside the output is hand-edited (the published system's URL).
+            ["exports/claude-design-system", claude, (rel) => rel === "config.json"],
+        ];
+        for (const [dir, files, keep] of outputs) {
+            const result = writeTree(path.join(root, dir), files, keep);
+            console.log(
+                `exports: ${dir}: tokens ${tokensVersion}; ` +
+                    `${result.written.length} written, ` +
+                    `${result.unchanged.length} unchanged, ` +
+                    `${result.deleted.length} deleted`,
+            );
+            for (const rel of [...result.written, ...result.deleted]) {
+                console.log(`  ${result.deleted.includes(rel) ? "-" : "+"} ${dir}/${rel}`);
+            }
         }
     } catch (e) {
         if (e instanceof TemplateError) {
