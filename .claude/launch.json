@@ -7,6 +7,12 @@
       "runtimeArgs": ["-c", "pnpm exec storybook dev -p ${PORT:-56789}"],
       "port": 56789,
       "autoPort": true
+    },
+    {
+      "name": "artifact-preview",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": ["-c", "node scripts/exports/artifact.ts preview kitchen-sink"],
+      "port": 8765
     }
   ]
 }

@@ -90,3 +90,41 @@ Templates are Markdown with token references that resolve against the installed 
 - Values without a token (breakpoints, chonky shadow offsets, display sizes, slide grid, motion) are written as plain text and labeled as not tokens.
 
 After bumping `@khanacademy/wonder-blocks-tokens`, run `pnpm install && pnpm exports` and review the diff in `exports/design-md/`. `pnpm test` runs the generator's tests; `pnpm lint:design-md` runs the DESIGN.md spec linter.
+
+### Claude artifacts with real Wonder Blocks components
+
+`exports/src/guides/claude-artifact.md` tells an agent how to build a Claude artifact with the real WB React components. It's the setup the Claude Design System relies on, so publish it with the rest of `exports/src/`. Artifacts run under a strict content security policy:
+- scripts only from a few CDNs, jsDelivr's `/npm/` included;
+- stylesheets only from Google Fonts;
+- images only as `data:`/`blob:`;
+- no `fetch`.
+
+The guide's page skeleton works around that. Every piece below is needed, and `scripts/exports/artifact.test.ts` fails if one goes missing:
+
+| Piece | Why |
+| --- | --- |
+| `html { font-size: 62.5%; }` | WB tokens are `rem` on a 10px root, as on khanacademy.org. Without it, everything renders 1.6× too big. |
+| Token CSS from `wonder-blocks-tokens@…/dist/css/index.css/+esm` | jsDelivr serves the CSS as a module that injects a `<style>` tag. A `<link>` is blocked, and inlining it would cost 155 KB. |
+| `data-wb-theme` on `<html>`, not `ThemeSwitcher` | Modals, menus, popovers, tooltips and calendars portal to `<body>`, outside any wrapper. |
+| Import map: `@phosphor-icons/core@…/<weight>/<name>.svg/+esm` → `@iconify-icons/ph@2.0.0/<name>/+esm` | jsDelivr rewrites WB's built-in icon imports to URLs that 404. That breaks dropdown, modal, form, banner, accordion, badge, tabs, popover, search field, link and both date pickers. |
+| Boot turns those icons into data-URI strings that are also React elements | PhosphorIcon needs a string for `mask-image: url()` and `startsWith`. Button and IconButton `cloneElement` anything that isn't a string. |
+| Import map: every `react@X/` and `react-dom@X/` → `@18.2.0/` | react-popper, react-window, react-day-picker, @floating-ui/react and react-router each pull in their own React. Two Reacts break hooks. |
+| Import map: `aphrodite@1.2.5` → `2.4.0` | jsDelivr's build of 1.2.5 has no named exports. |
+| `wb()` Proxy, duplicate-React check, page error handler | Agents' most common mistake is a wrong import name, and these turn it and other failures into a readable error on the page instead of a blank page. |
+
+The pinned versions (`const V`) and the import map belong together. After a Wonder Blocks release:
+
+```sh
+pnpm artifact:check      # does the import map still match V? also lists newer WB versions on npm
+pnpm artifact:update     # bump V to latest and rewrite V + the import map in the guide source
+pnpm exports
+pnpm artifact:preview kitchen-sink   # every component, under the artifact CSP, at http://localhost:8765
+```
+
+- In the preview, check that there's no red error box and that `window.__errs` is empty. Click through the modal, menus, popover, tooltip and calendar in both themes, then update the tested date in the guide.
+- `pnpm artifact:preview` with no argument serves the guide's own skeleton.
+- `pnpm artifact:preview path/to/page.html` checks any artifact page.
+- `artifact:check` exits non-zero on a module it can't map. Usually that's a new dependency with its own React, or a CommonJS-only package; add a rule in `scripts/exports/artifact.ts`.
+- Also retest icons whenever `wonder-blocks-icon`, `button` or `icon-button` changes, because the icon workaround depends on their internals.
+
+Verified on 2026-11-23 in two ways. Fresh agents built four test pages from the guide on the first try under an emulation of the artifact CSP. Then a page with cards, badges, a tooltip, an accordion, a modal and a banner was checked live on claude.ai.

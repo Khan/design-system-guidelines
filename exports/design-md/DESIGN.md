@@ -128,7 +128,8 @@ its text, resolve them against that address.
 | If you're making… | Also read |
 | --- | --- |
 | Product UI in a Wonder Blocks codebase | [guides/product-ui.md](guides/product-ui.md) |
-| Standalone web prototype, HTML page, or Claude artifact | [guides/web-prototype.md](guides/web-prototype.md) |
+| Claude artifact, or any UI prototype that can load the real components | [guides/claude-artifact.md](guides/claude-artifact.md) |
+| Plain HTML page or prototype without React | [guides/web-prototype.md](guides/web-prototype.md) |
 | Slide deck | [guides/slides.md](guides/slides.md) |
 | Diagram or flowchart | [guides/diagrams.md](guides/diagrams.md) |
 | Chart, stat card, data table, or data report | The pages linked from [Charts and data visualization](#charts-and-data-visualization) below |
@@ -384,7 +385,8 @@ every medium:
 Detailed CSS recipes are in the
 [web prototype guide](guides/web-prototype.md).
 In React, use the actual Wonder Blocks components
-([product UI guide](guides/product-ui.md)).
+([product UI guide](guides/product-ui.md), or the
+[Claude artifact guide](guides/claude-artifact.md) for artifacts).
 
 ## Iconography
 

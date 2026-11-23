@@ -1,9 +1,14 @@
-# Web prototypes, HTML pages, and Claude artifacts
+# Web prototypes and HTML pages
 
 Read this together with the core
 [DESIGN.md](../DESIGN.md).
 It covers anything rendered in a browser without the Wonder Blocks React
-components: standalone HTML, prototypes, Claude artifacts, and one-pagers.
+components: standalone HTML, prototypes, and one-pagers.
+
+If the page can load the real components, use them instead of rebuilding
+them from these recipes. For a Claude artifact, follow the
+[Claude artifact guide](claude-artifact.md): it loads the components, and the
+stylesheet `<link>` below is blocked inside artifacts.
 
 ## Quick start
 
