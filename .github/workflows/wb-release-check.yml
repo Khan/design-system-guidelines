@@ -1,0 +1,61 @@
+# Weekly check for new Wonder Blocks releases. Renovate isn't used in this
+# org, so this is the trigger for the "WB release" flow in exports/README.md:
+# it opens (or updates) one issue listing what's behind npm and the steps to
+# take. It changes no files and opens no PR.
+name: Wonder Blocks release check
+
+on:
+    schedule:
+        - cron: "0 15 * * 1" # Mondays 15:00 UTC
+    workflow_dispatch:
+
+permissions:
+    contents: read
+    issues: write
+
+jobs:
+    check:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v5
+
+            - uses: pnpm/action-setup@v5
+
+            - uses: actions/setup-node@v6
+              with:
+                  node-version: 24.x
+                  cache: pnpm
+                  cache-dependency-path: pnpm-lock.yaml
+
+            - run: pnpm install --frozen-lockfile
+
+            - name: List Wonder Blocks packages behind npm
+              id: outdated
+              run: |
+                  node scripts/exports/artifact.ts outdated > outdated.md
+                  # Also fails if the import map no longer matches V (a CDN-side change).
+                  if ! pnpm -s artifact:check > check.txt 2>&1; then
+                    { echo "- \`pnpm artifact:check\` fails on main:"; echo '```'; cat check.txt; echo '```'; } >> outdated.md
+                  fi
+                  if [ -s outdated.md ]; then echo "found=true" >> "$GITHUB_OUTPUT"; fi
+                  cat outdated.md
+
+            - name: Open or update the issue
+              if: steps.outdated.outputs.found == 'true'
+              env:
+                  GH_TOKEN: ${{ github.token }}
+              run: |
+                  title="Wonder Blocks release: update the exports and republish the Claude design system"
+                  {
+                    echo "New Wonder Blocks versions are on npm. Follow \"After a Wonder Blocks release\" in [exports/README.md](../blob/main/exports/README.md):"
+                    echo
+                    cat outdated.md
+                    echo
+                    echo "_Checked $(date -u +%Y-%m-%d) by .github/workflows/wb-release-check.yml._"
+                  } > body.md
+                  number=$(gh issue list --state open --search "in:title \"$title\"" --json number --jq '.[0].number')
+                  if [ -n "$number" ]; then
+                    gh issue edit "$number" --body-file body.md
+                  else
+                    gh issue create --title "$title" --body-file body.md
+                  fi

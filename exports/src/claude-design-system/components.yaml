@@ -1,0 +1,476 @@
+# Component cards for the Claude "Wonder Blocks" Design System.
+#
+# Each entry becomes components/<name>/README.md and components/<name>/preview.html
+# under exports/claude-design-system/project/. Previews load the real Wonder
+# Blocks components from jsDelivr with the boot in guides/claude-artifact.md,
+# so they always match what an agent builds from that guide.
+#
+#   name      folder name, an ASCII identifier (the card's title)
+#   group     card group on the page
+#   height    card row height in px
+#   summary   first sentence of the README (the card's summary)
+#   use       when to use it (bullets)
+#   rules     what's easy to get wrong (bullets); keep in step with section 4 of the guide
+#   docs      DSG guideline pages under __docs__/, linked (never copied)
+#   types     where the props live: "<package> <path in dist/>", read at the pinned version
+#   imports   destructuring lines, copied from section 2 of the guide
+#   icons     optional: local name → Phosphor icon name, loaded with icon()
+#   state     optional: React state lines inside App()
+#   render    the htm markup App() returns
+#
+# Every `wb("…")` package must be pinned in the guide's V, and every import line
+# must appear in section 2 of the guide; `pnpm exports` checks both.
+
+- name: Button
+  group: Actions
+  height: 96
+  summary: The Wonder Blocks button for every action on a page; `kind` sets its weight.
+  use:
+    - "`primary` for the one action the view is for (at most one per view), `secondary` beside it, `tertiary` for low-emphasis actions."
+    - "`actionType=\"destructive\"` for delete and remove, `\"neutral\"` for actions that shouldn't draw the eye."
+    - Navigation between pages is a Link, not a Button.
+  rules:
+    - "Icons go in `startIcon`/`endIcon` as the string `await icon(\"plus-bold\")` returns."
+    - Never re-create a button with a styled `<button>` or `<div>`; the component carries focus, states and the chonky edge.
+  docs: [design-components/buttons.mdx]
+  types: button dist/util/button.types.d.ts
+  imports: ['const { default: Button } = await wb("button");']
+  icons: {plusIcon: plus-bold}
+  render: |
+    <div className="row">
+      <${Button} startIcon=${plusIcon}>Add class</${Button}>
+      <${Button} kind="secondary">Preview</${Button}>
+      <${Button} kind="tertiary">Cancel</${Button}>
+      <${Button} kind="secondary" actionType="destructive">Remove</${Button}>
+      <${Button} disabled=${true}>Disabled</${Button}>
+    </div>
+
+- name: IconButton
+  group: Actions
+  height: 80
+  summary: An icon-only button for compact, well-known actions such as close, settings or more.
+  use:
+    - Toolbars, card corners and dense rows where the icon's meaning is obvious.
+    - Use a Button with a label when the action needs words.
+  rules:
+    - "`aria-label` is required."
+    - "`icon` takes the string from `await icon(\"…\")`."
+    - Wrap it in a Tooltip that repeats the label when the icon isn't universal.
+  docs: [design-components/buttons.mdx]
+  types: icon-button dist/util/icon-button.types.d.ts
+  imports: ['const { default: IconButton } = await wb("icon-button");']
+  icons: {gearIcon: gear-bold, xIcon: x-bold, dotsIcon: dots-three-bold}
+  render: |
+    <div className="row">
+      <${IconButton} icon=${gearIcon} aria-label="Settings" />
+      <${IconButton} icon=${dotsIcon} aria-label="More actions" kind="secondary" />
+      <${IconButton} icon=${xIcon} aria-label="Close" kind="tertiary" />
+    </div>
+
+- name: Link
+  group: Actions
+  height: 72
+  summary: Inline and standalone text links that navigate.
+  use:
+    - Navigation to another page or section. For an in-page action, use a Button.
+  rules:
+    - "In an artifact there's no router: give it a hash `href` such as `\"#all-units\"`. `onClick` can't prevent navigation."
+    - "`startIcon`/`endIcon` take an element: wrap the icon string in `PhosphorIcon`."
+  docs: []
+  types: link dist/components/link.d.ts
+  imports: ['const { default: Link } = await wb("link");']
+  render: |
+    <p className="text">Review the <${Link} href="#unit-2">unit 2 lessons</${Link}> before the quiz.</p>
+
+- name: Typography
+  group: Content
+  height: 220
+  summary: "`Heading` and `BodyText` set every piece of text in the Wonder Blocks type scale."
+  use:
+    - "`Heading` for titles and section heads; pick `size` for the look and `tag` for the outline (`h1`–`h6`)."
+    - "`BodyText` for paragraphs and UI text; `tag=\"label\"` with `htmlFor` makes it a form label."
+  rules:
+    - The old `Title`, `LabelLarge` and similar components no longer exist.
+    - Don't set your own px or rem text sizes; use these components or the `--wb-font-*-size-*` variables.
+  docs: []
+  types: core dist/components/text.d.ts
+  imports: ['const { Heading, BodyText, BodyMonospace } = await wb("typography");']
+  render: |
+    <div className="stack">
+      <${Heading} size="xxlarge" tag="h1">Algebra 1</${Heading}>
+      <${Heading} size="large" tag="h2">Unit 3: Linear equations</${Heading}>
+      <${BodyText}>Solve one-step and two-step equations, then check your answer by substitution.</${BodyText}>
+      <${BodyText} size="small">12 lessons · about 3 hours</${BodyText}>
+      <${BodyMonospace}>y = 2x + 3</${BodyMonospace}>
+    </div>
+
+- name: Card
+  group: Layout
+  height: 180
+  summary: A raised or outlined container that groups one piece of content.
+  use:
+    - One lesson, assignment, stat or settings group per card.
+  rules:
+    - "`Card` has no `style`; use `styles=${ {root: {…}} }` with `paddingSize`, `elevation` or `background`."
+    - Don't nest cards or add a colored left-border accent.
+  docs: []
+  types: card dist/components/card.d.ts
+  imports: ['const { Card } = await wb("card");', 'const { Heading, BodyText, BodyMonospace } = await wb("typography");']
+  render: |
+    <div className="row top">
+      <${Card} styles=${{ root: { width: 240 } }}>
+        <${Heading} size="small" tag="h3">Unit 3 quiz</${Heading}>
+        <${BodyText} size="small">Due Friday · 10 questions</${BodyText}>
+      </${Card}>
+      <${Card} elevation="low" paddingSize="small" styles=${{ root: { width: 240 } }}>
+        <${Heading} size="small" tag="h3">Elevation low</${Heading}>
+        <${BodyText} size="small">For cards that sit on a busy surface.</${BodyText}>
+      </${Card}>
+    </div>
+
+- name: Pill
+  group: Content
+  height: 72
+  summary: A small rounded label for categories, filters and counts.
+  use:
+    - Tags and lightweight categories. For a status, use a Badge.
+  rules:
+    - The text goes in `children`.
+  docs: []
+  types: pill dist/components/pill.d.ts
+  imports: ['const { default: Pill } = await wb("pill");']
+  render: |
+    <div className="row">
+      <${Pill}>Algebra</${Pill}>
+      <${Pill} kind="accent">New</${Pill}>
+      <${Pill} kind="success">Complete</${Pill}>
+    </div>
+
+- name: Badge
+  group: Feedback
+  height: 88
+  summary: Short status labels; each badge pairs its color with text or an icon.
+  use:
+    - "`StatusBadge` for success, warning, critical and info states; `DueBadge` for due dates; `NeutralBadge` for counts and categories."
+    - "`GemBadge` and `StreakBadge` for Motivation features."
+  rules:
+    - "`icon` on Badge, StatusBadge, NeutralBadge and DueBadge takes an element: wrap the string in `PhosphorIcon`."
+    - "GemBadge and StreakBadge have no `icon`; use `showIcon`, plus `iconAriaLabel` when there's no `label`."
+  docs: [design-components/badges.mdx]
+  types: badge dist/types.d.ts
+  imports: ['const { Badge, StatusBadge, NeutralBadge, DueBadge, GemBadge, StreakBadge } = await wb("badge");']
+  render: |
+    <div className="row">
+      <${StatusBadge} kind="success" label="Complete" />
+      <${StatusBadge} kind="warning" label="Needs review" />
+      <${NeutralBadge} label="12 students" />
+      <${DueBadge} kind="due" label="Due Fri" />
+      <${GemBadge} showIcon=${true} label="340" />
+      <${StreakBadge} showIcon=${true} label="12-day streak" />
+    </div>
+
+- name: Banner
+  group: Feedback
+  height: 140
+  summary: A full-width message about the page or a section, with an optional action and dismiss.
+  use:
+    - "`kind` matches the message: `info`, `success`, `warning` or `critical`."
+    - Use one banner per region; for a short-lived confirmation, use a toast.
+  rules:
+    - "`icon` takes the string from `await icon(\"…\")`."
+  docs: [design-components/banners.mdx]
+  types: banner dist/components/banner.d.ts
+  imports: ['const { default: Banner } = await wb("banner");']
+  render: |
+    <div className="stack">
+      <${Banner} kind="info" text="New practice sets are ready for unit 3." onDismiss=${() => {}} />
+      <${Banner} kind="warning" text="Two students haven't started the assignment." />
+    </div>
+
+- name: Tooltip
+  group: Feedback
+  height: 120
+  summary: A short hint that appears on hover or focus of its anchor.
+  use:
+    - A label for an icon-only control, or a one-line explanation. Longer content goes in a Popover.
+  rules:
+    - "`placement` is required (e.g. `\"top\"`)."
+    - "Wrapping an already-focusable element (Button, IconButton) can take `forceAnchorFocusivity=${false}`."
+  docs: [design-components/tooltips.mdx]
+  types: tooltip dist/components/tooltip.d.ts
+  imports: ['const { default: Tooltip } = await wb("tooltip");', 'const { default: IconButton } = await wb("icon-button");']
+  icons: {infoIcon: info-bold}
+  state: const [opened] = React.useState(true);
+  render: |
+    <div className="row pad-top">
+      <${Tooltip} content="Scores update every night" placement="top" opened=${opened} forceAnchorFocusivity=${false}>
+        <${IconButton} icon=${infoIcon} aria-label="About scores" kind="tertiary" />
+      </${Tooltip}>
+    </div>
+
+- name: TextField
+  group: Inputs
+  height: 180
+  summary: A single-line text input, labelled and validated with `LabeledField`.
+  use:
+    - Short free-text answers such as names and titles. Multi-line text is `TextArea`.
+  rules:
+    - "Wrap it in `LabeledField`, which takes the control in `field=${…}` and passes `id`, `error` and aria props itself. Don't set `error` on the field by hand."
+  docs: [design-components/text-field.mdx]
+  types: form dist/components/text-field.d.ts
+  imports: ['const { TextField, TextArea, Checkbox, CheckboxGroup, RadioGroup, Choice } = await wb("form");', 'const { LabeledField } = await wb("labeled-field");']
+  state: const [name, setName] = React.useState("Pe");
+  render: |
+    <div className="stack narrow">
+      <${LabeledField} label="Class name" description="At least 3 characters" errorMessage=${name.length < 3 ? "Use at least 3 characters" : undefined} field=${html`<${TextField} value=${name} onChange=${setName} />`} />
+    </div>
+
+- name: Checkbox
+  group: Inputs
+  height: 170
+  summary: Checkboxes for on/off choices and for picking several options from a short list.
+  use:
+    - "One `Checkbox` for a single yes/no; `CheckboxGroup` with `Choice`s for several options."
+  rules:
+    - "`CheckboxGroup` needs `groupName`, `label`, `selectedValues` and `onChange`."
+  docs: [design-components/checkbox-group.mdx]
+  types: form dist/components/checkbox-group.d.ts
+  imports: ['const { TextField, TextArea, Checkbox, CheckboxGroup, RadioGroup, Choice } = await wb("form");']
+  state: |
+    const [notify, setNotify] = React.useState(true);
+    const [subjects, setSubjects] = React.useState(["math"]);
+  render: |
+    <div className="stack">
+      <${Checkbox} label="Email me when students finish" checked=${notify} onChange=${setNotify} />
+      <${CheckboxGroup} groupName="subjects" label="Subjects" selectedValues=${subjects} onChange=${setSubjects}>
+        <${Choice} label="Math" value="math" />
+        <${Choice} label="Science" value="science" />
+      </${CheckboxGroup}>
+    </div>
+
+- name: RadioGroup
+  group: Inputs
+  height: 150
+  summary: One choice from a short list, with every option visible.
+  use:
+    - Two to six mutually exclusive options. Longer lists use a SingleSelect.
+  rules:
+    - "Needs `groupName`, `label`, `selectedValue` and `onChange`; options are `Choice`s."
+  docs: [design-components/radio-button.mdx]
+  types: form dist/components/radio-group.d.ts
+  imports: ['const { TextField, TextArea, Checkbox, CheckboxGroup, RadioGroup, Choice } = await wb("form");']
+  state: const [grade, setGrade] = React.useState("6");
+  render: |
+    <${RadioGroup} groupName="grade" label="Grade" selectedValue=${grade} onChange=${setGrade}>
+      <${Choice} label="Grade 6" value="6" />
+      <${Choice} label="Grade 7" value="7" />
+      <${Choice} label="Grade 8" value="8" />
+    </${RadioGroup}>
+
+- name: Switch
+  group: Inputs
+  height: 80
+  summary: A toggle for a setting that takes effect immediately.
+  use:
+    - Settings that apply at once. Choices that are saved with a form are checkboxes.
+  rules:
+    - "`Switch` has no label: pair it with `BodyText tag=\"label\" htmlFor=\"x\"` and give the Switch `id=\"x\"`."
+  docs: [design-components/toggle.mdx]
+  types: switch dist/components/switch.d.ts
+  imports: ['const { default: Switch } = await wb("switch");', 'const { Heading, BodyText, BodyMonospace } = await wb("typography");']
+  state: const [on, setOn] = React.useState(true);
+  render: |
+    <div className="row">
+      <${Switch} id="hints" checked=${on} onChange=${setOn} />
+      <${BodyText} tag="label" htmlFor="hints">Show hints</${BodyText}>
+    </div>
+
+- name: SingleSelect
+  group: Inputs
+  height: 120
+  summary: A dropdown for choosing one option from a list; `MultiSelect` chooses several.
+  use:
+    - Seven or more options, or when space is tight. Fewer options read better as a RadioGroup.
+  rules:
+    - "`placeholder` is required."
+    - Options are `OptionItem`s with `label` and `value`.
+  docs: [design-components/dropdown-select.mdx]
+  types: dropdown dist/util/types.d.ts
+  imports: ['const { SingleSelect, MultiSelect, OptionItem, ActionMenu, ActionItem, SeparatorItem } = await wb("dropdown");']
+  state: const [unit, setUnit] = React.useState(null);
+  render: |
+    <div className="row">
+      <${SingleSelect} placeholder="Choose a unit" selectedValue=${unit} onChange=${setUnit}>
+        <${OptionItem} label="Unit 1: Expressions" value="1" />
+        <${OptionItem} label="Unit 2: Equations" value="2" />
+        <${OptionItem} label="Unit 3: Functions" value="3" />
+      </${SingleSelect}>
+    </div>
+
+- name: ActionMenu
+  group: Actions
+  height: 100
+  summary: A menu of actions behind one button, for secondary actions on an item.
+  use:
+    - Edit, duplicate, archive and similar actions on a row or card.
+  rules:
+    - "`menuText` labels the default opener. A custom `opener` is a function that returns an element, without its own `onClick`."
+    - Items are `ActionItem`s with `label` and `onClick`; `SeparatorItem` divides groups.
+  docs: []
+  types: dropdown dist/util/types.d.ts
+  imports: ['const { SingleSelect, MultiSelect, OptionItem, ActionMenu, ActionItem, SeparatorItem } = await wb("dropdown");']
+  render: |
+    <div className="row">
+      <${ActionMenu} menuText="Assignment actions">
+        <${ActionItem} label="Edit" onClick=${() => {}} />
+        <${ActionItem} label="Duplicate" onClick=${() => {}} />
+        <${SeparatorItem} />
+        <${ActionItem} label="Archive" onClick=${() => {}} />
+      </${ActionMenu}>
+    </div>
+
+- name: Modal
+  group: Overlays
+  height: 100
+  summary: "`ModalLauncher` with an `OnePaneDialog` opens a focused task over the page."
+  use:
+    - A short task or confirmation that has to finish before going back to the page.
+  rules:
+    - "`modal` is an OnePaneDialog element, or `${({ closeModal }) => html`…`}` when the footer needs to close it."
+    - "Put `onClose` on the `ModalLauncher`, never on the `OnePaneDialog`: WB throws when the dialog has its own."
+    - The theme must be on `<html>` (the boot does this) because the modal renders in a portal.
+  docs: [design-components/modals.mdx, design-components/modals-selection.mdx]
+  types: modal dist/components/one-pane-dialog.d.ts
+  imports: ['const { ModalLauncher, OnePaneDialog } = await wb("modal");', 'const { default: Button } = await wb("button");', 'const { Heading, BodyText, BodyMonospace } = await wb("typography");']
+  render: |
+    <div className="row">
+      <${ModalLauncher} modal=${({ closeModal }) => html`<${OnePaneDialog} title="Assign unit 3?" content=${html`<${BodyText}>Students in Period 2 will see it on their dashboard.</${BodyText}>`} footer=${html`<div className="row"><${Button} kind="tertiary" onClick=${closeModal}>Cancel</${Button}><${Button} onClick=${closeModal}>Assign</${Button}></div>`} />`}>
+        ${({ openModal }) => html`<${Button} onClick=${openModal}>Open the modal</${Button}>`}
+      </${ModalLauncher}>
+    </div>
+
+- name: Popover
+  group: Overlays
+  height: 100
+  summary: A small anchored panel with a title and a few lines of content.
+  use:
+    - Extra detail or a short form tied to one control. A one-line hint is a Tooltip.
+  rules:
+    - "`Popover` and `PopoverContent` are named exports, not default."
+    - "Wrap the trigger as `${({ open }) => html`<${Button} onClick=${open}>…</${Button}>`}`; `PopoverContent` takes `title` and `content` as strings."
+  docs: [design-components/popovers.mdx]
+  types: popover dist/components/popover.d.ts
+  imports: ['const { Popover, PopoverContent } = await wb("popover");', 'const { default: Button } = await wb("button");']
+  render: |
+    <div className="row">
+      <${Popover} content=${html`<${PopoverContent} title="Mastery points" content="Earn points by leveling up skills in practice and quizzes." closeButtonVisible=${true} />`}>
+        ${({ open }) => html`<${Button} kind="secondary" onClick=${open}>What are mastery points?</${Button}>`}
+      </${Popover}>
+    </div>
+
+- name: Tabs
+  group: Navigation
+  height: 150
+  summary: Switches between panels of related content in one place.
+  use:
+    - Two to six peer views of the same object. Page-level navigation is `NavigationTabs`.
+  rules:
+    - "`aria-label` (or `aria-labelledby`) is required."
+    - "`tabs` is an array of `{ id, label, panel }`; control it with `selectedTabId` and `onTabSelected`."
+  docs: []
+  types: tabs dist/components/tabs.d.ts
+  imports: ['const { Tabs, NavigationTabs, NavigationTabItem } = await wb("tabs");', 'const { Heading, BodyText, BodyMonospace } = await wb("typography");']
+  state: const [tab, setTab] = React.useState("progress");
+  render: |
+    <${Tabs} aria-label="Class views" selectedTabId=${tab} onTabSelected=${setTab} tabs=${[
+      { id: "progress", label: "Progress", panel: html`<${BodyText}>18 of 24 students are on track.</${BodyText}>` },
+      { id: "assignments", label: "Assignments", panel: html`<${BodyText}>3 assignments due this week.</${BodyText}>` },
+    ]} />
+
+- name: Accordion
+  group: Content
+  height: 170
+  summary: Stacked sections that expand to show their content.
+  use:
+    - Long, skimmable content such as FAQs or unit outlines, where people open one part at a time.
+  rules:
+    - "`children` must be an array: two or more `AccordionSection`s, or a single one wrapped in `[…]`."
+  docs: []
+  types: accordion dist/components/accordion.d.ts
+  imports: ['const { Accordion, AccordionSection } = await wb("accordion");']
+  render: |
+    <${Accordion}>${[
+      html`<${AccordionSection} key="1" header="Unit 1: Expressions">Five lessons and a quiz.</${AccordionSection}>`,
+      html`<${AccordionSection} key="2" header="Unit 2: Equations">Six lessons and a unit test.</${AccordionSection}>`,
+    ]}</${Accordion}>
+
+- name: Breadcrumbs
+  group: Navigation
+  height: 72
+  summary: Shows where a page sits in a hierarchy, with links to its ancestors.
+  use:
+    - Deep content such as course › unit › lesson. The current page is the last item, not a link.
+  rules:
+    - Ancestor items wrap a `Link` with a hash `href` in an artifact.
+  docs: []
+  types: breadcrumbs dist/components/breadcrumbs.d.ts
+  imports: ['const { Breadcrumbs, BreadcrumbsItem } = await wb("breadcrumbs");', 'const { default: Link } = await wb("link");']
+  render: |
+    <${Breadcrumbs}>
+      <${BreadcrumbsItem}><${Link} href="#math">Math</${Link}></${BreadcrumbsItem}>
+      <${BreadcrumbsItem}><${Link} href="#algebra">Algebra 1</${Link}></${BreadcrumbsItem}>
+      <${BreadcrumbsItem}>Linear equations</${BreadcrumbsItem}>
+    </${Breadcrumbs}>
+
+- name: DetailCell
+  group: Content
+  height: 150
+  summary: A list row with a title, up to two subtitles and accessories on either side.
+  use:
+    - Rows in lists of lessons, students or settings. A row with only a title is `CompactCell`.
+  rules:
+    - "`leftAccessory`/`rightAccessory` take an element: wrap an icon string in `PhosphorIcon`."
+    - Give it `onClick` or `href` only when the whole row is one action.
+  docs: []
+  types: cell dist/util/types.d.ts
+  imports: ['const { CompactCell, DetailCell } = await wb("cell");', 'const { PhosphorIcon } = await wb("icon");']
+  icons: {bookIcon: book-open, caretIcon: caret-right}
+  render: |
+    <div className="stack">
+      <${DetailCell} title="Two-step equations" subtitle1="Lesson 4 · 3 videos, 2 exercises" subtitle2="Last practiced 2 days ago" leftAccessory=${html`<${PhosphorIcon} icon=${bookIcon} size="medium" />`} rightAccessory=${html`<${PhosphorIcon} icon=${caretIcon} />`} onClick=${() => {}} />
+      <${CompactCell} title="Compact cell: title only" />
+    </div>
+
+- name: SearchField
+  group: Inputs
+  height: 110
+  summary: A text field with a search icon and a clear button.
+  use:
+    - Filtering a list on the page or searching content.
+  rules:
+    - "Label it: inside `LabeledField`, or with `aria-label` when a visible label isn't needed."
+  docs: [design-components/search-field.mdx]
+  types: search-field dist/components/search-field.d.ts
+  imports: ['const { default: SearchField } = await wb("search-field");']
+  state: const [q, setQ] = React.useState("");
+  render: |
+    <div className="stack narrow">
+      <${SearchField} value=${q} onChange=${setQ} placeholder="Search students" aria-label="Search students" />
+    </div>
+
+- name: CircularSpinner
+  group: Feedback
+  height: 80
+  summary: An indeterminate loading indicator.
+  use:
+    - Waits longer than about a second where the layout of the result isn't known.
+  rules:
+    - "`size` is required (`xsmall`, `small`, `medium`, `large`)."
+  docs: []
+  types: progress-spinner dist/components/circular-spinner.d.ts
+  imports: ['const { CircularSpinner } = await wb("progress-spinner");']
+  render: |
+    <div className="row">
+      <${CircularSpinner} size="small" light=${false} />
+      <${CircularSpinner} size="medium" light=${false} />
+    </div>

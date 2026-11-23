@@ -11,6 +11,15 @@
  * In YAML front matter, every reference must sit inside a double-quoted
  * scalar (`primary: "{{tb:…}}"`), so templates stay valid YAML and values
  * containing `#`, `,` or quotes can't silently change the parsed data.
+ *
+ * Lines that only one export needs go in a target block, each marker on a
+ * line of its own (not in front matter, not nested):
+ *
+ *   {{#target claude}}
+ *   Only in the Claude Design System.
+ *   {{/target}}
+ *
+ * Targets are listed in TARGETS; an unknown name fails the build.
  */
 import {isDeepStrictEqual} from "node:util";
 import {LineCounter, parseDocument, visit} from "yaml";
@@ -18,16 +27,79 @@ import {LineCounter, parseDocument, visit} from "yaml";
 import {varName} from "./tokens.ts";
 import type {Themes} from "./tokens.ts";
 
+/** The exports one template can render into. */
+export const TARGETS = ["design-md", "claude"] as const;
+export type Target = (typeof TARGETS)[number];
+
 export type RenderContext = {
     themes: Themes;
     meta: Record<string, string>;
+    /** Which export is being rendered. Defaults to "design-md". */
+    target?: Target;
 };
 
 const REF = /\{\{(tb|dark|meta|name):([\w.-]+)(?:\s*\|\s*(\w+))?\}\}/g;
 const NEAR_MISS = /\{\{\s*(tb|dark|meta|name)\b/;
 const FENCE = /^\s*(```|~~~)/;
+const TARGET_OPEN = /^\{\{#target\s+([\w-]*)\s*\}\}$/;
+const TARGET_CLOSE = /^\{\{\/target\}\}$/;
+const TARGET_NEAR_MISS = /\{\{\s*[#/]\s*target\b/;
 
 export class TemplateError extends Error {}
+
+/**
+ * Which lines belong to `target`: false for marker lines and for lines inside
+ * another target's block. Reports unknown targets, nesting, stray or unclosed
+ * markers, markers in front matter, and markers that aren't alone on a line.
+ */
+function targetMask(
+    lines: Array<string>,
+    file: string,
+    target: Target,
+    fmEnd: number,
+    errors: Array<string>,
+): Array<boolean> {
+    const keep: Array<boolean> = [];
+    let open: {name: string; line: number} | null = null;
+    lines.forEach((line, i) => {
+        const where = `${file}:${i + 1}`;
+        const trimmed = line.trim();
+        const opening = trimmed.match(TARGET_OPEN);
+        const closing = TARGET_CLOSE.test(trimmed);
+        if (opening || closing) {
+            if (fmEnd !== -1 && i <= fmEnd) {
+                errors.push(`${where}: target blocks aren't allowed in front matter`);
+            } else if (opening) {
+                const name = opening[1];
+                if (!(TARGETS as ReadonlyArray<string>).includes(name)) {
+                    errors.push(
+                        `${where}: unknown target "${name}" (known: ${TARGETS.join(", ")})`,
+                    );
+                }
+                if (open) {
+                    errors.push(
+                        `${where}: target blocks can't nest (block opened at line ${open.line})`,
+                    );
+                }
+                open = {name, line: i + 1};
+            } else if (!open) {
+                errors.push(`${where}: {{/target}} without an opening {{#target …}}`);
+            } else {
+                open = null;
+            }
+            keep.push(false);
+            return;
+        }
+        if (TARGET_NEAR_MISS.test(line)) {
+            errors.push(`${where}: target markers must be alone on their line, as {{#target name}} or {{/target}}`);
+        }
+        keep.push(open === null || open.name === target);
+    });
+    if (open) {
+        errors.push(`${file}:${(open as {line: number}).line}: {{#target …}} is never closed`);
+    }
+    return keep;
+}
 
 /** Renders one template. Throws a TemplateError listing every problem. */
 export function render(
@@ -39,9 +111,18 @@ export function render(
     const errors: string[] = [];
     const lines = source.split("\n");
     const fmEnd = frontMatterEnd(lines);
+    const target = ctx.target ?? "design-md";
+    if (!(TARGETS as ReadonlyArray<string>).includes(target)) {
+        throw new TemplateError(`${file}: unknown render target "${target}"`);
+    }
+    const keep = targetMask(lines, file, target, fmEnd, errors);
 
     let inFence = false;
-    const out = lines.map((line, i) => {
+    const out: Array<string> = [];
+    lines.forEach((line, i) => {
+        if (!keep[i]) {
+            return;
+        }
         const where = `${file}:${i + 1}`;
         const inFrontMatter = fmEnd !== -1 && i > 0 && i < fmEnd;
         if (!inFrontMatter && FENCE.test(line)) {
@@ -61,7 +142,7 @@ export function render(
         if (leftover) {
             errors.push(`${where}: malformed or unknown template reference`);
         }
-        return rendered;
+        out.push(rendered);
     });
 
     if (fmEnd !== -1) {

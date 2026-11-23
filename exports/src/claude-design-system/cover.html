@@ -1,0 +1,54 @@
+<!-- @dsCard height=288 -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Wonder Blocks</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;800&display=swap">
+<style>
+  html, body { margin: 0; height: 100%; }
+  body { background: var(--core-background-base-default); color: var(--core-foreground-neutral-strong); font-family: var(--font-sans); overflow: hidden; }
+  .cover { position: relative; height: 288px; overflow: hidden; }
+  .art { position: absolute; top: 0; left: 480px; width: 480px; height: 288px; overflow: hidden; }
+  .art svg { display: block; width: 480px; height: 288px; }
+  .indigo { fill: var(--core-background-instructive-default); }
+  .cyan { fill: var(--graphics-characters-flesh-cyan-background-default); }
+  .orange { fill: var(--graphics-characters-flesh-orange-background-default); }
+  .plum { fill: var(--khanmigo-primary); }
+  .ink { fill: var(--core-background-base-strong); }
+  .cut { fill: var(--core-background-base-default); }
+  .slab { rx: var(--radius_240); }
+  .door { rx: var(--radius_240); }
+  .tile { rx: var(--radius_080); }
+  .words { position: absolute; left: var(--size_400); bottom: var(--size_320); max-width: 440px; }
+  .name { margin: 0; font-size: 104px; line-height: .95; font-weight: 800; letter-spacing: -.02em; color: var(--core-foreground-neutral-strong); }
+  .tag { margin: var(--size_120) 0 0 4px; font-size: 14px; line-height: 20px; font-weight: 500; color: var(--core-foreground-neutral-default); }
+</style>
+</head>
+<body>
+<div class="cover">
+<div class="art" aria-hidden="true">
+<svg viewBox="0 0 480 288" width="480" height="288">
+<!--
+  blocks       core-background-instructive-default 168×288 slab bled off the top (the brand indigo, largest) · graphics cyan disc r56 · graphics orange door 112×104 · khanmigo-primary hexagon r64 · core-background-base-strong tile 56×56 — about 35% of 960×288
+  arrangement  one tall indigo slab with satellites, bottoms on one line size_240 above the edge, size_160–size_240 gutters
+  pattern      discs, from "Shapes are the brand: hexagons, circles, rounded rectangles": a 3×4 grid of r6 discs at a size_240 pitch cut out of the slab
+  scales       sides and gutters in size_080 multiples; pitch size_240; corners radius_240 (slab, door) and radius_080 (tile); hexagon and discs are the shapes themselves
+-->
+<rect class="indigo slab" x="24" y="-24" width="168" height="288" rx="24"/>
+<circle class="cut" cx="72" cy="48" r="6"/><circle class="cut" cx="96" cy="48" r="6"/><circle class="cut" cx="120" cy="48" r="6"/><circle class="cut" cx="144" cy="48" r="6"/>
+<circle class="cut" cx="72" cy="72" r="6"/><circle class="cut" cx="96" cy="72" r="6"/><circle class="cut" cx="120" cy="72" r="6"/><circle class="cut" cx="144" cy="72" r="6"/>
+<circle class="cut" cx="72" cy="96" r="6"/><circle class="cut" cx="96" cy="96" r="6"/><circle class="cut" cx="120" cy="96" r="6"/><circle class="cut" cx="144" cy="96" r="6"/>
+<circle class="cyan" cx="272" cy="96" r="56"/>
+<rect class="orange door" x="216" y="160" width="112" height="104" rx="24"/>
+<polygon class="plum" points="408,128 463,160 463,224 408,256 353,224 353,160"/>
+<rect class="ink tile" x="368" y="40" width="56" height="56" rx="8"/>
+</svg>
+</div>
+<div class="words">
+<h1 class="name">Wonder<br>Blocks</h1>
+<p class="tag">Khan Academy's design system. Warm, capable, encouraging.</p>
+</div>
+</div>
+</body>
+</html>

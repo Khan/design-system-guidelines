@@ -8,8 +8,12 @@
  *
  *   node scripts/exports/artifact.ts check     recompute the import map for the guide's V; fail if it differs
  *   node scripts/exports/artifact.ts update    bump V to the latest npm versions and rewrite V + import map in the guide
- *   node scripts/exports/artifact.ts preview [kitchen-sink | path/to/page.html]
+ *   node scripts/exports/artifact.ts outdated  Markdown list of Wonder Blocks packages behind npm (the guide's V and the
+ *                                              installed tokens); prints nothing when all are current. Used by
+ *                                              .github/workflows/wb-release-check.yml
+ *   node scripts/exports/artifact.ts preview [kitchen-sink | design-system | path/to/page.html]
  *                                              serve a page under the artifact CSP at http://localhost:8765
+ *                                              (design-system: every card of the Claude Design System in exports/claude-design-system/project/)
  *
  * Why the import map exists (see the guide for the full story):
  * - jsDelivr rewrites WB's `@phosphor-icons/core/<weight>/<name>.svg` imports
@@ -29,6 +33,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..")
 const GUIDE_SRC = path.join(ROOT, "exports/src/guides/claude-artifact.md");
 const GUIDE_OUT = path.join(ROOT, "exports/design-md/guides/claude-artifact.md");
 const KITCHEN_SINK = path.join(ROOT, "scripts/exports/artifact-kitchen-sink.js");
+const DS_PROJECT = path.join(ROOT, "exports/claude-design-system/project");
 const NPM = "https://cdn.jsdelivr.net/npm/";
 const REACT = "18.2.0";
 const ICONIFY = "@iconify-icons/ph@2.0.0";
@@ -160,6 +165,21 @@ async function update(): Promise<number> {
     return 0;
 }
 
+/** Which pinned Wonder Blocks versions are behind npm: the guide's V (components on the CDN) and the installed tokens. */
+async function outdated(): Promise<number> {
+    const v = readVersions(fs.readFileSync(GUIDE_SRC, "utf8"));
+    const lines: string[] = [];
+    for (const [p, cur] of Object.entries(v)) {
+        const l = await latest(p);
+        if (l !== cur) lines.push(`- \`wonder-blocks-${p}\` in the Claude artifact guide's \`V\`: ${cur} → ${l}`);
+    }
+    const tokensPkg = JSON.parse(fs.readFileSync(path.join(ROOT, "node_modules/@khanacademy/wonder-blocks-tokens/package.json"), "utf8")) as {version: string};
+    const lt = await latest("tokens");
+    if (lt !== tokensPkg.version) lines.push(`- \`wonder-blocks-tokens\` installed (DESIGN.md and tokens.json values): ${tokensPkg.version} → ${lt}`);
+    if (lines.length) console.log(lines.join("\n"));
+    return 0;
+}
+
 /** The guide's page skeleton (the first ```html block), from the generated copy so template syntax is resolved. */
 export function skeleton(guide: string): string {
     const m = guide.match(/```html\n([\s\S]*?)```/);
@@ -175,28 +195,86 @@ export function kitchenSink(skel: string, app: string): string {
     return skel.slice(0, start) + "// ---------- end WB boot ----------\n" + app + "\n" + skel.slice(end);
 }
 
+const RECORDER = `<script>window.__errs=[];addEventListener("error",e=>__errs.push("error: "+(e.message||e.target&&e.target.src)),true);addEventListener("unhandledrejection",e=>__errs.push("rejection: "+(e.reason&&e.reason.message||e.reason)));addEventListener("securitypolicyviolation",e=>__errs.push("CSP: "+e.violatedDirective+" "+e.blockedURI));const _ce=console.error;console.error=(...a)=>{__errs.push("console.error: "+a.map(x=>x&&x.message||String(x)).join(" ").slice(0,300));_ce(...a)};</script>`;
+
 /** Wrap an artifact fragment the way the host does, plus a recorder for errors (window.__errs) that's for testing only. */
 export function wrapForPreview(fragment: string): string {
-    const recorder = `<script>window.__errs=[];addEventListener("error",e=>__errs.push("error: "+(e.message||e.target&&e.target.src)),true);addEventListener("unhandledrejection",e=>__errs.push("rejection: "+(e.reason&&e.reason.message||e.reason)));addEventListener("securitypolicyviolation",e=>__errs.push("CSP: "+e.violatedDirective+" "+e.blockedURI));const _ce=console.error;console.error=(...a)=>{__errs.push("console.error: "+a.map(x=>x&&x.message||String(x)).join(" ").slice(0,300));_ce(...a)};</script>`;
-    return `<!doctype html><html><head><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="${ARTIFACT_CSP}"><meta name="viewport" content="width=device-width,initial-scale=1">${recorder}</head><body>\n${fragment}\n</body></html>\n`;
+    return `<!doctype html><html><head><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="${ARTIFACT_CSP}"><meta name="viewport" content="width=device-width,initial-scale=1">${RECORDER}</head><body>\n${fragment}\n</body></html>\n`;
+}
+
+/**
+ * A Design System card (a complete document) the way the system's page frames
+ * it: the artifact CSP, the system's tokens.css preloaded, and
+ * `<html data-theme="light">` (or "dark" when the URL hash is #dark).
+ */
+export function wrapCardForPreview(card: string, tokensCss: string): string {
+    const head =
+        `<meta http-equiv="Content-Security-Policy" content="${ARTIFACT_CSP}">${RECORDER}` +
+        `<script>document.documentElement.setAttribute("data-theme", location.hash === "#dark" ? "dark" : "light")</script>` +
+        `<style>${tokensCss.replace(/<\/style/gi, "<\\/style")}</style>`;
+    if (!/<head>/i.test(card)) throw new Error("a Design System card must be a complete document with a <head>");
+    return card.replace(/<head>/i, (h) => h + head);
+}
+
+/** An index page that frames every card of the Claude Design System, light and dark. */
+function designSystemIndex(cards: string[]): string {
+    const frames = cards
+        .map((c) => `<section><h2>${c}</h2><div class="pair"><iframe src="/card/${c}#light" title="${c} light"></iframe><iframe src="/card/${c}#dark" title="${c} dark"></iframe></div></section>`)
+        .join("\n");
+    return `<!doctype html><html><head><meta charset="utf-8"><title>Design System cards</title><style>body{font:14px system-ui;margin:16px}h2{font-size:14px;margin:16px 0 4px}.pair{display:grid;grid-template-columns:1fr 1fr;gap:8px}iframe{width:100%;height:300px;border:1px solid #ccc}</style></head><body><h1>Claude Design System cards (light | dark)</h1>${frames}</body></html>`;
 }
 
 function preview(arg: string | undefined): void {
-    let fragment: string;
-    if (!arg || arg === "kitchen-sink") {
-        const skel = skeleton(fs.readFileSync(GUIDE_OUT, "utf8"));
-        fragment = arg ? kitchenSink(skel, fs.readFileSync(KITCHEN_SINK, "utf8")) : skel;
-    } else {
-        fragment = fs.readFileSync(path.resolve(arg), "utf8");
-    }
-    const page = wrapForPreview(fragment);
+    if (arg === "design-system") return previewDesignSystem();
+    // Built on every request, so a regenerated guide or an edited page shows up on reload.
+    const page = (): string => {
+        if (!arg || arg === "kitchen-sink") {
+            const skel = skeleton(fs.readFileSync(GUIDE_OUT, "utf8"));
+            return wrapForPreview(arg ? kitchenSink(skel, fs.readFileSync(KITCHEN_SINK, "utf8")) : skel);
+        }
+        return wrapForPreview(fs.readFileSync(path.resolve(arg), "utf8"));
+    };
+    page();
     const port = Number(process.env.PORT ?? 8765);
     http.createServer((_req, res) => {
+        let body: string;
+        try {
+            body = page();
+        } catch (e) {
+            res.writeHead(500, {"content-type": "text/plain"}).end(String(e));
+            return;
+        }
         res.writeHead(200, {"content-type": "text/html; charset=utf-8", "cache-control": "no-store"});
-        res.end(page);
+        res.end(body);
     }).listen(port, () => {
         console.log(`Serving ${arg ?? "the guide's skeleton"} under the artifact CSP at http://localhost:${port}`);
         console.log("Check: no red error box, `window.__errs` is empty in the console, and both themes look right.");
+    });
+}
+
+function previewDesignSystem(): void {
+    const dir = path.join(DS_PROJECT, "components");
+    if (!fs.existsSync(dir)) throw new Error("no exports/claude-design-system/project/components; run pnpm exports");
+    const cards = fs.readdirSync(dir).filter((c) => fs.existsSync(path.join(dir, c, "preview.html"))).sort((a, b) => (a === "Cover" ? -1 : b === "Cover" ? 1 : a < b ? -1 : 1));
+    const port = Number(process.env.PORT ?? 8765);
+    http.createServer((req, res) => {
+        const url = new URL(req.url ?? "/", "http://localhost");
+        const m = url.pathname.match(/^\/card\/([A-Za-z_$][\w$]*)$/);
+        let body: string;
+        if (url.pathname === "/") body = designSystemIndex(cards);
+        else if (m && cards.includes(m[1])) {
+            // Read on every request, so a re-run of `pnpm exports` shows up on reload.
+            const tokensCss = fs.readFileSync(path.join(DS_PROJECT, "tokens.css"), "utf8");
+            body = wrapCardForPreview(fs.readFileSync(path.join(dir, m[1], "preview.html"), "utf8"), tokensCss);
+        } else {
+            res.writeHead(404).end("not found");
+            return;
+        }
+        res.writeHead(200, {"content-type": "text/html; charset=utf-8", "cache-control": "no-store"});
+        res.end(body);
+    }).listen(port, () => {
+        console.log(`Serving ${cards.length} Design System cards under the artifact CSP at http://localhost:${port} (one card: /card/<Name>, add #dark for the dark theme)`);
+        console.log("Check: every card renders in both themes, with no red error box and an empty `window.__errs` in each frame.");
     });
 }
 
@@ -205,9 +283,10 @@ if (isMain) {
     const [cmd, arg] = process.argv.slice(2);
     if (cmd === "check") process.exitCode = await check();
     else if (cmd === "update") process.exitCode = await update();
+    else if (cmd === "outdated") process.exitCode = await outdated();
     else if (cmd === "preview") preview(arg);
     else {
-        console.error("usage: node scripts/exports/artifact.ts check | update | preview [kitchen-sink | page.html]");
+        console.error("usage: node scripts/exports/artifact.ts check | update | outdated | preview [kitchen-sink | design-system | page.html]");
         process.exitCode = 2;
     }
 }

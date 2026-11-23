@@ -179,6 +179,68 @@ describe("render: front matter", () => {
     }
 });
 
+describe("render: target blocks", () => {
+    const tpl = [
+        "shared",
+        "{{#target design-md}}",
+        "only design-md {{tb:color.primary}}",
+        "{{/target}}",
+        "{{#target claude}}",
+        "only claude {{dark:color.primary}}",
+        "{{/target}}",
+        "end",
+    ].join("\n");
+
+    it("keeps the active target's lines and drops the markers and other targets", () => {
+        // Arrange, Act
+        const designMd = render(tpl, "test.md", ctx);
+        const claude = render(tpl, "test.md", {...ctx, target: "claude"});
+
+        // Assert
+        assert.equal(designMd, "shared\nonly design-md #5753FA\nend");
+        assert.equal(claude, "shared\nonly claude #6C82FF\nend");
+    });
+
+    it("leaves a template without blocks unchanged for every target", () => {
+        // Arrange
+        const template = "# Title\n\n| {{tb:color.primary}} |";
+
+        // Act, Assert
+        assert.equal(render(template, "test.md", {...ctx, target: "claude"}), render(template, "test.md", ctx));
+    });
+
+    it("doesn't render references in another target's block", () => {
+        // Arrange
+        const template = "{{#target claude}}\n{{tb:no.such.token}}\n{{/target}}";
+
+        // Act, Assert
+        assert.equal(render(template, "test.md", ctx), "");
+        assert.throws(() => render(template, "test.md", {...ctx, target: "claude"}), /test\.md:2: unknown token/);
+    });
+
+    for (const [label, template, message] of [
+        ["an unknown target", "{{#target figma}}\nx\n{{/target}}", /test\.md:1: unknown target "figma" \(known: design-md, claude\)/],
+        ["a nested block", "{{#target claude}}\n{{#target design-md}}\n{{/target}}\n{{/target}}", /test\.md:2: target blocks can't nest/],
+        ["an unclosed block", "a\n{{#target claude}}\nb", /test\.md:2: \{\{#target …\}\} is never closed/],
+        ["a stray close", "a\n{{/target}}", /test\.md:2: \{\{\/target\}\} without an opening/],
+        ["an inline marker", "text {{#target claude}} more", /test\.md:1: target markers must be alone on their line/],
+        ["a marker in front matter", "---\n{{#target claude}}\na: b\n{{/target}}\n---\n", /test\.md:2: target blocks aren't allowed in front matter/],
+    ] as const) {
+        it(`rejects ${label}`, () => {
+            // Act, Assert
+            assert.throws(() => render(template, "test.md", ctx), message);
+        });
+    }
+
+    it("rejects an unknown render target", () => {
+        // Act, Assert
+        assert.throws(
+            () => render("x", "test.md", {...ctx, target: "figma" as "claude"}),
+            /unknown render target "figma"/,
+        );
+    });
+});
+
 describe("generate", () => {
     let tmp: string;
 
@@ -279,6 +341,19 @@ describe("generate", () => {
         );
         assert.equal(fs.existsSync(path.join(tmp, "out/.DS_Store")), false);
         assert.deepEqual(run().written, []);
+    });
+
+    it("leaves the Claude export's own sources out of DESIGN.md", () => {
+        // Arrange
+        fs.writeFileSync(path.join(tmp, "src/DESIGN.md"), "# Core");
+        fs.mkdirSync(path.join(tmp, "src/claude-design-system"));
+        fs.writeFileSync(path.join(tmp, "src/claude-design-system/Components.yaml"), "- name: X");
+
+        // Act
+        const result = run();
+
+        // Assert
+        assert.deepEqual(result.written, ["DESIGN.md"]);
     });
 
     it("rejects asset names that aren't lowercase kebab-case", () => {

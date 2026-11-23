@@ -1,0 +1,44 @@
+# The Claude "Wonder Blocks" Design System: settings that aren't in a template.
+# Read by scripts/exports/claude.ts; see exports/README.md for the publish flow.
+
+# The system's name on its page and cover. Changing it renames the published system.
+title: Wonder Blocks
+
+# Asset groups, in page order. `src` is the folder under exports/src/assets/;
+# its files (subfolders included) become uploads under assets/<name>/.
+# `tile` sizes the page's tiles (l, m, s, xs). `readme` is the group's usage note.
+assetGroups:
+  - src: brand
+    name: Brand
+    tile: l
+    readme: |
+      Khan Academy and Khanmigo marks. Copy these files; never redraw, recolor or
+      approximate a mark.
+
+      - `khan-academy-logo-mark.svg`: the hexagon mark, single ink `#191918`, for light (`thunderblocks`) surfaces.
+      - `khan-academy-logo-mark-on-dark.svg`: the same mark in the dark default foreground, for `syl-dark` surfaces.
+      - `khanmigo.svg`: Khanmigo, the AI tutor. Multicolor; the same file works in both themes.
+
+      Which file goes where: "Brand marks" in the README.
+  - src: icons
+    name: Icons
+    tile: s
+    readme: |
+      Khan Academy concept icons: content types and activities (`activities/`),
+      learning progress (`progress/`), and gems and streaks (`motivation/`).
+      Use them instead of a Phosphor lookalike whenever you show a Khan Academy
+      concept. Phosphor stays for UI glyphs such as arrows and close.
+
+      The activities and progress files are circled icons in `thunderblocks`
+      (light) colors: every color in them is a learning-state token. For
+      `syl-dark`, swap each hex for its dark value; the tables are in the
+      "Asset catalog" section. Motivation icons are multicolor and work in both
+      themes.
+  - src: shapes
+    name: Shapes
+    tile: m
+    readme: |
+      Confetti shapes from the graphics palette: decorative accents for
+      celebration moments, mostly in learner-facing work. Always `aria-hidden`;
+      they never carry meaning. Use them as-is in both themes; don't make up
+      new shapes.
