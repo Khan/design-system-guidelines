@@ -32,7 +32,21 @@ The weekly [Wonder Blocks release check](../.github/workflows/wb-release-check.y
 2. Run both previews (the last two commands below) and check both themes.
 3. Update the "tested together on" date, review the value diff, mark the PR ready, merge, and publish.
 
-Setup, once: turn on "Allow GitHub Actions to create and approve pull requests" in the repo's Actions settings. Without it, the workflow pushes the branch and opens an issue instead. For CI to run on the bump PR, add a GitHub App or fine-grained token with contents and pull-requests write as the `WB_BUMP_TOKEN` secret: PRs opened with the built-in token don't trigger other workflows.
+Setup, once: turn on "Allow GitHub Actions to create and approve pull requests" in the repo's Actions settings. Without it, the workflow pushes the branch and opens an issue instead. PRs opened with the built-in token don't trigger other workflows, so CI won't run on the bump PR until you set up a GitHub App for it:
+
+1. **Create the app.** In the Khan org's settings, go to Developer settings → GitHub Apps → New GitHub App. This needs an org owner or a GitHub App manager.
+   - Name: something like "KA design-system bump". Homepage URL: this repo's URL.
+   - Webhook: untick **Active**; the app doesn't receive events.
+   - Repository permissions: **Contents: Read and write**, **Pull requests: Read and write**, **Issues: Read and write** (for the fallback issue). Leave everything else at No access.
+   - Where can it be installed: **Only on this account**.
+2. **Generate a private key** on the app's page (Private keys → Generate). A `.pem` file downloads. Note the **App ID** at the top of the page.
+3. **Install it** (Install App → Khan → Only select repositories → `design-system-guidelines`).
+4. **Give the workflow the app**, in this repo's Settings → Secrets and variables → Actions:
+   - Variables tab: `WB_BUMP_APP_ID` = the App ID.
+   - Secrets tab: `WB_BUMP_APP_KEY` = the whole contents of the `.pem` file, including the BEGIN and END lines. Then delete the `.pem` from your computer.
+5. **Try it:** Actions → Wonder Blocks release check → Run workflow. The PR should be opened by the app, and build-check should run on it.
+
+Without the app, the workflow still runs with the built-in token: it opens the PR, but CI doesn't run on it until someone pushes to the branch. A fine-grained personal token in the `WB_BUMP_TOKEN` secret also works, but it's tied to one person and expires.
 
 To do it by hand instead, on a branch:
 

@@ -16,9 +16,11 @@
 #   pull requests" must be on, or the PR can't be opened (the run then falls
 #   back to an issue).
 # - A PR opened with the built-in GITHUB_TOKEN doesn't trigger other
-#   workflows, so build-check won't run on it. To get CI on the PR, add a
-#   GitHub App or fine-grained token with contents and pull-requests write as
-#   the WB_BUMP_TOKEN secret; it's used when present.
+#   workflows, so build-check won't run on it. To get CI on the PR, use a
+#   GitHub App (preferred): set the repo variable WB_BUMP_APP_ID and the
+#   secret WB_BUMP_APP_KEY (the app's private key). A fine-grained token in
+#   the secret WB_BUMP_TOKEN also works. See exports/README.md for the steps.
+
 name: Wonder Blocks release check
 
 on:
@@ -43,10 +45,20 @@ jobs:
     bump:
         runs-on: ubuntu-latest
         steps:
+            # A token from the bump GitHub App, when it's set up, so the PR it
+            # opens triggers CI. Without it, the built-in token is used.
+            - name: Get a token from the bump GitHub App
+              id: app
+              if: vars.WB_BUMP_APP_ID != ''
+              uses: actions/create-github-app-token@v2
+              with:
+                  app-id: ${{ vars.WB_BUMP_APP_ID }}
+                  private-key: ${{ secrets.WB_BUMP_APP_KEY }}
+
             - uses: actions/checkout@v5
               with:
                   fetch-depth: 0
-                  token: ${{ secrets.WB_BUMP_TOKEN || github.token }}
+                  token: ${{ steps.app.outputs.token || secrets.WB_BUMP_TOKEN || github.token }}
 
             - uses: pnpm/action-setup@v5
 
@@ -114,7 +126,7 @@ jobs:
             - name: Open or update the pull request
               if: steps.bump.outcome == 'success'
               env:
-                  GH_TOKEN: ${{ secrets.WB_BUMP_TOKEN || github.token }}
+                  GH_TOKEN: ${{ steps.app.outputs.token || secrets.WB_BUMP_TOKEN || github.token }}
                   FAILED: ${{ steps.bump.outputs.failed }}
                   NOCHANGE: ${{ steps.bump.outputs.nochange }}
               run: |
@@ -140,7 +152,7 @@ jobs:
                     echo "- [ ] Update the \"tested together on\" date in \`exports/src/guides/claude-artifact.md\`"
                     echo "- [ ] After merging, run the \`publish-design-system\` skill"
                     echo
-                    echo "_Opened $(date -u +%Y-%m-%d) by .github/workflows/wb-release-check.yml. CI runs on it only when the WB_BUMP_TOKEN secret is set._"
+                    echo "_Opened $(date -u +%Y-%m-%d) by .github/workflows/wb-release-check.yml. CI runs on it only when the bump GitHub App (or WB_BUMP_TOKEN) is set up._"
                   } > body.md
                   if [ "$NOCHANGE" = "true" ]; then
                     # Nothing to commit, so no PR: say why in the one issue.
@@ -165,7 +177,7 @@ jobs:
             - name: Tell the open PR about newer versions
               if: steps.branch.outputs.human == 'true'
               env:
-                  GH_TOKEN: ${{ secrets.WB_BUMP_TOKEN || github.token }}
+                  GH_TOKEN: ${{ steps.app.outputs.token || secrets.WB_BUMP_TOKEN || github.token }}
               run: |
                   number=$(gh pr list --head "$BRANCH" --state open --json number --jq '.[0].number')
                   { echo "Still behind npm as of $(date -u +%Y-%m-%d). Someone has committed to \`$BRANCH\`, so the release check left it alone; run \`pnpm artifact:update\` on it again when you're ready:"; echo; cat outdated.md; } > comment.md
