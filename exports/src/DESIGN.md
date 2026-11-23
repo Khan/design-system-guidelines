@@ -408,7 +408,7 @@ into it. The offsets (6 / 8 / 0px) aren't tokens; they come from
 | `{{name:border.radius.radius_080}}` | {{tb:border.radius.radius_080}} | Buttons, inputs, banners, badges, cards |
 | `{{name:border.radius.radius_120}}` | {{tb:border.radius.radius_120}} | Large cards, tiles, modals, pressed buttons |
 | `{{name:border.radius.radius_240}}` | {{tb:border.radius.radius_240}} | Large panels, hero cards, slide frames |
-| `{{name:border.radius.radius_full}}` | {{tb:border.radius.radius_full}} | Avatars, icon buttons, pills |
+| `{{name:border.radius.radius_full}}` | {{tb:border.radius.radius_full}} | Avoid: a percentage turns anything wider than it is tall into an oval. Round pills, bars and circles with half their height in px |
 
 Border widths are `{{name:border.width.thin}}` {{tb:border.width.thin}}
 (default), `{{name:border.width.medium}}` {{tb:border.width.medium}}
