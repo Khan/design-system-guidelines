@@ -27,7 +27,7 @@ const { default: Link } = await wb("link");
 - Each card: a label (sentence case, 1 to 3 words), a value, and optional context. Units stay with the value: "−7 pts", not a "Growth (pts)" label.
 - A change goes in a StatusBadge with only the value and arrow ("↓ 1"); the words stay outside ("subject at risk"). The kind follows meaning, not direction: success when the change is good, warning when it's bad. More students needing help going up is a warning.
 - Cards in a row share one height and wrap to 2, then 1. No controls and no last-updated footer.
-- A View link only when there's a detail view, at the bottom of the card after the context, its text naming the metric: "View classes on target". The card itself isn't a link.
+- A View link only when there's a detail view, at the bottom of the card after the context, its visible text naming the metric: "View classes on target". Never a bare "View" or "View ›", even with an `aria-label`: sighted readers need the words too. The card itself isn't a link.
 - No data yet: "—" as the value and "No data yet" as the context.
 
 ## Props
