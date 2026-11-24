@@ -141,7 +141,7 @@
   use:
     - One lesson, assignment, stat or settings group per card.
   rules:
-    - "`Card` has no `style`; use `styles=${ {root: {…}} }` with `paddingSize`, `elevation` or `background`."
+    - "`Card` has no `style`; use `styles=${ {root: {…}} }` for width and layout, and the props for the rest: `paddingSize` (none, small, medium), `elevation` (none, low), `borderRadius` (small, medium) and `background` (base-subtle, base-default)."
     - Don't nest cards or add a colored left-border accent.
   docs: []
   types: card dist/components/card.d.ts
@@ -346,6 +346,7 @@
   rules:
     - "`menuText` labels the default opener. A custom `opener` is a function that returns an element, without its own `onClick`."
     - Items are `ActionItem`s with `label` and `onClick`; `SeparatorItem` divides groups.
+    - "`ActionItem` has no destructive style. Put Delete or Remove last, after a `SeparatorItem`, and confirm it in a Modal with a destructive Button."
   docs: []
   types: dropdown dist/util/types.d.ts
   imports: ['const { SingleSelect, MultiSelect, OptionItem, ActionMenu, ActionItem, SeparatorItem } = await wb("dropdown");']
@@ -691,9 +692,9 @@
     - Not for change over time, a spread, individual items or progress toward a goal; use the chart or table for that.
   rules:
     - "Each card: a label (sentence case, 1 to 3 words), a value, and optional context. Units stay with the value: \"−7 pts\", not a \"Growth (pts)\" label."
-    - "A change goes in a StatusBadge with only the value and arrow (\"↓ 1\"); the words stay outside (\"subject at risk\"). Warning when down or at risk, success when up."
+    - "A change goes in a StatusBadge with only the value and arrow (\"↓ 1\"); the words stay outside (\"subject at risk\"). The kind follows meaning, not direction: success when the change is good, warning when it's bad. More students needing help going up is a warning."
     - "Cards in a row share one height and wrap to 2, then 1. No controls and no last-updated footer."
-    - "A View link only when there's a detail view, bottom right on the context line, named with the metric: \"View classes on target\". The card itself isn't a link."
+    - "A View link only when there's a detail view, at the bottom of the card after the context, its text naming the metric: \"View classes on target\". The card itself isn't a link."
     - "No data yet: \"—\" as the value and \"No data yet\" as the context."
   docs: [design-components/summary-cards.mdx, design-foundations/data-visualization.mdx]
   imports: ['const { Heading, BodyText, BodyMonospace } = await wb("typography");', 'const { Badge, StatusBadge, NeutralBadge, DueBadge, GemBadge, StreakBadge } = await wb("badge");', 'const { default: Link } = await wb("link");']
@@ -714,7 +715,7 @@
           <${Heading} size="large" tag="p">2 of 3</${Heading}>
           <div className="row" style=${{ justifyContent: "space-between", gap: "var(--wb-sizing-size_080)" }}>
             <div className="row" style=${{ gap: "var(--wb-sizing-size_080)" }}><${StatusBadge} kind="warning" label="↓ 1" /><${BodyText} size="small" style=${subtle}>subject at risk</${BodyText}></div>
-            <${Link} href="#subjects" aria-label="View subjects on target">View ›</${Link}>
+            <${Link} href="#subjects">View subjects on target</${Link}>
           </div>
         </div>
         <div style=${card}>
@@ -748,6 +749,8 @@
     const th = { textAlign: "left", padding: "var(--wb-sizing-size_080) var(--wb-sizing-size_120)", color: "var(--wb-semanticColor-core-foreground-neutral-subtle)", fontWeight: "normal", borderBottom: line, whiteSpace: "nowrap" };
     const td = { textAlign: "left", padding: "var(--wb-sizing-size_080) var(--wb-sizing-size_120)", borderBottom: line, verticalAlign: "middle" };
     const num = { textAlign: "right", fontVariantNumeric: "tabular-nums" };
+    // Visually hidden, still read by screen readers.
+    const srOnly = { position: "absolute", width: 1, height: 1, margin: -1, padding: 0, overflow: "hidden", clip: "rect(0 0 0 0)", whiteSpace: "nowrap", border: 0 };
     const MiniBar = ({ done, total }) => html`
       <div className="row" style=${{ gap: "var(--wb-sizing-size_080)", flexWrap: "nowrap", justifyContent: "flex-end" }}>
         <div role="progressbar" aria-valuemin="0" aria-valuemax=${total} aria-valuenow=${done} aria-valuetext=${`${done} of ${total}`} style=${{ position: "relative", width: 80, height: 8, borderRadius: 4, border: `1px solid ${SINGLE.outline}`, background: `color-mix(in srgb, ${SINGLE.fill} 18%, transparent)` }}>
@@ -765,7 +768,7 @@
       <thead><tr>
         <th scope="col" style=${th}>Student</th><th scope="col" style=${th}>Status</th>
         <th scope="col" style=${{ ...th, ...num }}>Completed</th><th scope="col" style=${{ ...th, ...num }}>Score</th>
-        <th scope="col" style=${th}>Flags</th><th scope="col" style=${th}><span style=${{ position: "absolute", left: -9999 }}>Actions</span></th>
+        <th scope="col" style=${th}>Flags</th><th scope="col" style=${th}><span style=${srOnly}>Actions</span></th>
       </tr></thead>
       <tbody>
         ${rows.map(([name, status, done, score, flags]) => html`<tr key=${name}>
