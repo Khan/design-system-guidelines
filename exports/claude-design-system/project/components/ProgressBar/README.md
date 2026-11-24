@@ -21,6 +21,7 @@ const { default: IconButton, ActivityIconButton } = await wb("icon-button");
 - "How close are we to the goal?": gems toward a class challenge, assignments completed toward a goal, students who finished.
 - Progress means how far along, never how well. For a score or level, use a DistributionChart grouped by level.
 - With no goal, use SummaryCards. For change over time, use a TrendChart.
+- Not for a learner's own progress (a unit or lesson bar): that uses the learning-state colors in the README.
 
 ## Get these right
 

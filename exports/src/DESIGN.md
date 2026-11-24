@@ -316,7 +316,9 @@ blue `#DFEAFF`, cyan `#CCE9FE`, green `#D5F3D5`, magenta `#FAD4EC`, orange
 
 **Learning states** (`learning-<background|foreground>-progress-<state>-…`).
 These colors are for learner-facing progress, such as progress nodes and
-bars. They aren't for text, or for charts in data reports:
+bars. They aren't for text, or for charts in data reports. A learner's own
+progress bar (a unit or lesson) uses these fills, not the data-report
+ProgressBar, with its ends rounded by half its height:
 
 | State | Fill | Icon / mark |
 | --- | --- | --- |
@@ -447,8 +449,13 @@ never draw one.
 
 - **Activities and progress** (video, article, quiz, unit test; attempted, familiar, proficient, mastery) are circled icons: the glyph sits in a circle with a solid bottom edge, and the circle's color is the learning state. A content type the learner hasn't started is a gray circled icon from `icons/activities/`. Once they've started it, show a mastery-level circled icon from `icons/progress/` instead. Use the circled icon whole; don't take the glyph out or redraw the circle.
 - **Motivation** icons (gem, streak) are standalone multicolor glyphs, without a circle.
+{{#target claude}}
+- In this design system the files are uploads: get each one by its upload id, as the [asset catalog](assets/index.md) explains, one file per `read`. A `read` by path, or of several ids in one call, fails. Inline its SVG markup. Circled icons are 50px wide (55px tall with the edge), and gem and streak are 56px. Scale evenly.
+{{/target}}
+{{#target design-md}}
 - Fetch the file and inline its SVG markup, or copy it into your project. Circled icons are 50px wide (55px tall with the edge), and gem and streak are 56px. Scale evenly.
-- **Dark theme:** the files use `thunderblocks` colors, and every circled-icon color is a learning-state token. On `syl-dark` surfaces, swap each hex for its dark value using the catalog's tables, all in one pass. Where CSS works, you can set the fills to the token CSS variables instead. Motivation icons don't change.
+{{/target}}
+- **Dark theme:** the files use `thunderblocks` colors, and every circled-icon color is a learning-state token. On `syl-dark` surfaces, swap each hex for its dark value using the catalog's tables, all in one pass. Where CSS works, you can set each fill to its token's CSS variable instead, with `style="fill: var(--wb-…)"` on each shape (a CSS variable doesn't work in the `fill="…"` attribute). Motivation icons don't change.
 - Next to a text label, the icon is decorative (`aria-hidden="true"`). On its own, give it `role="img"` and the concept's name as its accessible name.
 
 ## Illustration & characters
@@ -471,8 +478,13 @@ Use these files. Never draw, trace, or approximate a brand mark, even as a
 | Khan Academy logo mark (dark, `syl-dark`) | [assets/brand/khan-academy-logo-mark-on-dark.svg](assets/brand/khan-academy-logo-mark-on-dark.svg) | Same mark filled with the dark default foreground, `{{dark:semanticColor.core.foreground.neutral.strong}}` (`core-foreground-neutral-strong`) |
 | Khanmigo | [assets/brand/khanmigo.svg](assets/brand/khanmigo.svg) | Indigo hexagon with face, 65×71. The same file works in both themes |
 
+{{#target claude}}
+- In this design system the files are uploads: get each one by its upload id, as the [asset catalog](assets/index.md) explains, one file per `read`. Inline its SVG markup.
+{{/target}}
+{{#target design-md}}
 - Fetch the file and inline its SVG markup, or copy it into your project. These links are relative, so resolve them against wherever you read this file.
-- Pick the logo mark by theme: the light file on `thunderblocks` surfaces, the on-dark file on `syl-dark` surfaces. If one page switches themes, swap the file, or inline the SVG and set its fill to `var({{name:semanticColor.core.foreground.neutral.strong}})` so it follows the theme.
+{{/target}}
+- Pick the logo mark by theme: the light file on `thunderblocks` surfaces, the on-dark file on `syl-dark` surfaces. If one page switches themes, swap the file, or inline the SVG and set `style="fill: var({{name:semanticColor.core.foreground.neutral.strong}})"` on its shape so it follows the theme (a CSS variable doesn't work in the `fill="…"` attribute).
 - Don't recolor, stretch, crop, rotate, outline, or add effects beyond the theme swap above. Scale only, keeping the aspect ratio.
 - Add `role="img"` and an accessible name ("Khan Academy", "Khanmigo") when the mark carries meaning. Use `aria-hidden="true"` when it sits next to the same name in text.
 - For any other mark (the Khan Academy wordmark, partner or third-party logos), use an official asset if you have one. Otherwise leave a labeled placeholder and say so.

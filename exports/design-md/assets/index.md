@@ -14,8 +14,9 @@ it in a different circle, or draw your own circle around it.
 The files use `thunderblocks` (light) colors. Every color in them is a
 learning-state token, so for `syl-dark` surfaces swap each hex for its dark
 value, using the tables below. Where CSS works, you can instead inline the
-SVG and set each fill to the token's CSS variable,
-`var(--wb-semanticColor-learning-…)`. In slides and image exports, edit the
+SVG and set each fill to the token's CSS variable with
+`style="fill: var(--wb-semanticColor-learning-…)"` on each shape. A CSS
+variable doesn't work in the `fill="…"` attribute. In slides and image exports, edit the
 hex values in the markup before you insert the file. Replace all colors in
 one pass, not one at a time, because some dark values match other light
 values.

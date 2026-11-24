@@ -519,6 +519,7 @@
     - "\"How close are we to the goal?\": gems toward a class challenge, assignments completed toward a goal, students who finished."
     - Progress means how far along, never how well. For a score or level, use a DistributionChart grouped by level.
     - With no goal, use SummaryCards. For change over time, use a TrendChart.
+    - "Not for a learner's own progress (a unit or lesson bar): that uses the learning-state colors in the README."
   rules:
     - "Always show the value and goal as text, \"38 of 70 skills\", not only as bar length. Never fill past 100%: say \"Goal reached\"."
     - "Label the marker with its value: \"Expected by today: 35\". In a large container the title states the gap: \"3 skills ahead of schedule\"."
