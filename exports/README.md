@@ -86,3 +86,23 @@ pnpm artifact:preview design-system   # if you changed a card, the cover or the 
 ```
 
 Then PR, merge, publish. To change only one export, put the lines in a `{{#target claude}}` or `{{#target design-md}}` block.
+
+## Sharing the Claude system with the org
+
+The system is <https://claude.ai/artifact/Sm1pXU11PLjsNEcPrJ4Hxw> (also in `claude-design-system/config.json`). It's private until an org Owner shares it. Design systems in Claude are a beta on paid plans; on Enterprise an Owner turns the template on first.
+
+1. **Turn design systems on.** An Owner opens **Organization settings → Artifacts** and, under **Templates**, turns on **Design systems**.
+2. **Give an Owner access.** Whoever owns the artifact opens it, selects **Share**, and invites an Owner (or Primary Owner) at the highest access level.
+3. **Share with everyone.** That Owner opens **Share** on the system and sets the audience to **Anyone at Khan Academy**.
+4. **Make it the default.** In the same **Share** dialog, the Owner turns on **Default design system** (or sets it from **Settings → Design systems**). It must be shared with everyone first. There's one org default; setting it replaces the old one.
+5. **Retire the standalone system.** Standalone Claude Design closes on December 14, 2026. Don't move its "Wonder Blocks" system over: this repo's system replaces it. If a move already brought it over and made it the default, set this one as the default instead, then delete or unshare the moved copy.
+
+Sharing doesn't change how it's updated: the page stays read-only, and every change still goes through this repo and the publish skill.
+
+## Using it in Claude
+
+- **Pick it:** in a new chat, open **+ → Design system** in the message box and check **Wonder Blocks**. Once it's the org default it's checked for you; the chip under the message box shows which system is on. To make it your own default, use **Set as your default** in its row menu under **Settings → Design systems**.
+- **Ask for an artifact:** describe the page and who it's for, for example "Build an artifact: a teacher's class report with three summary cards, a progress chart toward a goal, and a student table with a row menu." Claude reads the system's README, which routes artifacts to its Claude artifact guide: the real Wonder Blocks components from jsDelivr, themed by `data-wb-theme`, following the viewer's light or dark mode.
+- **Check the result:** a red "Wonder Blocks page error" box means a component got a wrong prop; paste it back to Claude. Pages should use WB components (no hand-made buttons or inputs), follow your light/dark setting with no theme toggle, and round bars and pills with half their height.
+- **Reports and charts:** WB has no chart or table components, so ask for the pattern cards by name (ProgressBar, DistributionChart, TrendChart, SummaryCards, DataTable). Their colors have no dark-theme values yet.
+- **Something wrong with the system itself:** it can't be edited on its page. Open an issue or PR in this repo.

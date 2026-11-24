@@ -6,7 +6,7 @@ import * as path from "node:path";
 import {afterEach, beforeEach, describe, it} from "node:test";
 import {fileURLToPath} from "node:url";
 
-import {mergeIndex, plan, smokeCheck} from "./publish-design-system.ts";
+import {cardValueHex, mergeIndex, plan, smokeCheck} from "./publish-design-system.ts";
 import type {PublishManifest} from "./claude.ts";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
@@ -154,5 +154,30 @@ describe("smokeCheck", () => {
 
         // Assert
         assert.equal(problems.length, 3);
+    });
+
+    it("allows the chart colors the cards publish as Values", () => {
+        // Arrange
+        const allowed = cardValueHex(path.join(ROOT, "exports/claude-design-system/project/components"));
+        const page = skel.replace("function App() {", "const fill = '#8DA2FF';\n  function App() {");
+
+        // Act
+        const problems = smokeCheck(page, guide, allowed);
+
+        // Assert
+        assert.ok(allowed.has("#8da2ff"));
+        assert.deepEqual(problems, []);
+    });
+
+    it("still flags a hex color no card publishes", () => {
+        // Arrange
+        const allowed = cardValueHex(path.join(ROOT, "exports/claude-design-system/project/components"));
+        const page = skel.replace("function App() {", "const fill = '#123456';\n  function App() {");
+
+        // Act
+        const problems = smokeCheck(page, guide, allowed);
+
+        // Assert
+        assert.equal(problems.length, 1);
     });
 });

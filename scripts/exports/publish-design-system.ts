@@ -247,8 +247,26 @@ function finish(dir: string, live: string, uploadsFile: string, by: string, acce
     return {root: dir, file_path: path.join(dir, INDEX), files: filesArg, summary: {send: p.send.length, remove: p.remove.length, upload: p.upload.length, first: p.first}};
 }
 
+/** Hex colors the cards publish as Values: the `const X = …` lines under a "From __docs__/…" comment in each preview. */
+export function cardValueHex(componentsDir: string): Set<string> {
+    const out = new Set<string>();
+    if (!fs.existsSync(componentsDir)) return out;
+    for (const comp of fs.readdirSync(componentsDir)) {
+        const file = path.join(componentsDir, comp, "preview.html");
+        if (!fs.existsSync(file)) continue;
+        const lines = fs.readFileSync(file, "utf8").split("\n");
+        const at = lines.findIndex((l) => /\/\/ From __docs__\//.test(l));
+        if (at === -1) continue;
+        for (const l of lines.slice(at + 1)) {
+            if (!/^\s*const [A-Z_][A-Z0-9_]* = /.test(l)) break;
+            for (const h of l.match(/#[0-9a-fA-F]{6}\b/g) ?? []) out.add(h.toLowerCase());
+        }
+    }
+    return out;
+}
+
 /** Static checks on a smoke-test page: built from the guide's boot, real WB components, no rebuilt controls. */
-export function smokeCheck(page: string, guide: string): Array<string> {
+export function smokeCheck(page: string, guide: string, allowedHex: ReadonlySet<string> = new Set()): Array<string> {
     const problems: Array<string> = [];
     const skel = skeleton(guide);
     const boot = skel.slice(skel.indexOf("// ---------- WB boot"), skel.indexOf("// ---------- end WB boot"));
@@ -258,7 +276,8 @@ export function smokeCheck(page: string, guide: string): Array<string> {
     for (const tag of ["button", "input", "textarea", "select", "a "]) {
         if (new RegExp(`<${tag}[\\s>]`, "i").test(app.replace(/<\$\{[^}]+\}/g, ""))) problems.push(`raw <${tag.trim()}> in the app; use the WB component`);
     }
-    const hex = app.match(/#[0-9a-fA-F]{6}\b/g) ?? [];
+    // Chart colors the pattern cards publish as Values (WB has no data-viz tokens yet) are allowed.
+    const hex = (app.match(/#[0-9a-fA-F]{6}\b/g) ?? []).filter((h) => !allowedHex.has(h.toLowerCase()));
     if (hex.length > 0) problems.push(`raw hex colors in the app (${[...new Set(hex)].slice(0, 5).join(", ")}); use var(--wb-…)`);
     if (/ThemeSwitcher|data-wb-theme=/.test(app)) problems.push("themes with ThemeSwitcher or a wrapper instead of setTheme() on <html>");
     if (/<!doctype|<html|<body>/i.test(page)) problems.push("isn't an HTML fragment");
@@ -288,7 +307,11 @@ if (isMain) {
     } else if (cmd === "finish") {
         out = finish(need("--dir"), need("--live"), need("--uploads"), need("--by"), args.includes("--accept-drift"));
     } else if (cmd === "smoke-check") {
-        const problems = smokeCheck(fs.readFileSync(args[0], "utf8"), fs.readFileSync(path.join(ROOT, "exports/design-md/guides/claude-artifact.md"), "utf8"));
+        const problems = smokeCheck(
+            fs.readFileSync(args[0], "utf8"),
+            fs.readFileSync(path.join(ROOT, "exports/design-md/guides/claude-artifact.md"), "utf8"),
+            cardValueHex(path.join(ROOT, "exports/claude-design-system/project/components")),
+        );
         out = {ok: problems.length === 0, problems};
         if (problems.length) process.exitCode = 1;
     } else {
