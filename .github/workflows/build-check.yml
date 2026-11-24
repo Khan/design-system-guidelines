@@ -1,6 +1,8 @@
 # PR status check: the Storybook must compile (one unclosed JSX tag in any
 # MDX file breaks the whole site, so this gates merges even though the
-# Chromatic workflow also builds).
+# Chromatic workflow also builds), and the generated exports (exports/design-md/
+# and exports/claude-design-system/) must match their templates and the
+# installed tokens.
 name: Build check
 
 on:
@@ -8,6 +10,8 @@ on:
 
 jobs:
     build:
+        # This name is what branch rulesets list as the required check.
+        name: Build check
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v5
@@ -24,7 +28,22 @@ jobs:
 
             - run: pnpm typecheck
 
+            - run: pnpm test
+
             # Fails if __docs__/verdicts.mdx is out of date with verdicts/*.json.
             - run: pnpm verdicts:check
 
+            # Also regenerates both exports (exports/design-md/ and
+            # exports/claude-design-system/) from exports/src/ and the
+            # installed wonder-blocks-tokens.
             - run: pnpm build
+
+            - name: exports are up to date
+              run: |
+                  if [ -n "$(git status --porcelain -- exports/design-md/ exports/claude-design-system/)" ]; then
+                    git status --porcelain -- exports/design-md/ exports/claude-design-system/
+                    echo "::error::exports/design-md/ or exports/claude-design-system/ is stale or hand-edited. Run 'pnpm install && pnpm exports' and commit the result."
+                    exit 1
+                  fi
+
+            - run: pnpm lint:design-md

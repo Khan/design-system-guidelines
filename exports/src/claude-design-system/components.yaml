@@ -1,0 +1,779 @@
+# Component cards for the Claude "Wonder Blocks" Design System.
+#
+# Each entry becomes components/<name>/README.md and components/<name>/preview.html
+# under exports/claude-design-system/project/. Previews load the real Wonder
+# Blocks components from jsDelivr with the boot in guides/claude-artifact.md,
+# so they always match what an agent builds from that guide.
+#
+#   name      folder name, an ASCII identifier (the card's title)
+#   group     card group on the page
+#   height    card row height in px
+#   summary   first sentence of the README (the card's summary)
+#   use       when to use it (bullets)
+#   rules     what's easy to get wrong (bullets); keep in step with section 4 of the guide
+#   docs      DSG guideline pages under __docs__/, linked (never copied)
+#   types     where the props live: "<package> <path in dist/>", read at the pinned version
+#             (omit for a pattern)
+#   pattern   optional: true for a DSG pattern WB has no component for (charts, tables);
+#             the card says to build it from WB parts the way the preview does
+#   values    optional: {from: <file under __docs__/>, names: [CONST, …]}: one-line
+#             `const NAME = <literal>;` values read from a DSG example at build time,
+#             listed in the README and declared in the preview, so they can't drift
+#   imports   destructuring lines, copied from section 2 of the guide
+#   icons     optional: local name → Phosphor icon name, loaded with icon()
+#   state     optional: React state lines inside App()
+#   render    the htm markup App() returns
+#
+# Every `wb("…")` package must be pinned in the guide's V, and every import line
+# must appear in section 2 of the guide; `pnpm exports` checks both.
+
+- name: Button
+  group: Actions
+  height: 96
+  summary: The Wonder Blocks button for every action on a page; `kind` sets its weight.
+  use:
+    - "`primary` for the one action the view is for (at most one per view), `secondary` beside it, `tertiary` for low-emphasis actions."
+    - "`actionType=\"destructive\"` for delete and remove, `\"neutral\"` for actions that shouldn't draw the eye."
+    - Navigation between pages is a Link, not a Button.
+  rules:
+    - "Icons go in `startIcon`/`endIcon` as the string `await icon(\"plus-bold\")` returns."
+    - Never re-create a button with a styled `<button>` or `<div>`; the component carries focus, states and the chonky edge.
+  docs: [design-components/buttons.mdx]
+  types: button dist/util/button.types.d.ts
+  imports: ['const { default: Button, ActivityButton } = await wb("button");']
+  icons: {plusIcon: plus-bold}
+  render: |
+    <div className="row">
+      <${Button} startIcon=${plusIcon}>Add class</${Button}>
+      <${Button} kind="secondary">Preview</${Button}>
+      <${Button} kind="tertiary">Cancel</${Button}>
+      <${Button} kind="secondary" actionType="destructive">Remove</${Button}>
+      <${Button} disabled=${true}>Disabled</${Button}>
+    </div>
+
+- name: IconButton
+  group: Actions
+  height: 80
+  summary: An icon-only button for compact, well-known actions such as close, settings or more.
+  use:
+    - Toolbars, card corners and dense rows where the icon's meaning is obvious.
+    - Use a Button with a label when the action needs words.
+  rules:
+    - "`aria-label` is required."
+    - "`icon` takes the string from `await icon(\"…\")`."
+    - Wrap it in a Tooltip that repeats the label when the icon isn't universal.
+  docs: [design-components/buttons.mdx]
+  types: icon-button dist/util/icon-button.types.d.ts
+  imports: ['const { default: IconButton, ActivityIconButton } = await wb("icon-button");']
+  icons: {gearIcon: gear-bold, xIcon: x-bold, dotsIcon: dots-three-bold}
+  render: |
+    <div className="row">
+      <${IconButton} icon=${gearIcon} aria-label="Settings" />
+      <${IconButton} icon=${dotsIcon} aria-label="More actions" kind="secondary" />
+      <${IconButton} icon=${xIcon} aria-label="Close" kind="tertiary" />
+    </div>
+
+- name: ActivityButton
+  group: Actions
+  height: 96
+  summary: The chonky buttons for learner activities; `ActivityIconButton` is the icon-only one for practice tools.
+  use:
+    - "Only in the learner experience: primary and secondary actions in the core learning journey, like Continue, Check or Start quiz."
+    - "`ActivityIconButton` for quick tools in practice and learning mode, like Check or Draw."
+    - "Never in admin or teacher interfaces, modals, pagination, table controls or settings menus: use Button and IconButton there."
+  rules:
+    - "`children` is a plain string. `startIcon`/`endIcon` take the string `await icon(\"…\")` returns."
+    - "`ActivityIconButton` takes `label` (a visible label) or `aria-label`, never both; `actionType` is `\"progressive\"` or `\"neutral\"`."
+    - Its props are in `dist/components/activity-button.d.ts` (button) and `dist/components/activity-icon-button.d.ts` (icon-button), not the shared types file.
+  docs: [design-components/buttons.mdx]
+  types: button dist/components/activity-button.d.ts
+  imports: ['const { default: Button, ActivityButton } = await wb("button");', 'const { default: IconButton, ActivityIconButton } = await wb("icon-button");']
+  icons: {checkIcon: check-square-offset-bold, pencilIcon: pencil-bold, arrowIcon: arrow-right-bold}
+  render: |
+    <div className="row">
+      <${ActivityButton} kind="primary" endIcon=${arrowIcon}>Continue</${ActivityButton}>
+      <${ActivityButton} kind="secondary">Skip for now</${ActivityButton}>
+      <${ActivityIconButton} kind="primary" icon=${checkIcon} label="Check" />
+      <${ActivityIconButton} kind="secondary" actionType="neutral" icon=${pencilIcon} aria-label="Draw" />
+    </div>
+
+- name: Link
+  group: Actions
+  height: 72
+  summary: Inline and standalone text links that navigate.
+  use:
+    - Navigation to another page or section. For an in-page action, use a Button.
+  rules:
+    - "In an artifact there's no router: give it a hash `href` such as `\"#all-units\"`. `onClick` can't prevent navigation."
+    - "`startIcon`/`endIcon` take an element: wrap the icon string in `PhosphorIcon`."
+  docs: []
+  types: link dist/components/link.d.ts
+  imports: ['const { default: Link } = await wb("link");']
+  render: |
+    <p className="text">Review the <${Link} href="#unit-2">unit 2 lessons</${Link}> before the quiz.</p>
+
+- name: Typography
+  group: Content
+  height: 220
+  summary: "`Heading` and `BodyText` set every piece of text in the Wonder Blocks type scale."
+  use:
+    - "`Heading` for titles and section heads; pick `size` for the look and `tag` for the outline (`h1`–`h6`)."
+    - "`BodyText` for paragraphs and UI text; `tag=\"label\"` with `htmlFor` makes it a form label."
+  rules:
+    - The old `Title`, `LabelLarge` and similar components no longer exist.
+    - Don't set your own px or rem text sizes; use these components or the `--wb-font-*-size-*` variables.
+  docs: []
+  types: core dist/components/text.d.ts
+  imports: ['const { Heading, BodyText, BodyMonospace } = await wb("typography");']
+  render: |
+    <div className="stack">
+      <${Heading} size="xxlarge" tag="h1">Algebra 1</${Heading}>
+      <${Heading} size="large" tag="h2">Unit 3: Linear equations</${Heading}>
+      <${BodyText}>Solve one-step and two-step equations, then check your answer by substitution.</${BodyText}>
+      <${BodyText} size="small">12 lessons · about 3 hours</${BodyText}>
+      <${BodyMonospace}>y = 2x + 3</${BodyMonospace}>
+    </div>
+
+- name: Card
+  group: Layout
+  height: 180
+  summary: A raised or outlined container that groups one piece of content.
+  use:
+    - One lesson, assignment, stat or settings group per card.
+  rules:
+    - "`Card` has no `style`; use `styles=${ {root: {…}} }` with `paddingSize`, `elevation` or `background`."
+    - Don't nest cards or add a colored left-border accent.
+  docs: []
+  types: card dist/components/card.d.ts
+  imports: ['const { Card } = await wb("card");', 'const { Heading, BodyText, BodyMonospace } = await wb("typography");']
+  render: |
+    <div className="row top">
+      <${Card} styles=${{ root: { width: 240 } }}>
+        <${Heading} size="small" tag="h3">Unit 3 quiz</${Heading}>
+        <${BodyText} size="small">Due Friday · 10 questions</${BodyText}>
+      </${Card}>
+      <${Card} elevation="low" paddingSize="small" styles=${{ root: { width: 240 } }}>
+        <${Heading} size="small" tag="h3">Elevation low</${Heading}>
+        <${BodyText} size="small">For cards that sit on a busy surface.</${BodyText}>
+      </${Card}>
+    </div>
+
+- name: Pill
+  group: Content
+  height: 72
+  summary: A small rounded label for categories, filters and counts.
+  use:
+    - Tags and lightweight categories. For a status, use a Badge.
+  rules:
+    - The text goes in `children`.
+  docs: []
+  types: pill dist/components/pill.d.ts
+  imports: ['const { default: Pill } = await wb("pill");']
+  render: |
+    <div className="row">
+      <${Pill}>Algebra</${Pill}>
+      <${Pill} kind="accent">New</${Pill}>
+      <${Pill} kind="success">Complete</${Pill}>
+    </div>
+
+- name: Badge
+  group: Feedback
+  height: 88
+  summary: Short status labels; each badge pairs its color with text or an icon.
+  use:
+    - "`StatusBadge` for success, warning, critical and info states; `DueBadge` for due dates; `NeutralBadge` for counts and categories."
+    - "`GemBadge` and `StreakBadge` for Motivation features."
+  rules:
+    - "`icon` on Badge, StatusBadge and NeutralBadge takes an element: wrap the string in `PhosphorIcon`."
+    - "DueBadge, GemBadge and StreakBadge have no `icon`; use `showIcon`, plus `iconAriaLabel` when there's no `label`."
+  docs: [design-components/badges.mdx]
+  types: badge dist/types.d.ts
+  imports: ['const { Badge, StatusBadge, NeutralBadge, DueBadge, GemBadge, StreakBadge } = await wb("badge");']
+  render: |
+    <div className="row">
+      <${StatusBadge} kind="success" label="Complete" />
+      <${StatusBadge} kind="warning" label="Needs review" />
+      <${NeutralBadge} label="12 students" />
+      <${DueBadge} kind="due" label="Due Fri" />
+      <${GemBadge} showIcon=${true} label="340" />
+      <${StreakBadge} showIcon=${true} label="12-day streak" />
+    </div>
+
+- name: Banner
+  group: Feedback
+  height: 140
+  summary: A full-width message about the page or a section, with an optional action and dismiss.
+  use:
+    - "`kind` matches the message: `info`, `success`, `warning` or `critical`."
+    - Use one banner per region; for a short-lived confirmation, use a toast.
+  rules:
+    - "`icon` takes the string from `await icon(\"…\")`."
+  docs: [design-components/banners.mdx]
+  types: banner dist/components/banner.d.ts
+  imports: ['const { default: Banner } = await wb("banner");']
+  render: |
+    <div className="stack">
+      <${Banner} kind="info" text="New practice sets are ready for unit 3." onDismiss=${() => {}} />
+      <${Banner} kind="warning" text="Two students haven't started the assignment." />
+    </div>
+
+- name: Tooltip
+  group: Feedback
+  height: 120
+  summary: A short hint that appears on hover or focus of its anchor.
+  use:
+    - A label for an icon-only control, or a one-line explanation. Longer content goes in a Popover.
+  rules:
+    - "`placement` is required (e.g. `\"top\"`)."
+    - "Wrapping an already-focusable element (Button, IconButton) can take `forceAnchorFocusivity=${false}`."
+  docs: [design-components/tooltips.mdx]
+  types: tooltip dist/components/tooltip.d.ts
+  imports: ['const { default: Tooltip } = await wb("tooltip");', 'const { default: IconButton, ActivityIconButton } = await wb("icon-button");']
+  icons: {infoIcon: info-bold}
+  state: const [opened] = React.useState(true);
+  render: |
+    <div className="row pad-top">
+      <${Tooltip} content="Scores update every night" placement="top" opened=${opened} forceAnchorFocusivity=${false}>
+        <${IconButton} icon=${infoIcon} aria-label="About scores" kind="tertiary" />
+      </${Tooltip}>
+    </div>
+
+- name: TextField
+  group: Inputs
+  height: 180
+  summary: A single-line text input, labelled and validated with `LabeledField`.
+  use:
+    - Short free-text answers such as names and titles. Multi-line text is `TextArea`.
+  rules:
+    - "Wrap it in `LabeledField`, which takes the control in `field=${…}` and passes `id`, `error` and aria props itself. Don't set `error` on the field by hand."
+  docs: [design-components/text-field.mdx]
+  types: form dist/components/text-field.d.ts
+  imports: ['const { TextField, TextArea, Checkbox, CheckboxGroup, RadioGroup, Choice } = await wb("form");', 'const { LabeledField } = await wb("labeled-field");']
+  state: const [name, setName] = React.useState("Pe");
+  render: |
+    <div className="stack narrow">
+      <${LabeledField} label="Class name" description="At least 3 characters" errorMessage=${name.length < 3 ? "Use at least 3 characters" : undefined} field=${html`<${TextField} value=${name} onChange=${setName} />`} />
+    </div>
+
+- name: Checkbox
+  group: Inputs
+  height: 170
+  summary: Checkboxes for on/off choices and for picking several options from a short list.
+  use:
+    - "One `Checkbox` for a single yes/no; `CheckboxGroup` with `Choice`s for several options."
+  rules:
+    - "`CheckboxGroup` needs `groupName`, `label`, `selectedValues` and `onChange`."
+  docs: [design-components/checkbox-group.mdx]
+  types: form dist/components/checkbox-group.d.ts
+  imports: ['const { TextField, TextArea, Checkbox, CheckboxGroup, RadioGroup, Choice } = await wb("form");']
+  state: |
+    const [notify, setNotify] = React.useState(true);
+    const [subjects, setSubjects] = React.useState(["math"]);
+  render: |
+    <div className="stack">
+      <${Checkbox} label="Email me when students finish" checked=${notify} onChange=${setNotify} />
+      <${CheckboxGroup} groupName="subjects" label="Subjects" selectedValues=${subjects} onChange=${setSubjects}>
+        <${Choice} label="Math" value="math" />
+        <${Choice} label="Science" value="science" />
+      </${CheckboxGroup}>
+    </div>
+
+- name: RadioGroup
+  group: Inputs
+  height: 150
+  summary: One choice from a short list, with every option visible.
+  use:
+    - Two to six mutually exclusive options. Longer lists use a SingleSelect.
+  rules:
+    - "Needs `groupName`, `label`, `selectedValue` and `onChange`; options are `Choice`s."
+  docs: [design-components/radio-button.mdx]
+  types: form dist/components/radio-group.d.ts
+  imports: ['const { TextField, TextArea, Checkbox, CheckboxGroup, RadioGroup, Choice } = await wb("form");']
+  state: const [grade, setGrade] = React.useState("6");
+  render: |
+    <${RadioGroup} groupName="grade" label="Grade" selectedValue=${grade} onChange=${setGrade}>
+      <${Choice} label="Grade 6" value="6" />
+      <${Choice} label="Grade 7" value="7" />
+      <${Choice} label="Grade 8" value="8" />
+    </${RadioGroup}>
+
+- name: Switch
+  group: Inputs
+  height: 80
+  summary: A toggle for a setting that takes effect immediately.
+  use:
+    - Settings that apply at once. Choices that are saved with a form are checkboxes.
+  rules:
+    - "`Switch` has no label: pair it with `BodyText tag=\"label\" htmlFor=\"x\"` and give the Switch `id=\"x\"`."
+  docs: [design-components/toggle.mdx]
+  types: switch dist/components/switch.d.ts
+  imports: ['const { default: Switch } = await wb("switch");', 'const { Heading, BodyText, BodyMonospace } = await wb("typography");']
+  state: const [on, setOn] = React.useState(true);
+  render: |
+    <div className="row">
+      <${Switch} id="hints" checked=${on} onChange=${setOn} />
+      <${BodyText} tag="label" htmlFor="hints">Show hints</${BodyText}>
+    </div>
+
+- name: SingleSelect
+  group: Inputs
+  height: 120
+  summary: A dropdown for choosing one option from a list; `MultiSelect` chooses several.
+  use:
+    - Seven or more options, or when space is tight. Fewer options read better as a RadioGroup.
+  rules:
+    - "`placeholder` is required."
+    - Options are `OptionItem`s with `label` and `value`.
+  docs: [design-components/dropdown-select.mdx]
+  types: dropdown dist/util/types.d.ts
+  imports: ['const { SingleSelect, MultiSelect, OptionItem, ActionMenu, ActionItem, SeparatorItem } = await wb("dropdown");']
+  state: const [unit, setUnit] = React.useState(null);
+  render: |
+    <div className="row">
+      <${SingleSelect} placeholder="Choose a unit" selectedValue=${unit} onChange=${setUnit}>
+        <${OptionItem} label="Unit 1: Expressions" value="1" />
+        <${OptionItem} label="Unit 2: Equations" value="2" />
+        <${OptionItem} label="Unit 3: Functions" value="3" />
+      </${SingleSelect}>
+    </div>
+
+- name: ActionMenu
+  group: Actions
+  height: 100
+  summary: A menu of actions behind one button, for secondary actions on an item.
+  use:
+    - Edit, duplicate, archive and similar actions on a row or card.
+  rules:
+    - "`menuText` labels the default opener. A custom `opener` is a function that returns an element, without its own `onClick`."
+    - Items are `ActionItem`s with `label` and `onClick`; `SeparatorItem` divides groups.
+  docs: []
+  types: dropdown dist/util/types.d.ts
+  imports: ['const { SingleSelect, MultiSelect, OptionItem, ActionMenu, ActionItem, SeparatorItem } = await wb("dropdown");']
+  render: |
+    <div className="row">
+      <${ActionMenu} menuText="Assignment actions">
+        <${ActionItem} label="Edit" onClick=${() => {}} />
+        <${ActionItem} label="Duplicate" onClick=${() => {}} />
+        <${SeparatorItem} />
+        <${ActionItem} label="Archive" onClick=${() => {}} />
+      </${ActionMenu}>
+    </div>
+
+- name: Modal
+  group: Overlays
+  height: 100
+  summary: "`ModalLauncher` with an `OnePaneDialog` opens a focused task over the page."
+  use:
+    - A short task or confirmation that has to finish before going back to the page.
+  rules:
+    - "`modal` is an OnePaneDialog element, or `${({ closeModal }) => html`…`}` when the footer needs to close it."
+    - "Put `onClose` on the `ModalLauncher`, never on the `OnePaneDialog`: WB throws when the dialog has its own."
+    - The theme must be on `<html>` (the boot does this) because the modal renders in a portal.
+  docs: [design-components/modals.mdx, design-components/modals-selection.mdx]
+  types: modal dist/components/one-pane-dialog.d.ts
+  imports: ['const { ModalLauncher, OnePaneDialog } = await wb("modal");', 'const { default: Button, ActivityButton } = await wb("button");', 'const { Heading, BodyText, BodyMonospace } = await wb("typography");']
+  render: |
+    <div className="row">
+      <${ModalLauncher} modal=${({ closeModal }) => html`<${OnePaneDialog} title="Assign unit 3?" content=${html`<${BodyText}>Students in Period 2 will see it on their dashboard.</${BodyText}>`} footer=${html`<div className="row"><${Button} kind="tertiary" onClick=${closeModal}>Cancel</${Button}><${Button} onClick=${closeModal}>Assign</${Button}></div>`} />`}>
+        ${({ openModal }) => html`<${Button} onClick=${openModal}>Open the modal</${Button}>`}
+      </${ModalLauncher}>
+    </div>
+
+- name: Popover
+  group: Overlays
+  height: 100
+  summary: A small anchored panel with a title and a few lines of content.
+  use:
+    - Extra detail or a short form tied to one control. A one-line hint is a Tooltip.
+  rules:
+    - "`Popover` and `PopoverContent` are named exports, not default."
+    - "Wrap the trigger as `${({ open }) => html`<${Button} onClick=${open}>…</${Button}>`}`; `PopoverContent` takes `title` and `content` as strings."
+  docs: [design-components/popovers.mdx]
+  types: popover dist/components/popover.d.ts
+  imports: ['const { Popover, PopoverContent } = await wb("popover");', 'const { default: Button, ActivityButton } = await wb("button");']
+  render: |
+    <div className="row">
+      <${Popover} content=${html`<${PopoverContent} title="Mastery points" content="Earn points by leveling up skills in practice and quizzes." closeButtonVisible=${true} />`}>
+        ${({ open }) => html`<${Button} kind="secondary" onClick=${open}>What are mastery points?</${Button}>`}
+      </${Popover}>
+    </div>
+
+- name: Tabs
+  group: Navigation
+  height: 150
+  summary: Switches between panels of related content in one place.
+  use:
+    - Two to six peer views of the same object. Page-level navigation is `NavigationTabs`.
+  rules:
+    - "`aria-label` (or `aria-labelledby`) is required."
+    - "`tabs` is an array of `{ id, label, panel }`; control it with `selectedTabId` and `onTabSelected`."
+  docs: []
+  types: tabs dist/components/tabs.d.ts
+  imports: ['const { Tabs, NavigationTabs, NavigationTabItem } = await wb("tabs");', 'const { Heading, BodyText, BodyMonospace } = await wb("typography");']
+  state: const [tab, setTab] = React.useState("progress");
+  render: |
+    <${Tabs} aria-label="Class views" selectedTabId=${tab} onTabSelected=${setTab} tabs=${[
+      { id: "progress", label: "Progress", panel: html`<${BodyText}>18 of 24 students are on track.</${BodyText}>` },
+      { id: "assignments", label: "Assignments", panel: html`<${BodyText}>3 assignments due this week.</${BodyText}>` },
+    ]} />
+
+- name: Accordion
+  group: Content
+  height: 170
+  summary: Stacked sections that expand to show their content.
+  use:
+    - Long, skimmable content such as FAQs or unit outlines, where people open one part at a time.
+  rules:
+    - "`children` must be an array: two or more `AccordionSection`s, or a single one wrapped in `[…]`."
+  docs: []
+  types: accordion dist/components/accordion.d.ts
+  imports: ['const { Accordion, AccordionSection } = await wb("accordion");']
+  render: |
+    <${Accordion}>${[
+      html`<${AccordionSection} key="1" header="Unit 1: Expressions">Five lessons and a quiz.</${AccordionSection}>`,
+      html`<${AccordionSection} key="2" header="Unit 2: Equations">Six lessons and a unit test.</${AccordionSection}>`,
+    ]}</${Accordion}>
+
+- name: Breadcrumbs
+  group: Navigation
+  height: 72
+  summary: Shows where a page sits in a hierarchy, with links to its ancestors.
+  use:
+    - Deep content such as course › unit › lesson. The current page is the last item, not a link.
+  rules:
+    - Ancestor items wrap a `Link` with a hash `href` in an artifact.
+  docs: []
+  types: breadcrumbs dist/components/breadcrumbs.d.ts
+  imports: ['const { Breadcrumbs, BreadcrumbsItem } = await wb("breadcrumbs");', 'const { default: Link } = await wb("link");']
+  render: |
+    <${Breadcrumbs}>
+      <${BreadcrumbsItem}><${Link} href="#math">Math</${Link}></${BreadcrumbsItem}>
+      <${BreadcrumbsItem}><${Link} href="#algebra">Algebra 1</${Link}></${BreadcrumbsItem}>
+      <${BreadcrumbsItem}>Linear equations</${BreadcrumbsItem}>
+    </${Breadcrumbs}>
+
+- name: DetailCell
+  group: Content
+  height: 150
+  summary: A list row with a title, up to two subtitles and accessories on either side.
+  use:
+    - Rows in lists of lessons, students or settings. A row with only a title is `CompactCell`.
+  rules:
+    - "`leftAccessory`/`rightAccessory` take an element: wrap an icon string in `PhosphorIcon`."
+    - Give it `onClick` or `href` only when the whole row is one action.
+  docs: []
+  types: cell dist/util/types.d.ts
+  imports: ['const { CompactCell, DetailCell } = await wb("cell");', 'const { PhosphorIcon } = await wb("icon");']
+  icons: {bookIcon: book-open, caretIcon: caret-right}
+  render: |
+    <div className="stack">
+      <${DetailCell} title="Two-step equations" subtitle1="Lesson 4 · 3 videos, 2 exercises" subtitle2="Last practiced 2 days ago" leftAccessory=${html`<${PhosphorIcon} icon=${bookIcon} size="medium" />`} rightAccessory=${html`<${PhosphorIcon} icon=${caretIcon} />`} onClick=${() => {}} />
+      <${CompactCell} title="Compact cell: title only" />
+    </div>
+
+- name: SearchField
+  group: Inputs
+  height: 110
+  summary: A text field with a search icon and a clear button.
+  use:
+    - Filtering a list on the page or searching content.
+  rules:
+    - "Label it: inside `LabeledField`, or with `aria-label` when a visible label isn't needed."
+  docs: [design-components/search-field.mdx]
+  types: search-field dist/components/search-field.d.ts
+  imports: ['const { default: SearchField } = await wb("search-field");']
+  state: const [q, setQ] = React.useState("");
+  render: |
+    <div className="stack narrow">
+      <${SearchField} value=${q} onChange=${setQ} placeholder="Search students" aria-label="Search students" />
+    </div>
+
+- name: CircularSpinner
+  group: Feedback
+  height: 80
+  summary: An indeterminate loading indicator.
+  use:
+    - Waits longer than about a second where the layout of the result isn't known.
+  rules:
+    - "`size` is required (`xsmall`, `small`, `medium`, `large`)."
+  docs: []
+  types: progress-spinner dist/components/circular-spinner.d.ts
+  imports: ['const { CircularSpinner } = await wb("progress-spinner");']
+  render: |
+    <div className="row">
+      <${CircularSpinner} size="small" light=${false} />
+      <${CircularSpinner} size="medium" light=${false} />
+    </div>
+
+# --- Data visualization patterns ----------------------------------------------
+# Wonder Blocks has no progress bar, chart or table component. These cards are
+# DSG patterns built from WB parts; their colors come from the DSG's own example
+# files (values.from), so a docs edit flows through on the next pnpm exports.
+
+- name: ProgressBar
+  group: Data visualization
+  height: 330
+  pattern: true
+  summary: A bar that shows a current value against a goal, optionally with an expected-by-today marker, in a chart container.
+  use:
+    - "\"How close are we to the goal?\": gems toward a class challenge, assignments completed toward a goal, students who finished."
+    - Progress means how far along, never how well. For a score or level, use a DistributionChart grouped by level.
+    - With no goal, use SummaryCards. For change over time, use a TrendChart.
+  rules:
+    - "Always show the value and goal as text, \"38 of 70 skills\", not only as bar length. Never fill past 100%: say \"Goal reached\"."
+    - "Label the marker with its value: \"Expected by today: 35\". In a large container the title states the gap: \"3 skills ahead of schedule\"."
+    - "A small container (dashboards, side panels) holds one bar and up to four values: no controls, legend or marker."
+    - "Bar colors are the role colors in Values, not WB tokens: WB has no data-visualization tokens yet, so they have no dark-theme value. Gem challenges use the Motivation role."
+    - "Give the bar `role=\"progressbar\"` with `aria-valuemin`, `aria-valuemax`, `aria-valuenow` and `aria-valuetext`."
+    - Never draw progress as a gauge or dial.
+  docs: [design-components/progress-charts.mdx, design-components/chart-container.mdx, design-foundations/data-visualization.mdx]
+  values: {from: design-components/assets/progress-charts/ProgressExamples.tsx, names: [SINGLE, BEHIND, MARKER]}
+  imports: ['const { Heading, BodyText, BodyMonospace } = await wb("typography");', 'const { default: IconButton, ActivityIconButton } = await wb("icon-button");']
+  icons: {downloadIcon: download-simple-bold}
+  state: |
+    const subtle = { color: "var(--wb-semanticColor-core-foreground-neutral-subtle)" };
+    const box = { background: "var(--wb-semanticColor-core-background-base-default)", border: "var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle)", borderRadius: "var(--wb-border-radius-radius_120)", padding: "var(--wb-sizing-size_200)", display: "flex", flexDirection: "column", gap: "var(--wb-sizing-size_160)" };
+    const pct = (n, goal) => `${Math.min(n / goal, 1) * 100}%`;
+    // The DSG's ProgressBar: a 16px track at 18% of the fill color, the fill, and a 3px marker.
+    const Bar = ({ value, goal, color, target, valueText }) => html`
+      <div role="progressbar" aria-valuemin="0" aria-valuemax=${goal} aria-valuenow=${value} aria-valuetext=${valueText}
+        style=${{ position: "relative", height: 16, borderRadius: 8, border: `1px solid ${color.outline}`, background: `color-mix(in srgb, ${color.fill} 18%, transparent)` }}>
+        <div style=${{ position: "absolute", top: -1, bottom: -1, left: -1, width: pct(value, goal), borderRadius: 8, border: `1px solid ${color.outline}`, background: color.fill }} />
+        ${target != null && html`<div aria-hidden="true" style=${{ position: "absolute", top: -6, bottom: -6, left: pct(target, goal), width: 3, marginLeft: -1.5, borderRadius: 2, background: MARKER }} />`}
+      </div>`;
+  render: |
+    <div className="stack" style=${{ maxWidth: 640 }}>
+      <${Heading} size="medium" tag="h2">Grade level target</${Heading}>
+      <div style=${box}>
+        <div className="row" style=${{ justifyContent: "space-between", alignItems: "flex-start" }}>
+          <div>
+            <${Heading} size="small" tag="h3">3 skills ahead of schedule</${Heading}>
+            <${BodyText} size="small" style=${subtle}>38 of 70 skills · Goal date May 29</${BodyText}>
+          </div>
+          <${IconButton} icon=${downloadIcon} kind="secondary" actionType="neutral" aria-label="Download grade level target data" />
+        </div>
+        <div style=${{ position: "relative", height: 36 }}>
+          <div style=${{ position: "absolute", left: pct(35, 70), transform: "translateX(-50%)", textAlign: "center", whiteSpace: "nowrap" }}>
+            <${BodyText} size="small" weight="semi">Expected by today: 35</${BodyText}>
+            <${BodyText} size="xsmall" style=${subtle}>Oct 20</${BodyText}>
+          </div>
+        </div>
+        <${Bar} value=${38} goal=${70} target=${35} color=${SINGLE} valueText="38 of 70 skills. Expected by today: 35. 3 skills ahead of schedule." />
+        <div className="row" style=${{ justifyContent: "space-between" }}>
+          <${BodyText} size="small" style=${subtle}>0 skills, Sept 1</${BodyText}>
+          <${BodyText} size="small" style=${subtle}>70 skills, May 29</${BodyText}>
+        </div>
+        <${BodyText} size="small" style=${{ ...subtle, borderTop: "var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle)", paddingTop: "var(--wb-sizing-size_120)" }}>Updated today, 9:15 AM</${BodyText}>
+      </div>
+    </div>
+
+- name: DistributionChart
+  group: Data visualization
+  height: 470
+  pattern: true
+  summary: A bar chart of how many students, classes or schools land in each range, in a large chart container.
+  use:
+    - "\"How is the group spread out?\": assignments completed, schools by average score, students at each level."
+    - Not for change over time (TrendChart), individual values (DataTable), or fewer than about 10 students (a table or a sentence).
+  rules:
+    - "4 to 8 equal-width ranges in order, with an en dash (`1–2`), a \"none\" range when zero is possible, and an open last range (`11+`). Keep empty ranges, labeled 0. Never sort by bar height."
+    - "The value axis starts at zero. Put the count above every bar. Never rotate range labels: switch to horizontal bars."
+    - "The ranges that carry the title's point use EMPHASIS; the rest use COMPARISON. Never color bars for any other reason."
+    - "When the title says \"most\" or \"few\", the description gives the number: \"74 of 92 students\"."
+    - "Bar colors are role colors from Values, not WB tokens: WB has no data-visualization tokens yet, so they have no dark-theme value. Level colors (Assessment, Mastery roles) aren't defined yet."
+    - "Each bar is focusable and announces its range and count: \"5–6 assignments: 40 students\"."
+  docs: [design-components/distribution-charts.mdx, design-components/chart-container.mdx, design-foundations/data-visualization.mdx]
+  values: {from: design-components/assets/distribution-charts/AssignmentsCompletedChart.tsx, names: [EMPHASIS, COMPARISON]}
+  imports: ['const { Heading, BodyText, BodyMonospace } = await wb("typography");', 'const { default: IconButton, ActivityIconButton } = await wb("icon-button");']
+  icons: {downloadIcon: download-simple-bold}
+  state: |
+    const subtle = { color: "var(--wb-semanticColor-core-foreground-neutral-subtle)" };
+    const box = { background: "var(--wb-semanticColor-core-background-base-default)", border: "var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle)", borderRadius: "var(--wb-border-radius-radius_120)", padding: "var(--wb-sizing-size_200)", display: "flex", flexDirection: "column", gap: "var(--wb-sizing-size_160)" };
+    const data = [["none", 2, false], ["1–2", 3, false], ["3–4", 5, false], ["5–6", 40, true], ["7–8", 34, true], ["9–10", 5, false], ["11+", 3, false]];
+    const [L, R, T, B, MAX] = [56, 630, 24, 220, 50];
+    const y = (v) => B - (v / MAX) * (B - T);
+    const band = (R - L) / data.length, w = band * 0.62;
+  render: |
+    <div className="stack" style=${{ maxWidth: 680 }}>
+      <${Heading} size="medium" tag="h2">Assignments completed</${Heading}>
+      <div style=${box}>
+        <div className="row" style=${{ justifyContent: "space-between", alignItems: "flex-start" }}>
+          <div>
+            <${Heading} size="small" tag="h3">Most students completed five to eight assignments</${Heading}>
+            <${BodyText} size="small" style=${subtle}>74 of 92 students</${BodyText}>
+          </div>
+          <${IconButton} icon=${downloadIcon} kind="secondary" actionType="neutral" aria-label="Download assignments completed data" />
+        </div>
+        <svg viewBox="0 0 640 270" width="100%" role="group" aria-label="Bar chart of students by number of assignments completed">
+          ${[0, 10, 20, 30, 40, 50].map((t) => html`<g key=${t}>
+            <line x1=${L} x2=${R} y1=${y(t)} y2=${y(t)} style=${{ stroke: t === 0 ? "var(--wb-semanticColor-core-border-neutral-default)" : "var(--wb-semanticColor-core-border-neutral-subtle)" }} strokeDasharray=${t === 0 ? undefined : "3 3"} />
+            <text x=${L - 10} y=${y(t) + 4} textAnchor="end" fontSize="12" style=${{ fill: "var(--wb-semanticColor-core-foreground-neutral-subtle)" }}>${t}</text></g>`)}
+          <text x="14" y=${(T + B) / 2} transform=${`rotate(-90 14 ${(T + B) / 2})`} textAnchor="middle" fontSize="12" style=${{ fill: "var(--wb-semanticColor-core-foreground-neutral-subtle)" }}>Students</text>
+          ${data.map(([label, n, em], i) => {
+            const x = L + i * band + (band - w) / 2, top = y(n), r = Math.min(4, (B - top) / 2), c = em ? EMPHASIS : COMPARISON;
+            return html`<g key=${label} tabIndex="0" role="img" aria-label=${`${label === "none" ? "No" : label} assignments: ${n} students`}>
+              <path d=${`M${x},${B} V${top + r} Q${x},${top} ${x + r},${top} H${x + w - r} Q${x + w},${top} ${x + w},${top + r} V${B} Z`} fill=${c.fill} stroke=${c.outline} strokeWidth="1" />
+              <text x=${x + w / 2} y=${top - 8} textAnchor="middle" fontSize="13" fontWeight=${em ? 600 : 400} style=${{ fill: "var(--wb-semanticColor-core-foreground-neutral-default)" }}>${n}</text>
+              <text x=${x + w / 2} y=${B + 20} textAnchor="middle" fontSize="12" style=${{ fill: "var(--wb-semanticColor-core-foreground-neutral-subtle)" }}>${label}</text></g>`;
+          })}
+          <text x=${(L + R) / 2} y=${B + 44} textAnchor="middle" fontSize="12" style=${{ fill: "var(--wb-semanticColor-core-foreground-neutral-subtle)" }}>Assignments completed</text>
+        </svg>
+        <${BodyText} size="small" style=${{ ...subtle, borderTop: "var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle)", paddingTop: "var(--wb-sizing-size_120)" }}>Updated Oct 20, 2026, 9:15 AM</${BodyText}>
+      </div>
+    </div>
+
+- name: TrendChart
+  group: Data visualization
+  height: 470
+  pattern: true
+  summary: A line chart of a value across time, like average score by assessment window, in a large chart container.
+  use:
+    - "\"How has it changed?\" across three or more periods. With one or two periods, use a stat card with the change."
+    - Not for categories that aren't in time order (DistributionChart).
+  rules:
+    - "The title states the change and since when: \"Scores climbed 133 points since the last assessment\"."
+    - "A 2px line with a dot per point and a light area fill under a single line. Up to four lines, labeled at their ends, with no legend."
+    - "Show the whole time axis, with future periods labeled but empty. Leave a gap for a missing period; never draw it as zero."
+    - "The value axis may start above zero, labeled with units. Don't squeeze it to make a small change look dramatic."
+    - "Line colors are role colors from Values, not WB tokens: WB has no data-visualization tokens yet, so they have no dark-theme value."
+    - "Each point is focusable and announces its period and value: \"Middle of year: 768\"."
+  docs: [design-components/trend-charts.mdx, design-components/chart-container.mdx, design-foundations/data-visualization.mdx]
+  values: {from: design-components/assets/trend-charts/GrowthOverTimeChart.tsx, names: [LINE, FILL]}
+  imports: ['const { Heading, BodyText, BodyMonospace } = await wb("typography");', 'const { default: IconButton, ActivityIconButton } = await wb("icon-button");']
+  icons: {downloadIcon: download-simple-bold}
+  state: |
+    const subtle = { color: "var(--wb-semanticColor-core-foreground-neutral-subtle)" };
+    const box = { background: "var(--wb-semanticColor-core-background-base-default)", border: "var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle)", borderRadius: "var(--wb-border-radius-radius_120)", padding: "var(--wb-sizing-size_200)", display: "flex", flexDirection: "column", gap: "var(--wb-sizing-size_160)" };
+    const data = [["Beginning of year", 635], ["Middle of year", 768], ["End of year", null]];
+    const [L, R, T, B, MIN, MAX] = [56, 600, 24, 210, 600, 900];
+    const x = (i) => L + (i * (R - L)) / (data.length - 1);
+    const y = (v) => B - ((v - MIN) / (MAX - MIN)) * (B - T);
+    const taken = data.map(([label, v], i) => ({ label, v, i })).filter((d) => d.v != null);
+    const line = taken.map((d, n) => `${n ? "L" : "M"}${x(d.i)},${y(d.v)}`).join(" ");
+    const area = `${line} L${x(taken.at(-1).i)},${B} L${x(taken[0].i)},${B} Z`;
+    const tick = { fill: "var(--wb-semanticColor-core-foreground-neutral-subtle)" };
+  render: |
+    <div className="stack" style=${{ maxWidth: 680 }}>
+      <${Heading} size="medium" tag="h2">Growth over time</${Heading}>
+      <div style=${box}>
+        <div className="row" style=${{ justifyContent: "space-between", alignItems: "flex-start" }}>
+          <div>
+            <${Heading} size="small" tag="h3">Scores climbed 133 points since the last assessment</${Heading}>
+            <${BodyText} size="small" style=${subtle}>Average score, all students</${BodyText}>
+          </div>
+          <${IconButton} icon=${downloadIcon} kind="secondary" actionType="neutral" aria-label="Download growth data" />
+        </div>
+        <svg viewBox="0 0 640 274" width="100%" role="group" aria-label="Line chart of average score by assessment window">
+          ${[600, 700, 800, 900].map((t) => html`<g key=${t}>
+            <line x1=${L} x2=${R} y1=${y(t)} y2=${y(t)} style=${{ stroke: "var(--wb-semanticColor-core-border-neutral-subtle)" }} strokeDasharray="3 3" />
+            <text x=${L - 10} y=${y(t) + 4} textAnchor="end" fontSize="12" style=${tick}>${t}</text></g>`)}
+          <path d=${area} fill=${FILL} fillOpacity="0.18" />
+          <path d=${line} fill="none" stroke=${LINE} strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" />
+          ${taken.map((d) => html`<g key=${d.label} tabIndex="0" role="img" aria-label=${`${d.label}: ${d.v}`}>
+            <circle cx=${x(d.i)} cy=${y(d.v)} r="5" fill=${LINE} style=${{ stroke: "var(--wb-semanticColor-core-background-base-default)" }} strokeWidth="2" />
+            <text x=${x(d.i)} y=${y(d.v) - 12} textAnchor="middle" fontSize="13" fontWeight="600" style=${{ fill: "var(--wb-semanticColor-core-foreground-neutral-default)" }}>${d.v}</text></g>`)}
+          ${data.map(([label], i) => html`<text key=${label} x=${x(i)} y=${B + 24} textAnchor=${i === 0 ? "start" : i === data.length - 1 ? "end" : "middle"} fontSize="12" style=${tick}>${label}</text>`)}
+          <text x="14" y=${(T + B) / 2} transform=${`rotate(-90 14 ${(T + B) / 2})`} textAnchor="middle" fontSize="12" style=${tick}>Average score</text>
+          <text x=${(L + R) / 2} y=${B + 52} textAnchor="middle" fontSize="12" style=${tick}>Assessment window</text>
+        </svg>
+        <${BodyText} size="small" style=${{ ...subtle, borderTop: "var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle)", paddingTop: "var(--wb-sizing-size_120)" }}>Updated today, 9:15 AM</${BodyText}>
+      </div>
+    </div>
+
+- name: SummaryCards
+  group: Data visualization
+  height: 200
+  pattern: true
+  summary: A row of 2 to 4 stat cards with the page's headline numbers, at the top of a report.
+  use:
+    - "\"What's the headline?\": one value per card, side by side, under a section heading like \"District overview\"."
+    - Not for change over time, a spread, individual items or progress toward a goal; use the chart or table for that.
+  rules:
+    - "Each card: a label (sentence case, 1 to 3 words), a value, and optional context. Units stay with the value: \"−7 pts\", not a \"Growth (pts)\" label."
+    - "A change goes in a StatusBadge with only the value and arrow (\"↓ 1\"); the words stay outside (\"subject at risk\"). Warning when down or at risk, success when up."
+    - "Cards in a row share one height and wrap to 2, then 1. No controls and no last-updated footer."
+    - "A View link only when there's a detail view, bottom right on the context line, named with the metric: \"View classes on target\". The card itself isn't a link."
+    - "No data yet: \"—\" as the value and \"No data yet\" as the context."
+  docs: [design-components/summary-cards.mdx, design-foundations/data-visualization.mdx]
+  imports: ['const { Heading, BodyText, BodyMonospace } = await wb("typography");', 'const { Badge, StatusBadge, NeutralBadge, DueBadge, GemBadge, StreakBadge } = await wb("badge");', 'const { default: Link } = await wb("link");']
+  state: |
+    const subtle = { color: "var(--wb-semanticColor-core-foreground-neutral-subtle)" };
+    const card = { flex: "1 1 180px", background: "var(--wb-semanticColor-core-background-base-default)", border: "var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle)", borderRadius: "var(--wb-border-radius-radius_120)", padding: "var(--wb-sizing-size_160)", display: "flex", flexDirection: "column", gap: "var(--wb-sizing-size_080)" };
+  render: |
+    <div className="stack" style=${{ maxWidth: 680 }}>
+      <${Heading} size="medium" tag="h2">District overview</${Heading}>
+      <div className="row top" style=${{ alignItems: "stretch" }}>
+        <div style=${card}>
+          <${BodyText} size="small" style=${subtle}>Students assessed</${BodyText}>
+          <${Heading} size="large" tag="p">11,033</${Heading}>
+          <${BodyText} size="small" style=${subtle}>40% of total students assessed</${BodyText}>
+        </div>
+        <div style=${card}>
+          <${BodyText} size="small" style=${subtle}>Subjects on target</${BodyText}>
+          <${Heading} size="large" tag="p">2 of 3</${Heading}>
+          <div className="row" style=${{ justifyContent: "space-between", gap: "var(--wb-sizing-size_080)" }}>
+            <div className="row" style=${{ gap: "var(--wb-sizing-size_080)" }}><${StatusBadge} kind="warning" label="↓ 1" /><${BodyText} size="small" style=${subtle}>subject at risk</${BodyText}></div>
+            <${Link} href="#subjects" aria-label="View subjects on target">View ›</${Link}>
+          </div>
+        </div>
+        <div style=${card}>
+          <${BodyText} size="small" style=${subtle}>District growth</${BodyText}>
+          <${Heading} size="large" tag="p">—</${Heading}>
+          <${BodyText} size="small" style=${subtle}>No data yet</${BodyText}>
+        </div>
+      </div>
+    </div>
+
+- name: DataTable
+  group: Data visualization
+  height: 360
+  pattern: true
+  summary: A table of each student, class or assignment with exact values, status badges, flags and a row menu.
+  use:
+    - "\"Who exactly, and what do I do?\": find or act on individuals or items, or compare exact values across columns."
+    - Not for one headline number (SummaryCards) or a pattern or trend (a chart).
+  rules:
+    - "A real `<table>` with `<th scope=\"col\">` headers, styled with WB tokens. The column readers scan by (usually the name) comes first; names are \"First Last\", sorted A to Z."
+    - "Left-align text columns; right-align numeric columns and their headers. Show `—` for missing values."
+    - "In-cell progress: the ProgressBar's SINGLE color with the value as text beside it (\"16/20\")."
+    - "Flags are StatusBadges with an icon and words: `critical` (warning-octagon) when something already went wrong, `warning` (warning) when someone may need help. Up to two per cell, most severe first; never a bare \"3×\"."
+    - "Row actions in an ActionMenu at the end of the row, opened by a tertiary \"dots-three\" IconButton labeled with the row: \"Actions for Amelia Abalos\". Up to 50 rows, then paginate."
+  docs: [design-components/data-tables.mdx, design-components/badges.mdx]
+  values: {from: design-components/assets/progress-charts/ProgressExamples.tsx, names: [SINGLE]}
+  imports: ['const { Badge, StatusBadge, NeutralBadge, DueBadge, GemBadge, StreakBadge } = await wb("badge");', 'const { PhosphorIcon } = await wb("icon");', 'const { SingleSelect, MultiSelect, OptionItem, ActionMenu, ActionItem, SeparatorItem } = await wb("dropdown");', 'const { Heading, BodyText, BodyMonospace } = await wb("typography");', 'const { default: IconButton, ActivityIconButton } = await wb("icon-button");']
+  icons: {checkIcon: check-circle-bold, warnIcon: warning-bold, criticalIcon: warning-octagon-bold, dotsIcon: dots-three-bold}
+  state: |
+    const line = "var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle)";
+    const th = { textAlign: "left", padding: "var(--wb-sizing-size_080) var(--wb-sizing-size_120)", color: "var(--wb-semanticColor-core-foreground-neutral-subtle)", fontWeight: "normal", borderBottom: line, whiteSpace: "nowrap" };
+    const td = { textAlign: "left", padding: "var(--wb-sizing-size_080) var(--wb-sizing-size_120)", borderBottom: line, verticalAlign: "middle" };
+    const num = { textAlign: "right", fontVariantNumeric: "tabular-nums" };
+    const MiniBar = ({ done, total }) => html`
+      <div className="row" style=${{ gap: "var(--wb-sizing-size_080)", flexWrap: "nowrap", justifyContent: "flex-end" }}>
+        <div role="progressbar" aria-valuemin="0" aria-valuemax=${total} aria-valuenow=${done} aria-valuetext=${`${done} of ${total}`} style=${{ position: "relative", width: 80, height: 8, borderRadius: 4, border: `1px solid ${SINGLE.outline}`, background: `color-mix(in srgb, ${SINGLE.fill} 18%, transparent)` }}>
+          <div style=${{ position: "absolute", top: -1, bottom: -1, left: -1, width: `${(done / total) * 100}%`, borderRadius: 4, background: SINGLE.fill, border: `1px solid ${SINGLE.outline}` }} />
+        </div>
+        <${BodyText} size="small">${done}/${total}</${BodyText}>
+      </div>`;
+    const rows = [
+      ["Amelia Abalos", "done", 20, 92, []],
+      ["Brian Chen", "progress", 16, 74, [["warning", "Rushed 3 times"]]],
+      ["Carla Diaz", "progress", 9, null, [["critical", "Overdue"], ["warning", "3 need help"]]],
+    ];
+  render: |
+    <table style=${{ width: "100%", maxWidth: 720, borderCollapse: "collapse", background: "var(--wb-semanticColor-core-background-base-default)" }}>
+      <thead><tr>
+        <th scope="col" style=${th}>Student</th><th scope="col" style=${th}>Status</th>
+        <th scope="col" style=${{ ...th, ...num }}>Completed</th><th scope="col" style=${{ ...th, ...num }}>Score</th>
+        <th scope="col" style=${th}>Flags</th><th scope="col" style=${th}><span style=${{ position: "absolute", left: -9999 }}>Actions</span></th>
+      </tr></thead>
+      <tbody>
+        ${rows.map(([name, status, done, score, flags]) => html`<tr key=${name}>
+          <td style=${{ ...td, whiteSpace: "nowrap" }}><${BodyText} size="small">${name}</${BodyText}></td>
+          <td style=${td}>${status === "done" ? html`<${StatusBadge} kind="success" label="Completed" icon=${html`<${PhosphorIcon} icon=${checkIcon} />`} />` : html`<${NeutralBadge} label="In progress" />`}</td>
+          <td style=${{ ...td, ...num }}><${MiniBar} done=${done} total=${20} /></td>
+          <td style=${{ ...td, ...num }}><${BodyText} size="small">${score ?? "—"}</${BodyText}></td>
+          <td style=${td}><div className="row" style=${{ gap: "var(--wb-sizing-size_040)" }}>${flags.map(([kind, label]) => html`<${StatusBadge} key=${label} kind=${kind} label=${label} icon=${html`<${PhosphorIcon} icon=${kind === "critical" ? criticalIcon : warnIcon} />`} />`)}</div></td>
+          <td style=${{ ...td, textAlign: "right" }}><${ActionMenu} menuText=${`Actions for ${name}`} opener=${() => html`<${IconButton} icon=${dotsIcon} kind="tertiary" actionType="neutral" aria-label=${`Actions for ${name}`} />`}><${ActionItem} label="View work" onClick=${() => {}} /><${ActionItem} label="Message" onClick=${() => {}} /></${ActionMenu}></td>
+        </tr>`)}
+      </tbody>
+    </table>

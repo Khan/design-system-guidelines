@@ -1,0 +1,115 @@
+<!-- @dsCard group="Content" height=220 -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta charset="utf-8">
+<title>Typography — Wonder Blocks</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inconsolata:wght@400;700&display=swap">
+<script type="importmap">
+{"imports": {
+  "https://cdn.jsdelivr.net/npm/aphrodite@1.2.5/+esm": "https://cdn.jsdelivr.net/npm/aphrodite@2.4.0/+esm",
+  "https://cdn.jsdelivr.net/npm/react@18.1.0/": "https://cdn.jsdelivr.net/npm/react@18.2.0/",
+  "https://cdn.jsdelivr.net/npm/react@19.0.0/": "https://cdn.jsdelivr.net/npm/react@18.2.0/",
+  "https://cdn.jsdelivr.net/npm/react@19.2.4/": "https://cdn.jsdelivr.net/npm/react@18.2.0/",
+  "https://cdn.jsdelivr.net/npm/react@19.2.7/": "https://cdn.jsdelivr.net/npm/react@18.2.0/",
+  "https://cdn.jsdelivr.net/npm/react@19.2.8/": "https://cdn.jsdelivr.net/npm/react@18.2.0/",
+  "https://cdn.jsdelivr.net/npm/react-dom@18.1.0/": "https://cdn.jsdelivr.net/npm/react-dom@18.2.0/",
+  "https://cdn.jsdelivr.net/npm/react-dom@19.2.7/": "https://cdn.jsdelivr.net/npm/react-dom@18.2.0/",
+  "https://cdn.jsdelivr.net/npm/react-dom@19.2.8/": "https://cdn.jsdelivr.net/npm/react-dom@18.2.0/",
+  "https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2.1.1/bold/arrow-square-out-bold.svg/+esm": "https://cdn.jsdelivr.net/npm/@iconify-icons/ph@2.0.0/arrow-square-out-bold/+esm",
+  "https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2.1.1/bold/calendar-blank-bold.svg/+esm": "https://cdn.jsdelivr.net/npm/@iconify-icons/ph@2.0.0/calendar-blank-bold/+esm",
+  "https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2.1.1/bold/caret-down-bold.svg/+esm": "https://cdn.jsdelivr.net/npm/@iconify-icons/ph@2.0.0/caret-down-bold/+esm",
+  "https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2.1.1/bold/check-bold.svg/+esm": "https://cdn.jsdelivr.net/npm/@iconify-icons/ph@2.0.0/check-bold/+esm",
+  "https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2.1.1/bold/info-bold.svg/+esm": "https://cdn.jsdelivr.net/npm/@iconify-icons/ph@2.0.0/info-bold/+esm",
+  "https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2.1.1/bold/lock-bold.svg/+esm": "https://cdn.jsdelivr.net/npm/@iconify-icons/ph@2.0.0/lock-bold/+esm",
+  "https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2.1.1/bold/magnifying-glass-bold.svg/+esm": "https://cdn.jsdelivr.net/npm/@iconify-icons/ph@2.0.0/magnifying-glass-bold/+esm",
+  "https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2.1.1/bold/minus-bold.svg/+esm": "https://cdn.jsdelivr.net/npm/@iconify-icons/ph@2.0.0/minus-bold/+esm",
+  "https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2.1.1/bold/smiley-bold.svg/+esm": "https://cdn.jsdelivr.net/npm/@iconify-icons/ph@2.0.0/smiley-bold/+esm",
+  "https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2.1.1/bold/warning-bold.svg/+esm": "https://cdn.jsdelivr.net/npm/@iconify-icons/ph@2.0.0/warning-bold/+esm",
+  "https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2.1.1/bold/warning-circle-bold.svg/+esm": "https://cdn.jsdelivr.net/npm/@iconify-icons/ph@2.0.0/warning-circle-bold/+esm",
+  "https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2.1.1/bold/x-bold.svg/+esm": "https://cdn.jsdelivr.net/npm/@iconify-icons/ph@2.0.0/x-bold/+esm",
+  "https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2.1.1/fill/check-circle-fill.svg/+esm": "https://cdn.jsdelivr.net/npm/@iconify-icons/ph@2.0.0/check-circle-fill/+esm",
+  "https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2.1.1/regular/caret-down.svg/+esm": "https://cdn.jsdelivr.net/npm/@iconify-icons/ph@2.0.0/caret-down/+esm",
+  "https://cdn.jsdelivr.net/npm/@phosphor-icons/core@2.1.1/regular/x.svg/+esm": "https://cdn.jsdelivr.net/npm/@iconify-icons/ph@2.0.0/x/+esm"
+}}
+</script>
+<style>
+  html { font-size: 62.5%; } /* WB tokens are rem on a 10px root, as on khanacademy.org. Without this everything is 1.6x too big. */
+  html, body { margin: 0; background: var(--wb-semanticColor-core-background-base-subtle); color: var(--wb-semanticColor-core-foreground-neutral-strong); font-family: var(--wb-font-family-sans); }
+  body { font-size: var(--wb-font-body-size-medium); line-height: var(--wb-font-body-lineHeight-medium); }
+  #root { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  #wb-error { white-space: pre-wrap; font: 13px ui-monospace, monospace; color: #c00; padding: 16px; }
+  /* your own layout CSS here — use WB CSS variables (var(--wb-…)) for colors and spacing */
+</style>
+<style>
+  .row { display: flex; flex-wrap: wrap; gap: var(--wb-sizing-size_120); align-items: center; }
+  .row.top { align-items: flex-start; }
+  .stack { display: flex; flex-direction: column; gap: var(--wb-sizing-size_120); }
+  .narrow { max-width: 360px; }
+  .text { margin: 0; }
+  .pad-top { padding-top: var(--wb-sizing-size_480); }
+  #root { padding-top: var(--wb-sizing-size_160); padding-bottom: var(--wb-sizing-size_160); }
+</style>
+</head>
+<body>
+<div id="root"><p style="padding:16px">Loading Wonder Blocks…</p></div>
+<script type="module">
+// ---------- WB boot: copy verbatim ----------
+const NPM = "https://cdn.jsdelivr.net/npm/";
+const V = { tokens: "18.2.1", core: "12.5.0", button: "11.7.15", "icon-button": "12.0.4", icon: "6.0.5", typography: "5.0.8", layout: "4.0.0", card: "1.5.5", pill: "3.1.83", badge: "1.1.29", banner: "5.2.4", form: "7.7.9", switch: "3.4.17", dropdown: "11.0.4", modal: "8.10.7", popover: "7.1.6", tooltip: "4.2.18", toolbar: "5.1.67", tabs: "1.0.14", accordion: "3.2.4", breadcrumbs: "3.3.8", link: "10.5.5", "progress-spinner": "3.2.2", cell: "6.4.2", "search-field": "5.2.9", "date-picker": "1.2.7", "birthday-picker": "4.2.10", "labeled-field": "4.3.9", theming: "4.1.0" };
+// wb("button") loads a package; destructuring a name it doesn't export throws a readable error instead of rendering nothing
+const wb = (name) => import(`${NPM}@khanacademy/wonder-blocks-${name}@${V[name]}/+esm`).then((m) => new Proxy(m, { get(t, k) {
+  if (typeof k === "string" && k !== "then" && !(k in t)) throw new Error(`wonder-blocks-${name} has no export "${k}". It exports: ${Object.keys(t).join(", ")}`);
+  return t[k];
+} }));
+const svgUri = (d) => "data:image/svg+xml," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${d.width} ${d.height}">${d.body}</svg>`);
+// icon("plus-bold") -> data-URI string usable anywhere WB wants a Phosphor icon (names: phosphoricons.com, weight suffix -bold / -fill, none for regular)
+const icon = async (name) => svgUri((await import(`${NPM}@iconify-icons/ph@2.0.0/${name}/+esm`)).default);
+const setTheme = (t) => { document.documentElement.setAttribute("data-wb-theme", t); document.documentElement.style.colorScheme = t === "syl-dark" ? "dark" : "light"; };
+// A crash after load (in a click handler or a render) would otherwise blank the page silently; show it instead
+addEventListener("error", (ev) => { const e = ev.error || ev.message; document.getElementById("root").innerHTML = '<pre id="wb-error"></pre>'; document.getElementById("wb-error").textContent = "Wonder Blocks page error:\n" + (e && e.stack || e); });
+// Follow the viewer's light/dark theme (the host's data-theme attribute, else the OS preference): syl-dark is WB's dark theme, thunderblocks its light theme
+const hostTheme = () => { const t = document.documentElement.getAttribute("data-theme"); return t === "dark" || (t !== "light" && matchMedia("(prefers-color-scheme: dark)").matches) ? "syl-dark" : "thunderblocks"; };
+const initialTheme = hostTheme();
+try {
+  setTheme(initialTheme);
+  const followHost = () => setTheme(hostTheme());
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", followHost);
+  new MutationObserver(followHost).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  await import(`${NPM}@khanacademy/wonder-blocks-tokens@${V.tokens}/dist/css/index.css/+esm`); // injects the WB token CSS
+  const { PhosphorIcon: BootPhosphorIcon } = await wb("icon"); // boot-only name: import PhosphorIcon yourself from section 2
+  const imap = JSON.parse(document.querySelector('script[type="importmap"]').textContent).imports;
+  await Promise.all(Object.values(imap).filter((u) => u.includes("@iconify-icons/ph@")).map((u) => import(u).then((m) => {
+    const d = m.default, uri = svgUri(d); // WB's built-in icons: make them work as both string and element
+    Object.setPrototypeOf(d, String.prototype);
+    Object.assign(d, { toString: () => uri, valueOf: () => uri, $$typeof: Symbol.for("react.element"), type: BootPhosphorIcon, key: null, ref: null, props: { icon: uri }, _owner: null, _store: {} });
+  })));
+  const [React, { createRoot }, { default: htm }] = await Promise.all([import(`${NPM}react@18.2.0/+esm`), import(`${NPM}react-dom@18.2.0/client/+esm`), import(`${NPM}htm@3.1.1/+esm`)]);
+  const html = htm.bind(React.createElement);
+// ---------- end WB boot ----------
+  // This card's app; everything above is the boot from the Claude artifact guide, verbatim.
+  const [{ Heading, BodyText, BodyMonospace }] = await Promise.all([wb("typography")]);
+  const dupes = performance.getEntriesByType("resource").map((e) => e.name).filter((n) => /\/npm\/react(-dom)?@(?!18\.2\.0\/)/.test(n));
+  if (dupes.length) throw new Error("A second React copy loaded. Add a prefix mapping to react@18.2.0 in the import map for:\n" + dupes.join("\n"));
+
+  function App() {
+    return html`
+      <div className="stack">
+        <${Heading} size="xxlarge" tag="h1">Algebra 1</${Heading}>
+        <${Heading} size="large" tag="h2">Unit 3: Linear equations</${Heading}>
+        <${BodyText}>Solve one-step and two-step equations, then check your answer by substitution.</${BodyText}>
+        <${BodyText} size="small">12 lessons · about 3 hours</${BodyText}>
+        <${BodyMonospace}>y = 2x + 3</${BodyMonospace}>
+      </div>
+    `;
+  }
+  createRoot(document.getElementById("root")).render(html`<${App} />`);
+} catch (e) {
+  document.getElementById("root").innerHTML = '<pre id="wb-error"></pre>';
+  document.getElementById("wb-error").textContent = "Wonder Blocks failed to load:\n" + (e && e.stack || e);
+}
+</script>
+</body>
+</html>

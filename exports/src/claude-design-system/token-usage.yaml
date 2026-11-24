@@ -1,0 +1,92 @@
+# Usage notes for tokens.json in the Claude "Wonder Blocks" Design System.
+#
+# Keys are token-path prefixes (the JS path, e.g. semanticColor.core.background).
+# Each token gets the note of its longest matching prefix, and the generator
+# appends its CSS variable. A token with no matching prefix fails `pnpm exports`,
+# so a new Wonder Blocks token family needs a line here.
+#
+# Quote each note. Write where the token is used, in one or two sentences. The token's last
+# segments (subtle/default/strong, hover/press, light/dark value) are visible in
+# its name, so don't repeat them.
+
+# --- Core: surfaces, text, borders ---------------------------------------------
+semanticColor.core.transparent: "Fully transparent, for resetting a fill or border."
+semanticColor.core.background.base: "Page and container surfaces. `default` is cards and main surfaces, `subtle` the page behind them, `strong` an inverted surface."
+semanticColor.core.background.instructive: "The indigo brand and action color as a fill. `default` for one primary element per view; `subtle` for selected or highlighted rows and info tints."
+semanticColor.core.background.neutral: "Neutral fills for chips, tracks, and inactive segments."
+semanticColor.core.background.critical: "Fills for errors and destructive actions only, never decoration."
+semanticColor.core.background.success: "Fills for success and completion states."
+semanticColor.core.background.warning: "Fills for warnings and cautions."
+semanticColor.core.background.disabled: "Fills for disabled controls."
+semanticColor.core.background.overlay: "The scrim behind a modal."
+semanticColor.core.foreground.neutral: "Text and icons. `strong` for body copy and headings on base and subtle surfaces (4.5:1 in both themes), `default` for secondary text, `subtle` for hints and placeholders."
+semanticColor.core.foreground.instructive: "Indigo text and icons for links and progressive emphasis, on base surfaces."
+semanticColor.core.foreground.critical: "Error text and icons, on base surfaces."
+semanticColor.core.foreground.success: "Success text and icons, on base surfaces."
+semanticColor.core.foreground.warning: "Warning text and icons, on base surfaces."
+semanticColor.core.foreground.disabled: "Text and icons on disabled controls."
+semanticColor.core.foreground.knockout: "Text and icons on a filled indigo or strong surface."
+semanticColor.core.border.neutral: "Dividers and control outlines. `subtle` for card edges and rules, `strong` for control borders that must meet 3:1."
+semanticColor.core.border.instructive: "Indigo borders for selected and focused-within states."
+semanticColor.core.border.critical: "Borders on inputs and containers in an error state."
+semanticColor.core.border.success: "Borders for success states."
+semanticColor.core.border.warning: "Borders for warning states."
+semanticColor.core.border.disabled: "Borders on disabled controls."
+semanticColor.core.border.knockout: "Borders on a filled indigo or strong surface."
+semanticColor.core.shadow.transparent: "The color inside the `shadow-*` elevation tokens. Use the shadow tokens, not this color, for elevation."
+semanticColor.core.shadow.chonky: "The solid offset edge under \"chonky\" learner-facing buttons and cards."
+
+# --- Feedback, status, focus, links --------------------------------------------
+semanticColor.feedback.info: "Info banners and toasts (background, border, text, icon)."
+semanticColor.feedback.success: "Success banners and toasts (background, border, text, icon)."
+semanticColor.feedback.warning: "Warning banners and toasts (background, border, text, icon)."
+semanticColor.feedback.critical: "Error banners and toasts (background, border, text, icon)."
+semanticColor.feedback.neutral: "Neutral banners and toasts (background, border, text, icon)."
+semanticColor.status: "Status badges and pills. Each status pairs a background with the foreground that reads on it; always add a label or icon."
+semanticColor.focus.outer: "The outer ring of the focus indicator, shown on `:focus-visible` on every interactive element."
+semanticColor.focus.inner: "The gap between the element and the outer focus ring."
+semanticColor.link: "Inline link text in each interaction state."
+
+# --- Actions and inputs (what the components paint) ----------------------------
+semanticColor.action.primary: "Filled primary buttons (border, background, foreground per state). One per view. Use the WB Button, which applies these."
+semanticColor.action.secondary: "Outlined secondary buttons (border, background, foreground per state). Use the WB Button."
+semanticColor.action.tertiary: "Text-only tertiary buttons (border, background, foreground per state). Use the WB Button."
+semanticColor.chonky: "Chonky learner-facing buttons and cards: fill, border, text and the solid offset edge per state."
+semanticColor.input: "Text fields, selects, checkboxes and radios in each state. Use the WB form components, which apply these."
+
+# --- Brand, motivation, learning ------------------------------------------------
+semanticColor.khanmigo.primary: "Khanmigo (the AI tutor) brand color, the same in both themes. Only for Khanmigo's own surfaces and voice."
+semanticColor.khanmigo.secondary: "Khanmigo's light companion color, the same in both themes."
+semanticColor.mastery.primary: "Mastery achievements, the same in both themes."
+semanticColor.graphics.characters: "Illustration hues (blue, cyan, green, magenta, orange) for shapes, characters, diagrams and decks. Never for chart series; charts use the data visualization roles in the DSG docs."
+semanticColor.graphics.externalBrands: "Third-party brand colors, only inside that company's own mark (sign-in buttons, integrations)."
+semanticColor.graphics.gems: "Gem graphics in Motivation features."
+semanticColor.graphics.streaks: "Streak graphics in Motivation features."
+semanticColor.graphics.progress: "Progress graphics (not started, attempted, complete) in illustrations."
+semanticColor.graphics.role: "Role illustrations and avatars (learner, teacher, parent, administrator)."
+semanticColor.graphics.neutral: "Neutral grounds behind illustrations."
+semanticColor.learning.background.progress: "Learner-facing progress node and bar fills per state. Not for text or data-report charts."
+semanticColor.learning.foreground.progress: "Glyphs and marks on learner-facing progress fills per state."
+semanticColor.learning.shadow.progress: "The darker edge under learner-facing progress icons per state."
+semanticColor.learning.background.gems: "Gem fills in learner-facing Motivation UI."
+semanticColor.learning.border.gems: "Gem borders in learner-facing Motivation UI."
+semanticColor.learning.foreground.gems: "Gem text and icons in learner-facing Motivation UI."
+semanticColor.learning.background.streaks: "Streak fills in learner-facing Motivation UI."
+semanticColor.learning.border.streaks: "Streak borders in learner-facing Motivation UI."
+semanticColor.learning.foreground.streaks: "Streak text and icons in learner-facing Motivation UI."
+semanticColor.learning.background.due: "Fills for due-date badges and reminders."
+semanticColor.learning.border.due: "Borders for due-date badges and reminders."
+semanticColor.learning.foreground.due: "Text and icons for due-date badges and reminders."
+semanticColor.learning.background.characters: "Character fills in learner-facing illustrations."
+semanticColor.learning.border.characters: "Character outlines in learner-facing illustrations."
+semanticColor.learning.characters: "Character body colors in learner-facing illustrations."
+semanticColor.learning.math: "Colors for math content (graphs, highlighted terms) inside exercises."
+semanticColor.learning.embeddedContent: "Grounds and text for embedded third-party content inside a lesson."
+
+# --- Scales -------------------------------------------------------------------
+sizing: "Spacing and sizing step; the number is px \u00d7 10. Use it for gaps, padding and fixed sizes."
+border.radius: "Corner radius. `radius_080` (8px) on controls and cards; pills, bars and circles use half their height in px. Don't use `radius_full`: it's `50%`, which turns anything wider than it is tall into an oval."
+border.width: "Border width. `thin` by default, `medium` for emphasis, selection and errors, `thick` for rare accents."
+boxShadow: "Elevation for raised surfaces (`low` cards, `mid` popovers and menus, `high` modals)."
+font.heading.size: "Heading text, set with the WB `Heading` component or this size with its matching line height."
+font.body.size: "Body and UI text, set with the WB `BodyText` component or this size with its matching line height."

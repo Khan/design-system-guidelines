@@ -4,9 +4,39 @@
     {
       "name": "storybook",
       "runtimeExecutable": "sh",
-      "runtimeArgs": ["-c", "pnpm exec storybook dev -p ${PORT:-56789}"],
+      "runtimeArgs": [
+        "-c",
+        "pnpm exec storybook dev -p ${PORT:-56789}"
+      ],
       "port": 56789,
       "autoPort": true
+    },
+    {
+      "name": "artifact-preview",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": [
+        "-c",
+        "node scripts/exports/artifact.ts preview kitchen-sink"
+      ],
+      "port": 8765
+    },
+    {
+      "name": "design-system-preview",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": [
+        "-c",
+        "PORT=8766 node scripts/exports/artifact.ts preview design-system"
+      ],
+      "port": 8766
+    },
+    {
+      "name": "artifact-page-preview",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": [
+        "-c",
+        "PORT=8770 node scripts/exports/artifact.ts preview .design-system-publish/page.html"
+      ],
+      "port": 8770
     }
   ]
 }
