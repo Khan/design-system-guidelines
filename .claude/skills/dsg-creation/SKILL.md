@@ -33,7 +33,9 @@ This repo (`@khanacademy/design-guidelines`) is a **Storybook 10 site that docum
 - **Color comes from tokens, not raw hex.** Hardcoded hex will not adapt to theming. Tokens live inside the `.tsx` helper components used in `.mdx`.  `style={{}}` is only for demo *layout* scaffolding (widths, gaps, flexbox) — never for colors.
 - **Links follow the Wonder Blocks patterns.** Whether to use markdown or a raw `<a>` depends on the link type; see [Links](#links).
 
-- **DESIGN.md and the Claude Design System are generated.** To change either, edit the templates in `exports/src/`, never `exports/design-md/` or `exports/claude-design-system/`, then run `pnpm exports` and commit the source and both outputs. Link between DESIGN.md files with relative paths, never their published URLs. If you rename or move a docs page, or change a foundation or component rule, check `exports/README.md` ("After a `__docs__/` edit"). After the merge, the `publish-design-system` skill updates the Claude system. See the README's "DESIGN.md & Claude Design Systems" section for the template syntax.
+- **DESIGN.md and the Claude Design System are generated.** To change either, edit the templates in `exports/src/`, never `exports/design-md/` or `exports/claude-design-system/`.
+- **Re-export before every commit.** Whatever you changed (`exports/src/`, a `__docs__/` page, a data-viz example, or a Wonder Blocks version), run `pnpm install` and then `pnpm exports` before you commit or push, and commit the source and whatever it regenerated in the same commit. Install first so the export reads the tokens the lockfile pins, not whatever is installed locally. It's safe to run when nothing changed: it writes nothing. CI fails the PR if the outputs are stale, and nothing at merge time regenerates them.
+- Link between DESIGN.md files with relative paths, never their published URLs. If you rename or move a docs page, or change a foundation or component rule, check `exports/README.md` ("After a `__docs__/` edit"). After the merge, the `publish-design-system` skill updates the Claude system. See the README's "DESIGN.md & Claude Design Systems" section for the template syntax.
 
 ---
 
