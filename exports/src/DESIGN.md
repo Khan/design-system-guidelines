@@ -146,7 +146,10 @@ from tokens and CSS. This system has no component bundle and no
 containers, summary cards and data tables have no WB component. Their cards
 under Data visualization are patterns: build them from WB parts the way the
 card does, with the values it gives, which come from the design guidelines'
-own examples. Never invent their colors or sizes.
+own examples. Never invent their colors or sizes. The guidelines say
+production charts use Highcharts; an artifact doesn't load it, so draw charts
+with HTML and SVG as the cards do. The chart colors have no dark-theme values
+yet, so keep them as given in both themes.
 
 **Change it in the repo, not here.** This system is generated from
 [Khan/design-system-guidelines](https://github.com/Khan/design-system-guidelines)

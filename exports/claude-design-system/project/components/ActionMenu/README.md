@@ -19,6 +19,7 @@ const { SingleSelect, MultiSelect, OptionItem, ActionMenu, ActionItem, Separator
 
 - `menuText` labels the default opener. A custom `opener` is a function that returns an element, without its own `onClick`.
 - Items are `ActionItem`s with `label` and `onClick`; `SeparatorItem` divides groups.
+- `ActionItem` has no destructive style. Put Delete or Remove last, after a `SeparatorItem`, and confirm it in a Modal with a destructive Button.
 
 ## Props
 

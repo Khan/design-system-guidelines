@@ -102,6 +102,8 @@ try {
     const th = { textAlign: "left", padding: "var(--wb-sizing-size_080) var(--wb-sizing-size_120)", color: "var(--wb-semanticColor-core-foreground-neutral-subtle)", fontWeight: "normal", borderBottom: line, whiteSpace: "nowrap" };
     const td = { textAlign: "left", padding: "var(--wb-sizing-size_080) var(--wb-sizing-size_120)", borderBottom: line, verticalAlign: "middle" };
     const num = { textAlign: "right", fontVariantNumeric: "tabular-nums" };
+    // Visually hidden, still read by screen readers.
+    const srOnly = { position: "absolute", width: 1, height: 1, margin: -1, padding: 0, overflow: "hidden", clip: "rect(0 0 0 0)", whiteSpace: "nowrap", border: 0 };
     const MiniBar = ({ done, total }) => html`
       <div className="row" style=${{ gap: "var(--wb-sizing-size_080)", flexWrap: "nowrap", justifyContent: "flex-end" }}>
         <div role="progressbar" aria-valuemin="0" aria-valuemax=${total} aria-valuenow=${done} aria-valuetext=${`${done} of ${total}`} style=${{ position: "relative", width: 80, height: 8, borderRadius: 4, border: `1px solid ${SINGLE.outline}`, background: `color-mix(in srgb, ${SINGLE.fill} 18%, transparent)` }}>
@@ -119,7 +121,7 @@ try {
         <thead><tr>
           <th scope="col" style=${th}>Student</th><th scope="col" style=${th}>Status</th>
           <th scope="col" style=${{ ...th, ...num }}>Completed</th><th scope="col" style=${{ ...th, ...num }}>Score</th>
-          <th scope="col" style=${th}>Flags</th><th scope="col" style=${th}><span style=${{ position: "absolute", left: -9999 }}>Actions</span></th>
+          <th scope="col" style=${th}>Flags</th><th scope="col" style=${th}><span style=${srOnly}>Actions</span></th>
         </tr></thead>
         <tbody>
           ${rows.map(([name, status, done, score, flags]) => html`<tr key=${name}>

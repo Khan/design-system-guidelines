@@ -85,7 +85,7 @@ semanticColor.learning.embeddedContent: "Grounds and text for embedded third-par
 
 # --- Scales -------------------------------------------------------------------
 sizing: "Spacing and sizing step; the number is px \u00d7 10. Use it for gaps, padding and fixed sizes."
-border.radius: "Corner radius. `radius_080` (8px) on controls and cards; pills, bars and circles use half their height in px. Don't use `radius_full`: it's `50%`, which turns anything wider than it is tall into an oval."
+border.radius: "Corner radius. `radius_080` (8px) on controls and cards, `radius_120` (12px) on large cards, tiles and chart containers; pills, bars and circles use half their height in px. Don't use `radius_full`: it's `50%`, which turns anything wider than it is tall into an oval."
 border.width: "Border width. `thin` by default, `medium` for emphasis, selection and errors, `thick` for rare accents."
 boxShadow: "Elevation for raised surfaces (`low` cards, `mid` popovers and menus, `high` modals)."
 font.heading.size: "Heading text, set with the WB `Heading` component or this size with its matching line height."

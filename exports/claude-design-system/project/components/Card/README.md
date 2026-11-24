@@ -18,7 +18,7 @@ const { Heading, BodyText, BodyMonospace } = await wb("typography");
 
 ## Get these right
 
-- `Card` has no `style`; use `styles=${ {root: {…}} }` with `paddingSize`, `elevation` or `background`.
+- `Card` has no `style`; use `styles=${ {root: {…}} }` for width and layout, and the props for the rest: `paddingSize` (none, small, medium), `elevation` (none, low), `borderRadius` (small, medium) and `background` (base-subtle, base-default).
 - Don't nest cards or add a colored left-border accent.
 
 ## Props
